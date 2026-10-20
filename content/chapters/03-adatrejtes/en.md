@@ -191,11 +191,7 @@ int main() {
 
 At first glance, we have restricted access on one hand and restored it on the other. The difference is that access now goes through methods, so we can validate the argument before storing it.
 
-### Accessibility of Getters and Setters {#accessor-visibility}
-
 In the previous examples, we declared both getter and setter methods as `public`. This does not mean, however, that we must allow both operations for every field. Sometimes we want the main program to read a value without being able to change it. In this case, it is sufficient to create a public getter, while the setter can be omitted or, if necessary, declared `private`. The important point is that a field should only be modified from places where the rules governing the modification can be checked.
-
-### Generating Getters and Setters in IntelliJ IDEA {#generate-accessors}
 
 Since getter and setter methods often have a very similar structure, IntelliJ IDEA can generate them automatically. While editing a class, select **Code → Generate… → Getter and Setter**, then choose the fields for which you want to create these methods. The same operation is also available from the **Generate…** context menu. Note that a generated setter does not validate the supplied value by default, so we must add any necessary validation ourselves.
 
@@ -428,7 +424,7 @@ public:
 :::end
 
 
-> The original C# sample contains `public void Nev`. We have retained it unchanged, but **this is a C# syntax error**: a string property must be declared as `public string Nev`.
+The C# example uses `public void Name`, which is not a valid property declaration. For a string property, the correct syntax is `public string Name`.
 
 The C# `set` block receives an implicit parameter named `value`, whose type matches the property's type. The `get` block must return a compatible value. The main program can use a property much like a field.
 
@@ -480,7 +476,7 @@ int main() {
 
 ## Exercises {#exercises}
 
-In this chapter, we extend the previous exercises by validating their data. **Keep all methods from the previous chapter!** Setters and data-entry methods must reject invalid values by throwing exceptions. A failed change must leave the previously stored valid value untouched.
+We now extend the classes from the previous chapter with data validation. Setters and methods that add data must throw an exception when they receive invalid values, leaving the previously stored data unchanged.
 
 :::exercise
 ### Rectangles
@@ -511,10 +507,34 @@ Extend the `Book` class from the previous chapter with the following validation 
 - **Genre:** use an `enum` (for example biography, horror, drama, historical, science fiction, comedy).
 - **Printed:** a boolean.
 
-Make every field `private` and implement getters and setters. The **discount** method must also respect the price restrictions: if a calculated price falls below HUF `500`, throw an exception without updating the field. The previous chapter’s **HUF 899** minimum discounted price also remains in force, so it is the effective limit.
+Make every field `private` and implement getters and setters. The **discount** method must also ensure that the discounted price is at least **HUF 899**. If a discount would reduce the price below this limit, throw an exception and leave the original price unchanged.
 
 In the main program, test valid and invalid values, and display the books using `toString()`.
 
+:::endexercise
+
+:::exercise
+### Cars
+
+![UML: Car](content/chapters/03-adatrejtes/media/car-en.svg){width=330}
+
+Make every field of your `Car` class `private`. The **make** and **model** must not be `null` or empty; the **year** must be between **1886 and 2100**, and **mileage** must not be negative.
+
+Implement the required getters and setters. Mileage should be readable from the main program but only modified by `drive`, which must receive a positive distance. Throw an exception for invalid values and leave the existing data unchanged.
+
+Test both valid and invalid inputs. Verify that the mileage cannot be set directly or increased using a negative distance.
+:::endexercise
+
+:::exercise
+### Bank accounts
+
+![UML: BankAccount](content/chapters/03-adatrejtes/media/bank-en.svg){width=360}
+
+Make every field of `BankAccount` `private`. The **account holder's name** and **account number** must not be `null` or empty, and the **balance** must not be negative. After creation, the account number must not be changeable from the main program.
+
+Provide a getter, but no public setter, for the balance. Only `deposit` and `withdraw` may change it. Both methods must accept positive amounts, and a withdrawal must never make the balance negative. Throw an exception for invalid operations without changing the stored balance.
+
+In the main program, attempt to deposit zero, withdraw a negative amount, and withdraw more money than is available. Verify that invalid operations do not change the balance.
 :::endexercise
 
 :::exercise

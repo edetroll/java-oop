@@ -191,11 +191,7 @@ int main() {
 
 Látszólag az egyik oldalon korlátoztuk a hozzáférést, a másik oldalon pedig biztosítottuk azt. Ugyanakkor, mivel a hozzáférést már metódusok biztosítják, lehetőségünk van arra, hogy a paraméterben kapott adatot validáljuk.
 
-### A getter és setter metódusok láthatósága {#accessor-visibility}
-
 Az előző példákban mind a getter, mind a setter metódusokat `public` láthatósággal hoztuk létre. Ez azonban nem jelenti azt, hogy minden mező esetén mindkét műveletet engedélyeznünk kell. Előfordulhat, hogy egy adatot a főprogramból szeretnénk lekérdezni, de annak módosítását már nem kívánjuk megengedni. Ilyenkor elegendő egy publikus getter metódust készítenünk, a setter metódust pedig elhagyhatjuk, vagy szükség esetén `private` láthatósággal jelölhetjük meg. Fontos, hogy a mező értékét csak olyan helyről lehessen megváltoztatni, ahol a módosítás szabályait ellenőrizni tudjuk.
-
-### Getterek és setterek generálása IntelliJ IDEA-ban {#generate-accessors}
 
 Mivel a getter és setter metódusok szerkezete gyakran nagyon hasonló, az IntelliJ IDEA lehetőséget biztosít arra, hogy ezeket automatikusan elkészítsük. Ehhez az osztály szerkesztése közben válasszuk a **Code → Generate… → Getter and Setter** menüpontot, majd jelöljük ki azokat a mezőket, amelyekhez metódusokat szeretnénk létrehozni. Ugyanez a művelet a **Generate…** helyi menüből is elérhető. Ügyeljünk arra, hogy a generált setter alapértelmezés szerint nem ellenőrzi a kapott adat helyességét, így a szükséges validációt nekünk kell megírnunk.
 
@@ -428,7 +424,7 @@ public:
 :::end
 
 
-> Az eredeti C#-példában a `public void Nev` sor szerepel. Ezt változatlanul megőriztük, de **C#-ban ez szintaktikai hiba**: egy szöveges property helyes deklarációja `public string Nev`.
+A C#-példában szereplő `public void Nev` deklaráció hibás: egy szöveges property esetén helyesen `public string Nev`-et kell írnunk.
 
 Láthatjuk, hogy a C# `set` részében van egy `value` nevű implicit paraméterünk, melynek típusa megegyezik a property típusával. A `get` résznek pedig kompatibilis típusú adatot kell visszaadnia. A property-t a főprogramból hasonlóan használhatjuk, mint egy mezőt.
 
@@ -480,7 +476,7 @@ int main() {
 
 ## Feladatok {#exercises}
 
-Ebben a fejezetben a feladatunk az, hogy a korábbi példákat kiegészítsük az adatok validációjával. **Minden korábban elkészített metódus maradjon meg!** Az érvénytelen adatokat a setterek és az adatfelvételi metódusok utasítsák el kivétellel; a hibás próbálkozás után a korábban tárolt érvényes adat ne változzon meg.
+Az előző fejezetben elkészített osztályokat most kiegészítjük az adatok validációjával. Érvénytelen adat esetén a setterek és az adatfelvételi metódusok dobjanak kivételt úgy, hogy a korábban tárolt érték ne változzon meg.
 
 :::exercise
 ### Téglalapok
@@ -511,10 +507,34 @@ Az előző fejezet `Konyv` osztályát egészítse ki az alábbi validációkkal
 - **Műfaj:** használjon `enum` típust (pl. életrajzi, horror, dráma, történelmi, sci-fi, komédia).
 - **Nyomtatott:** logikai típus.
 
-Minden mező legyen `private`. Valósítsa meg a getter és setter metódusokat! A **leárazás** metódusnak is be kell tartania az ár új korlátait: ha a számított ár `500` Ft alá kerülne, dobjon kivételt és ne változtasson a tárolt áron. A korábbi **899 Ft-os** alsó kedvezményes határ továbbra is érvényes, tehát ténylegesen azt kell betartani.
+Minden mező legyen `private`. Valósítsa meg a getter és setter metódusokat! A **leárazás** metódus esetén ügyeljen arra is, hogy a kedvezményes ár nem lehet kevesebb **899 Ft-nál**! Amennyiben a leárazás ezt eredményezné, dobjon kivételt, és a könyv ára ne változzon meg.
 
 A főprogramban teszteljen érvényes és érvénytelen bemeneteket, majd jelenítse meg a könyveket a `toString()` metódussal!
 
+:::endexercise
+
+:::exercise
+### Autók
+
+![UML: Auto](content/chapters/03-adatrejtes/media/car-hu.svg){width=330}
+
+Az előző fejezetben elkészített `Auto` osztály minden mezője legyen `private`! A **márka** és **típus** nem lehet `null` vagy üres szöveg, a **gyártási év** az **[1886; 2100]** intervallumba essen, a **kilométeróra állása** pedig nem lehet negatív.
+
+A mezőkhöz készítse el a szükséges getter és setter metódusokat! A kilométeróra állását a főprogramból csak lekérdezni lehessen, módosítani kizárólag a `Vezet` metóduson keresztül, pozitív távolsággal lehessen. Hibás adat esetén dobjon kivételt, és a tárolt érték ne változzon meg!
+
+A főprogramban próbáljon ki érvényes és érvénytelen adatokat is! Ellenőrizze, hogy nem lehet negatív távolságot vezetni, illetve a kilométerórát közvetlenül átírni!
+:::endexercise
+
+:::exercise
+### Bankszámlák
+
+![UML: Bankszamla](content/chapters/03-adatrejtes/media/bank-hu.svg){width=360}
+
+Az előző fejezet `Bankszamla` osztályában minden mező legyen `private`! A **tulajdonos neve** és a **számlaszám** nem lehet `null` vagy üres szöveg, az **egyenleg** pedig nem lehet negatív. A számlaszámot a létrehozása után ne lehessen módosítani a főprogramból!
+
+Az egyenleget csak getter metódussal tegyük elérhetővé. Az értékét kizárólag a `Befizet` és `Kivesz` metódusok változtathassák meg! Mindkét metódus csak pozitív összeget fogadhat el, és a pénzfelvétel sem eredményezhet negatív egyenleget. Érvénytelen művelet esetén dobjon kivételt anélkül, hogy az egyenleg megváltozna!
+
+A főprogramban próbáljon meg nulla összegű befizetést, negatív összegű pénzfelvételt, valamint a rendelkezésre állónál nagyobb összeget kivenni! Ellenőrizze, hogy a hibás műveletek nem változtatták meg az egyenleget!
 :::endexercise
 
 :::exercise
