@@ -1,0 +1,15 @@
+digraph G {
+ graph [bgcolor="transparent",margin=0,pad=0.04];
+ node [fontname="Liberation Mono",fontsize=12,shape=plain];
+ uml [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a98b1" BGCOLOR="#fafcff">
+<TR><TD BGCOLOR="#eaf0ff" CELLPADDING="10"><FONT FACE="Liberation Mono" POINT-SIZE="16"><B>电影</B></FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 片名 : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 导演 : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 演员 : List</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 类别 : List</FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ 电影(导演, 片名, 时长, 语言)</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ 电影(导演, 片名, 时长, 语言, 字幕)</FONT></TD></TR>
+</TABLE>>];
+}

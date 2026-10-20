@@ -1,0 +1,15 @@
+digraph G {
+ graph [bgcolor="transparent",margin=0,pad=0.04];
+ node [fontname="Liberation Mono",fontsize=12,shape=plain];
+ uml [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a98b1" BGCOLOR="#fafcff">
+<TR><TD BGCOLOR="#eaf0ff" CELLPADDING="10"><FONT FACE="Liberation Mono" POINT-SIZE="16"><B>Rectangle</B></FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- x : double</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- y : double</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- width : double</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- height : double</FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ Rectangle()</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ Rectangle(x, y, width, height)</FONT></TD></TR>
+</TABLE>>];
+}

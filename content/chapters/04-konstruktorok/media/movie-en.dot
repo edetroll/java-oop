@@ -1,0 +1,15 @@
+digraph G {
+ graph [bgcolor="transparent",margin=0,pad=0.04];
+ node [fontname="Liberation Mono",fontsize=12,shape=plain];
+ uml [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a98b1" BGCOLOR="#fafcff">
+<TR><TD BGCOLOR="#eaf0ff" CELLPADDING="10"><FONT FACE="Liberation Mono" POINT-SIZE="16"><B>Movie</B></FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- title : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- director : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- cast : List</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- genres : List</FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ Movie(director, title, duration, language)</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ Movie(director, title, duration, language, subtitled)</FONT></TD></TR>
+</TABLE>>];
+}

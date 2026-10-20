@@ -1,0 +1,15 @@
+digraph G {
+ graph [bgcolor="transparent",margin=0,pad=0.04];
+ node [fontname="Liberation Mono",fontsize=12,shape=plain];
+ uml [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a98b1" BGCOLOR="#fafcff">
+<TR><TD BGCOLOR="#eaf0ff" CELLPADDING="10"><FONT FACE="Liberation Mono" POINT-SIZE="16"><B>图书</B></FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 作者 : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 书名 : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 价格 : int</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">- 类别 : 枚举</FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ 图书(作者, 书名, 价格)</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ 图书(作者, 书名, 价格, 类别, 纸质书)</FONT></TD></TR>
+</TABLE>>];
+}
