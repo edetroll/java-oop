@@ -1,0 +1,14 @@
+{
+  "id": "02-osztalyok",
+  "order": 2,
+  "title": {
+    "hu": "Egységbezárás",
+    "en": "Encapsulation",
+    "zh": "封装"
+  },
+  "description": {
+    "hu": "Osztályok, példányok, mezők, metódusok és feladatok.",
+    "en": "Classes, instances, fields, methods and exercises.",
+    "zh": "类、实例、字段、方法与练习。"
+  }
+}

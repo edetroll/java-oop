@@ -1,0 +1,61 @@
+{
+  "chapters": [
+    {
+      "id": "01-bevezetes",
+      "order": 1,
+      "title": {
+        "hu": "OOP alapelvek",
+        "en": "Principles of OOP",
+        "zh": "面向对象编程的基本原则"
+      },
+      "description": {
+        "hu": "Az OOP alapelvei és a programozási nyelvek osztályozása.",
+        "en": "OOP principles and classification of programming languages.",
+        "zh": "面向对象编程的基本原则与编程语言的分类。"
+      },
+      "files": {
+        "hu": "content/chapters/01-bevezetes/hu.md",
+        "en": "content/chapters/01-bevezetes/en.md",
+        "zh": "content/chapters/01-bevezetes/zh.md"
+      }
+    },
+    {
+      "id": "02-osztalyok",
+      "order": 2,
+      "title": {
+        "hu": "Egységbezárás",
+        "en": "Encapsulation",
+        "zh": "封装"
+      },
+      "description": {
+        "hu": "Osztályok, példányok, mezők, metódusok és feladatok.",
+        "en": "Classes, instances, fields, methods and exercises.",
+        "zh": "类、实例、字段、方法与练习。"
+      },
+      "files": {
+        "hu": "content/chapters/02-osztalyok/hu.md",
+        "en": "content/chapters/02-osztalyok/en.md",
+        "zh": "content/chapters/02-osztalyok/zh.md"
+      }
+    },
+    {
+      "id": "03-adatrejtes",
+      "order": 3,
+      "title": {
+        "hu": "Adatrejtés, property",
+        "en": "Data Hiding and Properties",
+        "zh": "数据隐藏与属性"
+      },
+      "description": {
+        "hu": "Láthatóság, validáció, getterek és setterek.",
+        "en": "Access modifiers, validation, getters and setters.",
+        "zh": "访问修饰符、数据验证、getter 与 setter。"
+      },
+      "files": {
+        "hu": "content/chapters/03-adatrejtes/hu.md",
+        "en": "content/chapters/03-adatrejtes/en.md",
+        "zh": "content/chapters/03-adatrejtes/zh.md"
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[
+ {"id":"create-class","category":"Osztályok","hu":"Hozzuk létre az Auto osztályt!","en":"Create a class named Auto.","zh":"创建一个名为 Auto 的类。"},
+ {"id":"instantiate","category":"Objektumok","hu":"Hozzunk létre egy példányt az Auto osztályból!","en":"Create an instance of the Auto class.","zh":"创建一个 Auto 类的实例。"},
+ {"id":"derive","category":"Öröklődés","hu":"Származtassuk a Versenyauto osztályt az Auto osztályból!","en":"Derive the Versenyauto class from the Auto class.","zh":"让 Versenyauto 类继承 Auto 类。"},
+ {"id":"inherit","category":"Öröklődés","hu":"A Versenyauto osztály örökölje az Auto osztály tulajdonságait!","en":"Make the Versenyauto class inherit the properties of the Auto class.","zh":"让 Versenyauto 类继承 Auto 类的属性。"},
+ {"id":"add-method","category":"Metódusok","hu":"Adjunk hozzá egy indit() nevű metódust!","en":"Add a method named indit().","zh":"添加一个名为 indit() 的方法。"},
+ {"id":"override","category":"Öröklődés","hu":"Írjuk felül az örökölt metódust!","en":"Override the inherited method.","zh":"重写继承的方法。"}
+]

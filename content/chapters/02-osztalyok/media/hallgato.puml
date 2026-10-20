@@ -1,0 +1,14 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+class Hallgato {
+  + nev : String
+  + neptunkod : String
+  + szuletesiDatum : LocalDate
+  --
+  + regisztral(kurzus : String) : void
+  + lejelentkezik(kurzus : String) : void
+  + zarovizsgaraJelentkezhet() : boolean
+  + toString() : String
+}
+@enduml

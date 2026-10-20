@@ -1,0 +1,14 @@
+{
+  "id": "01-bevezetes",
+  "order": 1,
+  "title": {
+    "hu": "OOP alapelvek",
+    "en": "Principles of OOP",
+    "zh": "面向对象编程的基本原则"
+  },
+  "description": {
+    "hu": "Az OOP alapelvei és a programozási nyelvek osztályozása.",
+    "en": "OOP principles and classification of programming languages.",
+    "zh": "面向对象编程的基本原则与编程语言的分类。"
+  }
+}

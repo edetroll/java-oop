@@ -1,0 +1,11 @@
+[
+ {"id":"class","hu":"osztály","en":"class","zh":"类","category":"Alapfogalmak"},
+ {"id":"object","hu":"objektum","en":"object","zh":"对象","category":"Alapfogalmak"},
+ {"id":"instance","hu":"példány","en":"instance","zh":"实例","category":"Alapfogalmak"},
+ {"id":"constructor","hu":"konstruktor","en":"constructor","zh":"构造函数","category":"Osztályok"},
+ {"id":"inheritance","hu":"öröklődés","en":"inheritance","zh":"继承","category":"Öröklődés"},
+ {"id":"encapsulation","hu":"egységbezárás","en":"encapsulation","zh":"封装","category":"Alapelvek"},
+ {"id":"polymorphism","hu":"polimorfizmus","en":"polymorphism","zh":"多态","category":"Alapelvek"},
+ {"id":"method","hu":"metódus","en":"method","zh":"方法","category":"Osztályok"},
+ {"id":"interface","hu":"interfész","en":"interface","zh":"接口","category":"Absztrakció"}
+]

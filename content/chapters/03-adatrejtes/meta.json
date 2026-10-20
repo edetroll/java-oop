@@ -1,0 +1,19 @@
+{
+  "id": "03-adatrejtes",
+  "order": 3,
+  "title": {
+    "hu": "Adatrejtés, property",
+    "en": "Data Hiding and Properties",
+    "zh": "数据隐藏与属性"
+  },
+  "description": {
+    "hu": "Láthatóság, getterek, setterek és validáció.",
+    "en": "Access levels, getters, setters and validation.",
+    "zh": "访问权限、getter、setter 与数据验证。"
+  },
+  "files": {
+    "hu": "content/chapters/03-adatrejtes/hu.md",
+    "en": "content/chapters/03-adatrejtes/en.md",
+    "zh": "content/chapters/03-adatrejtes/zh.md"
+  }
+}
