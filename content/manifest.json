@@ -56,6 +56,25 @@
         "en": "content/chapters/03-adatrejtes/en.md",
         "zh": "content/chapters/03-adatrejtes/zh.md"
       }
-    }
+    },
+	{
+	  "id": "04-konstruktorok",
+	  "order": 4,
+	  "title": {
+		"hu": "Konstruktorok",
+		"en": "Constructors",
+		"zh": "构造方法"
+	  },
+	  "description": {
+		"hu": "Példányosítás, alapértelmezett és paraméteres konstruktorok.",
+		"en": "Instantiation, default and parameterized constructors.",
+		"zh": "实例化、默认构造方法与带参数的构造方法。"
+	  },
+	  "files": {
+		"hu": "content/chapters/04-konstruktorok/hu.md",
+		"en": "content/chapters/04-konstruktorok/en.md",
+		"zh": "content/chapters/04-konstruktorok/zh.md"
+	  }
+	}
   ]
 }

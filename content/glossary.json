@@ -1,11 +1,282 @@
 [
- {"id":"class","hu":"osztály","en":"class","zh":"类","category":"Alapfogalmak"},
- {"id":"object","hu":"objektum","en":"object","zh":"对象","category":"Alapfogalmak"},
- {"id":"instance","hu":"példány","en":"instance","zh":"实例","category":"Alapfogalmak"},
- {"id":"constructor","hu":"konstruktor","en":"constructor","zh":"构造函数","category":"Osztályok"},
- {"id":"inheritance","hu":"öröklődés","en":"inheritance","zh":"继承","category":"Öröklődés"},
- {"id":"encapsulation","hu":"egységbezárás","en":"encapsulation","zh":"封装","category":"Alapelvek"},
- {"id":"polymorphism","hu":"polimorfizmus","en":"polymorphism","zh":"多态","category":"Alapelvek"},
- {"id":"method","hu":"metódus","en":"method","zh":"方法","category":"Osztályok"},
- {"id":"interface","hu":"interfész","en":"interface","zh":"接口","category":"Absztrakció"}
+  {
+    "id": "oop",
+    "category": "Alapelvek",
+    "hu": "objektumorientált programozás (OOP)",
+    "en": "object-oriented programming (OOP)",
+    "zh": "面向对象编程（OOP）"
+  },
+  {
+    "id": "class",
+    "category": "Alapfogalmak",
+    "hu": "osztály",
+    "en": "class",
+    "zh": "类"
+  },
+  {
+    "id": "object",
+    "category": "Alapfogalmak",
+    "hu": "objektum",
+    "en": "object",
+    "zh": "对象"
+  },
+  {
+    "id": "instance",
+    "category": "Alapfogalmak",
+    "hu": "példány",
+    "en": "instance",
+    "zh": "实例"
+  },
+  {
+    "id": "instantiation",
+    "category": "Alapfogalmak",
+    "hu": "példányosítás",
+    "en": "instantiation",
+    "zh": "实例化"
+  },
+  {
+    "id": "field",
+    "category": "Osztályok",
+    "hu": "mező (adattag)",
+    "en": "field",
+    "zh": "字段"
+  },
+  {
+    "id": "method",
+    "category": "Osztályok",
+    "hu": "metódus",
+    "en": "method",
+    "zh": "方法"
+  },
+  {
+    "id": "member",
+    "category": "Osztályok",
+    "hu": "osztálytag",
+    "en": "class member",
+    "zh": "类成员"
+  },
+  {
+    "id": "class-diagram",
+    "category": "Osztályok",
+    "hu": "UML-osztálydiagram",
+    "en": "UML class diagram",
+    "zh": "UML 类图"
+  },
+  {
+    "id": "encapsulation",
+    "category": "Alapelvek",
+    "hu": "egységbezárás",
+    "en": "encapsulation",
+    "zh": "封装"
+  },
+  {
+    "id": "abstraction",
+    "category": "Alapelvek",
+    "hu": "absztrakció",
+    "en": "abstraction",
+    "zh": "抽象"
+  },
+  {
+    "id": "inheritance",
+    "category": "Alapelvek",
+    "hu": "öröklődés",
+    "en": "inheritance",
+    "zh": "继承"
+  },
+  {
+    "id": "polymorphism",
+    "category": "Alapelvek",
+    "hu": "többalakúság (polimorfizmus)",
+    "en": "polymorphism",
+    "zh": "多态"
+  },
+  {
+    "id": "overriding",
+    "category": "Osztályok",
+    "hu": "metódus felülírása",
+    "en": "method overriding",
+    "zh": "方法重写"
+  },
+  {
+    "id": "base-class",
+    "category": "Osztályok",
+    "hu": "ősosztály",
+    "en": "base class",
+    "zh": "基类"
+  },
+  {
+    "id": "information-hiding",
+    "category": "Adatrejtés",
+    "hu": "adatrejtés",
+    "en": "information hiding",
+    "zh": "信息隐藏"
+  },
+  {
+    "id": "access-level",
+    "category": "Adatrejtés",
+    "hu": "láthatósági szint",
+    "en": "access level",
+    "zh": "访问级别"
+  },
+  {
+    "id": "public",
+    "category": "Adatrejtés",
+    "hu": "publikus (public)",
+    "en": "public",
+    "zh": "公有（public）"
+  },
+  {
+    "id": "private",
+    "category": "Adatrejtés",
+    "hu": "privát (private)",
+    "en": "private",
+    "zh": "私有（private）"
+  },
+  {
+    "id": "protected",
+    "category": "Adatrejtés",
+    "hu": "védett (protected)",
+    "en": "protected",
+    "zh": "受保护（protected）"
+  },
+  {
+    "id": "package-private",
+    "category": "Adatrejtés",
+    "hu": "csomagszintű láthatóság",
+    "en": "package-private access",
+    "zh": "包级访问权限"
+  },
+  {
+    "id": "internal",
+    "category": "Adatrejtés",
+    "hu": "internal (C#)",
+    "en": "internal access (C#)",
+    "zh": "程序集内部访问（C#）"
+  },
+  {
+    "id": "property",
+    "category": "Adatrejtés",
+    "hu": "property (tulajdonság)",
+    "en": "property",
+    "zh": "属性"
+  },
+  {
+    "id": "getter",
+    "category": "Adatrejtés",
+    "hu": "getter (lekérdező metódus)",
+    "en": "getter (accessor)",
+    "zh": "getter（取值方法）"
+  },
+  {
+    "id": "setter",
+    "category": "Adatrejtés",
+    "hu": "setter (módosító metódus)",
+    "en": "setter (mutator)",
+    "zh": "setter（设值方法）"
+  },
+  {
+    "id": "validation",
+    "category": "Adatrejtés",
+    "hu": "adatvalidáció",
+    "en": "data validation",
+    "zh": "数据校验"
+  },
+  {
+    "id": "exception",
+    "category": "Adatrejtés",
+    "hu": "kivétel",
+    "en": "exception",
+    "zh": "异常"
+  },
+  {
+    "id": "throw",
+    "category": "Adatrejtés",
+    "hu": "kivétel dobása",
+    "en": "throwing an exception",
+    "zh": "抛出异常"
+  },
+  {
+    "id": "null",
+    "category": "Adatrejtés",
+    "hu": "null érték",
+    "en": "null value",
+    "zh": "null 值"
+  },
+  {
+    "id": "constructor",
+    "category": "Konstruktorok",
+    "hu": "konstruktor",
+    "en": "constructor",
+    "zh": "构造函数"
+  },
+  {
+    "id": "default-constructor",
+    "category": "Konstruktorok",
+    "hu": "alapértelmezett konstruktor",
+    "en": "default constructor",
+    "zh": "默认构造函数"
+  },
+  {
+    "id": "noarg-constructor",
+    "category": "Konstruktorok",
+    "hu": "paraméter nélküli konstruktor",
+    "en": "no-argument constructor",
+    "zh": "无参构造函数"
+  },
+  {
+    "id": "parameterized-constructor",
+    "category": "Konstruktorok",
+    "hu": "paraméteres konstruktor",
+    "en": "parameterized constructor",
+    "zh": "带参构造函数"
+  },
+  {
+    "id": "constructor-overloading",
+    "category": "Konstruktorok",
+    "hu": "konstruktor-túlterhelés",
+    "en": "constructor overloading",
+    "zh": "构造函数重载"
+  },
+  {
+    "id": "constructor-chaining",
+    "category": "Konstruktorok",
+    "hu": "konstruktorhívási lánc",
+    "en": "constructor chaining",
+    "zh": "构造函数调用链"
+  },
+  {
+    "id": "delegating-constructor",
+    "category": "Konstruktorok",
+    "hu": "delegáló konstruktor (C++)",
+    "en": "delegating constructor (C++)",
+    "zh": "委托构造函数（C++）"
+  },
+  {
+    "id": "this",
+    "category": "Konstruktorok",
+    "hu": "this kulcsszó",
+    "en": "this keyword",
+    "zh": "this 关键字"
+  },
+  {
+    "id": "parameter",
+    "category": "Konstruktorok",
+    "hu": "paraméter",
+    "en": "parameter",
+    "zh": "参数"
+  },
+  {
+    "id": "interface",
+    "category": "Későbbi fogalmak",
+    "hu": "interfész",
+    "en": "interface",
+    "zh": "接口"
+  },
+  {
+    "id": "enum",
+    "category": "Osztályok",
+    "hu": "felsorolástípus (enum)",
+    "en": "enumeration type (enum)",
+    "zh": "枚举类型（enum）"
+  }
 ]
