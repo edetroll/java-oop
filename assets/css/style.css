@@ -128,3 +128,35 @@
 .article pre::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
 }
+
+
+/* Egységes kódbetűk: fejezettől és programozási nyelvtől függetlenül. */
+:root {
+  --code-font: ui-monospace, "SFMono-Regular", Menlo, Monaco,
+               Consolas, "Liberation Mono", monospace;
+  --code-font-size: 13px;
+}
+.article pre,
+.article pre code,
+.article .lang-content pre,
+.article .lang-content pre code,
+.article .exercise-card pre,
+.article .exercise-card pre code {
+  font-family: var(--code-font);
+  font-size: var(--code-font-size);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1.65;
+  font-variant-ligatures: none;
+  tab-size: 4;
+}
+.article pre code { color: inherit; }
+.article p code,
+.article li code,
+.article blockquote code,
+.article .note code {
+  font-family: var(--code-font);
+  font-size: var(--code-font-size);
+  font-variant-ligatures: none;
+}
