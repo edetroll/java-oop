@@ -353,14 +353,14 @@ int main() {
 
 我们也可以使用 UML 类图表示类的结构。最上方是类名，中间是字段，下方是方法。`+` 符号的含义将在后面的章节中介绍。
 
-![UML: Hallgato](content/chapters/02-osztalyok/media/hallgato-zh.svg){width=310}
+![UML: Student](content/chapters/02-osztalyok/media/hallgato-zh.svg){width=310}
 
 ## 练习题 {#exercises}
 
 :::exercise
 ### 矩形
 
-![UML: Teglalap](content/chapters/02-osztalyok/media/teglalap-zh.svg){width=330}
+![UML: Rectangle](content/chapters/02-osztalyok/media/teglalap-zh.svg){width=330}
 
 创建 `Rectangle` 类，用于表示边平行于坐标轴的矩形。每个矩形需保存以下**数据**。
 
@@ -383,7 +383,7 @@ int main() {
 :::exercise
 ### 图书
 
-![UML: Konyv](content/chapters/02-osztalyok/media/konyv-zh.svg){width=340}
+![UML: Book](content/chapters/02-osztalyok/media/konyv-zh.svg){width=340}
 
 创建 `Book` 类，用于保存图书的以下信息。
 
@@ -403,9 +403,37 @@ int main() {
 :::endexercise
 
 :::exercise
+### 汽车
+
+![UML: 汽车](content/chapters/02-osztalyok/media/car-zh.svg){width=320}
+
+创建一个 `Car` 类，用于存储以下信息：
+
+- **品牌**和**型号**：字符串
+- **生产年份**：整数
+- **行驶里程**：实数
+
+在类中编写 `drive` 方法，接收行驶距离作为参数，并将该距离加到总里程中。重写 `toString()` 方法，以便用易读的格式返回汽车的信息。
+
+在主程序中创建 **5** 个汽车实例，填写各字段，多次调用 `drive` 方法，并比较操作前后的汽车信息。
+:::endexercise
+
+:::exercise
+### 银行账户
+
+![UML: 银行账户](content/chapters/02-osztalyok/media/bank-zh.svg){width=350}
+
+创建一个 `BankAccount` 类，存储**账户持有人姓名**、**账号**和**余额**。此时，余额以整数福林表示。
+
+编写 `deposit`（存款）和 `withdraw`（取款）方法，分别根据传入的金额增加或减少余额。另外编写一个返回当前余额的方法。
+
+在主程序中创建 **3** 个银行账户，执行多次存款和取款操作，然后显示余额。本章暂时不需要检查金额是否有效，这部分将在下一章完成。
+:::endexercise
+
+:::exercise
 ### 电影
 
-![UML: Film](content/chapters/02-osztalyok/media/film-zh.svg){width=360}
+![UML: Movie](content/chapters/02-osztalyok/media/film-zh.svg){width=360}
 
 创建 `Movie` 类，用于保存以下电影信息。
 

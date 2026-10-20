@@ -1,0 +1,15 @@
+digraph G {
+ graph [bgcolor="transparent",margin=0,pad=0.04];
+ node [fontname="Liberation Mono",fontsize=12,shape=plain];
+ uml [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a98b1" BGCOLOR="#fafcff">
+<TR><TD BGCOLOR="#eaf0ff" CELLPADDING="10"><FONT FACE="Liberation Mono" POINT-SIZE="16"><B>BankAccount</B></FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ owner : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ accountNumber : String</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ balance : int</FONT></TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ deposit(amount : int) : void</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ withdraw(amount : int) : void</FONT></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT" CELLPADDING="6"><FONT FACE="Liberation Mono" POINT-SIZE="12">+ getBalance() : int</FONT></TD></TR>
+</TABLE>>];
+}

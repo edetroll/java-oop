@@ -353,14 +353,14 @@ int main() {
 
 We can also represent the structure of the class with a UML class diagram. The top compartment contains the class name, the middle one contains its fields, and the bottom one contains its methods. We will discuss the `+` symbol later.
 
-![UML: Hallgato](content/chapters/02-osztalyok/media/hallgato-en.svg){width=310}
+![UML: Student](content/chapters/02-osztalyok/media/hallgato-en.svg){width=310}
 
 ## Exercises {#exercises}
 
 :::exercise
 ### Rectangles
 
-![UML: Teglalap](content/chapters/02-osztalyok/media/teglalap-en.svg){width=330}
+![UML: Rectangle](content/chapters/02-osztalyok/media/teglalap-en.svg){width=330}
 
 Create a `Rectangle` class that represents rectangles whose sides are parallel to the coordinate axes. Store the following **data** for each rectangle.
 
@@ -383,7 +383,7 @@ Assume that the **positive y direction points upward**, and width and height are
 :::exercise
 ### Books
 
-![UML: Konyv](content/chapters/02-osztalyok/media/konyv-en.svg){width=340}
+![UML: Book](content/chapters/02-osztalyok/media/konyv-en.svg){width=340}
 
 Create a `Book` class that stores the following information about books.
 
@@ -403,9 +403,37 @@ In the main program, create **5** book instances, fill in the details of your fa
 :::endexercise
 
 :::exercise
+### Cars
+
+![UML: Car](content/chapters/02-osztalyok/media/car-en.svg){width=320}
+
+Create a `Car` class that stores the following information:
+
+- **make** and **model**: strings
+- **year of manufacture**: integer
+- **distance travelled**: real number
+
+Implement a `drive` method that receives a distance and adds it to the stored mileage. Override `toString()` to return the car's data in a readable format.
+
+In the main program, create **5** cars, fill in their fields, and call `drive` several times. Display each car's data before and after the operations.
+:::endexercise
+
+:::exercise
+### Bank accounts
+
+![UML: BankAccount](content/chapters/02-osztalyok/media/bank-en.svg){width=350}
+
+Create a `BankAccount` class that stores the **account holder's name**, **account number**, and **balance**. For now, store the balance as an integer number of forints.
+
+Implement `deposit` and `withdraw` methods. The first increases the balance by the amount passed as a parameter; the second decreases it. Also provide a method to return the current balance.
+
+In the main program, create **3** bank accounts, make several deposits and withdrawals, and display their balances. You do not yet have to validate the amounts; this will be introduced in the next chapter.
+:::endexercise
+
+:::exercise
 ### Films
 
-![UML: Film](content/chapters/02-osztalyok/media/film-en.svg){width=360}
+![UML: Movie](content/chapters/02-osztalyok/media/film-en.svg){width=360}
 
 Create a `Movie` class that stores the following information.
 

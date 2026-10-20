@@ -403,6 +403,34 @@ A főprogramban hozzon létre **5** könyv típusú példányt és töltse föl 
 :::endexercise
 
 :::exercise
+### Autók
+
+![UML: Auto](content/chapters/02-osztalyok/media/car-hu.svg){width=320}
+
+Hozzon létre `Auto` osztályt, mely az alábbi adatokat tárolja!
+
+- **márka** és **típus**: szöveges típus
+- **gyártási év**: egész szám
+- **megtett kilométerek száma**: valós szám
+
+Készítsen `Vezet` metódust, mely paraméterben megkapja a megtett távolságot, majd ennek megfelelően növeli a kilométeróra állását! A `toString()` metódus adja vissza az autó adatait esztétikus formában!
+
+A főprogramban hozzon létre **5** autót, töltse föl adatokkal, majd több alkalommal hívja meg a `Vezet` metódust! Jelenítse meg az autók adatait az egyes műveletek előtt és után!
+:::endexercise
+
+:::exercise
+### Bankszámlák
+
+![UML: Bankszamla](content/chapters/02-osztalyok/media/bank-hu.svg){width=350}
+
+Hozzon létre `Bankszamla` osztályt, mely a **tulajdonos nevét**, a **számlaszámot** és az **egyenleget** tárolja! Az egyenleget egyelőre egész forintban kezeljük.
+
+Az osztályon belül implementáljon `Befizet` és `Kivesz` metódusokat! Az első paraméterben kapott összeggel növelje, a második csökkentse az egyenleget. Készítsen metódust az aktuális egyenleg lekérdezésére is!
+
+A főprogramban hozzon létre **3** bankszámlát! Kezdeményezzen több befizetést és pénzfelvételt, majd jelenítse meg az egyenlegeket! Egyelőre nem kell ellenőriznie, hogy helyesek-e a megadott összegek; ezzel a következő fejezetben foglalkozunk.
+:::endexercise
+
+:::exercise
 ### Filmek
 
 ![UML: Film](content/chapters/02-osztalyok/media/film.svg){width=360}
