@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"BankAccount" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>BankAccount</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- accountNumber : String<BR ALIGN="LEFT"/>- balance : double</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getBalance() : double<BR ALIGN="LEFT"/>+ deposit(amount) : void</FONT></TD></TR></TABLE>>];
+"SavingsAccount" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>SavingsAccount</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- interestRate : double</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getInterestRate() : double</FONT></TD></TR></TABLE>>];
+"BusinessAccount" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>BusinessAccount</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- companyName : String</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getCompanyName() : String</FONT></TD></TR></TABLE>>];
+"SavingsAccount" -> "BankAccount";
+"BusinessAccount" -> "BankAccount";
+}

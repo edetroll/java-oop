@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Publication" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Publication</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- publisher : String<BR ALIGN="LEFT"/>- country : String</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getPublisher() : String</FONT></TD></TR></TABLE>>];
+"Book" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Book</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- title : String<BR ALIGN="LEFT"/>- price : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ discount(percent) : void</FONT></TD></TR></TABLE>>];
+"Magazine" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Magazine</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- volume : int<BR ALIGN="LEFT"/>- issue : int</FONT></TD></TR></TABLE>>];
+"Book" -> "Publication";
+"Magazine" -> "Publication";
+}

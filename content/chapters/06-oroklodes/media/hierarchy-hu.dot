@@ -1,0 +1,12 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Person" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Person</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ greet() : void</FONT></TD></TR></TABLE>>];
+"Student" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Student</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ enroll() : void</FONT></TD></TR></TABLE>>];
+"ScholarshipStudent" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>ScholarshipStudent</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ applyForScholarship() : void</FONT></TD></TR></TABLE>>];
+"Teacher" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Teacher</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ teach() : void</FONT></TD></TR></TABLE>>];
+"ScholarshipStudent" -> "Student";
+"Student" -> "Person";
+"Teacher" -> "Person";
+}

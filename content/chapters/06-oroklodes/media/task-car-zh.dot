@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Vehicle" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>车辆</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 制造商 : String<BR ALIGN="LEFT"/>- 最高速度 : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 获取最高速度() : int</FONT></TD></TR></TABLE>>];
+"Car" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>汽车</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 里程 : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 行驶(距离) : void</FONT></TD></TR></TABLE>>];
+"Motorcycle" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>摩托车</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 带边车 : boolean</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 是否带边车() : boolean</FONT></TD></TR></TABLE>>];
+"Car" -> "Vehicle";
+"Motorcycle" -> "Vehicle";
+}

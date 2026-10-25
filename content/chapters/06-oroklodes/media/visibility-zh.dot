@@ -1,0 +1,8 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Person" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>人员</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 姓名 : String<BR ALIGN="LEFT"/># 年龄 : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 获取姓名() : String<BR ALIGN="LEFT"/>+ 设置姓名(新值) : void</FONT></TD></TR></TABLE>>];
+"Student" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>学生</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 描述() : String</FONT></TD></TR></TABLE>>];
+"Student" -> "Person";
+}

@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Shape" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>图形</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 颜色 : String</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 获取颜色() : String<BR ALIGN="LEFT"/>+ 设置颜色(新值) : void</FONT></TD></TR></TABLE>>];
+"Rectangle" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>矩形</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 宽度 : double<BR ALIGN="LEFT"/>- 高度 : double</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 计算面积() : double<BR ALIGN="LEFT"/>+ 计算周长() : double</FONT></TD></TR></TABLE>>];
+"Circle" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>圆形</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 半径 : double</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 计算面积() : double</FONT></TD></TR></TABLE>>];
+"Rectangle" -> "Shape";
+"Circle" -> "Shape";
+}

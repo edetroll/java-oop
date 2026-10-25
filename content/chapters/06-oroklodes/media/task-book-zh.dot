@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Publication" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>出版物</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 出版社 : String<BR ALIGN="LEFT"/>- 国家 : String</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 获取出版社() : String</FONT></TD></TR></TABLE>>];
+"Book" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>图书</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 标题 : String<BR ALIGN="LEFT"/>- 价格 : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 打折(百分比) : void</FONT></TD></TR></TABLE>>];
+"Magazine" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>杂志</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">- 卷号 : int<BR ALIGN="LEFT"/>- 期号 : int</FONT></TD></TR></TABLE>>];
+"Book" -> "Publication";
+"Magazine" -> "Publication";
+}

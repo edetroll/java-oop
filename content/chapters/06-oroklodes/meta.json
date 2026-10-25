@@ -1,0 +1,19 @@
+{
+  "id": "06-oroklodes",
+  "order": 6,
+  "title": {
+    "hu": "Öröklődés",
+    "en": "Inheritance",
+    "zh": "继承"
+  },
+  "description": {
+    "hu": "Öröklődés, láthatóság, osztályhierarchiák, típuskompatibilitás és kiválogatás.",
+    "en": "Inheritance, accessibility, class hierarchies, type compatibility and selection.",
+    "zh": "继承、访问权限、类层次结构、类型兼容性和对象筛选。"
+  },
+  "files": {
+    "hu": "content/chapters/06-oroklodes/hu.md",
+    "en": "content/chapters/06-oroklodes/en.md",
+    "zh": "content/chapters/06-oroklodes/zh.md"
+  }
+}

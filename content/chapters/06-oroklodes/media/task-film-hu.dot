@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"MediaItem" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>MediaItem</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- title : String<BR ALIGN="LEFT"/>- releaseYear : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getTitle() : String</FONT></TD></TR></TABLE>>];
+"Movie" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Movie</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- duration : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getDuration() : int</FONT></TD></TR></TABLE>>];
+"Series" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="16" COLOR="#243044"><B>Series</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">- seasonCount : int</FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="12" COLOR="#243044">+ getSeasonCount() : int</FONT></TD></TR></TABLE>>];
+"Movie" -> "MediaItem";
+"Series" -> "MediaItem";
+}

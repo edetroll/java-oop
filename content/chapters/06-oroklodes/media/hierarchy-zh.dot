@@ -1,0 +1,12 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", ranksep="0.75", nodesep="0.38", pad="0.18", splines=polyline];
+node [shape=plain];
+edge [color="#65768E", penwidth=1.5, arrowsize=1.1, arrowhead=empty];
+"Person" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>人员</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 问候() : void</FONT></TD></TR></TABLE>>];
+"Student" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>学生</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 选课() : void</FONT></TD></TR></TABLE>>];
+"ScholarshipStudent" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>奖学金学生</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 申请奖学金() : void</FONT></TD></TR></TABLE>>];
+"Teacher" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#8A98B1" BGCOLOR="#FAFCFF"><TR><TD BGCOLOR="#EAF0FF"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="16" COLOR="#243044"><B>教师</B></FONT></TD></TR><HR/><TR><TD ALIGN="LEFT"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12" COLOR="#243044">+ 授课() : void</FONT></TD></TR></TABLE>>];
+"ScholarshipStudent" -> "Student";
+"Student" -> "Person";
+"Teacher" -> "Person";
+}
