@@ -1,0 +1,16 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class Student {
+  - name : String
+  {static} - UNIVERSITY_NAME : String
+  --
+  + Student(name : String)
+  + getDescription() : String
+  {static} + getUniversityName() : String
+  {static} + setUniversityName(value : String) : void
+}
+@enduml

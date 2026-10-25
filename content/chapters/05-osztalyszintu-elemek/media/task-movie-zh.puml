@@ -1,0 +1,16 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class 电影资料库 {
+  - 电影列表 : List&lt;电影&gt;
+  {static} - 唯一实例 : 电影资料库
+  --
+  - 电影资料库()
+  {static} + 获取实例() : 电影资料库
+  + 添加电影(电影对象 : 电影) : void
+  + 获取电影数量() : int
+}
+@enduml

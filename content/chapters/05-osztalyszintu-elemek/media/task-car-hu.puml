@@ -1,0 +1,17 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class Car {
+  - brand : String
+  - model : String
+  - id : int
+  {static} - NEXT_ID : int
+  --
+  + Car(brand, model, year, mileage)
+  + getId() : int
+  + drive(km : double) : void
+}
+@enduml

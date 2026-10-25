@@ -1,0 +1,17 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class Book {
+  - author : String
+  - title : String
+  - price : int
+  {static} + MIN_PRICE : int
+  {static} + MAX_PRICE : int
+  --
+  + Book(author, title, price, ...)
+  {static} + isValidPrice(price : int) : boolean
+}
+@enduml

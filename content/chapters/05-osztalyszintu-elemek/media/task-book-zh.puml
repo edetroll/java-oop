@@ -1,0 +1,17 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class 图书 {
+  - 作者 : String
+  - 标题 : String
+  - 价格 : int
+  {static} + 最低价格 : int
+  {static} + 最高价格 : int
+  --
+  + 图书(作者, 标题, 价格, ...)
+  {static} + 价格有效(价格 : int) : boolean
+}
+@enduml

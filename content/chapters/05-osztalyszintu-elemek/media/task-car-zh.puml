@@ -1,0 +1,17 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class 汽车 {
+  - 品牌 : String
+  - 型号 : String
+  - 编号 : int
+  {static} - 下一个编号 : int
+  --
+  + 汽车(品牌, 型号, 年份, 里程)
+  + 获取编号() : int
+  + 行驶(公里 : double) : void
+}
+@enduml

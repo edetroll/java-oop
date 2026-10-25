@@ -1,0 +1,18 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class 矩形 {
+  - x : double
+  - y : double
+  - 宽度 : double
+  - 高度 : double
+  {static} - 已创建数量 : int
+  --
+  + 矩形(x, y, 宽度, 高度)
+  + 矩形()
+  {static} + 获取已创建数量() : int
+}
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class Rectangle {
+  - x : double
+  - y : double
+  - width : double
+  - height : double
+  {static} - CREATED_COUNT : int
+  --
+  + Rectangle(x, y, width, height)
+  + Rectangle()
+  {static} + getCreatedCount() : int
+}
+@enduml

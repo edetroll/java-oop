@@ -1,0 +1,16 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class 学生 {
+  - 姓名 : String
+  {static} - 大学名称 : String
+  --
+  + 学生(姓名 : String)
+  + 获取描述() : String
+  {static} + 获取大学名称() : String
+  {static} + 设置大学名称(值 : String) : void
+}
+@enduml

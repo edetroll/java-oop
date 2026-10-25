@@ -1,0 +1,16 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class MovieLibrary {
+  - movies : List&lt;Movie&gt;
+  {static} - INSTANCE : MovieLibrary
+  --
+  - MovieLibrary()
+  {static} + getInstance() : MovieLibrary
+  + addMovie(movie : Movie) : void
+  + getMovieCount() : int
+}
+@enduml

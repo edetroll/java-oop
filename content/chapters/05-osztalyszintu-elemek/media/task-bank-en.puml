@@ -1,0 +1,17 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class BankAccount {
+  - owner : String
+  - accountNumber : String
+  - balance : int
+  {static} - CREATED_COUNT : int
+  {static} - MAX_ACCOUNTS : int
+  --
+  - BankAccount(owner, accountNumber, balance)
+  {static} + create(owner, accountNumber, balance) : BankAccount
+}
+@enduml

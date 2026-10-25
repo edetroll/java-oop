@@ -1,0 +1,17 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "Noto Sans Mono CJK SC"
+skinparam classBackgroundColor #FAFCFF
+skinparam classBorderColor #8A98B1
+hide circle
+class 银行账户 {
+  - 户主 : String
+  - 账号 : String
+  - 余额 : int
+  {static} - 已创建数量 : int
+  {static} - 最多账户数 : int
+  --
+  - 银行账户(户主, 账号, 余额)
+  {static} + 创建(户主, 账号, 余额) : 银行账户
+}
+@enduml
