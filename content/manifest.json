@@ -57,24 +57,43 @@
         "zh": "content/chapters/03-adatrejtes/zh.md"
       }
     },
-	{
-	  "id": "04-konstruktorok",
-	  "order": 4,
-	  "title": {
-		"hu": "Konstruktorok",
-		"en": "Constructors",
-		"zh": "构造方法"
-	  },
-	  "description": {
-		"hu": "Példányosítás, alapértelmezett és paraméteres konstruktorok.",
-		"en": "Instantiation, default and parameterized constructors.",
-		"zh": "实例化、默认构造方法与带参数的构造方法。"
-	  },
-	  "files": {
-		"hu": "content/chapters/04-konstruktorok/hu.md",
-		"en": "content/chapters/04-konstruktorok/en.md",
-		"zh": "content/chapters/04-konstruktorok/zh.md"
-	  }
-	}
+    {
+      "id": "04-konstruktorok",
+      "order": 4,
+      "title": {
+        "hu": "Konstruktorok",
+        "en": "Constructors",
+        "zh": "构造方法"
+      },
+      "description": {
+        "hu": "Példányosítás, alapértelmezett és paraméteres konstruktorok.",
+        "en": "Instantiation, default and parameterized constructors.",
+        "zh": "实例化、默认构造方法与带参数的构造方法。"
+      },
+      "files": {
+        "hu": "content/chapters/04-konstruktorok/hu.md",
+        "en": "content/chapters/04-konstruktorok/en.md",
+        "zh": "content/chapters/04-konstruktorok/zh.md"
+      }
+    },
+    {
+      "id": "05-osztalyszintu-elemek",
+      "order": 5,
+      "title": {
+        "hu": "Osztályszintű mezők és metódusok",
+        "en": "Class-level Fields and Methods",
+        "zh": "类级字段和方法"
+      },
+      "description": {
+        "hu": "Memóriakezelés, statikus mezők, metódusok, inicializálás és felhasználási példák.",
+        "en": "Memory, static fields, methods, initialization and common uses.",
+        "zh": "内存、静态字段与方法、初始化及常见应用。"
+      },
+      "files": {
+        "hu": "content/chapters/05-osztalyszintu-elemek/hu.md",
+        "en": "content/chapters/05-osztalyszintu-elemek/en.md",
+        "zh": "content/chapters/05-osztalyszintu-elemek/zh.md"
+      }
+    }
   ]
 }
