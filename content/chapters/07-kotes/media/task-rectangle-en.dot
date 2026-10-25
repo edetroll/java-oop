@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", pad="0.20", nodesep="0.53", ranksep="0.90", splines="polyline"];
+node [shape=plain, fontname="DejaVu Sans Mono"];
+edge [color="#5c7192", penwidth=1.5, arrowsize=1.15];
+shape [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>Shape</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">- color: String</FONT></TD></TR><TR><TD BGCOLOR="#d7dfed" HEIGHT="2"></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">+ getDescription(): String</FONT></TD></TR></TABLE>>];
+rectangle [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>Rectangle</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">- width: double</FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">- height: double</FONT></TD></TR><TR><TD BGCOLOR="#d7dfed" HEIGHT="2"></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">+ getDescription(): String</FONT></TD></TR></TABLE>>];
+circle [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>Circle</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">- radius: double</FONT></TD></TR><TR><TD BGCOLOR="#d7dfed" HEIGHT="2"></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11">+ getDescription(): String</FONT></TD></TR></TABLE>>];
+rectangle -> shape [arrowhead=empty];
+circle -> shape [arrowhead=empty];
+}

@@ -1,0 +1,10 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", pad="0.20", nodesep="0.53", ranksep="0.90", splines="polyline"];
+node [shape=plain, fontname="Noto Sans Mono CJK SC"];
+edge [颜色="#5c7192", penwidth=1.5, arrowsize=1.15];
+人员对象 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="8"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="14"><B>人员</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ 获取身份(): String</FONT></TD></TR></TABLE>>];
+学生对象 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="8"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="14"><B>学生</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ 获取身份(): String</FONT></TD></TR></TABLE>>];
+教师对象 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="8"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="14"><B>教师</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ 获取身份(): String</FONT></TD></TR></TABLE>>];
+学生对象 -> 人员对象 [arrowhead=empty];
+教师对象 -> 人员对象 [arrowhead=empty];
+}

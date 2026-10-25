@@ -1,0 +1,8 @@
+digraph UML {
+graph [rankdir=BT, bgcolor="transparent", pad="0.20", ranksep="0.85"];
+node [shape=plain, fontname="Noto Sans Mono CJK SC"];
+edge [color="#5c7192", penwidth=1.5, arrowsize=1.15];
+object [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" WIDTH="340" CELLPADDING="8"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="14"><B>Object</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ toString(): String</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ equals(Object): boolean</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ hashCode(): int</FONT></TD></TR></TABLE>>];
+course [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" WIDTH="340" CELLPADDING="8"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="14"><B>课程</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">- 编号: String</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">- 标题: String</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ toString(): String</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ equals(Object): boolean</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ hashCode(): int</FONT></TD></TR></TABLE>>];
+course -> object [arrowhead=empty];
+}
