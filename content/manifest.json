@@ -113,6 +113,25 @@
         "en": "content/chapters/06-oroklodes/en.md",
         "zh": "content/chapters/06-oroklodes/zh.md"
       }
+    },
+    {
+      "id": "07-kotes",
+      "order": 7,
+      "title": {
+        "hu": "Kötés – korai és késői kötés",
+        "en": "Early and Late Binding",
+        "zh": "早期绑定与后期绑定"
+      },
+      "description": {
+        "hu": "Metódusfelülírás, kötés, Object-metódusok, egyenlőség és hashkód.",
+        "en": "Overriding, binding, Object methods, equality and hash codes.",
+        "zh": "方法重写、绑定、Object 方法、相等性与哈希码。"
+      },
+      "files": {
+        "hu": "content/chapters/07-kotes/hu.md",
+        "en": "content/chapters/07-kotes/en.md",
+        "zh": "content/chapters/07-kotes/zh.md"
+      }
     }
   ]
 }
