@@ -1,0 +1,6 @@
+digraph UML {
+graph [rankdir=BT,bgcolor="transparent",pad="0.15",nodesep="0.3",ranksep="0.6",splines=polyline];
+node [shape=plain];
+edge [color="#6a819c",penwidth=1.4,arrowsize=0.9];
+"Car" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#90a5c0" BGCOLOR="#fbfdff"><TR><TD BGCOLOR="#e8eeff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>Car</B></FONT></TD></TR><TR><TD BGCOLOR="#e1e6ef" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="10" COLOR="#27364c">+ brand : String</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="10" COLOR="#27364c">+ model : String</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="10" COLOR="#27364c">+ year : int</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="10" COLOR="#27364c">+ mileage : int</FONT></TD></TR><TR><TD BGCOLOR="#e1e6ef" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="10" COLOR="#27364c">+ drive(distance : int) : void</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="10" COLOR="#27364c">+ toString() : String</FONT></TD></TR></TABLE>>];
+}

@@ -357,99 +357,108 @@ Az osztály szerkezetét UML-osztálydiagramon is ábrázolhatjuk. A téglalap f
 
 ## Feladatok {#exercises}
 
+Az alábbi feladatokban minden mező típusa, láthatósága, érvényességi feltétele és az egyes műveletek pontos működése a feladatleírás része. A hozzájuk tartozó UML-diagramok ezeket a követelményeket szemléltetik, de a szöveg alapján önállóan is megvalósíthatók.
+
 :::exercise
 ### Téglalapok
+![Téglalapok – UML](content/chapters/02-osztalyok/media/complete-task-1-hu.svg){width=560}
+Hozza létre a `Rectangle` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML: Teglalap](content/chapters/02-osztalyok/media/teglalap.svg){width=330}
+**Mezők és property-k**
+- `x : double` – bal felső csúcs x-koordinátája. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `y : double` – bal felső csúcs y-koordinátája. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `width : double` – a téglalap szélessége. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `height : double` – a téglalap magassága. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
 
-Hozzon létre `Teglalap` osztályt, mely olyan téglalapok tárolására alkalmas, melyek oldalélei párhuzamosak a koordinátatengelyekkel. Minden téglalap esetén tároljuk az alábbi **adatokat**.
+**Metódusok**
+- `getPerimeter() : double` – paraméter nélküli függvény, a `2 × (width + height)` értékkel tér vissza.
+- `getArea() : double` – paraméter nélküli függvény, a `width × height` értékkel tér vissza.
+- `overlaps(other : Rectangle) : boolean` – a paraméterként kapott téglalappal való, pozitív területű metszetet vizsgálja; az érintkező oldalak önmagukban nem jelentenek átfedést.
+- `getQuadrant() : int` – az `1`–`4` értékek egyikével tér vissza, ha a teljes téglalap szigorúan egy síknegyedben van; más esetben `-1`.
 
-- bal felső csúcs **x** koordinátája: valós szám
-- bal felső csúcs **y** koordinátája: valós szám
-- téglalap **szélessége**: valós szám
-- téglalap **magassága**: valós szám
-
-Az osztályon belül implementálja az alábbi metódusokat!
-
-- téglalap **kerületének** kiszámítása: valós értékkel visszatérő, paraméter nélküli függvény
-- téglalap **területének** kiszámítása: valós értékkel visszatérő, paraméter nélküli függvény
-- **átfedés** megállapítása: logikai értékkel visszatérő függvény, mely paraméterben vár egy másik téglalapot. A metódus állapítsa meg, van-e a két téglalapnak pozitív területű közös része. A csupán egy oldal vagy csúcs mentén érintkező téglalapokat ne tekintse átfedőnek!
-- tartalmazó **síknegyed** meghatározása: egész értékkel visszatérő, paraméter nélküli függvény. Határozza meg annak a síknegyednek a számát, melynek belsejében a téglalap teljes egészében elhelyezkedik. Amennyiben ez nem teljesül, úgy térjen vissza `-1` értékkel!
-
-A koordináta-rendszerben az **y tengely felfelé pozitív**, a szélesség és a magasság pedig pozitív érték. A főprogramban hozzon létre **5** téglalap példányt, töltse föl adatokkal, majd hívja meg az implementált metódusaikat és jelenítse meg az eredményüket! A téglalapok között legyen átfedő, érintkező és különálló pár is.
-
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Könyvek
+![Könyvek – UML](content/chapters/02-osztalyok/media/complete-task-2-hu.svg){width=560}
+Hozza létre a `Book` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML: Konyv](content/chapters/02-osztalyok/media/konyv.svg){width=340}
+**Mezők és property-k**
+- `author : String` – a szerző neve. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `title : String` – a könyv címe. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `price : int` – a könyv ára forintban. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `genre : String` – műfaj, egyelőre szöveges típusként.
+- `printed : boolean` – nyomtatott-e. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
 
-Hozzon létre `Konyv` osztályt, mely az alábbi adatok tárolására alkalmas.
+**Metódusok**
+- `discount(percent : int) : void` – `1` és `99` közötti egész százalékot vár; érvénytelen paraméternél nem változtat árat; a kerekítés egész forintra lefelé történik, és `899` forint alá nem enged árat csökkenteni.
+- `toString() : String` – a könyv fontos adatait olvasható, többmezős szövegként adja vissza.
 
-- **szerző**: szöveges típus
-- **cím**: szöveges típus
-- a könyv **ára**: egész érték, forintban
-- a könyv **műfaja**: szöveges típus (pl. életrajzi, horror, dráma, történelmi, sci-fi, komédia)
-- **nyomtatott** könyv: logikai típus. Értéke igaz, ha a könyv nyomtatott, és hamis, ha e-könyv
-
-Az osztályon belül implementálja az alábbi metódusokat!
-
-- könyv **leárazása**: eljárás, mely paraméterben vár egy egész számot az **1–99** intervallumból. Amennyiben a paraméter értéke ennek az intervallumnak nem eleme, úgy ne változtassa meg az árat, és a metódus fejezze be a működését. Helyes paraméter esetén tekintsünk erre az értékre úgy, mint a leárazás százalékos mértékére és eszerint módosítsuk a könyv tárolt árát! A kedvezmény utáni árat egész forintra kerekítsük. **Kiegészítés:** a leárazás csak akkor történhessen meg, ha az új ár legalább **899 Ft** lenne!
-- Írja felül a `toString()` metódust, hogy az a könyv adatait esztétikus formában adja vissza!
-
-A főprogramban hozzon létre **5** könyv típusú példányt és töltse föl kedvenc könyveinek adataival, végül jelenítse meg azokat a képernyőn. Ezután hívja meg különböző, köztük érvénytelen leárazási értékekkel a metódust, és ismét jelenítse meg a példányokat!
-
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Autók
+![Autók – UML](content/chapters/02-osztalyok/media/complete-task-3-hu.svg){width=560}
+Hozza létre a `Car` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML: Auto](content/chapters/02-osztalyok/media/car-hu.svg){width=320}
+**Mezők és property-k**
+- `brand : String` – márka. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `model : String` – modell. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `year : int` – gyártási év. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `mileage : int` – kilométeróra-állás egész kilométerben. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
 
-Hozzon létre `Auto` osztályt, mely az alábbi adatokat tárolja!
+**Metódusok**
+- `drive(distance : int) : void` – csak pozitív egész kilométert fogad, és a `mileage` mező értékét ennyivel növeli.
+- `toString() : String` – megjeleníthető szövegként adja vissza a márkát, modellt, évjáratot és kilométeróra-állást.
 
-- **márka** és **típus**: szöveges típus
-- **gyártási év**: egész szám
-- **megtett kilométerek száma**: valós szám
-
-Készítsen `Vezet` metódust, mely paraméterben megkapja a megtett távolságot, majd ennek megfelelően növeli a kilométeróra állását! A `toString()` metódus adja vissza az autó adatait esztétikus formában!
-
-A főprogramban hozzon létre **5** autót, töltse föl adatokkal, majd több alkalommal hívja meg a `Vezet` metódust! Jelenítse meg az autók adatait az egyes műveletek előtt és után!
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Bankszámlák
+![Bankszámlák – UML](content/chapters/02-osztalyok/media/complete-task-4-hu.svg){width=560}
+Hozza létre a `BankAccount` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML: Bankszamla](content/chapters/02-osztalyok/media/bank-hu.svg){width=350}
+**Mezők és property-k**
+- `owner : String` – a számlatulajdonos neve. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `accountNumber : String` – számlaszám. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `balance : int` – az egyenleg egész forintban. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
 
-Hozzon létre `Bankszamla` osztályt, mely a **tulajdonos nevét**, a **számlaszámot** és az **egyenleget** tárolja! Az egyenleget egyelőre egész forintban kezeljük.
+**Metódusok**
+- `deposit(amount : int) : void` – csak pozitív összeget fogad, és azt hozzáadja az egyenleghez.
+- `withdraw(amount : int) : void` – csak pozitív, az egyenlegnél nem nagyobb összeget enged levonni.
+- `getBalance() : int` – a pillanatnyi egyenleget adja vissza.
+- `toString() : String` – visszaadja a számlaszámot, tulajdonost és az egyenleget tartalmazó szöveget.
 
-Az osztályon belül implementáljon `Befizet` és `Kivesz` metódusokat! Az első paraméterben kapott összeggel növelje, a második csökkentse az egyenleget. Készítsen metódust az aktuális egyenleg lekérdezésére is!
-
-A főprogramban hozzon létre **3** bankszámlát! Kezdeményezzen több befizetést és pénzfelvételt, majd jelenítse meg az egyenlegeket! Egyelőre nem kell ellenőriznie, hogy helyesek-e a megadott összegek; ezzel a következő fejezetben foglalkozunk.
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Filmek
+![Filmek – UML](content/chapters/02-osztalyok/media/complete-task-5-hu.svg){width=560}
+Hozza létre a `Movie` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML: Film](content/chapters/02-osztalyok/media/film.svg){width=360}
+**Mezők és property-k**
+- `director : String` – rendező. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `title : String` – film címe. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `duration : int` – a film hossza percben. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `language : Language` – nyelve. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `subtitles : boolean` – feliratos-e. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
+- `actor1 : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
+- `actor2 : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
+- `actor3 : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
+- `category : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
 
-Hozzon létre `Film` osztályt, mely az alábbi adatok tárolására alkalmas.
+**Metódusok**
+- `hasActor(name : String) : boolean` – megállapítja, hogy a keresett színész szerepel-e a filmben.
+- `toString() : String` – olvasható szöveg, `óra:perc:00` időformátummal; a feliratozást csak nem magyar filmnél említi.
 
-- **rendező**: szöveges típus
-- **cím**: szöveges típus
-- **szereplők**: három külön szöveges mező, melyekben legfeljebb három színész nevét tároljuk
-- film **hossza**: egész szám, percben
-- **kategória**: szöveges típus (pl. vígjáték, életrajzi, sci-fi, horror, thriller, dráma)
-- **nyelv**: szöveges típus (pl. magyar, angol, német, francia, kínai)
-- **feliratos** film: logikai típus
-
-Az osztályon belül implementálja az alábbi metódusokat!
-
-- **szerepel a filmben**: logikai értékkel visszatérő függvény, mely paraméterben fogadja egy keresett színész nevét. Vizsgálja meg a három szereplőmezőt, és döntse el, hogy valamelyikben szerepel-e a keresett név. Üres mező esetén az adott mezőt hagyja figyelmen kívül!
-- Írja felül a `toString()` metódust és jelenítse meg a film adatait esztétikus módon! A film hosszát `óra:perc:00` formátumban adja vissza, és azt, hogy feliratos-e, csak akkor jelenítse meg, ha a film nyelve nem magyar!
-
-A főprogramban hozzon létre **5** filmtípusú példányt és töltse föl kedvenc filmjeinek adataival, végül jelenítse meg azokat a képernyőn. Ezután kérje be a felhasználótól egy színész nevét, és jelenítse meg azon filmek címeit, melyekben az szerepel!
-
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise

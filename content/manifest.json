@@ -77,8 +77,25 @@
       }
     },
     {
-      "id": "05-osztalyszintu-elemek",
+      "id": "05-kontenerosztalyok",
       "order": 5,
+      "title": {
+        "hu": "Konténerosztályok",
+        "en": "Container Classes",
+        "zh": "容器类"
+      },
+      "description": {
+        "hu": "Gyűjtemények kezelése, hozzáférés szabályozása, indexelés és kiválogatás.",
+        "en": "Managing collections, access control, indexing and filtering.",
+        "zh": "集合管理、访问控制、索引和筛选。"
+      },
+      "files": {
+        "hu": "content/chapters/05-kontenerosztalyok/hu.md"
+      }
+    },
+    {
+      "id": "05-osztalyszintu-elemek",
+      "order": 6,
       "title": {
         "hu": "Osztályszintű mezők és metódusok",
         "en": "Class-level Fields and Methods",
@@ -97,7 +114,7 @@
     },
     {
       "id": "06-oroklodes",
-      "order": 6,
+      "order": 7,
       "title": {
         "hu": "Öröklődés",
         "en": "Inheritance",
@@ -116,7 +133,7 @@
     },
     {
       "id": "07-kotes",
-      "order": 7,
+      "order": 8,
       "title": {
         "hu": "Kötés – korai és késői kötés",
         "en": "Early and Late Binding",
@@ -131,6 +148,23 @@
         "hu": "content/chapters/07-kotes/hu.md",
         "en": "content/chapters/07-kotes/en.md",
         "zh": "content/chapters/07-kotes/zh.md"
+      }
+    },
+    {
+      "id": "08-konstruktorhivasi-lanc",
+      "order": 9,
+      "title": {
+        "hu": "Konstruktorhívási lánc",
+        "en": "Constructor Chaining",
+        "zh": "构造方法调用链"
+      },
+      "description": {
+        "hu": "Örökölt adatok inicializálása, this(...) és super(...), konstruktorok végrehajtási sorrendje.",
+        "en": "Initializing inherited state, this(...) and super(...), and constructor execution order.",
+        "zh": "继承状态的初始化、this(...) 与 super(...) 以及构造方法执行顺序。"
+      },
+      "files": {
+        "hu": "content/chapters/08-konstruktorhivasi-lanc/hu.md"
       }
     }
   ]

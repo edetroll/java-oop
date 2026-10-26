@@ -476,81 +476,117 @@ int main() {
 
 ## 练习 {#exercises}
 
-本章在上一章编写的类中加入数据验证。当 setter 或数据添加方法收到无效数据时，应抛出异常，同时保证原先保存的数据不发生改变。
+下列任务明确描述每个字段的类型、可见性、有效性限制，以及各操作的具体行为。UML 图用于辅助理解，但仅凭文字要求也可独立完成任务。
 
 :::exercise
 ### 矩形
+![矩形 – UML](content/chapters/03-adatrejtes/media/complete-task-1-zh.svg){width=560}
+创建 `矩形` 类，实现下列字段与操作。请按照以下要求实现字段和方法。
 
-![UML](content/chapters/03-adatrejtes/media/task1-zh.svg){width=340}
+**字段与属性**
+- `横坐标 : double` – 左上角横坐标，可为任意实数. 私有字段，公有 `获取横坐标() : double` 与 `设置横坐标(横坐标 : double) : void`；该坐标允许自由修改。
+- `纵坐标 : double` – 左上角纵坐标，可为任意实数. 私有字段，公有 `获取纵坐标() : double` 与 `设置纵坐标(纵坐标 : double) : void`；该坐标允许自由修改。
+- `宽度 : double` – 矩形宽度；从数据隐藏一章起必须大于零. 私有字段，具有公有 getter `获取宽度() : double` 和 setter `设置宽度(宽度 : double) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `高度 : double` – 矩形高度；从数据隐藏一章起必须大于零. 私有字段，具有公有 getter `获取高度() : double` 和 setter `设置高度(高度 : double) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
 
-扩展上一章的 `Rectangle` 类。左上角的 `x`、`y` 坐标可以是任意实数，但**宽度**和**高度**必须是正数。
+**方法**
+- `计算周长() : double` – 无参数函数，返回 `2 × (width + height)`.
+- `计算面积() : double` – 无参数函数，返回 `width × height`.
+- `判断重叠(另一个 : 矩形) : boolean` – 检查两个矩形是否存在面积大于零的交集；仅边界接触不算重叠.
+- `获取象限() : int` – 整个矩形严格位于某一象限时返回 `1`–`4`，否则返回 `-1`.
+各字段 getter/setter 的可见性以上述说明为准。验证失败时不得破坏对象原有的有效状态。
 
-- 所有字段改为 `private`。
-- 实现 getter 和 setter 方法。
-- 宽度或高度无效时抛出 `IllegalArgumentException`。
-- 保留原来的**周长**、**面积**、**相交判断**和**象限判断**方法。
-
-在主程序中尝试将宽度、高度设置为 `0` 或负数，确认无效值不会被保存。
-
+**主程序**
+创建五个不同的实例，填写数据并测试各项操作。对于已经学习的数据验证，还应尝试合法和非法的参数。
 :::endexercise
 
 :::exercise
 ### 图书
+![图书 – UML](content/chapters/03-adatrejtes/media/complete-task-2-zh.svg){width=560}
+创建 `图书` 类，实现下列字段与操作。请按照以下要求实现字段和方法。
 
-![UML](content/chapters/03-adatrejtes/media/task2-zh.svg){width=380}
+**字段与属性**
+- `作者 : String` – 作者，至少两个字符，只允许字母、空格、句点和连字符. 私有字段，具有公有 getter `获取作者() : String` 和 setter `设置作者(作者 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `标题 : String` – 书名，至少两个字符. 私有字段，具有公有 getter `获取标题() : String` 和 setter `设置标题(标题 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `价格 : int` – 价格，以整数福林计；有效范围 `[500, 50 000]`. 私有字段，具有公有 getter `获取价格() : int` 和 setter `设置价格(价格 : int) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `类别 : 类别` – 枚举类型，例如 BIOGRAPHY、HORROR、DRAMA、HISTORY、SCIFI、COMEDY. 私有字段，具有公有 getter `获取类别() : 类别` 和 setter `设置类别(类别 : 类别) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `纸质 : boolean` – 纸质书为 true，电子书为 false. 私有字段，公有 `是否纸质() : boolean` 与 `设置纸质(纸质 : boolean) : void`；布尔值无需额外验证。
 
-在上一章 `Book` 类的基础上增加以下验证规则。
+**方法**
+- `打折(百分比 : int) : void` – 参数是 `1` 到 `99` 的整数折扣百分比；无效输入不改变价格，折后金额向下取整为福林且不得低于 `899`.
+- `toString() : String` – 返回包含图书主要字段的可读字符串.
+各字段 getter/setter 的可见性以上述说明为准。验证失败时不得破坏对象原有的有效状态。
 
-- **作者：**不能为 `null` 或空字符串，至少 **2** 个字符；只能包含字母、空格、句点（`.`）及连字符（`-`）。允许空格是为了支持多段姓名。
-- **书名：**不能为 `null` 或空字符串，至少 **2** 个字符。
-- **价格：**整数，取值范围 **[500, 50 000]**。
-- **类型：**使用 `enum` 枚举，例如传记、恐怖、剧情、历史、科幻、喜剧。
-- **是否纸质书：**布尔类型。
-
-所有字段均设为 `private`，并实现 getter 和 setter。**打折**方法还必须保证折后价格不低于 **899 福林**。如果折扣会使价格低于这一数值，应抛出异常，并保持原价不变。
-
-在主程序中测试有效和无效输入，并通过 `toString()` 显示图书信息。
-
+**主程序**
+创建五个不同的实例，填写数据并测试各项操作。对于已经学习的数据验证，还应尝试合法和非法的参数。
 :::endexercise
 
 :::exercise
 ### 汽车
+![汽车 – UML](content/chapters/03-adatrejtes/media/complete-task-3-zh.svg){width=560}
+创建 `汽车` 类，实现下列字段与操作。请按照以下要求实现字段和方法。
 
-![UML: 汽车](content/chapters/03-adatrejtes/media/car-zh.svg){width=330}
+**字段与属性**
+- `品牌 : String` – 品牌，不得为 null 或空字符串. 私有字段，具有公有 getter `获取品牌() : String` 和 setter `设置品牌(品牌 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `型号 : String` – 型号，不得为 null 或空字符串. 私有字段，具有公有 getter `获取型号() : String` 和 setter `设置型号(型号 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `年份 : int` – 生产年份，范围 `[1886, 2100]`. 私有字段，具有公有 getter `获取年份() : int` 和 setter `设置年份(年份 : int) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `里程 : int` – 里程表读数，单位为整公里，不得为负数. 私有字段；只需公有 `获取里程() : int`，字段只能通过指定操作或构造方法修改。
 
-将已有 `Car` 类的所有字段设为 `private`。**品牌**和**型号**不能为 `null` 或空字符串；**生产年份**必须在 **[1886, 2100]** 范围内；**行驶里程**不能为负数。
+**方法**
+- `行驶(距离 : int) : void` – 仅接受正整数公里数，并增加 `mileage`.
+- `toString() : String` – 返回含品牌、型号、年份和里程的字符串.
+各字段 getter/setter 的可见性以上述说明为准。验证失败时不得破坏对象原有的有效状态。
 
-编写必要的 getter 和 setter 方法。主程序只能读取里程，不能直接修改，里程只能通过 `drive` 方法增加，并且传入的距离必须为正数。若数据无效，应抛出异常，并保持原有数据不变。
-
-在主程序中测试有效和无效的输入，确认不能使用负距离行驶，也不能直接修改里程。
+**主程序**
+创建五个不同的实例，填写数据并测试各项操作。对于已经学习的数据验证，还应尝试合法和非法的参数。
 :::endexercise
 
 :::exercise
 ### 银行账户
+![银行账户 – UML](content/chapters/03-adatrejtes/media/complete-task-4-zh.svg){width=560}
+创建 `银行账户` 类，实现下列字段与操作。请按照以下要求实现字段和方法。
 
-![UML: 银行账户](content/chapters/03-adatrejtes/media/bank-zh.svg){width=360}
+**字段与属性**
+- `持有人 : String` – 账户所有人姓名，不得为 null 或空字符串. 私有字段，具有公有 getter `获取持有人() : String` 和 setter `设置持有人(持有人 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `账号 : String` – 账号，不得为 null 或空字符串，创建后不得修改. 私有字段，提供公有 `获取账号() : String` 和 `设置账号(账号 : String) : void`；setter 只允许首次有效赋值，之后修改须抛出异常。
+- `余额 : int` – 余额，以整数福林计，不得为负数. 私有字段；只需公有 `获取余额() : int`，字段只能通过指定操作或构造方法修改。
 
-将已有 `BankAccount` 类的所有字段设为 `private`。**持有人姓名**和**账号**不能为 `null` 或空字符串，**余额**不能为负数。账户创建后，主程序不得修改账号。
+**方法**
+- `存款(金额 : int) : void` – 仅接受正整数金额，增加余额.
+- `取款(金额 : int) : void` – 只能提取正整数且不超过当前余额.
+- `获取余额() : int` – 返回当前余额.
+- `toString() : String` – 返回包含账号、持有人及余额的可读字符串.
+各字段 getter/setter 的可见性以上述说明为准。验证失败时不得破坏对象原有的有效状态。
 
-为余额提供 getter，但不提供公共 setter。余额只能通过 `deposit` 和 `withdraw` 方法修改，两种操作的金额必须为正数，取款后也不能使余额变成负数。对于无效操作，应抛出异常，并保持余额不变。
+**主程序**
+创建五个不同的实例，填写数据并测试各项操作。对于已经学习的数据验证，还应尝试合法和非法的参数。
 
-在主程序中尝试存入零金额、提取负金额和提取超过余额的金额，确认这些无效操作不会改变账户余额。
+在本章中，允许使用公有 `setAccountNumber(String)` 仅设置一次账号，此后禁止更改。下一章将使用构造方法完成初始赋值。
 :::endexercise
 
 :::exercise
 ### 电影
+![电影 – UML](content/chapters/03-adatrejtes/media/complete-task-5-zh.svg){width=560}
+创建 `电影` 类，实现下列字段与操作。请按照以下要求实现字段和方法。
 
-![UML](content/chapters/03-adatrejtes/media/task3-zh.svg){width=440}
+**字段与属性**
+- `导演 : String` – 导演，不得为 null，至少两个字符，只允许字母、空格、句点和连字符. 私有字段，具有公有 getter `获取导演() : String` 和 setter `设置导演(导演 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `标题 : String` – 片名，不得为 null，至少两个字符. 私有字段，具有公有 getter `获取标题() : String` 和 setter `设置标题(标题 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `时长 : int` – 影片时长，以整数分钟计，范围 `[10, 360]`. 私有字段，具有公有 getter `获取时长() : int` 和 setter `设置时长(时长 : int) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `语言 : 语言` – 语言，枚举类型. 私有字段，具有公有 getter `获取语言() : 语言` 和 setter `设置语言(语言 : 语言) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `字幕 : boolean` – 是否带字幕. 私有字段，公有 `是否有字幕() : boolean` 与 `设置字幕(字幕 : boolean) : void`；布尔值无需额外验证。
+- `演员列表 : ArrayList<String>` – 演员列表；私有字段，外部只能获得副本. 私有字段；公有 `获取演员列表() : ArrayList<String>` getter 返回防御性副本，只能通过指定的添加方法修改集合。
+- `类别列表 : ArrayList<类别>` – 影片类别列表；私有字段，getter 只返回副本. 私有字段；公有 `获取类别列表() : ArrayList<类别>` getter 返回防御性副本，只能通过指定的添加方法修改集合。
 
-扩展上一章的 `Movie` 类。**导演**和**片名**使用“图书”练习中的文本验证规则。**片长**为 **[10, 360]** 分钟的整数。**语言**和**电影类别**使用 `enum` 枚举类型。
+**方法**
+- `是否有演员(姓名 : String) : boolean` – 判断指定演员是否出演本片.
+- `添加演员(姓名 : String) : void` – 按照导演姓名规则检查后添加演员，禁止重复.
+- `添加类别(类别 : 类别) : void` – 添加非 null 的类别，禁止重复.
+- `获取演员列表() : ArrayList<String>` – 返回新的演员列表.
+- `获取类别列表() : ArrayList<类别>` – 返回新的类别列表.
+- `toString() : String` – 返回可读文本，时长为 `时:分:00`，仅对非匈牙利语影片显示字幕信息.
+各字段 getter/setter 的可见性以上述说明为准。验证失败时不得破坏对象原有的有效状态。
 
-- 使用列表保存**演员**，提供 `addActor(String name)` 方法验证姓名，并禁止重复添加。
-- **类别**也用列表保存，同一个类别只能添加一次。
-- 列表字段必须设为 `private`。getter 应返回列表的**副本**，避免主程序直接修改对象内部的列表。
-- 保留之前实现的演员查询方法和 `toString()` 方法。
-
-**提示：**Java 中可使用 `ArrayList` 及其 `add`、`contains` 方法，通过 `new ArrayList<>(originalList)` 创建副本。此题不要求深入掌握集合框架。
-
-在主程序中尝试输入无效值、重复演员或类别，并确认修改 getter 返回的列表不会影响电影对象内部的数据。
-
+**主程序**
+创建五个不同的实例，填写数据并测试各项操作。对于已经学习的数据验证，还应尝试合法和非法的参数。
 :::endexercise

@@ -1,0 +1,17 @@
+{
+  "id": "08-konstruktorhivasi-lanc",
+  "order": 9,
+  "title": {
+    "hu": "Konstruktorhívási lánc",
+    "en": "Constructor Chaining",
+    "zh": "构造方法调用链"
+  },
+  "description": {
+    "hu": "Örökölt adatok inicializálása, this(...) és super(...), konstruktorok végrehajtási sorrendje.",
+    "en": "Initializing inherited state, this(...) and super(...), and constructor execution order.",
+    "zh": "继承状态的初始化、this(...) 与 super(...) 以及构造方法执行顺序。"
+  },
+  "files": {
+    "hu": "content/chapters/08-konstruktorhivasi-lanc/hu.md"
+  }
+}

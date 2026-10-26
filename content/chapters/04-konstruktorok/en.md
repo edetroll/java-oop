@@ -361,54 +361,135 @@ C# provides a similar mechanism using `: this(...)`, and C++ supports delegating
 
 ## Exercises {#exercises}
 
-We will now extend the five classes from the previous chapters with constructors. Where several constructors are required, use constructor delegation whenever possible instead of repeating the same initialization and validation code.
+The tasks below specify the type, accessibility and validity of each field, as well as the required behaviour of each operation. The UML diagrams illustrate these requirements, but the textual specifications are complete on their own.
 
 :::exercise
 ### Rectangles
+![Rectangles – UML](content/chapters/04-konstruktorok/media/complete-task-1-en.svg){width=560}
+Create the `Rectangle` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/04-konstruktorok/media/rect-en.svg){width=355}
+**Fields and properties**
+- `x : double` – x-coordinate of the top-left corner; any real number. Private field with public `getX() : double` and `setX(x : double) : void`. The coordinate may be changed freely.
+- `y : double` – y-coordinate of the top-left corner; any real number. Private field with public `getY() : double` and `setY(y : double) : void`. The coordinate may be changed freely.
+- `width : double` – the width; strictly positive from the data-hiding chapter onward. Private field with public `getWidth() : double` getter and `setWidth(width : double) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `height : double` – the height; strictly positive from the data-hiding chapter onward. Private field with public `getHeight() : double` getter and `setHeight(height : double) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
 
-Extend the `Rectangle` class with a constructor that receives the top-left corner coordinates and the width and height. Use the existing setter methods to validate the two side lengths.
+**Constructors**
+- `Rectangle()` – Delegate to the full constructor; the omitted value defaults to top-left corner `(0,0)` and size `1 × 1`.
+- `Rectangle(x : double, y : double, width : double, height : double)` – Validate every supplied value and reject invalid parameters by throwing an exception.
 
-Write a parameterless constructor that creates a `1 × 1` rectangle starting at `(0, 0)`. **It must invoke the parameterized constructor**, rather than repeat the initialization code. Create rectangles using both constructors and display their perimeter and area.
+**Methods**
+- `getPerimeter() : double` – parameterless function returning `2 × (width + height)`.
+- `getArea() : double` – parameterless function returning `width × height`.
+- `overlaps(other : Rectangle) : boolean` – checks whether the two rectangles have a common area of positive size; touching edges alone do not count.
+- `getQuadrant() : int` – returns `1`–`4` if the entire rectangle lies strictly in one quadrant, otherwise `-1`.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
+
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Books
+![Books – UML](content/chapters/04-konstruktorok/media/complete-task-2-en.svg){width=560}
+Create the `Book` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/04-konstruktorok/media/book-en.svg){width=400}
+**Fields and properties**
+- `author : String` – author; at least two characters, containing only letters, spaces, periods or hyphens. Private field with public `getAuthor() : String` getter and `setAuthor(author : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `title : String` – book title; at least two characters. Private field with public `getTitle() : String` getter and `setTitle(title : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `price : int` – price in whole forints; valid range `[500, 50 000]`. Private field with public `getPrice() : int` getter and `setPrice(price : int) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `genre : Genre` – enumeration; e.g. BIOGRAPHY, HORROR, DRAMA, HISTORY, SCIFI, COMEDY. Private field with public `getGenre() : Genre` getter and `setGenre(genre : Genre) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `printed : boolean` – true for printed books, false for e-books. Private field with public `isPrinted() : boolean` and `setPrinted(printed : boolean) : void`; boolean values need no additional validation.
 
-Add a constructor to `Book` that receives the author, title, price, genre and whether the book is printed. Validate the input using the methods already written.
+**Constructors**
+- `Book(author : String, title : String, price : int, genre : Genre, printed : boolean)` – Validate every supplied value and reject invalid parameters by throwing an exception.
+- `Book(author : String, title : String, price : int)` – Delegate to the full constructor; the omitted value defaults to `Genre.DRAMA` and a printed book.
 
-Write another constructor that receives only the author, title and price. It must **invoke the first constructor**, supplying a selected default genre and the value indicating a printed book. Create at least four books using both constructors and test an invalid price.
+**Methods**
+- `discount(percent : int) : void` – accepts an integer percentage from `1` to `99`; invalid input leaves the price unchanged; round the discounted price down to whole forints and do not allow a price under `899`.
+- `toString() : String` – returns a readable text with the book’s key fields.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
+
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Cars
+![Cars – UML](content/chapters/04-konstruktorok/media/complete-task-3-en.svg){width=560}
+Create the `Car` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/04-konstruktorok/media/car-en.svg){width=355}
+**Fields and properties**
+- `brand : String` – brand; must not be null or empty. Private field with public `getBrand() : String` getter and `setBrand(brand : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `model : String` – model; must not be null or empty. Private field with public `getModel() : String` getter and `setModel(model : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `year : int` – year of manufacture in `[1886, 2100]`. Private field with public `getYear() : int` getter and `setYear(year : int) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `mileage : int` – odometer in whole kilometres, nonnegative. Private field with public `getMileage() : int` only; changes are permitted through the operation and constructor.
 
-Write a constructor for `Car` that receives the make, model, year of manufacture and initial mileage. It must ensure that each value satisfies the rules introduced in the previous chapter.
+**Constructors**
+- `Car(brand : String, model : String, year : int, mileage : int)` – Validate every supplied value and reject invalid parameters by throwing an exception.
+- `Car(brand : String, model : String, year : int)` – Delegate to the full constructor; the omitted value defaults to mileage of `0` kilometres.
 
-Create another constructor that receives only the make, model and year, and initializes mileage to zero. **The second constructor must invoke the first one.** Create three cars and use `drive` to increase their mileage.
+**Methods**
+- `drive(distance : int) : void` – accepts only a positive number of whole kilometres and increases `mileage`.
+- `toString() : String` – returns a displayable summary of brand, model, year and mileage.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
+
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Bank accounts
+![Bank accounts – UML](content/chapters/04-konstruktorok/media/complete-task-4-en.svg){width=560}
+Create the `BankAccount` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/04-konstruktorok/media/bank-en.svg){width=400}
+**Fields and properties**
+- `owner : String` – account holder name; not null or empty. Private field with public `getOwner() : String` getter and `setOwner(owner : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `accountNumber : String` – account number; not null or empty and cannot change after creation. Private field with public `getAccountNumber() : String` only; no public setter. The constructor initializes this field.
+- `balance : int` – balance in whole forints; nonnegative. Private field with public `getBalance() : int` only; changes are permitted through the operation and constructor.
 
-Write a constructor for `BankAccount` that receives the account holder's name, account number and initial balance. It must only allow valid data.
+**Constructors**
+- `BankAccount(owner : String, accountNumber : String, balance : int)` – Validate every supplied value and reject invalid parameters by throwing an exception.
+- `BankAccount(owner : String, accountNumber : String)` – Delegate to the full constructor; the omitted value defaults to opening balance of `0`.
 
-Also create a constructor that receives the holder's name and account number only, and **invokes the first constructor** to create an account with a zero balance. Do not add a public setter for balance. Create several accounts and test deposits and withdrawals in the main program.
+**Methods**
+- `deposit(amount : int) : void` – accepts a positive amount and increases the balance.
+- `withdraw(amount : int) : void` – withdraws only a positive amount not exceeding the balance.
+- `getBalance() : int` – returns the current balance.
+- `toString() : String` – returns a readable string with number, holder and balance.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
+
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
-### Films
+### Movies
+![Movies – UML](content/chapters/04-konstruktorok/media/complete-task-5-en.svg){width=560}
+Create the `Movie` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/04-konstruktorok/media/movie-en.svg){width=450}
+**Fields and properties**
+- `director : String` – director; not null, at least two characters, only letters, spaces, periods and hyphens. Private field with public `getDirector() : String` getter and `setDirector(director : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `title : String` – title; not null and at least two characters. Private field with public `getTitle() : String` getter and `setTitle(title : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `duration : int` – length in whole minutes; range `[10, 360]`. Private field with public `getDuration() : int` getter and `setDuration(duration : int) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `language : Language` – language as an enumeration. Private field with public `getLanguage() : Language` getter and `setLanguage(language : Language) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `subtitles : boolean` – true if the film has subtitles. Private field with public `hasSubtitles() : boolean` and `setSubtitles(subtitles : boolean) : void`; boolean values need no additional validation.
+- `actors : ArrayList<String>` – list of actors; private, external code only receives a copy. Private field; public `getActors() : ArrayList<String>` getter must return a defensive copy; only the dedicated add method may modify the collection.
+- `categories : ArrayList<Genre>` – list of genres; private, getter only returns a copy. Private field; public `getCategories() : ArrayList<Genre>` getter must return a defensive copy; only the dedicated add method may modify the collection.
 
-Extend `Movie` with a constructor that receives the director, title, duration, language and a boolean indicating whether subtitles are used. Validate the values and initialize the cast and category lists to empty lists.
+**Constructors**
+- `Movie(director : String, title : String, duration : int, language : Language, subtitles : boolean)` – Validate every supplied value and reject invalid parameters by throwing an exception.
+- `Movie(director : String, title : String, duration : int, language : Language)` – Delegate to the full constructor; the omitted value defaults to a film without subtitles.
 
-Write another constructor that does not receive the subtitle flag. It must **invoke the first constructor** and create a film without subtitles by default. Create three movies, add cast members and genres, and display their data. Verify that the internal lists still cannot be modified directly through the getters.
+**Methods**
+- `hasActor(name : String) : boolean` – returns whether the named actor appears in the film.
+- `addActor(name : String) : void` – validates the name as for the director and adds it only if absent.
+- `addCategory(genre : Genre) : void` – adds a non-null genre without duplicates.
+- `getActors() : ArrayList<String>` – returns a new list containing the actors.
+- `getCategories() : ArrayList<Genre>` – returns a new list of genres.
+- `toString() : String` – readable text with time formatted as `hours:minutes:00`; show subtitle info only for non-Hungarian films.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
+
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise

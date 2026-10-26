@@ -278,5 +278,117 @@
     "hu": "felsorolástípus (enum)",
     "en": "enumeration type (enum)",
     "zh": "枚举类型（enum）"
+  },
+  {
+    "id": "container-class",
+    "category": "Konténerosztály",
+    "hu": "konténerosztály",
+    "en": "container class",
+    "zh": "容器类"
+  },
+  {
+    "id": "collection",
+    "category": "Konténerosztály",
+    "hu": "gyűjtemény",
+    "en": "collection",
+    "zh": "集合"
+  },
+  {
+    "id": "element",
+    "category": "Konténerosztály",
+    "hu": "gyűjteményelem",
+    "en": "collection element",
+    "zh": "集合元素"
+  },
+  {
+    "id": "collection-field",
+    "category": "Konténerosztály",
+    "hu": "belső lista",
+    "en": "internal list",
+    "zh": "内部列表"
+  },
+  {
+    "id": "mutable-collection",
+    "category": "Konténerosztály",
+    "hu": "módosítható gyűjtemény",
+    "en": "mutable collection",
+    "zh": "可变集合"
+  },
+  {
+    "id": "copy-collection",
+    "category": "Konténerosztály",
+    "hu": "gyűjtemény másolata",
+    "en": "copy of a collection",
+    "zh": "集合副本"
+  },
+  {
+    "id": "defensive-copy",
+    "category": "Konténerosztály",
+    "hu": "védelmi másolat",
+    "en": "defensive copy",
+    "zh": "防御性拷贝"
+  },
+  {
+    "id": "index",
+    "category": "Konténerosztály",
+    "hu": "index",
+    "en": "index",
+    "zh": "索引"
+  },
+  {
+    "id": "indexer",
+    "category": "Konténerosztály",
+    "hu": "indexelő property",
+    "en": "indexer property",
+    "zh": "索引器属性"
+  },
+  {
+    "id": "add-element",
+    "category": "Konténerosztály",
+    "hu": "elem hozzáadása",
+    "en": "adding an element",
+    "zh": "添加元素"
+  },
+  {
+    "id": "remove-element",
+    "category": "Konténerosztály",
+    "hu": "elem eltávolítása",
+    "en": "removing an element",
+    "zh": "移除元素"
+  },
+  {
+    "id": "filtering",
+    "category": "Konténerosztály",
+    "hu": "kiválogatás",
+    "en": "filtering",
+    "zh": "筛选"
+  },
+  {
+    "id": "aggregation",
+    "category": "Konténerosztály",
+    "hu": "összesítés",
+    "en": "aggregation",
+    "zh": "汇总"
+  },
+  {
+    "id": "duplicate",
+    "category": "Konténerosztály",
+    "hu": "ismétlődő elem",
+    "en": "duplicate element",
+    "zh": "重复元素"
+  },
+  {
+    "id": "read-only-view",
+    "category": "Konténerosztály",
+    "hu": "csak olvasható nézet",
+    "en": "read-only view",
+    "zh": "只读视图"
+  },
+  {
+    "id": "reference-leak",
+    "category": "Konténerosztály",
+    "hu": "belső referencia kiadása",
+    "en": "exposing an internal reference",
+    "zh": "暴露内部引用"
   }
 ]

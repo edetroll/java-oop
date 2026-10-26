@@ -357,99 +357,108 @@ We can also represent the structure of the class with a UML class diagram. The t
 
 ## Exercises {#exercises}
 
+The tasks below specify the type, accessibility and validity of each field, as well as the required behaviour of each operation. The UML diagrams illustrate these requirements, but the textual specifications are complete on their own.
+
 :::exercise
 ### Rectangles
+![Rectangles – UML](content/chapters/02-osztalyok/media/complete-task-1-en.svg){width=560}
+Create the `Rectangle` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: Rectangle](content/chapters/02-osztalyok/media/teglalap-en.svg){width=330}
+**Fields and properties**
+- `x : double` – x. For now, a public field that the main program may access directly.
+- `y : double` – y. For now, a public field that the main program may access directly.
+- `width : double` – width. For now, a public field that the main program may access directly.
+- `height : double` – height. For now, a public field that the main program may access directly.
 
-Create a `Rectangle` class that represents rectangles whose sides are parallel to the coordinate axes. Store the following **data** for each rectangle.
+**Methods**
+- `getPerimeter() : double` – parameterless function returning `2 × (width + height)`.
+- `getArea() : double` – parameterless function returning `width × height`.
+- `overlaps(other : Rectangle) : boolean` – checks whether the two rectangles have a common area of positive size; touching edges alone do not count.
+- `getQuadrant() : int` – returns `1`–`4` if the entire rectangle lies strictly in one quadrant, otherwise `-1`.
 
-- **x** coordinate of the top-left vertex: real number
-- **y** coordinate of the top-left vertex: real number
-- rectangle **width**: real number
-- rectangle **height**: real number
-
-Implement the following methods in the class!
-
-- calculate the **perimeter**: a parameterless function returning a real number
-- calculate the **area**: a parameterless function returning a real number
-- determine **overlap**: a function returning a boolean and accepting another rectangle as a parameter. Check whether the rectangles have a common region with positive area. Rectangles touching only along an edge or at a vertex do not count as overlapping!
-- determine the containing **quadrant**: a parameterless function returning an integer. Return the number of the quadrant in whose interior the entire rectangle lies. Otherwise, return `-1`!
-
-Assume that the **positive y direction points upward**, and width and height are positive. In the main program, create **5** rectangle instances, assign their fields, call the implemented methods, and display the results! Include an overlapping pair, a touching pair, and a separate pair.
-
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Books
+![Books – UML](content/chapters/02-osztalyok/media/complete-task-2-en.svg){width=560}
+Create the `Book` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: Book](content/chapters/02-osztalyok/media/konyv-en.svg){width=340}
+**Fields and properties**
+- `author : String` – author. For now, a public field that the main program may access directly.
+- `title : String` – title. For now, a public field that the main program may access directly.
+- `price : int` – price. For now, a public field that the main program may access directly.
+- `genre : String` – genre, for now use a String.
+- `printed : boolean` – printed. For now, a public field that the main program may access directly.
 
-Create a `Book` class that stores the following information about books.
+**Methods**
+- `discount(percent : int) : void` – accepts an integer percentage from `1` to `99`; invalid input leaves the price unchanged; round the discounted price down to whole forints and do not allow a price under `899`.
+- `toString() : String` – returns a readable text with the book’s key fields.
 
-- **author**: string
-- **title**: string
-- **price**: integer, in Hungarian forints
-- **genre**: string (e.g. biography, horror, drama, historical, sci-fi, comedy)
-- **printed**: boolean. True for a printed book and false for an e-book
-
-Implement the following methods in the class!
-
-- **apply a discount**: a procedure that accepts an integer between **1 and 99**. If the input is outside this range, leave the price unchanged and terminate the method. Otherwise, interpret the parameter as a percentage and update the stored price accordingly. Round the discounted price to a whole forint. **Extension:** apply the discount only if the new price is at least **899 HUF**!
-- Override `toString()` to return the book data in a readable format!
-
-In the main program, create **5** book instances, fill in the details of your favourite books, and display them. Then call the discount method with different values, including invalid ones, and display the instances again!
-
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Cars
+![Cars – UML](content/chapters/02-osztalyok/media/complete-task-3-en.svg){width=560}
+Create the `Car` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: Car](content/chapters/02-osztalyok/media/car-en.svg){width=320}
+**Fields and properties**
+- `brand : String` – brand. For now, a public field that the main program may access directly.
+- `model : String` – model. For now, a public field that the main program may access directly.
+- `year : int` – year. For now, a public field that the main program may access directly.
+- `mileage : int` – mileage (integer km). For now, a public field that the main program may access directly.
 
-Create a `Car` class that stores the following information:
+**Methods**
+- `drive(distance : int) : void` – accepts only a positive number of whole kilometres and increases `mileage`.
+- `toString() : String` – returns a displayable summary of brand, model, year and mileage.
 
-- **make** and **model**: strings
-- **year of manufacture**: integer
-- **distance travelled**: real number
-
-Implement a `drive` method that receives a distance and adds it to the stored mileage. Override `toString()` to return the car's data in a readable format.
-
-In the main program, create **5** cars, fill in their fields, and call `drive` several times. Display each car's data before and after the operations.
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Bank accounts
+![Bank accounts – UML](content/chapters/02-osztalyok/media/complete-task-4-en.svg){width=560}
+Create the `BankAccount` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: BankAccount](content/chapters/02-osztalyok/media/bank-en.svg){width=350}
+**Fields and properties**
+- `owner : String` – owner. For now, a public field that the main program may access directly.
+- `accountNumber : String` – account number. For now, a public field that the main program may access directly.
+- `balance : int` – balance. For now, a public field that the main program may access directly.
 
-Create a `BankAccount` class that stores the **account holder's name**, **account number**, and **balance**. For now, store the balance as an integer number of forints.
+**Methods**
+- `deposit(amount : int) : void` – accepts a positive amount and increases the balance.
+- `withdraw(amount : int) : void` – withdraws only a positive amount not exceeding the balance.
+- `getBalance() : int` – returns the current balance.
+- `toString() : String` – returns a readable string with number, holder and balance.
 
-Implement `deposit` and `withdraw` methods. The first increases the balance by the amount passed as a parameter; the second decreases it. Also provide a method to return the current balance.
-
-In the main program, create **3** bank accounts, make several deposits and withdrawals, and display their balances. You do not yet have to validate the amounts; this will be introduced in the next chapter.
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
-### Films
+### Movies
+![Movies – UML](content/chapters/02-osztalyok/media/complete-task-5-en.svg){width=560}
+Create the `Movie` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: Movie](content/chapters/02-osztalyok/media/film-en.svg){width=360}
+**Fields and properties**
+- `director : String` – director. For now, a public field that the main program may access directly.
+- `title : String` – title. For now, a public field that the main program may access directly.
+- `duration : int` – duration. For now, a public field that the main program may access directly.
+- `language : Language` – language. For now, a public field that the main program may access directly.
+- `subtitles : boolean` – subtitles. For now, a public field that the main program may access directly.
+- `actor1 : String` – store at most three actors in separate text fields and one text genre.
+- `actor2 : String` – store at most three actors in separate text fields and one text genre.
+- `actor3 : String` – store at most three actors in separate text fields and one text genre.
+- `category : String` – store at most three actors in separate text fields and one text genre.
 
-Create a `Movie` class that stores the following information.
+**Methods**
+- `hasActor(name : String) : boolean` – returns whether the named actor appears in the film.
+- `toString() : String` – readable text with time formatted as `hours:minutes:00`; show subtitle info only for non-Hungarian films.
 
-- **director**: string
-- **title**: string
-- **cast**: three separate string fields storing at most three actor names
-- **duration**: integer, in minutes
-- **genre**: string (e.g. comedy, biography, sci-fi, horror, thriller, drama)
-- **language**: string (e.g. Hungarian, English, German, French, Chinese)
-- **subtitled**: boolean
-
-Implement the following methods in the class!
-
-- **appears in the film**: a function that accepts an actor’s name and returns a boolean. Check the three actor fields for the name, ignoring empty fields. Return false if no field matches!
-- Override `toString()` to return the film details in a readable format. Express the duration as `hours:minutes:00`, and show whether the film is subtitled only if its language is not Hungarian!
-
-In the main program, create **5** film instances with the data of your favourite films and display them. Then ask the user for an actor’s name and display the titles of the films featuring that actor!
-
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise

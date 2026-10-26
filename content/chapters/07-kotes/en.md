@@ -753,44 +753,45 @@ The Java method is named `hashCode()`, whereas the corresponding C# method is ca
 
 ## Exercises {#exercises}
 
-In these exercises, we shall continue the class hierarchies created in the previous chapter. The objective is to adapt operations inherited from a base class to the behaviour of each derived class and call them uniformly through references of a shared type. The exercises become gradually more difficult: first we override simple methods, then reuse a base-class implementation, and finally observe late binding inside an inherited algorithm.
+These tasks use method overriding for calculations and decisions that depend on the actual object type rather than for generating another description string. Extend the existing hierarchies with the specified operations; their signatures are also shown in the UML diagrams.
 
 :::exercise
 ### Rectangles
 
-![Description methods in Shape, Rectangle and Circle](content/chapters/07-kotes/media/task-rectangle-en.svg){width=530}
+![Rectangles – UML](content/chapters/07-kotes/media/complete-task-1-en.svg){width=620}
 
-In the `Shape` base class created in the previous chapter, implement a `getDescription()` method returning the colour of the shape. Override it in `Rectangle` and `Circle` so that the rectangle’s width and height, or the circle’s radius, are included alongside the colour. In both derived classes, use the base-class `getDescription()` to obtain the colour instead of implementing that part again. In the main program, create an array of `Shape` references, place several different shapes in it, and display all their descriptions using a single loop.
+In `Shape`, implement `canFitInside(screenWidth : double, screenHeight : double) : boolean` to check whether the figure fits a rectangular display without rotation. The base implementation returns `false`, since a generic shape has no dimensions. In `Rectangle`, compare its width and height with the available dimensions; in `Circle`, check whether its diameter fits in both directions. Reject non-positive display dimensions with `IllegalArgumentException`. Add `isDisplayable(screenWidth : double, screenHeight : double) : boolean` to the base class; it simply calls `canFitInside()`. Demonstrate that the inherited method uses the correct implementation for different objects stored in a `Shape` list.
 :::endexercise
 
 :::exercise
 ### Books
 
-![Summary methods in Publication, Book and Magazine](content/chapters/07-kotes/media/task-book-en.svg){width=560}
+![Books – UML](content/chapters/07-kotes/media/complete-task-2-en.svg){width=620}
 
-Add a `getSummary()` method to `Publication` that returns the publisher’s name and country of publication. Override it in `Book` to include the book’s title and author, and in `Magazine` to include the volume and issue number. Both implementations should obtain the shared information by calling the method of the base class. Create a `Publication` array containing several kinds of publications, then call `getSummary()` on each element and observe which implementation is executed.
+Add `calculateLateFee(daysLate : int) : int` to `Publication`. The base class returns `0`, `Book` charges `50` forints per overdue day, and `Magazine` charges `20`. Reject a negative number of days. The inherited `calculateTotalLateFee(daysLate : int, copies : int) : int` calculates the fee for several copies using `calculateLateFee()`; `copies` must be positive. Show how the same inherited method calls different overridden implementations.
 :::endexercise
 
 :::exercise
 ### Cars
 
-![Range calculation in Vehicle, Car and Motorcycle](content/chapters/07-kotes/media/task-car-en.svg){width=550}
+![Cars – UML](content/chapters/07-kotes/media/complete-task-3-en.svg){width=620}
 
-Add a `getRange()` method to `Vehicle` that returns `0` by default. In `Car`, calculate the estimated range from the fuel tank capacity and the average fuel consumption per 100 kilometres; in `Motorcycle`, use its own capacity and consumption values. Keep the method name and parameter list unchanged, replacing only its body in each derived class. The main program should display the estimated range of every vehicle stored in a `Vehicle` array without checking its type. Make sure that zero or negative fuel consumption cannot be assigned.
+Add `getServiceIntervalKm() : int` to `Vehicle`; the base implementation returns `0` for an unknown interval. `Car` returns `15000`, `Motorcycle` returns `6000`. The inherited `needsService(kmSinceService : int) : boolean` checks whether the distance since the last service reaches the actual vehicle's interval, returns `false` for an unknown interval, and rejects negative distances. Use a mixed `Vehicle` collection to identify vehicles due for service without type-specific calculations.
 :::endexercise
 
 :::exercise
 ### Bank accounts
 
-![Monthly fees in the bank account hierarchy](content/chapters/07-kotes/media/task-bank-en.svg){width=610}
+![Bank accounts – UML](content/chapters/07-kotes/media/complete-task-4-en.svg){width=620}
 
-Create a `getMonthlyFee()` method in `BankAccount` that returns `0`. Override it in `SavingsAccount` and `BusinessAccount` so that the savings account has no monthly charge and the business account charges 2500 forints. Also add a `getBalanceAfterFee()` method to the base class that subtracts the result of `getMonthlyFee()` from the current balance without modifying the balance itself. Create several objects of both account types, then call `getBalanceAfterFee()` through `BankAccount` references. Find out whether the inherited method uses the base or the derived implementation of the fee calculation.
+Define `calculateTransferFee(amount : int) : int` in `BankAccount`: the base and `SavingsAccount` versions return `0`, whereas `BusinessAccount` charges the greater of `100` forints and one percent of the amount, rounded down to a whole forint. Every method rejects non-positive amounts. In the base class, `canAffordTransfer(amount : int) : boolean` determines whether the current balance covers the transfer amount plus the dynamically calculated fee. The method must not alter the balance. Test it via `BankAccount` references.
 :::endexercise
 
 :::exercise
-### Films
+### Movies
 
-![Description methods for media items](content/chapters/07-kotes/media/task-film-en.svg){width=590}
+![Movies – UML](content/chapters/07-kotes/media/complete-task-5-en.svg){width=620}
 
-Create `getDescription()` in `MediaItem` to return a string containing the title and year of release. The overridden version in `Movie` should also include the film’s duration, while the implementation in `Series` should include the number of seasons. Add `printDescription()` to the base class so that it prints the string returned by `getDescription()`. Store films and series in a `MediaItem` array and call only `printDescription()` for every element. Finally, overload `getDescription(boolean detailed)` in `Movie` and compare its behaviour with overriding.
+In `MediaItem`, introduce `getViewingMinutes() : int` returning `0` by default. In `Movie`, return `duration`. In `Series`, add two private, positive integer fields: `episodesPerSeason` and `minutesPerEpisode`; calculate the total as `seasons × episodesPerSeason × minutesPerEpisode`. Add `canWatchWithin(maxMinutes : int) : boolean` to `MediaItem`; it returns `true` only for a known, positive running time not exceeding the given positive time limit. Invalid limits raise an exception. Find the items that fit into a `180`-minute time slot using a mixed collection.
 :::endexercise
+

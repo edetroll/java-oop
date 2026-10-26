@@ -476,81 +476,117 @@ int main() {
 
 ## Exercises {#exercises}
 
-We now extend the classes from the previous chapter with data validation. Setters and methods that add data must throw an exception when they receive invalid values, leaving the previously stored data unchanged.
+The tasks below specify the type, accessibility and validity of each field, as well as the required behaviour of each operation. The UML diagrams illustrate these requirements, but the textual specifications are complete on their own.
 
 :::exercise
 ### Rectangles
+![Rectangles – UML](content/chapters/03-adatrejtes/media/complete-task-1-en.svg){width=560}
+Create the `Rectangle` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/03-adatrejtes/media/task1-en.svg){width=340}
+**Fields and properties**
+- `x : double` – x-coordinate of the top-left corner; any real number. Private field with public `getX() : double` and `setX(x : double) : void`. The coordinate may be changed freely.
+- `y : double` – y-coordinate of the top-left corner; any real number. Private field with public `getY() : double` and `setY(y : double) : void`. The coordinate may be changed freely.
+- `width : double` – the width; strictly positive from the data-hiding chapter onward. Private field with public `getWidth() : double` getter and `setWidth(width : double) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `height : double` – the height; strictly positive from the data-hiding chapter onward. Private field with public `getHeight() : double` getter and `setHeight(height : double) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
 
-Extend the `Rectangle` class from the previous chapter. The top-left corner coordinates `x` and `y` may be any real numbers, but **width** and **height** must be positive.
+**Methods**
+- `getPerimeter() : double` – parameterless function returning `2 × (width + height)`.
+- `getArea() : double` – parameterless function returning `width × height`.
+- `overlaps(other : Rectangle) : boolean` – checks whether the two rectangles have a common area of positive size; touching edges alone do not count.
+- `getQuadrant() : int` – returns `1`–`4` if the entire rectangle lies strictly in one quadrant, otherwise `-1`.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
 
-- Make every field `private`.
-- Implement getter and setter methods.
-- Throw `IllegalArgumentException` for invalid width or height.
-- Keep the existing **perimeter**, **area**, **overlap**, and **quadrant** methods working.
-
-In the main program, attempt to set width and height to `0` or negative values. Check that an invalid value is never stored.
-
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Books
+![Books – UML](content/chapters/03-adatrejtes/media/complete-task-2-en.svg){width=560}
+Create the `Book` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/03-adatrejtes/media/task2-en.svg){width=380}
+**Fields and properties**
+- `author : String` – author; at least two characters, containing only letters, spaces, periods or hyphens. Private field with public `getAuthor() : String` getter and `setAuthor(author : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `title : String` – book title; at least two characters. Private field with public `getTitle() : String` getter and `setTitle(title : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `price : int` – price in whole forints; valid range `[500, 50 000]`. Private field with public `getPrice() : int` getter and `setPrice(price : int) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `genre : Genre` – enumeration; e.g. BIOGRAPHY, HORROR, DRAMA, HISTORY, SCIFI, COMEDY. Private field with public `getGenre() : Genre` getter and `setGenre(genre : Genre) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `printed : boolean` – true for printed books, false for e-books. Private field with public `isPrinted() : boolean` and `setPrinted(printed : boolean) : void`; boolean values need no additional validation.
 
-Extend the `Book` class from the previous chapter with the following validation rules.
+**Methods**
+- `discount(percent : int) : void` – accepts an integer percentage from `1` to `99`; invalid input leaves the price unchanged; round the discounted price down to whole forints and do not allow a price under `899`.
+- `toString() : String` – returns a readable text with the book’s key fields.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
 
-- **Author:** not `null` or empty, at least **2** characters; may contain only letters, spaces, periods (`.`), and hyphens (`-`). Spaces allow multi-part names.
-- **Title:** not `null` or empty; at least **2** characters.
-- **Price:** an integer in the range **[500, 50,000]**.
-- **Genre:** use an `enum` (for example biography, horror, drama, historical, science fiction, comedy).
-- **Printed:** a boolean.
-
-Make every field `private` and implement getters and setters. The **discount** method must also ensure that the discounted price is at least **HUF 899**. If a discount would reduce the price below this limit, throw an exception and leave the original price unchanged.
-
-In the main program, test valid and invalid values, and display the books using `toString()`.
-
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Cars
+![Cars – UML](content/chapters/03-adatrejtes/media/complete-task-3-en.svg){width=560}
+Create the `Car` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: Car](content/chapters/03-adatrejtes/media/car-en.svg){width=330}
+**Fields and properties**
+- `brand : String` – brand; must not be null or empty. Private field with public `getBrand() : String` getter and `setBrand(brand : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `model : String` – model; must not be null or empty. Private field with public `getModel() : String` getter and `setModel(model : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `year : int` – year of manufacture in `[1886, 2100]`. Private field with public `getYear() : int` getter and `setYear(year : int) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `mileage : int` – odometer in whole kilometres, nonnegative. Private field with public `getMileage() : int` only; changes are permitted through the operation and constructor.
 
-Make every field of your `Car` class `private`. The **make** and **model** must not be `null` or empty; the **year** must be between **1886 and 2100**, and **mileage** must not be negative.
+**Methods**
+- `drive(distance : int) : void` – accepts only a positive number of whole kilometres and increases `mileage`.
+- `toString() : String` – returns a displayable summary of brand, model, year and mileage.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
 
-Implement the required getters and setters. Mileage should be readable from the main program but only modified by `drive`, which must receive a positive distance. Throw an exception for invalid values and leave the existing data unchanged.
-
-Test both valid and invalid inputs. Verify that the mileage cannot be set directly or increased using a negative distance.
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise
 
 :::exercise
 ### Bank accounts
+![Bank accounts – UML](content/chapters/03-adatrejtes/media/complete-task-4-en.svg){width=560}
+Create the `BankAccount` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML: BankAccount](content/chapters/03-adatrejtes/media/bank-en.svg){width=360}
+**Fields and properties**
+- `owner : String` – account holder name; not null or empty. Private field with public `getOwner() : String` getter and `setOwner(owner : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `accountNumber : String` – account number; not null or empty and cannot change after creation. Private field with public `getAccountNumber() : String` and `setAccountNumber(accountNumber : String) : void`. The setter permits only the first valid assignment; later attempts raise an exception.
+- `balance : int` – balance in whole forints; nonnegative. Private field with public `getBalance() : int` only; changes are permitted through the operation and constructor.
 
-Make every field of `BankAccount` `private`. The **account holder's name** and **account number** must not be `null` or empty, and the **balance** must not be negative. After creation, the account number must not be changeable from the main program.
+**Methods**
+- `deposit(amount : int) : void` – accepts a positive amount and increases the balance.
+- `withdraw(amount : int) : void` – withdraws only a positive amount not exceeding the balance.
+- `getBalance() : int` – returns the current balance.
+- `toString() : String` – returns a readable string with number, holder and balance.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
 
-Provide a getter, but no public setter, for the balance. Only `deposit` and `withdraw` may change it. Both methods must accept positive amounts, and a withdrawal must never make the balance negative. Throw an exception for invalid operations without changing the stored balance.
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 
-In the main program, attempt to deposit zero, withdraw a negative amount, and withdraw more money than is available. Verify that invalid operations do not change the balance.
+For now, allow a public `setAccountNumber(String)` method to assign the account number exactly once; a later call must be rejected. In the next chapter the constructor will take over initial assignment.
 :::endexercise
 
 :::exercise
-### Films
+### Movies
+![Movies – UML](content/chapters/03-adatrejtes/media/complete-task-5-en.svg){width=560}
+Create the `Movie` class with the following fields and operations. Implement the following fields and methods with the specified behaviour.
 
-![UML](content/chapters/03-adatrejtes/media/task3-en.svg){width=440}
+**Fields and properties**
+- `director : String` – director; not null, at least two characters, only letters, spaces, periods and hyphens. Private field with public `getDirector() : String` getter and `setDirector(director : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `title : String` – title; not null and at least two characters. Private field with public `getTitle() : String` getter and `setTitle(title : String) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `duration : int` – length in whole minutes; range `[10, 360]`. Private field with public `getDuration() : int` getter and `setDuration(duration : int) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `language : Language` – language as an enumeration. Private field with public `getLanguage() : Language` getter and `setLanguage(language : Language) : void` setter. Assign only after validation; invalid values must raise `IllegalArgumentException` and leave the old value unchanged.
+- `subtitles : boolean` – true if the film has subtitles. Private field with public `hasSubtitles() : boolean` and `setSubtitles(subtitles : boolean) : void`; boolean values need no additional validation.
+- `actors : ArrayList<String>` – list of actors; private, external code only receives a copy. Private field; public `getActors() : ArrayList<String>` getter must return a defensive copy; only the dedicated add method may modify the collection.
+- `categories : ArrayList<Genre>` – list of genres; private, getter only returns a copy. Private field; public `getCategories() : ArrayList<Genre>` getter must return a defensive copy; only the dedicated add method may modify the collection.
 
-Extend the `Movie` class from the previous chapter. Validate **director** and **title** as in the Books exercise. **Duration** must be an integer in the range **[10, 360]** minutes. Use `enum` types for **language** and **categories**.
+**Methods**
+- `hasActor(name : String) : boolean` – returns whether the named actor appears in the film.
+- `addActor(name : String) : void` – validates the name as for the director and adds it only if absent.
+- `addCategory(genre : Genre) : void` – adds a non-null genre without duplicates.
+- `getActors() : ArrayList<String>` – returns a new list containing the actors.
+- `getCategories() : ArrayList<Genre>` – returns a new list of genres.
+- `toString() : String` – readable text with time formatted as `hours:minutes:00`; show subtitle info only for non-Hungarian films.
+Provide getters and setters with the accessibility stated for each field. An unsuccessful validation must not damage the previously valid state.
 
-- Store the **cast** in a list and provide an `addActor(String name)` method that validates names and rejects duplicates.
-- Store **categories** in a list as well, preventing duplicate values.
-- Make the lists `private`. The getters must return **copies**, so the main program cannot modify the internal lists directly.
-- Keep the existing actor search and `toString()` methods working.
-
-**Hint:** In Java you may use `ArrayList` and its `add` and `contains` methods, and `new ArrayList<>(originalList)` to make copies. Detailed knowledge of collections is not required.
-
-In the main program, try invalid values and repeated actors or categories. Check that modifying a list returned by a getter does not modify the film.
-
+**Main program**
+Create five different instances, supply their data and test all required operations. Where validation has been introduced, try both valid and invalid values.
 :::endexercise

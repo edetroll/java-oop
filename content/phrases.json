@@ -194,5 +194,68 @@
     "hu": "Próbáljuk ki, mi történik, ha a konstruktor érvénytelen adatot kap!",
     "en": "Test what happens when the constructor receives invalid data.",
     "zh": "测试构造函数接收到无效数据时会发生什么。"
+  },
+  {
+    "id": "create-container",
+    "category": "Konténerosztály",
+    "hu": "Hozzuk létre a Library konténerosztályt!",
+    "en": "Create the Library container class.",
+    "zh": "创建图书馆容器类。"
+  },
+  {
+    "id": "private-list",
+    "category": "Konténerosztály",
+    "hu": "A gyűjteményt privát mezőben tároljuk.",
+    "en": "Store the collection in a private field.",
+    "zh": "将集合保存在私有字段中。"
+  },
+  {
+    "id": "init-list",
+    "category": "Konténerosztály",
+    "hu": "A konstruktor inicializálja az üres listát.",
+    "en": "The constructor initializes the empty list.",
+    "zh": "构造方法初始化空列表。"
+  },
+  {
+    "id": "add-to-collection",
+    "category": "Konténerosztály",
+    "hu": "Írjunk metódust az új példányok felvételére!",
+    "en": "Implement a method for adding new instances.",
+    "zh": "实现添加新实例的方法。"
+  },
+  {
+    "id": "do-not-expose",
+    "category": "Konténerosztály",
+    "hu": "Ne adjuk vissza közvetlenül a belső lista referenciáját!",
+    "en": "Do not return the reference to the internal list directly.",
+    "zh": "不要直接返回内部列表的引用。"
+  },
+  {
+    "id": "reject-duplicates",
+    "category": "Konténerosztály",
+    "hu": "Biztosítsuk, hogy ne lehessen ugyanazt az elemet kétszer felvenni!",
+    "en": "Ensure that the same element cannot be added twice.",
+    "zh": "确保同一元素不能被添加两次。"
+  },
+  {
+    "id": "return-copy",
+    "category": "Konténerosztály",
+    "hu": "A metódus a megfelelő példányokat új listába gyűjtse!",
+    "en": "The method should collect matching instances into a new list.",
+    "zh": "该方法应将匹配的实例收集到新列表中。"
+  },
+  {
+    "id": "validate-index",
+    "category": "Konténerosztály",
+    "hu": "Ellenőrizzük az index érvényességét!",
+    "en": "Validate the index.",
+    "zh": "检查索引的有效性。"
+  },
+  {
+    "id": "list-total",
+    "category": "Konténerosztály",
+    "hu": "Határozzuk meg a gyűjtemény elemeinek összesített értékét!",
+    "en": "Calculate the total value of the collection elements.",
+    "zh": "计算集合元素的总值。"
   }
 ]

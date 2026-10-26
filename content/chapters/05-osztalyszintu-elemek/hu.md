@@ -901,54 +901,146 @@ Fontos, hogy a Singleton nem egyszerűen egy statikus mező használatát jelent
 
 ## Feladatok {#exercises}
 
-Az előző fejezetekben elkészített öt osztályt most osztályszintű mezőkkel és metódusokkal egészítjük ki. Az új megoldásokban ügyeljünk arra, hogy a közös adatokat ne tároljuk el külön minden példányban, és a korábban megvalósított adatrejtés is megmaradjon. A feladatok az egyszerű példányszámlálástól az objektumgyáron át egy olyan osztály elkészítéséig vezetnek, amelyből csak egyetlen példányt szeretnénk használni.
+Az alábbi feladatokban minden mező típusa, láthatósága, érvényességi feltétele és az egyes műveletek pontos működése a feladatleírás része. A hozzájuk tartozó UML-diagramok ezeket a követelményeket szemléltetik, de a szöveg alapján önállóan is megvalósíthatók.
 
 :::exercise
 ### Téglalapok
 
-![A Téglalap osztály kiegészítése](content/chapters/05-osztalyszintu-elemek/media/task-rectangle-hu.svg){width=400}
+![Téglalapok – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-1-hu.svg){width=620}
 
-Az előző fejezet `Rectangle` osztályát egészítse ki egy privát, osztályszintű mezővel, melyben nyilvántartjuk, hogy a program futása során összesen hány téglalapot hoztunk létre! A mező kezdetben `0` értékű legyen, és minden új példány létrehozásakor növeljük meg eggyel. Ügyeljen arra, hogy ha az egyik konstruktor meghívja a másikat, akkor a számlálót csak egyszer növeljük meg! A létrehozott példányok száma egy publikus osztályszintű metódussal legyen lekérdezhető.
+A korábban elkészített `Rectangle` osztályt fejlessze tovább! A már meglévő mezők és metódusok működése megmarad; az alábbi követelmények a mostani fejezet új elemeit és a már ismert adatok kötelező szabályait is rögzítik.
 
-A főprogramban hozzon létre különböző konstruktorokkal legalább öt téglalapot, és minden példányosítás után jelenítse meg a számláló értékét! Ellenőrizze azt is, hogy a területet és kerületet számító metódusok továbbra is az adott példány adataival dolgoznak, nem pedig az osztály valamely közös értékével!
+**Mezők és property-k**
+
+A korábbi példányszintű mezők és az azokhoz tartozó validációk változatlanok. A továbbiakban az alábbi osztályszintű adattal is dolgozzon:
+
+- `CREATED_COUNT : int` – privát statikus mező, kezdetben `0`, minden sikeres példányosításkor pontosan egyszer nő.
+
+**Konstruktorok**
+
+A példányszámlálót ne a `getArea()` és más példánymetódusok módosítsák, hanem a konstruktorok. A több konstruktorból történő hívás ne eredményezzen kétszeres számlálást.
+
+**Metódusok**
+
+- `getCreatedCount() : int` – publikus statikus metódus, a létrehozott téglalapok összes számával tér vissza, nem az aktuálisan elérhetőkével.
+
+
+**Főprogram**
+
+Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
 :::endexercise
 
 :::exercise
 ### Könyvek
 
-![A Könyv osztály kiegészítése](content/chapters/05-osztalyszintu-elemek/media/task-book-hu.svg){width=410}
+![Könyvek – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-2-hu.svg){width=620}
 
-A `Book` osztályban jelenítse meg osztályszintű konstansként a könyvek megengedett minimális és maximális árát, azaz az `500` és `50 000` forintos határokat! Készítsen publikus osztályszintű metódust, amely paraméterben vár egy egész árat, majd logikai értékkel visszatérve megállapítja, hogy az megfelel-e ezeknek a feltételeknek. A már megírt validáció során is ezt a metódust használja, hogy az ellenőrzés feltételeit ne kelljen több helyen megismételni! A leárazásnál változatlanul ügyeljen a `899` forintos alsó korlátra.
+A korábban elkészített `Book` osztályt fejlessze tovább! A már meglévő mezők és metódusok működése megmarad; az alábbi követelmények a mostani fejezet új elemeit és a már ismert adatok kötelező szabályait is rögzítik.
 
-A főprogramban példányosítás nélkül is hívja meg az árat ellenőrző osztályszintű metódust több különböző értékkel! Ezután hozzon létre könyveket, végezzen rajtuk leárazást, és ellenőrizze, hogy a konstansok használata mellett is változatlanul működik az adatrejtés és a korábban megvalósított validáció!
+**Mezők és property-k**
+
+A korábbi példányszintű mezők és az azokhoz tartozó validációk változatlanok. A továbbiakban az alábbi osztályszintű adattal is dolgozzon:
+
+- `MIN_PRICE : int / MAX_PRICE : int` – publikus, `static final` konstansok `500` és `50000` értékkel.
+
+**Konstruktorok**
+
+A korábbi árvalidáció ezekre a konstansokra és a közös ellenőrző metódusra támaszkodjon. A `discount` továbbra sem csökkentheti az árat `899` forint alá.
+
+**Metódusok**
+
+- `isValidPrice(price : int) : boolean` – publikus statikus függvény; akkor igaz, ha az ár mindkét határértéket beleértve megengedett.
+
+
+**Főprogram**
+
+Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
 :::endexercise
 
 :::exercise
 ### Autók
 
-![Az Autó osztály kiegészítése](content/chapters/05-osztalyszintu-elemek/media/task-car-hu.svg){width=420}
+![Autók – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-3-hu.svg){width=620}
 
-A `Car` osztály minden példánya rendelkezzen egy automatikusan kiosztott, egyedi, egész szám típusú azonosítóval! Az első autó azonosítója legyen `1`, a következőé `2`, és minden új példány kapja meg a soron következő értéket. Ehhez tároljon osztályszintű mezőben egy közös számlálót, amelyet a példányok a konstruktorukban használnak fel! A kiosztott azonosítót a főprogram csak lekérdezhesse, módosítani ne lehessen.
+A korábban elkészített `Car` osztályt fejlessze tovább! A már meglévő mezők és metódusok működése megmarad; az alábbi követelmények a mostani fejezet új elemeit és a már ismert adatok kötelező szabályait is rögzítik.
 
-Az osztályban továbbra is működjön a `drive` metódus, valamint a kilométeróra állásának ellenőrzése! Hozzon létre legalább öt autót a korábban elkészített konstruktorokkal, majd jelenítse meg az egyes autók adatait az új azonosítóval együtt! Külön figyeljen arra, hogy a konstruktorok közötti hívás ne eredményezhesse azonosítók kihagyását!
+**Mezők és property-k**
+
+A korábbi példányszintű mezők és az azokhoz tartozó validációk változatlanok. A továbbiakban az alábbi osztályszintű adattal is dolgozzon:
+
+- `NEXT_ID : int` – privát statikus mező, kezdetben `1`; a következő szabad azonosítót tárolja.
+
+- `id : int` – privát példányszintű mező, amit a konstruktor állít be, utólag nem módosítható.
+
+**Konstruktorok**
+
+A konstruktornak minden új példány esetén ki kell osztania a következő azonosítót, majd növelnie a számlálót. Az azonosító ne legyen kívülről módosítható.
+
+**Metódusok**
+
+- `getId() : int` – publikus példánymetódus, visszaadja a példány privát, utólag nem módosítható azonosítóját.
+
+
+**Főprogram**
+
+Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
 :::endexercise
 
 :::exercise
 ### Bankszámlák
 
-![A Bankszámla osztály kiegészítése](content/chapters/05-osztalyszintu-elemek/media/task-bank-hu.svg){width=430}
+![Bankszámlák – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-4-hu.svg){width=620}
 
-A `BankAccount` osztályban korlátozzuk az új bankszámlák létrehozását úgy, hogy a program futása során legfeljebb `3` számla nyitható! Ehhez készítsen privát osztályszintű számlálót, és tegye priváttá az osztály korábban megírt konstruktorait! Az új számlák létrehozását egy publikus osztályszintű `create` metódus biztosítsa, amely átveszi a tulajdonos nevét, a számlaszámot és a kezdőegyenleget. A metódus érvényes adatok esetén készítse el és adja vissza a bankszámlát, a megengedett mennyiség elérése után pedig térjen vissza `null` értékkel!
+A korábban elkészített `BankAccount` osztályt fejlessze tovább! A már meglévő mezők és metódusok működése megmarad; az alábbi követelmények a mostani fejezet új elemeit és a már ismert adatok kötelező szabályait is rögzítik.
 
-A számlaszám, a tulajdonos és az egyenleg ellenőrzése továbbra is történjen meg, az egyenleg módosítása pedig csak a korábban elkészített befizetési és pénzfelvételi metódusokon keresztül legyen lehetséges. A főprogramban kíséreljen meg `4` számlát létrehozni, és ellenőrizze, hogy az utolsó esetben már nem kap példányt! A sikeresen létrehozott számlákon hajtson végre néhány befizetést és pénzfelvételt is!
+**Mezők és property-k**
+
+A korábbi példányszintű mezők és az azokhoz tartozó validációk változatlanok. A továbbiakban az alábbi osztályszintű adattal is dolgozzon:
+
+- `CREATED_COUNT : int / MAX_CREATED : int` – privát statikus számláló (`0`) és privát statikus konstans (`3`).
+
+**Konstruktorok**
+
+A konstruktor legyen privát, így a főprogram nem kerülheti meg a gyártómetódust. Hibás adatok esetén a korábbi validáció dobjon kivételt, és a számláló csak a ténylegesen létrehozott példányok után növekedjen.
+
+**Metódusok**
+
+- `create(owner : String, accountNumber : String, balance : int) : BankAccount` – publikus statikus gyártómetódus; sikeres validálás mellett legfeljebb három számla hozható létre, telített keret esetén `null`-lal tér vissza.
+
+
+**Főprogram**
+
+Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
 :::endexercise
 
 :::exercise
 ### Filmek
 
-![A Filmtár és a Film kapcsolata](content/chapters/05-osztalyszintu-elemek/media/task-movie-hu.svg){width=500}
+![Filmek – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-5-hu.svg){width=620}
 
-A korábban megírt `Movie` osztályt most nem kell alapjaiban módosítania. Készítsen mellé egy `MovieLibrary` osztályt, amely az alkalmazásban nyilvántartott filmek közös gyűjteményét kezeli! A `MovieLibrary` osztályból csak egyetlen példányt szeretnénk használni, ezért a konstruktora legyen privát, és egy osztályszintű `getInstance` metódus mindig ugyanazt a példányt adja vissza. A gyűjtemény az osztály példányszintű mezője legyen, hiszen a Singleton is valódi objektum, saját állapottal.
+A korábban elkészített `Movie` osztályt fejlessze tovább! A már meglévő mezők és metódusok működése megmarad; az alábbi követelmények a mostani fejezet új elemeit és a már ismert adatok kötelező szabályait is rögzítik.
 
-A filmtárhoz lehessen új filmet hozzáadni, és legyen lekérdezhető a tárolt filmek száma! A főprogramban két különböző változón keresztül kérje le a filmtárat, majd az egyiken keresztül adjon hozzá két filmet! A másik változón keresztül kérdezze le a filmek számát, és ellenőrizze, hogy valóban ugyanazzal a filmtárral dolgozott!
+**Mezők és property-k**
+
+A korábbi példányszintű mezők és az azokhoz tartozó validációk változatlanok. A továbbiakban az alábbi osztályszintű adattal is dolgozzon:
+
+- `INSTANCE : MovieLibrary` – a `MovieLibrary` osztály privát, statikus, egyetlen példányra mutató mezője.
+
+A `MovieLibrary` osztályban a `movies : ArrayList<Movie>` mező is privát; az osztály egyetlen példányt kezel.
+
+**Konstruktorok**
+
+A `MovieLibrary` konstruktorát tegye priváttá, a filmek listáját is rejtse el. Az egyetlen példányt előre hozzuk létre, ne legyen szükség többszálúsági ismeretekre.
+
+**Metódusok**
+
+- `getInstance() : MovieLibrary` – publikus statikus metódus; minden hívás ugyanazt a példányt adja vissza.
+- `addMovie(movie : Movie) : void` – nem `null` filmet hozzáad a belső listához, ismétlődő cím és rendező esetén kivételt dob.
+- `getCount() : int` – az eltárolt filmek számával tér vissza.
+
+A `MovieLibrary` konstruktorát kívülről nem lehet meghívni; a filmekhez csak a megadott publikus metódusokon keresztül lehessen hozzáférni.
+
+**Főprogram**
+
+Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
 :::endexercise

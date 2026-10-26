@@ -901,54 +901,146 @@ A Singleton is not simply a static field: it also controls how the class's singl
 
 ## Exercises {#exercises}
 
-We will now extend the five classes developed in the preceding chapters with class-level fields and methods. When choosing which information to share, we should take care not to move data that belongs to individual objects into a common field. The assignments begin with simple counters and constants, and then introduce controlled object creation and the use of a single shared instance.
+The tasks below specify the type, accessibility and validity of each field, as well as the required behaviour of each operation. The UML diagrams illustrate these requirements, but the textual specifications are complete on their own.
 
 :::exercise
 ### Rectangles
 
-![Rectangle class extension](content/chapters/05-osztalyszintu-elemek/media/task-rectangle-en.svg){width=400}
+![Rectangles – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-1-en.svg){width=620}
 
-Extend the `Rectangle` class from the preceding chapter with a private class-level field that records the total number of rectangles created during the program's execution. The field should initially contain `0` and increase by one whenever a new instance is created. If one constructor calls another, make sure the counter increases only once. Provide a public class-level method for reading the total number of instances created.
+Extend the existing `Rectangle` class. Preserve its earlier functionality; the specification below states the new requirements together with the required behaviour of existing members.
 
-In the main program, use different constructors to create at least five rectangles, and display the counter after each creation. Also check that the methods calculating area and perimeter still work with the values stored in the particular rectangle, rather than with any shared class-level data.
+**Fields and properties**
+
+Retain the earlier instance fields and validation; add the following class-level field:
+
+- `CREATED_COUNT : int` – private static field initially `0`, incremented once per successful construction.
+
+**Constructors**
+
+Count creations in constructors rather than instance methods; delegating constructors must not count one object twice.
+
+**Methods**
+
+- `getCreatedCount() : int` – public static method returning total number ever constructed, not the number still reachable.
+
+
+**Main program**
+
+Create several instances, verify the class-level mechanism and test the stated boundary conditions.
 :::endexercise
 
 :::exercise
 ### Books
 
-![Book class extension](content/chapters/05-osztalyszintu-elemek/media/task-book-en.svg){width=410}
+![Books – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-2-en.svg){width=620}
 
-In the `Book` class, declare the permitted minimum and maximum prices, `500` and `50,000` forints, as class-level constants. Write a public class-level method that receives an integer price and returns a boolean indicating whether the price is within these limits. Use the same method when validating book prices, so that the conditions do not need to be repeated in several places. The `899`-forint minimum introduced for discounts must still be respected.
+Extend the existing `Book` class. Preserve its earlier functionality; the specification below states the new requirements together with the required behaviour of existing members.
 
-Call the price-checking class-level method in the main program with several values, without creating an instance first. Then create a few books and apply discounts to them. Check that validation and data hiding still work with the shared constants.
+**Fields and properties**
+
+Retain the earlier instance fields and validation; add the following class-level field:
+
+- `MIN_PRICE : int / MAX_PRICE : int` – public `static final` constants with values `500` and `50000`.
+
+**Constructors**
+
+Reuse the shared constants and validator in earlier price checks. The discount must still never result in a price below `899`.
+
+**Methods**
+
+- `isValidPrice(price : int) : boolean` – public static function, true if the price is within both inclusive bounds.
+
+
+**Main program**
+
+Create several instances, verify the class-level mechanism and test the stated boundary conditions.
 :::endexercise
 
 :::exercise
 ### Cars
 
-![Car class extension](content/chapters/05-osztalyszintu-elemek/media/task-car-en.svg){width=420}
+![Cars – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-3-en.svg){width=620}
 
-Give every `Car` instance its own automatically allocated, unique integer identifier. The first car should receive `1`, the next `2`, and each new object the next available value. Use a shared class-level field for the next identifier and assign it in the constructor. The main program must be able to read an object's identifier, but not change it.
+Extend the existing `Car` class. Preserve its earlier functionality; the specification below states the new requirements together with the required behaviour of existing members.
 
-Keep the `drive` method and the validation of mileage working as before. Create at least five cars using the constructors from the previous chapter and display their data, including the assigned identifiers. Pay attention to constructor chaining so that the program does not skip identifiers.
+**Fields and properties**
+
+Retain the earlier instance fields and validation; add the following class-level field:
+
+- `NEXT_ID : int` – private static field starting from `1`; stores the next available id.
+
+- `id : int` – private instance field assigned by the constructor and immutable afterwards.
+
+**Constructors**
+
+Each new instance receives the next id from the constructor, which then increments the counter. The id cannot be changed from outside.
+
+**Methods**
+
+- `getId() : int` – public instance method returning the private immutable id.
+
+
+**Main program**
+
+Create several instances, verify the class-level mechanism and test the stated boundary conditions.
 :::endexercise
 
 :::exercise
-### Bank Accounts
+### Bank accounts
 
-![BankAccount class extension](content/chapters/05-osztalyszintu-elemek/media/task-bank-en.svg){width=430}
+![Bank accounts – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-4-en.svg){width=620}
 
-In the `BankAccount` class, restrict account creation so that no more than `3` accounts can be opened during one run. To do this, create a private class-level counter and make the existing constructors private. Provide a public class-level `create` method that receives the owner's name, account number, and opening balance. For valid data, the method creates and returns an account. Once the permitted number of accounts has been reached, it returns `null`.
+Extend the existing `BankAccount` class. Preserve its earlier functionality; the specification below states the new requirements together with the required behaviour of existing members.
 
-Continue validating the account number, owner, and balance. The balance must still be changed only through the deposit and withdrawal methods. In the main program, attempt to create `4` accounts and verify that no fourth instance is returned. Perform a few deposits and withdrawals on the successfully created accounts.
+**Fields and properties**
+
+Retain the earlier instance fields and validation; add the following class-level field:
+
+- `CREATED_COUNT : int / MAX_CREATED : int` – private static counter (`0`) and private static constant (`3`).
+
+**Constructors**
+
+Make the constructor private so the factory cannot be bypassed. Invalid data raise the previous validation error; increase the counter only after successful creation.
+
+**Methods**
+
+- `create(owner : String, accountNumber : String, balance : int) : BankAccount` – public static factory; at most three valid accounts can be created, returns `null` when capacity is exhausted.
+
+
+**Main program**
+
+Create several instances, verify the class-level mechanism and test the stated boundary conditions.
 :::endexercise
 
 :::exercise
 ### Movies
 
-![MovieLibrary and Movie](content/chapters/05-osztalyszintu-elemek/media/task-movie-en.svg){width=500}
+![Movies – UML](content/chapters/05-osztalyszintu-elemek/media/complete-task-5-en.svg){width=620}
 
-You do not need to change the existing `Movie` class significantly. Create a `MovieLibrary` class that manages a shared collection of films for the application. We want to use only one `MovieLibrary` instance, so give the class a private constructor and a class-level `getInstance` method that always returns the same instance. The collection should be an instance field of the library, because a Singleton is still a real object with its own state.
+Extend the existing `Movie` class. Preserve its earlier functionality; the specification below states the new requirements together with the required behaviour of existing members.
 
-The library must support adding a film and querying the number of films stored. In the main program, obtain the library through two different variables and use one of them to add two films. Query the count through the other variable to confirm that both variables refer to the same library.
+**Fields and properties**
+
+Retain the earlier instance fields and validation; add the following class-level field:
+
+- `INSTANCE : MovieLibrary` – private static field holding the sole MovieLibrary instance.
+
+In `MovieLibrary`, `movies : ArrayList<Movie>` is also private; only one library instance is allowed.
+
+**Constructors**
+
+Keep the MovieLibrary constructor and its movie list private. Create the sole instance eagerly; no concurrency knowledge is required.
+
+**Methods**
+
+- `getInstance() : MovieLibrary` – public static method returning exactly the same instance for every call.
+- `addMovie(movie : Movie) : void` – adds a non-null movie; raises an error for duplicate title and director.
+- `getCount() : int` – returns number of stored movies.
+
+The MovieLibrary constructor is not callable externally; the collection must be handled only through its public methods.
+
+**Main program**
+
+Create several instances, verify the class-level mechanism and test the stated boundary conditions.
 :::endexercise

@@ -1,0 +1,9 @@
+digraph UML {
+graph [rankdir=BT,bgcolor="transparent",pad="0.14",nodesep="0.35",ranksep="0.60"];
+node [shape=plain];edge [color="#6a819c",penwidth=1.5];
+"Person" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#90a5c0" BGCOLOR="#fbfdff"><TR><TD BGCOLOR="#e8eeff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>Person</B></FONT></TD></TR><TR><TD BGCOLOR="#e1e6ef" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11" COLOR="#27364c">+ Person()</FONT></TD></TR></TABLE>>];
+"Student" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#90a5c0" BGCOLOR="#fbfdff"><TR><TD BGCOLOR="#e8eeff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>Student</B></FONT></TD></TR><TR><TD BGCOLOR="#e1e6ef" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11" COLOR="#27364c">+ Student()</FONT></TD></TR></TABLE>>];
+"ScholarshipStudent" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#90a5c0" BGCOLOR="#fbfdff"><TR><TD BGCOLOR="#e8eeff" CELLPADDING="8"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="14"><B>ScholarshipStudent</B></FONT></TD></TR><TR><TD BGCOLOR="#e1e6ef" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6"><FONT FACE="DejaVu Sans Mono" POINT-SIZE="11" COLOR="#27364c">+ ScholarshipStudent()</FONT></TD></TR></TABLE>>];
+"ScholarshipStudent" -> "Student" [arrowhead=empty];
+"Student" -> "Person" [arrowhead=empty];
+}

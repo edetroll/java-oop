@@ -1,0 +1,17 @@
+{
+  "id": "05-kontenerosztalyok",
+  "order": 5,
+  "title": {
+    "hu": "Konténerosztályok",
+    "en": "Container Classes",
+    "zh": "容器类"
+  },
+  "description": {
+    "hu": "Gyűjtemények kezelése, hozzáférés szabályozása, indexelés és kiválogatás.",
+    "en": "Managing collections, access control, indexing and filtering.",
+    "zh": "集合管理、访问控制、索引和筛选。"
+  },
+  "files": {
+    "hu": "content/chapters/05-kontenerosztalyok/hu.md"
+  }
+}

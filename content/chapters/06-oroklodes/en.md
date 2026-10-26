@@ -612,54 +612,258 @@ int main() {
 
 ## Exercises {#exercises}
 
-In the following exercises we use inheritance to build class hierarchies in which common attributes and operations do not have to be duplicated across several classes. In some exercises we extend our earlier classes with a new common base class, while in others we start over with a simpler hierarchy. Pay particular attention to member visibility, the direction of inheritance, and the circumstances under which different object types can be handled together. The diagrams show the essential relationships rather than every field and method implemented in previous chapters.
+The tasks below specify the type, accessibility and validity of each field, as well as the required behaviour of each operation. The UML diagrams illustrate these requirements, but the textual specifications are complete on their own.
 
 :::exercise
 ### Rectangles
 
-![Shape, Rectangle and Circle hierarchy](content/chapters/06-oroklodes/media/task-rectangle-en.svg){width=560}
+![Rectangles – UML](content/chapters/06-oroklodes/media/complete-task-1-en.svg){width=620}
 
-Extend your earlier `Rectangle` class with a new `Shape` base class. The base class should store an object's color and provide methods for reading and changing it. `Rectangle` must inherit that property, while its existing area and perimeter calculations remain in the rectangle class. Also create a new `Circle` class that derives from `Shape`, stores its radius and can calculate its area.
+Introduce a `Shape` superclass with a nonempty colour, getter and setter. Derive the existing `Rectangle` and a new `Circle` class. Circle radius must be positive and area/perimeter use their respective formulas. Store both shapes in a `Shape` list and select circles using `instanceof`. The calculation methods are new; do not introduce overridden methods yet.
 
-In the main program, create rectangles and circles, assign colors to them, and store them together in an array of `Shape` references. When traversing the array, display each shape's color and use `instanceof` to count how many rectangles are present. Check that the color methods can be called on both derived types.
+**Fields and properties**
+
+**`Shape`**
+
+- `- color : String`
+
+**Methods**
+
+- `+ getColor() : String`
+- `+ setColor(color : String) : void`
+
+**`Rectangle`**
+
+- `- x : double`
+- `- y : double`
+- `- width : double`
+- `- height : double`
+- `- {static} CREATED_COUNT : int`
+
+**Methods**
+
+- `+ Rectangle()`
+- `+ Rectangle(x : double, y : double, width : double, height : double)`
+- `+ getX() : double`
+- `+ setX(x : double) : void`
+- `+ getY() : double`
+- `+ setY(y : double) : void`
+- `+ getWidth() : double`
+- `+ setWidth(width : double) : void`
+- `+ getHeight() : double`
+- `+ setHeight(height : double) : void`
+- `+ getArea() : double`
+- `+ getPerimeter() : double`
+- `+ overlaps(other : Rectangle) : boolean`
+- `+ getQuadrant() : int`
+- `+ {static} getCreatedCount() : int`
+
+**`Circle`**
+
+- `- radius : double`
+
+**Methods**
+
+- `+ getRadius() : double`
+- `+ setRadius(radius : double) : void`
+- `+ getArea() : double`
+- `+ getPerimeter() : double`
+
+Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
 :::endexercise
 
 :::exercise
 ### Books
 
-![Publication, Book and Magazine hierarchy](content/chapters/06-oroklodes/media/task-book-en.svg){width=580}
+![Books – UML](content/chapters/06-oroklodes/media/complete-task-2-en.svg){width=620}
 
-Create a `Magazine` class alongside your existing `Book` class and give them a common `Publication` base class. The base class must store the publisher's name and the country of publication, together with appropriate access methods. A book should continue to store its author, title and price, while a magazine stores its volume and issue number. Keep the earlier book methods, but do not duplicate the new common fields in both derived classes.
+Create a `Publication` superclass holding nonempty publisher and country, with validated setters. `Book` keeps its author, title, price, genre, printed flag, constructors, discount and price constants; `Magazine` stores a title and positive issue number. Add both derived types to a `Publication` list and select magazines with type checks.
 
-Create several books and magazines and store them together in an array of `Publication` references. Write a class-level method that accepts a `Publication` instance and displays the publisher's name. Call this method with instances of both derived classes, then count how many books the array contains.
+**Fields and properties**
+
+**`Publication`**
+
+- `- publisher : String`
+- `- country : String`
+
+**Methods**
+
+- `+ getPublisher() : String`
+- `+ setPublisher(publisher : String) : void`
+- `+ getCountry() : String`
+- `+ setCountry(country : String) : void`
+
+**`Book`**
+
+- `- author : String`
+- `- title : String`
+- `- price : int`
+- `- genre : Genre`
+- `- printed : boolean`
+- `- {static} MIN_PRICE : int`
+- `- {static} MAX_PRICE : int`
+
+**Methods**
+
+- `+ Book(author : String, title : String, price : int, genre : Genre, printed : boolean)`
+- `+ Book(author : String, title : String, price : int)`
+- `+ getAuthor() : String`
+- `+ getTitle() : String`
+- `+ getPrice() : int`
+- `+ getGenre() : Genre`
+- `+ isPrinted() : boolean`
+- `+ discount(percent : int) : void`
+- `+ {static} isValidPrice(price : int) : boolean`
+- `+ toString() : String`
+
+**`Magazine`**
+
+- `- title : String`
+- `- issueNumber : int`
+
+**Methods**
+
+- `+ getTitle() : String`
+- `+ getIssueNumber() : int`
+- `+ setIssueNumber(issueNumber : int) : void`
+
+Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
 :::endexercise
 
 :::exercise
 ### Cars
 
-![Vehicle, Car and Motorcycle hierarchy](content/chapters/06-oroklodes/media/task-car-en.svg){width=590}
+![Cars – UML](content/chapters/06-oroklodes/media/complete-task-3-en.svg){width=620}
 
-Create a general `Vehicle` base class to store the manufacturer's name and a vehicle's maximum speed. Derive your earlier `Car` class from it, keeping the data and methods specific to cars. Also create a new `Motorcycle` class with a boolean field indicating whether it has a sidecar. Both derived classes must use the methods of `Vehicle` to access the manufacturer and the maximum speed.
+Move brand from the existing `Car` into a new `Vehicle` superclass; also store a positive integer maximum speed. `Car` keeps its model, year, mileage, automatic id, existing constructors and `drive()` method. `Motorcycle` stores positive engine capacity and a sidecar flag. Store both types in a `Vehicle` list and select motorcycles.
 
-Create cars and motorcycles in the main program and store them in a single `Vehicle` array. Write a class-level method that accepts a `Vehicle` instance and returns its maximum speed. Check that it works for both `Car` and `Motorcycle` objects, then use type-based selection to display only the motorcycles.
+**Fields and properties**
+
+**`Vehicle`**
+
+- `- brand : String`
+- `- maxSpeed : int`
+
+**Methods**
+
+- `+ getBrand() : String`
+- `+ setBrand(brand : String) : void`
+- `+ getMaxSpeed() : int`
+- `+ setMaxSpeed(maxSpeed : int) : void`
+
+**`Car`**
+
+- `- model : String`
+- `- year : int`
+- `- mileage : int`
+- `- id : int`
+- `- {static} NEXT_ID : int`
+
+**Methods**
+
+- `+ Car(brand : String, model : String, year : int, mileage : int)`
+- `+ Car(brand : String, model : String, year : int)`
+- `+ getModel() : String`
+- `+ getYear() : int`
+- `+ getMileage() : int`
+- `+ getId() : int`
+- `+ drive(distance : int) : void`
+- `+ toString() : String`
+
+**`Motorcycle`**
+
+- `- engineCapacity : int`
+- `- sidecar : boolean`
+
+**Methods**
+
+- `+ getEngineCapacity() : int`
+- `+ hasSidecar() : boolean`
+
+Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
 :::endexercise
 
 :::exercise
 ### Bank accounts
 
-![BankAccount, SavingsAccount and BusinessAccount hierarchy](content/chapters/06-oroklodes/media/task-bank-en.svg){width=620}
+![Bank accounts – UML](content/chapters/06-oroklodes/media/complete-task-4-en.svg){width=620}
 
-Build a new, simplified `BankAccount` base class that stores the account number and current balance and provides methods for reading the balance, depositing money and withdrawing money. Derive `SavingsAccount` and `BusinessAccount` from it. The savings account has an interest rate, while the business account has a company name. Store these additional values in the corresponding derived classes and implement their new methods there.
+Build a fresh, simple `BankAccount` hierarchy; do not extend the earlier private-constructor factory. The base stores nonempty holder and account number and nonnegative integer balance. Deposit and withdrawal validate positive amounts. SavingsAccount has interest rate in `[0,1]`; BusinessAccount requires a nonempty company name. Store both types in a BankAccount list and filter business accounts.
 
-Create at least two savings accounts and two business accounts and store them in a single `BankAccount` array. Write a method that can retrieve the balance from every element. Use type checking to count the savings accounts and display their interest rates separately.
+**Fields and properties**
+
+**`BankAccount`**
+
+- `- owner : String`
+- `- accountNumber : String`
+- `- balance : int`
+
+**Methods**
+
+- `+ getBalance() : int`
+- `+ deposit(amount : int) : void`
+- `+ withdraw(amount : int) : void`
+
+**`SavingsAccount`**
+
+- `- interestRate : double`
+
+**Methods**
+
+- `+ getInterestRate() : double`
+- `+ setInterestRate(interestRate : double) : void`
+
+**`BusinessAccount`**
+
+- `- companyName : String`
+
+**Methods**
+
+- `+ getCompanyName() : String`
+- `+ setCompanyName(companyName : String) : void`
+
+Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
 :::endexercise
 
 :::exercise
 ### Movies
 
-![MediaItem, Movie and Series hierarchy](content/chapters/06-oroklodes/media/task-film-en.svg){width=590}
+![Movies – UML](content/chapters/06-oroklodes/media/complete-task-5-en.svg){width=620}
 
-Create a new `MediaItem` base class that stores the title and release year of media content and provides getters and setters for these values. Derive `Movie` and `Series` from it. A movie stores its duration in minutes, while a series stores the number of seasons. Use simplified classes for this new exercise, and make sure that title and release year are not separately duplicated in each derived class.
+Create a new, simple `MediaItem` superclass with nonempty title and positive release year. Derive `Movie` with nonempty director and duration in `[10,360]` and `Series` with a positive number of seasons. Do not duplicate common fields in derived classes. Store both in a MediaItem list and select series.
 
-In the main program, create an array of `MediaItem` references containing both movies and series. Write a class-level method that accepts a `MediaItem` and displays its title and release year. Traverse the array, count movies and series separately using type checking, and display the number of seasons for series.
+**Fields and properties**
+
+**`MediaItem`**
+
+- `- title : String`
+- `- releaseYear : int`
+
+**Methods**
+
+- `+ getTitle() : String`
+- `+ setTitle(title : String) : void`
+- `+ getReleaseYear() : int`
+- `+ setReleaseYear(releaseYear : int) : void`
+
+**`Movie`**
+
+- `- director : String`
+- `- duration : int`
+
+**Methods**
+
+- `+ getDirector() : String`
+- `+ getDuration() : int`
+
+**`Series`**
+
+- `- seasons : int`
+
+**Methods**
+
+- `+ getSeasons() : int`
+- `+ setSeasons(seasons : int) : void`
+
+Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
 :::endexercise

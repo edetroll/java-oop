@@ -612,54 +612,258 @@ int main() {
 
 ## Feladatok {#exercises}
 
-A következő feladatokban az öröklődés segítségével alakítsunk ki olyan osztályhierarchiákat, amelyekben a közös tulajdonságokat és műveleteket nem kell több külön osztályban megismételnünk. Egyes esetekben a korábban elkészített osztályainkat egészítjük ki egy új ősosztállyal, más esetekben egy egyszerűbb osztályhierarchiát építünk fel újra. A feladatok megoldásakor különösen figyeljünk a mezők láthatóságára, az öröklődés irányára és arra, hogy a különböző típusú példányokat mikor használhatjuk közösen. A diagramok a megvalósítandó kapcsolatokat szemléltetik, nem minden korábban elkészített mezőt és metódust sorolnak fel.
+Az alábbi feladatokban minden mező típusa, láthatósága, érvényességi feltétele és az egyes műveletek pontos működése a feladatleírás része. A hozzájuk tartozó UML-diagramok ezeket a követelményeket szemléltetik, de a szöveg alapján önállóan is megvalósíthatók.
 
 :::exercise
 ### Téglalapok
 
-![A Shape, Rectangle és Circle osztályok hierarchiája](content/chapters/06-oroklodes/media/task-rectangle-hu.svg){width=560}
+![Téglalapok – UML](content/chapters/06-oroklodes/media/complete-task-1-hu.svg){width=620}
 
-A korábban elkészített `Rectangle` osztályt egészítse ki egy új `Shape` ősosztállyal! Az ősosztály tárolja az alakzat színét, és biztosítsa annak lekérdezését, illetve módosítását. A téglalap örökölje ezt a tulajdonságot, miközben a terület és a kerület számítása továbbra is a korábban megírt `Rectangle` osztályban marad. Készítsen egy új `Circle` osztályt is, amely szintén a `Shape` leszármazottja, és a sugarát tárolja, illetve képes meghatározni a területét!
+Készítsen `Shape` ősosztályt, amely a színt tárolja, és getterrel, setterrel kezeli. A szín nem lehet `null` vagy üres. Ebből származtassa a korábban elkészített `Rectangle` osztályt és egy új `Circle` osztályt! A kör sugara pozitív, a terület és a kerület számítása a megfelelő képletekkel történik. Egy `Shape` típusú listába vegyen fel téglalapokat és köröket, majd `instanceof` segítségével válogassa ki a köröket! A kör számításai új metódusok legyenek; az ősosztályban még ne definiáljunk felülírandó számítómetódust.
 
-A főprogramban hozzon létre téglalapokat és köröket, állítsa be a színüket, majd tárolja őket közösen egy `Shape` típusú tömbben! A tömb bejárásakor jelenítse meg minden alakzat színét, és az `instanceof` segítségével számolja meg, hány téglalap szerepel a tömbben! Ellenőrizze, hogy a színt kezelő metódusokat mindkét leszármazott osztályon használhatja-e.
+**Mezők és property-k**
+
+**`Shape`**
+
+- `- color : String`
+
+**Metódusok**
+
+- `+ getColor() : String`
+- `+ setColor(color : String) : void`
+
+**`Rectangle`**
+
+- `- x : double`
+- `- y : double`
+- `- width : double`
+- `- height : double`
+- `- {static} CREATED_COUNT : int`
+
+**Metódusok**
+
+- `+ Rectangle()`
+- `+ Rectangle(x : double, y : double, width : double, height : double)`
+- `+ getX() : double`
+- `+ setX(x : double) : void`
+- `+ getY() : double`
+- `+ setY(y : double) : void`
+- `+ getWidth() : double`
+- `+ setWidth(width : double) : void`
+- `+ getHeight() : double`
+- `+ setHeight(height : double) : void`
+- `+ getArea() : double`
+- `+ getPerimeter() : double`
+- `+ overlaps(other : Rectangle) : boolean`
+- `+ getQuadrant() : int`
+- `+ {static} getCreatedCount() : int`
+
+**`Circle`**
+
+- `- radius : double`
+
+**Metódusok**
+
+- `+ getRadius() : double`
+- `+ setRadius(radius : double) : void`
+- `+ getArea() : double`
+- `+ getPerimeter() : double`
+
+A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
 :::endexercise
 
 :::exercise
 ### Könyvek
 
-![A Publication, Book és Magazine osztályok hierarchiája](content/chapters/06-oroklodes/media/task-book-hu.svg){width=580}
+![Könyvek – UML](content/chapters/06-oroklodes/media/complete-task-2-hu.svg){width=620}
 
-A `Book` osztály mellé hozzon létre egy `Magazine` osztályt, és készítsen számukra egy közös `Publication` ősosztályt! Az ősosztály tárolja a kiadó nevét és az országot, ahol a kiadvány megjelent, a megfelelő hozzáférési metódusokkal együtt. A könyv továbbra is tárolja saját szerzőjét, címét és árát, míg a folyóiratban tárolja az évfolyamot és a lapszámot. A korábbi könyvkezelő metódusok működését tartsa meg, az új közös adatokat azonban ne írja meg külön a két leszármazott osztályban!
+Készítsen `Publication` ősosztályt a kiadó és a megjelenési ország tárolására! Mindkét szöveges mező nem üres, ellenőrzött setterrel módosítható. A `Book` megtartja a szerzőt, címet, árat, műfajt, nyomtatott állapotot, konstruktorokat, kedvezményt és a korábban bevezetett árkonstansokat is; a `Magazine` a címét és pozitív sorszámát tárolja. Egy közös `Publication` típusú listába vegyen fel mindkét leszármazottból példányokat, majd típusellenőrzéssel gyűjtse ki a magazinokat.
 
-Hozzon létre néhány könyvet és folyóiratot, majd egy `Publication` típusú tömbben tárolja őket közösen! Készítsen egy osztályszintű metódust, amely paraméterben egy `Publication` példányt vár, és megjeleníti a kiadó nevét! A főprogramban hívja meg ezt a metódust mindkét leszármazott osztály példányaival, végül számolja meg, hány könyvet tartalmaz a tömb!
+**Mezők és property-k**
+
+**`Publication`**
+
+- `- publisher : String`
+- `- country : String`
+
+**Metódusok**
+
+- `+ getPublisher() : String`
+- `+ setPublisher(publisher : String) : void`
+- `+ getCountry() : String`
+- `+ setCountry(country : String) : void`
+
+**`Book`**
+
+- `- author : String`
+- `- title : String`
+- `- price : int`
+- `- genre : Genre`
+- `- printed : boolean`
+- `- {static} MIN_PRICE : int`
+- `- {static} MAX_PRICE : int`
+
+**Metódusok**
+
+- `+ Book(author : String, title : String, price : int, genre : Genre, printed : boolean)`
+- `+ Book(author : String, title : String, price : int)`
+- `+ getAuthor() : String`
+- `+ getTitle() : String`
+- `+ getPrice() : int`
+- `+ getGenre() : Genre`
+- `+ isPrinted() : boolean`
+- `+ discount(percent : int) : void`
+- `+ {static} isValidPrice(price : int) : boolean`
+- `+ toString() : String`
+
+**`Magazine`**
+
+- `- title : String`
+- `- issueNumber : int`
+
+**Metódusok**
+
+- `+ getTitle() : String`
+- `+ getIssueNumber() : int`
+- `+ setIssueNumber(issueNumber : int) : void`
+
+A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
 :::endexercise
 
 :::exercise
 ### Autók
 
-![A Vehicle, Car és Motorcycle osztályok hierarchiája](content/chapters/06-oroklodes/media/task-car-hu.svg){width=590}
+![Autók – UML](content/chapters/06-oroklodes/media/complete-task-3-hu.svg){width=620}
 
-Készítsen egy általános `Vehicle` ősosztályt, amely a gyártó nevét és a jármű maximális sebességét tárolja. A korábban elkészített `Car` osztály örököljön ebből az osztályból, és tartsa meg a saját, autókra jellemző adatait és metódusait! Hozzon létre egy új `Motorcycle` osztályt is, amelynek van egy logikai mezője annak jelzésére, hogy rendelkezik-e oldalkocsival. Mindkét leszármazott osztály a `Vehicle` által biztosított metódusokon keresztül érje el a gyártó nevét és a maximális sebességet.
+Az eddigi `Car` osztályból a márka mezőjét helyezze át az új `Vehicle` ősosztályba! Az ősosztály a márka mellett a pozitív egész maximális sebességet is tárolja. A `Car` megtartja a modellt, évjáratot, kilométeróra-állást, az automatikus azonosítót, a meglévő konstruktorokat és a `drive()` metódust. A `Motorcycle` hengerűrtartalma legyen pozitív egész, a `sidecar` jelzi az oldalkocsit. Egy `Vehicle` listában tároljon mindkét járműtípusból példányokat, és gyűjtse ki a motorkerékpárokat!
 
-A főprogramban hozzon létre autókat és motorkerékpárokat, majd tárolja őket közösen egy `Vehicle` típusú tömbben! Készítsen olyan osztályszintű metódust, amely paraméterként egy `Vehicle` példányt vár, és visszatér a jármű maximális sebességével. Ellenőrizze, hogy a metódus a `Car` és a `Motorcycle` példányokkal is használható, majd kiválogatás segítségével jelenítse meg csak a motorkerékpárokat!
+**Mezők és property-k**
+
+**`Vehicle`**
+
+- `- brand : String`
+- `- maxSpeed : int`
+
+**Metódusok**
+
+- `+ getBrand() : String`
+- `+ setBrand(brand : String) : void`
+- `+ getMaxSpeed() : int`
+- `+ setMaxSpeed(maxSpeed : int) : void`
+
+**`Car`**
+
+- `- model : String`
+- `- year : int`
+- `- mileage : int`
+- `- id : int`
+- `- {static} NEXT_ID : int`
+
+**Metódusok**
+
+- `+ Car(brand : String, model : String, year : int, mileage : int)`
+- `+ Car(brand : String, model : String, year : int)`
+- `+ getModel() : String`
+- `+ getYear() : int`
+- `+ getMileage() : int`
+- `+ getId() : int`
+- `+ drive(distance : int) : void`
+- `+ toString() : String`
+
+**`Motorcycle`**
+
+- `- engineCapacity : int`
+- `- sidecar : boolean`
+
+**Metódusok**
+
+- `+ getEngineCapacity() : int`
+- `+ hasSidecar() : boolean`
+
+A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
 :::endexercise
 
 :::exercise
 ### Bankszámlák
 
-![A BankAccount, SavingsAccount és BusinessAccount osztályok hierarchiája](content/chapters/06-oroklodes/media/task-bank-hu.svg){width=620}
+![Bankszámlák – UML](content/chapters/06-oroklodes/media/complete-task-4-hu.svg){width=620}
 
-Készítsen egy egyszerű, új `BankAccount` ősosztályt, amely tárolja a számlaszámot és az aktuális egyenleget, valamint metódusokat biztosít az egyenleg lekérdezésére, a befizetésre és a pénzfelvételre! Ebből származtasson `SavingsAccount` és `BusinessAccount` osztályokat. A megtakarítási számlához tartozzon egy kamatláb, az üzleti számlához pedig a cég neve. Ezeket az új adatokat a megfelelő leszármazott osztályban tárolja, és a hozzájuk tartozó új metódusokat is ott készítse el!
+Ehhez a feladathoz készítsen új, egyszerű `BankAccount` osztályhierarchiát; ne a korábbi, privát konstruktoros objektumgyárat módosítsa. Az ősosztály nem üres tulajdonost és számlaszámot, illetve nemnegatív egész egyenleget tárol. A `deposit()` és `withdraw()` metódusok csak pozitív, megfelelő összeggel dolgozhatnak. A `SavingsAccount` kamatlába `[0;1]` közötti valós szám, a `BusinessAccount` cégneve nem üres. Tárolja mindkettőt `BankAccount` típusú listában, és válogassa ki az üzleti számlákat!
 
-A főprogramban hozzon létre legalább két megtakarítási és két üzleti számlát, majd tárolja őket egy `BankAccount` típusú tömbben! Készítsen olyan metódust, amely a tömb valamennyi elemére képes meghívni az egyenleg lekérdezését. A típusellenőrzés segítségével számolja meg a megtakarítási számlákat, és ezeknél külön jelenítse meg a kamatlábat!
+**Mezők és property-k**
+
+**`BankAccount`**
+
+- `- owner : String`
+- `- accountNumber : String`
+- `- balance : int`
+
+**Metódusok**
+
+- `+ getBalance() : int`
+- `+ deposit(amount : int) : void`
+- `+ withdraw(amount : int) : void`
+
+**`SavingsAccount`**
+
+- `- interestRate : double`
+
+**Metódusok**
+
+- `+ getInterestRate() : double`
+- `+ setInterestRate(interestRate : double) : void`
+
+**`BusinessAccount`**
+
+- `- companyName : String`
+
+**Metódusok**
+
+- `+ getCompanyName() : String`
+- `+ setCompanyName(companyName : String) : void`
+
+A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
 :::endexercise
 
 :::exercise
 ### Filmek
 
-![A MediaItem, Movie és Series osztályok hierarchiája](content/chapters/06-oroklodes/media/task-film-hu.svg){width=590}
+![Filmek – UML](content/chapters/06-oroklodes/media/complete-task-5-hu.svg){width=620}
 
-Készítsen egy új `MediaItem` ősosztályt, amely minden médiatartalom címét és megjelenési évét tárolja, a hozzájuk tartozó getter és setter metódusokkal együtt! Ebből származtasson `Movie` és `Series` osztályokat. A filmhez tartozzon a játékidő percben, a sorozathoz pedig az évadok száma. Az új feladatban használjon egyszerűsített osztályokat, és figyeljen arra, hogy a cím és a megjelenési év adatai ne szerepeljenek külön a két leszármazott osztályban!
+Készítsen új, egyszerű `MediaItem` ősosztályt a nem üres cím és a pozitív megjelenési év tárolására. Ebből származzon a `Movie` és `Series` osztály! A film nem üres rendezőnevet és `[10;360]` perces játékidőt, a sorozat pozitív évadszámot tároljon. A közös elemeket ne másolja le a leszármazottakba. `MediaItem` típusú listában tárolja a példányokat, majd válassza ki a sorozatokat.
 
-A főprogramban készítsen olyan `MediaItem` típusú tömböt, amely filmeket és sorozatokat egyaránt tartalmaz. Írjon osztályszintű metódust, amely egy `MediaItem` paramétert vár, és megjeleníti a tartalom címét és évét! A tömb bejárásakor típusellenőrzés segítségével külön számolja meg a filmeket és a sorozatokat, és a sorozatoknál jelenítse meg az évadok számát is!
+**Mezők és property-k**
+
+**`MediaItem`**
+
+- `- title : String`
+- `- releaseYear : int`
+
+**Metódusok**
+
+- `+ getTitle() : String`
+- `+ setTitle(title : String) : void`
+- `+ getReleaseYear() : int`
+- `+ setReleaseYear(releaseYear : int) : void`
+
+**`Movie`**
+
+- `- director : String`
+- `- duration : int`
+
+**Metódusok**
+
+- `+ getDirector() : String`
+- `+ getDuration() : int`
+
+**`Series`**
+
+- `- seasons : int`
+
+**Metódusok**
+
+- `+ getSeasons() : int`
+- `+ setSeasons(seasons : int) : void`
+
+A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
 :::endexercise

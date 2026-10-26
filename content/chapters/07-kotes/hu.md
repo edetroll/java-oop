@@ -753,44 +753,45 @@ A Java metódusának pontos neve `hashCode()`, míg a hasonló szerepű C# metó
 
 ## Feladatok {#exercises}
 
-A feladatokban az előző fejezetben kialakított osztályhierarchiákat folytatjuk. A cél most az, hogy az ősosztályban megadott műveleteket a leszármazott osztályokban a saját működésükhöz igazítsuk, és egy közös típusú tömb elemein egységesen tudjuk meghívni őket. A feladatok fokozatosan nehezednek: először egyszerű felülírást végzünk, később az ősosztály metódusát is felhasználjuk, végül egy örökölt algoritmuson belül vizsgáljuk meg a késői kötést.
+Az alábbi feladatokban a metódusok felülírásának célja nem újabb szövegek előállítása, hanem az objektumok típusától függő számítások és döntések megvalósítása. A meglévő osztályhierarchiákat a megadott metódusokkal egészítse ki; a módosított tagokat az UML-ábrák is tartalmazzák.
 
 :::exercise
 ### Téglalapok
 
-![A Shape, Rectangle és Circle osztályok getDescription metódusai](content/chapters/07-kotes/media/task-rectangle-hu.svg){width=530}
+![Téglalapok – UML](content/chapters/07-kotes/media/complete-task-1-hu.svg){width=620}
 
-Az előző fejezetben elkészített `Shape` ősosztályban hozzon létre egy `getDescription()` metódust, amely visszatér az alakzat színével! Írja felül ezt a metódust a `Rectangle` és a `Circle` osztályban úgy, hogy a szín mellett a téglalap szélessége és magassága, illetve a kör sugara is szerepeljen az eredményben. A leszármazott osztályokban a szín kiírásához használja fel az ősosztály `getDescription()` metódusát, ne írja meg újra annak működését! A főprogramban készítsen egy `Shape` típusú tömböt, helyezzen el benne többféle alakzatot, majd egyetlen ciklussal jelenítse meg valamennyi alakzat leírását.
+A `Shape` ősosztályban készítse el a `canFitInside(screenWidth : double, screenHeight : double) : boolean` metódust, mely azt vizsgálja, hogy egy alakzat elhelyezhető-e adott méretű, téglalap alakú kijelzőn. Az ősosztály megvalósítása – amíg nem ismeri az alakzat méreteit – `false` értékkel térjen vissza. A `Rectangle` ezt a metódust úgy írja felül, hogy a saját szélességét és magasságát hasonlítja a megadott méretekhez; a `Circle` akkor fér el, ha az átmérője mindkét irányban elegendően kicsi. Forgatással egyik osztályban sem számolunk. Nem pozitív kijelzőméret esetén `IllegalArgumentException` kivételt kell dobni. A `Shape` osztályban egy másik, nem felülírandó `isDisplayable(screenWidth : double, screenHeight : double) : boolean` metódus egyszerűen a `canFitInside()` eredményével térjen vissza. Ezen a metóduson keresztül mutassa be a késői kötést különböző alakzatokat tartalmazó `Shape` típusú listán!
 :::endexercise
 
 :::exercise
 ### Könyvek
 
-![A Publication, Book és Magazine osztályok leíró metódusai](content/chapters/07-kotes/media/task-book-hu.svg){width=560}
+![Könyvek – UML](content/chapters/07-kotes/media/complete-task-2-hu.svg){width=620}
 
-A `Publication` osztályba készítsen egy `getSummary()` metódust, amely visszatér a kiadó nevével és a megjelenés országával! A `Book` osztályban írja felül a metódust úgy, hogy a könyv címe és szerzője is megjelenjen, míg a `Magazine` osztályban az évfolyamot és a lapszámot jelenítse meg. A közös adatok összegyűjtését mindkét esetben az ősosztály metódusára bízza! Hozzon létre néhány különböző kiadványt egy `Publication` típusú tömbben, majd hívja meg rajtuk a `getSummary()` metódust, és figyelje meg, hogy a megfelelő változat fut le.
+A `Publication` ősosztályhoz adja hozzá a `calculateLateFee(daysLate : int) : int` metódust, mely a kölcsönzési határidő túllépése esetén fizetendő díjat adja vissza. Az ősosztály alapértelmezetten `0` forinttal tér vissza, míg a `Book` minden késedelmes nap után `50`, a `Magazine` pedig `20` forintot számoljon fel. Negatív napok száma esetén kivételt kell dobni. Az ősosztály `calculateTotalLateFee(daysLate : int, copies : int) : int` metódusa számítsa ki a díjat több azonos példányra, vagyis szorozza meg a `calculateLateFee()` eredményét a pozitív `copies` paraméterrel. Nem pozitív példányszám esetén dobjon kivételt. Vizsgálja meg, hogyan használja a közös, örökölt metódus a leszármazottak felülírt díjszámítását!
 :::endexercise
 
 :::exercise
 ### Autók
 
-![A Vehicle, Car és Motorcycle osztályok getRange metódusai](content/chapters/07-kotes/media/task-car-hu.svg){width=550}
+![Autók – UML](content/chapters/07-kotes/media/complete-task-3-hu.svg){width=620}
 
-A `Vehicle` osztályba készítsen egy `getRange()` metódust, amely alapértelmezés szerint `0` értékkel tér vissza! A `Car` osztályban a hatótávolságot az üzemanyagtartály kapacitása és a száz kilométerre jutó átlagos fogyasztás alapján számolja ki, míg a `Motorcycle` osztályban használjon külön fogyasztási és tartályméretadatokat. A metódus nevét és paraméterlistáját ne változtassa meg, csupán a törzsét írja felül! A főprogram egy `Vehicle` típusú tömbből, típusellenőrzés nélkül jelenítse meg valamennyi jármű becsült hatótávolságát. A számításhoz figyeljen arra, hogy ne lehessen nulla vagy negatív átlagfogyasztást megadni.
+A `Vehicle` osztályhoz írjon `getServiceIntervalKm() : int` metódust, amely alapértelmezetten `0`-t ad vissza, ha nem ismerjük az ajánlott szervizperiódust. A `Car` osztályban ennek értéke `15000`, a `Motorcycle` esetében `6000` kilométer legyen. A `Vehicle` ősosztály `needsService(kmSinceService : int) : boolean` metódusa azt vizsgálja, hogy az utolsó szerviz óta megtett kilométerek száma elérte-e a tényleges járműtípus szervizperiódusát. Ha a periódus `0`, térjen vissza `false` értékkel; negatív kilométerszám esetén dobjon kivételt. Tároljon `Car` és `Motorcycle` példányokat közös `Vehicle` típusú listában, és állapítsa meg, mely járművek esedékesek szervizre. A kiválasztás során ne használjon járműtípusonként külön számítási elágazást.
 :::endexercise
 
 :::exercise
 ### Bankszámlák
 
-![A BankAccount, SavingsAccount és BusinessAccount osztályok díjszámítása](content/chapters/07-kotes/media/task-bank-hu.svg){width=610}
+![Bankszámlák – UML](content/chapters/07-kotes/media/complete-task-4-hu.svg){width=620}
 
-A `BankAccount` osztályba készítsen egy `getMonthlyFee()` metódust, amely `0` értékkel tér vissza. Írja felül a metódust a `SavingsAccount` és `BusinessAccount` osztályokban úgy, hogy a megtakarítási számla havi díja `0`, az üzleti számláé pedig `2500` forint legyen! Az ősosztályban készítsen egy `getBalanceAfterFee()` metódust is, amely az aktuális egyenlegből levonja a `getMonthlyFee()` eredményét, de az egyenleget magát nem módosítja. A főprogramban hozzon létre mindkét típusból néhány példányt, majd `BankAccount` típusú referenciákon keresztül hívja meg a `getBalanceAfterFee()` metódust. Vizsgálja meg, hogy az örökölt metódus az ősosztály vagy a leszármazott osztály díjszámítását használja-e!
+A `BankAccount` ősosztályban vezesse be a `calculateTransferFee(amount : int) : int` metódust, amely egy átutalás díját adja meg. Az ősosztály és a `SavingsAccount` esetében a díj `0` forint; a `BusinessAccount` osztályban az átutalás díja az összeg egészértékű `1` százaléka, de legalább `100` forint. Minden változat csak pozitív összeget fogadhat el. Az ősosztályhoz írjon `canAffordTransfer(amount : int) : boolean` metódust, amely eldönti, hogy az egyenlegből a teljes összeg és a megfelelő díj együttesen kifizethető-e. Ez a metódus ne változtassa meg az egyenleget. A számításhoz használja a felülírható `calculateTransferFee()` metódust, majd `BankAccount` típusú referenciákon ellenőrizze a különböző számlatípusok működését!
 :::endexercise
 
 :::exercise
 ### Filmek
 
-![A MediaItem, Movie és Series osztályok bemutató metódusai](content/chapters/07-kotes/media/task-film-hu.svg){width=590}
+![Filmek – UML](content/chapters/07-kotes/media/complete-task-5-hu.svg){width=620}
 
-A `MediaItem` osztályban készítsen egy `getDescription()` metódust, amely a médiatartalom címét és megjelenési évét tartalmazó szöveggel tér vissza! A `Movie` osztály felülírt változata egészítse ki ezt a film játékidejével, a `Series` osztályé pedig az évadok számával. Az ősosztályban készítsen egy `printDescription()` metódust, amely megjeleníti a `getDescription()` által előállított szöveget. A főprogramban tároljon filmeket és sorozatokat egy `MediaItem` típusú tömbben, és minden elemnél kizárólag a `printDescription()` metódust hívja meg! Végül a `Movie` osztályban készítsen egy második, logikai paramétert fogadó `getDescription(boolean detailed)` metódust, és hasonlítsa össze ennek működését a felülírással.
+A `MediaItem` osztályhoz készítsen `getViewingMinutes() : int` metódust, mely az adott tartalom teljes megtekintéséhez szükséges időt adja vissza; az ősosztály alapértelmezett értéke `0`. A `Movie` a tárolt `duration` értékkel térjen vissza. A `Series` osztályban a meglévő pozitív `seasons` mező mellett vezesse be az egy évadhoz tartozó epizódok számát (`episodesPerSeason : int`) és egy epizód átlagos hosszát (`minutesPerEpisode : int`), mindkettő pozitív egész szám. A sorozat teljes játékideje e három érték szorzata. Az ősosztály `canWatchWithin(maxMinutes : int) : boolean` metódusa akkor adjon `true` értéket, ha a játékidő pozitív, és nem hosszabb a megadott időkeretnél; nem pozitív időkeretre dobjon kivételt. Vegyes `MediaItem` listán vizsgálja meg, melyik tartalom fér bele például egy `180` perces szabadidőbe!
 :::endexercise
+

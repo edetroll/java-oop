@@ -365,54 +365,135 @@ A C# hasonló lehetőséget biztosít a `: this(...)` használatával, C++-ban p
 
 ## Feladatok {#exercises}
 
-Az előző fejezetekben elkészített öt osztályt most konstruktorokkal egészítjük ki. Ahol több konstruktort készítünk, lehetőleg egyik konstruktor hívja meg a másikat, hogy az inicializálást és az adatok ellenőrzését ne kelljen többször megírnunk.
+Az alábbi feladatokban minden mező típusa, láthatósága, érvényességi feltétele és az egyes műveletek pontos működése a feladatleírás része. A hozzájuk tartozó UML-diagramok ezeket a követelményeket szemléltetik, de a szöveg alapján önállóan is megvalósíthatók.
 
 :::exercise
 ### Téglalapok
+![Téglalapok – UML](content/chapters/04-konstruktorok/media/complete-task-1-hu.svg){width=560}
+Hozza létre a `Rectangle` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML](content/chapters/04-konstruktorok/media/rect-hu.svg){width=355}
+**Mezők és property-k**
+- `x : double` – a bal felső csúcs vízszintes koordinátája; tetszőleges valós szám. Privát mező; a `getX() : double` getter és a `setX(x : double) : void` setter publikus. A koordinátát szabadon módosíthatjuk.
+- `y : double` – a bal felső csúcs függőleges koordinátája; tetszőleges valós szám. Privát mező; a `getY() : double` getter és a `setY(y : double) : void` setter publikus. A koordinátát szabadon módosíthatjuk.
+- `width : double` – a téglalap szélessége; az adatrejtéstől kezdve szigorúan pozitív. Privát mező, publikus `getWidth() : double` getterrel és `setWidth(width : double) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `height : double` – a téglalap magassága; az adatrejtéstől kezdve szigorúan pozitív. Privát mező, publikus `getHeight() : double` getterrel és `setHeight(height : double) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
 
-Az előző fejezet `Teglalap` osztályát egészítse ki paraméteres konstruktorral, amely megkapja a bal felső csúcs koordinátáit, valamint a téglalap szélességét és magasságát! A konstruktor végezze el a két oldalhossz ellenőrzését a már megírt setterek segítségével!
+**Konstruktorok**
+- `Rectangle()` – A teljes paraméterlistájú konstruktort hívja meg; az elhagyott adat alapértéke a bal felső csúcs `(0,0)`, a méret `1 × 1`.
+- `Rectangle(x : double, y : double, width : double, height : double)` – Ellenőrizze az összes megadott adatot! Hibás adat esetén dobjon kivételt, és ne hozzon létre érvénytelen példányt.
 
-Készítsen paraméter nélküli konstruktort is, amely a `(0, 0)` pontból induló, `1 × 1` méretű téglalapot hozza létre! **Az új konstruktor hívja meg a paraméteres konstruktort**, ne írja meg újra az inicializálást! A főprogramban mindkét módon hozzon létre példányokat, majd jelenítse meg azok kerületét és területét!
+**Metódusok**
+- `getPerimeter() : double` – paraméter nélküli függvény, a `2 × (width + height)` értékkel tér vissza.
+- `getArea() : double` – paraméter nélküli függvény, a `width × height` értékkel tér vissza.
+- `overlaps(other : Rectangle) : boolean` – a paraméterként kapott téglalappal való, pozitív területű metszetet vizsgálja; az érintkező oldalak önmagukban nem jelentenek átfedést.
+- `getQuadrant() : int` – az `1`–`4` értékek egyikével tér vissza, ha a teljes téglalap szigorúan egy síknegyedben van; más esetben `-1`.
+A fenti mezőkhöz tartozó getterek és setterek láthatóságát az egyes mezők leírása határozza meg. A validáció eredményétől függetlenül a hibás módosítás nem ronthatja el a korábban érvényes állapotot.
+
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Könyvek
+![Könyvek – UML](content/chapters/04-konstruktorok/media/complete-task-2-hu.svg){width=560}
+Hozza létre a `Book` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML](content/chapters/04-konstruktorok/media/book-hu.svg){width=400}
+**Mezők és property-k**
+- `author : String` – szerző; legalább két karakter, csak betű, szóköz, pont és kötőjel használható. Privát mező, publikus `getAuthor() : String` getterrel és `setAuthor(author : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `title : String` – a könyv címe; legalább két karakter. Privát mező, publikus `getTitle() : String` getterrel és `setTitle(title : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `price : int` – a könyv ára egész forintban; érvényes tartomány `[500; 50 000]`. Privát mező, publikus `getPrice() : int` getterrel és `setPrice(price : int) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `genre : Genre` – felsorolás típus; pl. BIOGRAPHY, HORROR, DRAMA, HISTORY, SCIFI, COMEDY. Privát mező, publikus `getGenre() : Genre` getterrel és `setGenre(genre : Genre) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `printed : boolean` – igaz, ha nyomtatott könyv; hamis, ha e-könyv. Privát mező; a `isPrinted() : boolean` getter és a `setPrinted(printed : boolean) : void` setter publikus. A logikai érték nem igényel további validációt.
 
-A `Konyv` osztályhoz készítsen konstruktort, amely megkapja a szerzőt, a címet, az árat, a műfajt és azt, hogy a könyv nyomtatott-e! Az adatok ellenőrzését a korábban megírt metódusok végezzék el!
+**Konstruktorok**
+- `Book(author : String, title : String, price : int, genre : Genre, printed : boolean)` – Ellenőrizze az összes megadott adatot! Hibás adat esetén dobjon kivételt, és ne hozzon létre érvénytelen példányt.
+- `Book(author : String, title : String, price : int)` – A teljes paraméterlistájú konstruktort hívja meg; az elhagyott adat alapértéke `Genre.DRAMA` és nyomtatott könyv.
 
-Készítsen második konstruktort is, amely csak a szerzőt, a címet és az árat várja. Ez a konstruktor **hívja meg az előző konstruktort**, és a hiányzó két adathoz használjon egy választott alapértelmezett műfajt és a nyomtatott könyv értéket! Hozzon létre legalább négy könyvet a két konstruktor segítségével, majd próbáljon meg érvénytelen árat átadni!
+**Metódusok**
+- `discount(percent : int) : void` – `1` és `99` közötti egész százalékot vár; érvénytelen paraméternél nem változtat árat; a kerekítés egész forintra lefelé történik, és `899` forint alá nem enged árat csökkenteni.
+- `toString() : String` – a könyv fontos adatait olvasható, többmezős szövegként adja vissza.
+A fenti mezőkhöz tartozó getterek és setterek láthatóságát az egyes mezők leírása határozza meg. A validáció eredményétől függetlenül a hibás módosítás nem ronthatja el a korábban érvényes állapotot.
+
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Autók
+![Autók – UML](content/chapters/04-konstruktorok/media/complete-task-3-hu.svg){width=560}
+Hozza létre a `Car` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML](content/chapters/04-konstruktorok/media/car-hu.svg){width=355}
+**Mezők és property-k**
+- `brand : String` – márka; nem lehet `null` vagy üres. Privát mező, publikus `getBrand() : String` getterrel és `setBrand(brand : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `model : String` – modell; nem lehet `null` vagy üres. Privát mező, publikus `getModel() : String` getterrel és `setModel(model : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `year : int` – gyártási év, `[1886; 2100]` intervallumban. Privát mező, publikus `getYear() : int` getterrel és `setYear(year : int) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `mileage : int` – kilométeróra-állás egész kilométerben, nemnegatív. Privát mező; csak a `getMileage() : int` publikus getter szükséges; az érték kizárólag a megfelelő műveleten és a konstruktoron keresztül változhat.
 
-Az `Auto` osztályhoz készítsen olyan konstruktort, amely paraméterben várja a márkát, a típust, a gyártási évet és a kilométeróra kezdeti állását! A konstruktor biztosítsa, hogy minden adat megfeleljen az előző fejezetben megadott feltételeknek!
+**Konstruktorok**
+- `Car(brand : String, model : String, year : int, mileage : int)` – Ellenőrizze az összes megadott adatot! Hibás adat esetén dobjon kivételt, és ne hozzon létre érvénytelen példányt.
+- `Car(brand : String, model : String, year : int)` – A teljes paraméterlistájú konstruktort hívja meg; az elhagyott adat alapértéke `0` kilométeres futásteljesítmény.
 
-Készítsen egy második konstruktort is, amely csak a márkát, a típust és a gyártási évet kapja meg, a kilométeróra állását pedig nullának veszi. **A második konstruktor hívja meg az elsőt!** Hozzon létre három autót, majd a `Vezet` metódussal növelje az egyes példányok kilométeróra-állását!
+**Metódusok**
+- `drive(distance : int) : void` – csak pozitív egész kilométert fogad, és a `mileage` mező értékét ennyivel növeli.
+- `toString() : String` – megjeleníthető szövegként adja vissza a márkát, modellt, évjáratot és kilométeróra-állást.
+A fenti mezőkhöz tartozó getterek és setterek láthatóságát az egyes mezők leírása határozza meg. A validáció eredményétől függetlenül a hibás módosítás nem ronthatja el a korábban érvényes állapotot.
+
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Bankszámlák
+![Bankszámlák – UML](content/chapters/04-konstruktorok/media/complete-task-4-hu.svg){width=560}
+Hozza létre a `BankAccount` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML](content/chapters/04-konstruktorok/media/bank-hu.svg){width=400}
+**Mezők és property-k**
+- `owner : String` – a tulajdonos neve; nem lehet `null` vagy üres. Privát mező, publikus `getOwner() : String` getterrel és `setOwner(owner : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `accountNumber : String` – számlaszám; nem lehet `null` vagy üres, létrehozás után nem változtatható. Privát mező; csak publikus `getAccountNumber() : String` getter készüljön; publikus setter nincs, az értéket a konstruktor állítja be.
+- `balance : int` – egyenleg egész forintban; nemnegatív. Privát mező; csak a `getBalance() : int` publikus getter szükséges; az érték kizárólag a megfelelő műveleten és a konstruktoron keresztül változhat.
 
-A `Bankszamla` osztályhoz készítsen konstruktort, mely megkapja a tulajdonos nevét, a számlaszámot és a kezdőegyenleget. A konstruktor csak érvényes adatokkal hozhasson létre példányt!
+**Konstruktorok**
+- `BankAccount(owner : String, accountNumber : String, balance : int)` – Ellenőrizze az összes megadott adatot! Hibás adat esetén dobjon kivételt, és ne hozzon létre érvénytelen példányt.
+- `BankAccount(owner : String, accountNumber : String)` – A teljes paraméterlistájú konstruktort hívja meg; az elhagyott adat alapértéke `0` forintos kezdőegyenleg.
 
-Írjon egy másik konstruktort is, amely csak a tulajdonos nevét és a számlaszámot várja, és **az előző konstruktort meghívva** nulla kezdőegyenlegű számlát készít! Az egyenleghez ne készítsen publikus setter metódust. A főprogramban hozzon létre több bankszámlát, majd tesztelje a befizetést és a pénzfelvételt!
+**Metódusok**
+- `deposit(amount : int) : void` – csak pozitív összeget fogad, és azt hozzáadja az egyenleghez.
+- `withdraw(amount : int) : void` – csak pozitív, az egyenlegnél nem nagyobb összeget enged levonni.
+- `getBalance() : int` – a pillanatnyi egyenleget adja vissza.
+- `toString() : String` – visszaadja a számlaszámot, tulajdonost és az egyenleget tartalmazó szöveget.
+A fenti mezőkhöz tartozó getterek és setterek láthatóságát az egyes mezők leírása határozza meg. A validáció eredményétől függetlenül a hibás módosítás nem ronthatja el a korábban érvényes állapotot.
+
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
 
 :::exercise
 ### Filmek
+![Filmek – UML](content/chapters/04-konstruktorok/media/complete-task-5-hu.svg){width=560}
+Hozza létre a `Movie` osztályt, és valósítsa meg a következő mezőket és metódusokat a megadott működési feltételekkel!
 
-![UML](content/chapters/04-konstruktorok/media/movie-hu.svg){width=450}
+**Mezők és property-k**
+- `director : String` – rendező; nem `null`, legalább két karakter, csak betű, szóköz, pont és kötőjel. Privát mező, publikus `getDirector() : String` getterrel és `setDirector(director : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `title : String` – cím; nem `null` és legalább két karakter. Privát mező, publikus `getTitle() : String` getterrel és `setTitle(title : String) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `duration : int` – játékidő egész percben; `[10; 360]` intervallumban. Privát mező, publikus `getDuration() : int` getterrel és `setDuration(duration : int) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `language : Language` – a film nyelve felsorolás típusként. Privát mező, publikus `getLanguage() : Language` getterrel és `setLanguage(language : Language) : void` setterrel. Értékadást csak sikeres ellenőrzés után végezhet; hibás értéknél `IllegalArgumentException` kivételt dobjon, és a korábbi mezőértéket ne módosítsa.
+- `subtitles : boolean` – igaz, ha a film feliratos. Privát mező; a `hasSubtitles() : boolean` getter és a `setSubtitles(subtitles : boolean) : void` setter publikus. A logikai érték nem igényel további validációt.
+- `actors : ArrayList<String>` – szereplők listája; a mező privát, a külső kód csak másolatot kaphat. Privát mező; a `getActors() : ArrayList<String>` publikus getter védelmi másolatot adjon vissza; a módosítást csak a megfelelő hozzáadó metódus biztosítsa.
+- `categories : ArrayList<Genre>` – műfajok listája; privát, a getter csak másolatot adhat. Privát mező; a `getCategories() : ArrayList<Genre>` publikus getter védelmi másolatot adjon vissza; a módosítást csak a megfelelő hozzáadó metódus biztosítsa.
 
-Egészítse ki a `Film` osztályt olyan konstruktorral, amely megkapja a rendezőt, a címet, a film hosszát, a nyelvét és a feliratozásra vonatkozó logikai értéket! Az adatokat validálja, a szereplők és a kategóriák listáját pedig inicializálja üres listára!
+**Konstruktorok**
+- `Movie(director : String, title : String, duration : int, language : Language, subtitles : boolean)` – Ellenőrizze az összes megadott adatot! Hibás adat esetén dobjon kivételt, és ne hozzon létre érvénytelen példányt.
+- `Movie(director : String, title : String, duration : int, language : Language)` – A teljes paraméterlistájú konstruktort hívja meg; az elhagyott adat alapértéke nem feliratos film.
 
-Készítsen második konstruktort is, amely nem kap feliratozásra vonatkozó paramétert. Ez **hívja meg az előző konstruktort**, és alapértelmezetten felirat nélküli filmet hozzon létre! A főprogramban hozzon létre három filmet, adjon hozzájuk szereplőket és kategóriákat, végül jelenítse meg az adatokat! Ellenőrizze azt is, hogy a getterek által visszaadott listák módosítása nem változtatja meg a film belső adatait!
+**Metódusok**
+- `hasActor(name : String) : boolean` – megállapítja, hogy a keresett színész szerepel-e a filmben.
+- `addActor(name : String) : void` – a rendezőéhez hasonló névellenőrzés után felveszi a színészt, de duplikációt nem enged.
+- `addCategory(genre : Genre) : void` – nem `null` műfajt vesz fel, ismétlés nélkül.
+- `getActors() : ArrayList<String>` – új listában adja vissza a szereplőket.
+- `getCategories() : ArrayList<Genre>` – új listában adja vissza a műfajokat.
+- `toString() : String` – olvasható szöveg, `óra:perc:00` időformátummal; a feliratozást csak nem magyar filmnél említi.
+A fenti mezőkhöz tartozó getterek és setterek láthatóságát az egyes mezők leírása határozza meg. A validáció eredményétől függetlenül a hibás módosítás nem ronthatja el a korábban érvényes állapotot.
+
+**Főprogram**
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
 :::endexercise
