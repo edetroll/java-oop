@@ -619,7 +619,13 @@ The tasks below specify the type, accessibility and validity of each field, as w
 
 ![Rectangles – UML](content/chapters/06-oroklodes/media/complete-task-1-en.svg){width=620}
 
-Introduce a `Shape` superclass with a nonempty colour, getter and setter. Derive the existing `Rectangle` and a new `Circle` class. Circle radius must be positive and area/perimeter use their respective formulas. Store both shapes in a `Shape` list and select circles using `instanceof`. The calculation methods are new; do not introduce overridden methods yet.
+**Requirements**
+
+- Introduce a `Shape` superclass with a nonempty colour, getter and setter.
+- Derive the existing `Rectangle` and a new `Circle` class.
+- Circle radius must be positive and area/perimeter use their respective formulas.
+- Store both shapes in a `Shape` list and select circles using `instanceof`.
+- The calculation methods are new; do not introduce overridden methods yet.
 
 **Fields and properties**
 
@@ -677,7 +683,11 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Books – UML](content/chapters/06-oroklodes/media/complete-task-2-en.svg){width=620}
 
-Create a `Publication` superclass holding nonempty publisher and country, with validated setters. `Book` keeps its author, title, price, genre, printed flag, constructors, discount and price constants; `Magazine` stores a title and positive issue number. Add both derived types to a `Publication` list and select magazines with type checks.
+**Requirements**
+
+- Create a `Publication` superclass holding nonempty publisher and country, with validated setters.
+- `Book` keeps its author, title, price, genre, printed flag, constructors, discount and price constants; `Magazine` stores a title and positive issue number.
+- Add both derived types to a `Publication` list and select magazines with type checks.
 
 **Fields and properties**
 
@@ -735,7 +745,12 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Cars – UML](content/chapters/06-oroklodes/media/complete-task-3-en.svg){width=620}
 
-Move brand from the existing `Car` into a new `Vehicle` superclass; also store a positive integer maximum speed. `Car` keeps its model, year, mileage, automatic id, existing constructors and `drive()` method. `Motorcycle` stores positive engine capacity and a sidecar flag. Store both types in a `Vehicle` list and select motorcycles.
+**Requirements**
+
+- Move brand from the existing `Car` into a new `Vehicle` superclass; also store a positive integer maximum speed.
+- `Car` keeps its model, year, mileage, automatic id, existing constructors and `drive()` method.
+- `Motorcycle` stores positive engine capacity and a sidecar flag.
+- Store both types in a `Vehicle` list and select motorcycles.
 
 **Fields and properties**
 
@@ -788,7 +803,13 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Bank accounts – UML](content/chapters/06-oroklodes/media/complete-task-4-en.svg){width=620}
 
-Build a fresh, simple `BankAccount` hierarchy; do not extend the earlier private-constructor factory. The base stores nonempty holder and account number and nonnegative integer balance. Deposit and withdrawal validate positive amounts. SavingsAccount has interest rate in `[0,1]`; BusinessAccount requires a nonempty company name. Store both types in a BankAccount list and filter business accounts.
+**Requirements**
+
+- Build a fresh, simple `BankAccount` hierarchy; do not extend the earlier private-constructor factory.
+- The base stores nonempty holder and account number and nonnegative integer balance.
+- Deposit and withdrawal validate positive amounts.
+- SavingsAccount has interest rate in `[0,1]`; BusinessAccount requires a nonempty company name.
+- Store both types in a BankAccount list and filter business accounts.
 
 **Fields and properties**
 
@@ -830,7 +851,12 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Movies – UML](content/chapters/06-oroklodes/media/complete-task-5-en.svg){width=620}
 
-Create a new, simple `MediaItem` superclass with nonempty title and positive release year. Derive `Movie` with nonempty director and duration in `[10,360]` and `Series` with a positive number of seasons. Do not duplicate common fields in derived classes. Store both in a MediaItem list and select series.
+**Requirements**
+
+- Create a new, simple `MediaItem` superclass with nonempty title and positive release year.
+- Derive `Movie` with nonempty director and duration in `[10,360]` and `Series` with a positive number of seasons.
+- Do not duplicate common fields in derived classes.
+- Store both in a MediaItem list and select series.
 
 **Fields and properties**
 
@@ -867,3 +893,4 @@ Create a new, simple `MediaItem` superclass with nonempty title and positive rel
 
 Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
 :::endexercise
+

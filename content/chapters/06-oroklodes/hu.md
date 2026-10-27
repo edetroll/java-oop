@@ -619,7 +619,12 @@ Az alábbi feladatokban minden mező típusa, láthatósága, érvényességi fe
 
 ![Téglalapok – UML](content/chapters/06-oroklodes/media/complete-task-1-hu.svg){width=620}
 
-Készítsen `Shape` ősosztályt, amely a színt tárolja, és getterrel, setterrel kezeli. A szín nem lehet `null` vagy üres. Ebből származtassa a korábban elkészített `Rectangle` osztályt és egy új `Circle` osztályt! A kör sugara pozitív, a terület és a kerület számítása a megfelelő képletekkel történik. Egy `Shape` típusú listába vegyen fel téglalapokat és köröket, majd `instanceof` segítségével válogassa ki a köröket! A kör számításai új metódusok legyenek; az ősosztályban még ne definiáljunk felülírandó számítómetódust.
+**Követelmények**
+
+- Készítsen `Shape` ősosztályt, amely a színt tárolja, és getterrel, setterrel kezeli.
+- A szín nem lehet `null` vagy üres.
+- Ebből származtassa a korábban elkészített `Rectangle` osztályt és egy új `Circle` osztályt! A kör sugara pozitív, a terület és a kerület számítása a megfelelő képletekkel történik.
+- Egy `Shape` típusú listába vegyen fel téglalapokat és köröket, majd `instanceof` segítségével válogassa ki a köröket! A kör számításai új metódusok legyenek; az ősosztályban még ne definiáljunk felülírandó számítómetódust.
 
 **Mezők és property-k**
 
@@ -677,7 +682,11 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Könyvek – UML](content/chapters/06-oroklodes/media/complete-task-2-hu.svg){width=620}
 
-Készítsen `Publication` ősosztályt a kiadó és a megjelenési ország tárolására! Mindkét szöveges mező nem üres, ellenőrzött setterrel módosítható. A `Book` megtartja a szerzőt, címet, árat, műfajt, nyomtatott állapotot, konstruktorokat, kedvezményt és a korábban bevezetett árkonstansokat is; a `Magazine` a címét és pozitív sorszámát tárolja. Egy közös `Publication` típusú listába vegyen fel mindkét leszármazottból példányokat, majd típusellenőrzéssel gyűjtse ki a magazinokat.
+**Követelmények**
+
+- Készítsen `Publication` ősosztályt a kiadó és a megjelenési ország tárolására! Mindkét szöveges mező nem üres, ellenőrzött setterrel módosítható.
+- A `Book` megtartja a szerzőt, címet, árat, műfajt, nyomtatott állapotot, konstruktorokat, kedvezményt és a korábban bevezetett árkonstansokat is; a `Magazine` a címét és pozitív sorszámát tárolja.
+- Egy közös `Publication` típusú listába vegyen fel mindkét leszármazottból példányokat, majd típusellenőrzéssel gyűjtse ki a magazinokat.
 
 **Mezők és property-k**
 
@@ -735,7 +744,12 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Autók – UML](content/chapters/06-oroklodes/media/complete-task-3-hu.svg){width=620}
 
-Az eddigi `Car` osztályból a márka mezőjét helyezze át az új `Vehicle` ősosztályba! Az ősosztály a márka mellett a pozitív egész maximális sebességet is tárolja. A `Car` megtartja a modellt, évjáratot, kilométeróra-állást, az automatikus azonosítót, a meglévő konstruktorokat és a `drive()` metódust. A `Motorcycle` hengerűrtartalma legyen pozitív egész, a `sidecar` jelzi az oldalkocsit. Egy `Vehicle` listában tároljon mindkét járműtípusból példányokat, és gyűjtse ki a motorkerékpárokat!
+**Követelmények**
+
+- Az eddigi `Car` osztályból a márka mezőjét helyezze át az új `Vehicle` ősosztályba! Az ősosztály a márka mellett a pozitív egész maximális sebességet is tárolja.
+- A `Car` megtartja a modellt, évjáratot, kilométeróra-állást, az automatikus azonosítót, a meglévő konstruktorokat és a `drive()` metódust.
+- A `Motorcycle` hengerűrtartalma legyen pozitív egész, a `sidecar` jelzi az oldalkocsit.
+- Egy `Vehicle` listában tároljon mindkét járműtípusból példányokat, és gyűjtse ki a motorkerékpárokat!
 
 **Mezők és property-k**
 
@@ -788,7 +802,13 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Bankszámlák – UML](content/chapters/06-oroklodes/media/complete-task-4-hu.svg){width=620}
 
-Ehhez a feladathoz készítsen új, egyszerű `BankAccount` osztályhierarchiát; ne a korábbi, privát konstruktoros objektumgyárat módosítsa. Az ősosztály nem üres tulajdonost és számlaszámot, illetve nemnegatív egész egyenleget tárol. A `deposit()` és `withdraw()` metódusok csak pozitív, megfelelő összeggel dolgozhatnak. A `SavingsAccount` kamatlába `[0;1]` közötti valós szám, a `BusinessAccount` cégneve nem üres. Tárolja mindkettőt `BankAccount` típusú listában, és válogassa ki az üzleti számlákat!
+**Követelmények**
+
+- Ehhez a feladathoz készítsen új, egyszerű `BankAccount` osztályhierarchiát; ne a korábbi, privát konstruktoros objektumgyárat módosítsa.
+- Az ősosztály nem üres tulajdonost és számlaszámot, illetve nemnegatív egész egyenleget tárol.
+- A `deposit()` és `withdraw()` metódusok csak pozitív, megfelelő összeggel dolgozhatnak.
+- A `SavingsAccount` kamatlába `[0;1]` közötti valós szám, a `BusinessAccount` cégneve nem üres.
+- Tárolja mindkettőt `BankAccount` típusú listában, és válogassa ki az üzleti számlákat!
 
 **Mezők és property-k**
 
@@ -830,7 +850,12 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Filmek – UML](content/chapters/06-oroklodes/media/complete-task-5-hu.svg){width=620}
 
-Készítsen új, egyszerű `MediaItem` ősosztályt a nem üres cím és a pozitív megjelenési év tárolására. Ebből származzon a `Movie` és `Series` osztály! A film nem üres rendezőnevet és `[10;360]` perces játékidőt, a sorozat pozitív évadszámot tároljon. A közös elemeket ne másolja le a leszármazottakba. `MediaItem` típusú listában tárolja a példányokat, majd válassza ki a sorozatokat.
+**Követelmények**
+
+- Készítsen új, egyszerű `MediaItem` ősosztályt a nem üres cím és a pozitív megjelenési év tárolására.
+- Ebből származzon a `Movie` és `Series` osztály! A film nem üres rendezőnevet és `[10;360]` perces játékidőt, a sorozat pozitív évadszámot tároljon.
+- A közös elemeket ne másolja le a leszármazottakba.
+- `MediaItem` típusú listában tárolja a példányokat, majd válassza ki a sorozatokat.
 
 **Mezők és property-k**
 
@@ -867,3 +892,4 @@ Készítsen új, egyszerű `MediaItem` ősosztályt a nem üres cím és a pozit
 
 A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
 :::endexercise
+

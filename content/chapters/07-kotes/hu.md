@@ -760,7 +760,17 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 
 ![Téglalapok – UML](content/chapters/07-kotes/media/complete-task-1-hu.svg){width=620}
 
-A `Shape` ősosztályban készítse el a `canFitInside(screenWidth : double, screenHeight : double) : boolean` metódust, mely azt vizsgálja, hogy egy alakzat elhelyezhető-e adott méretű, téglalap alakú kijelzőn. Az ősosztály megvalósítása – amíg nem ismeri az alakzat méreteit – `false` értékkel térjen vissza. A `Rectangle` ezt a metódust úgy írja felül, hogy a saját szélességét és magasságát hasonlítja a megadott méretekhez; a `Circle` akkor fér el, ha az átmérője mindkét irányban elegendően kicsi. Forgatással egyik osztályban sem számolunk. Nem pozitív kijelzőméret esetén `IllegalArgumentException` kivételt kell dobni. A `Shape` osztályban egy másik, nem felülírandó `isDisplayable(screenWidth : double, screenHeight : double) : boolean` metódus egyszerűen a `canFitInside()` eredményével térjen vissza. Ezen a metóduson keresztül mutassa be a késői kötést különböző alakzatokat tartalmazó `Shape` típusú listán!
+
+
+**Követelmények**
+
+- A `Shape` ősosztályban készítse el a `canFitInside(screenWidth : double, screenHeight : double) : boolean` metódust, mely azt vizsgálja, hogy egy alakzat elhelyezhető-e adott méretű, téglalap alakú kijelzőn.
+- Az ősosztály megvalósítása – amíg nem ismeri az alakzat méreteit – `false` értékkel térjen vissza.
+- A `Rectangle` ezt a metódust úgy írja felül, hogy a saját szélességét és magasságát hasonlítja a megadott méretekhez; a `Circle` akkor fér el, ha az átmérője mindkét irányban elegendően kicsi.
+- Forgatással egyik osztályban sem számolunk.
+- Nem pozitív kijelzőméret esetén `IllegalArgumentException` kivételt kell dobni.
+- A `Shape` osztályban egy másik, nem felülírandó `isDisplayable(screenWidth : double, screenHeight : double) : boolean` metódus egyszerűen a `canFitInside()` eredményével térjen vissza.
+- Ezen a metóduson keresztül mutassa be a késői kötést különböző alakzatokat tartalmazó `Shape` típusú listán!
 :::endexercise
 
 :::exercise
@@ -768,7 +778,16 @@ A `Shape` ősosztályban készítse el a `canFitInside(screenWidth : double, scr
 
 ![Könyvek – UML](content/chapters/07-kotes/media/complete-task-2-hu.svg){width=620}
 
-A `Publication` ősosztályhoz adja hozzá a `calculateLateFee(daysLate : int) : int` metódust, mely a kölcsönzési határidő túllépése esetén fizetendő díjat adja vissza. Az ősosztály alapértelmezetten `0` forinttal tér vissza, míg a `Book` minden késedelmes nap után `50`, a `Magazine` pedig `20` forintot számoljon fel. Negatív napok száma esetén kivételt kell dobni. Az ősosztály `calculateTotalLateFee(daysLate : int, copies : int) : int` metódusa számítsa ki a díjat több azonos példányra, vagyis szorozza meg a `calculateLateFee()` eredményét a pozitív `copies` paraméterrel. Nem pozitív példányszám esetén dobjon kivételt. Vizsgálja meg, hogyan használja a közös, örökölt metódus a leszármazottak felülírt díjszámítását!
+
+
+**Követelmények**
+
+- A `Publication` ősosztályhoz adja hozzá a `calculateLateFee(daysLate : int) : int` metódust, mely a kölcsönzési határidő túllépése esetén fizetendő díjat adja vissza.
+- Az ősosztály alapértelmezetten `0` forinttal tér vissza, míg a `Book` minden késedelmes nap után `50`, a `Magazine` pedig `20` forintot számoljon fel.
+- Negatív napok száma esetén kivételt kell dobni.
+- Az ősosztály `calculateTotalLateFee(daysLate : int, copies : int) : int` metódusa számítsa ki a díjat több azonos példányra, vagyis szorozza meg a `calculateLateFee()` eredményét a pozitív `copies` paraméterrel.
+- Nem pozitív példányszám esetén dobjon kivételt.
+- Vizsgálja meg, hogyan használja a közös, örökölt metódus a leszármazottak felülírt díjszámítását!
 :::endexercise
 
 :::exercise
@@ -776,7 +795,16 @@ A `Publication` ősosztályhoz adja hozzá a `calculateLateFee(daysLate : int) :
 
 ![Autók – UML](content/chapters/07-kotes/media/complete-task-3-hu.svg){width=620}
 
-A `Vehicle` osztályhoz írjon `getServiceIntervalKm() : int` metódust, amely alapértelmezetten `0`-t ad vissza, ha nem ismerjük az ajánlott szervizperiódust. A `Car` osztályban ennek értéke `15000`, a `Motorcycle` esetében `6000` kilométer legyen. A `Vehicle` ősosztály `needsService(kmSinceService : int) : boolean` metódusa azt vizsgálja, hogy az utolsó szerviz óta megtett kilométerek száma elérte-e a tényleges járműtípus szervizperiódusát. Ha a periódus `0`, térjen vissza `false` értékkel; negatív kilométerszám esetén dobjon kivételt. Tároljon `Car` és `Motorcycle` példányokat közös `Vehicle` típusú listában, és állapítsa meg, mely járművek esedékesek szervizre. A kiválasztás során ne használjon járműtípusonként külön számítási elágazást.
+
+
+**Követelmények**
+
+- A `Vehicle` osztályhoz írjon `getServiceIntervalKm() : int` metódust, amely alapértelmezetten `0`-t ad vissza, ha nem ismerjük az ajánlott szervizperiódust.
+- A `Car` osztályban ennek értéke `15000`, a `Motorcycle` esetében `6000` kilométer legyen.
+- A `Vehicle` ősosztály `needsService(kmSinceService : int) : boolean` metódusa azt vizsgálja, hogy az utolsó szerviz óta megtett kilométerek száma elérte-e a tényleges járműtípus szervizperiódusát.
+- Ha a periódus `0`, térjen vissza `false` értékkel; negatív kilométerszám esetén dobjon kivételt.
+- Tároljon `Car` és `Motorcycle` példányokat közös `Vehicle` típusú listában, és állapítsa meg, mely járművek esedékesek szervizre.
+- A kiválasztás során ne használjon járműtípusonként külön számítási elágazást.
 :::endexercise
 
 :::exercise
@@ -784,7 +812,16 @@ A `Vehicle` osztályhoz írjon `getServiceIntervalKm() : int` metódust, amely a
 
 ![Bankszámlák – UML](content/chapters/07-kotes/media/complete-task-4-hu.svg){width=620}
 
-A `BankAccount` ősosztályban vezesse be a `calculateTransferFee(amount : int) : int` metódust, amely egy átutalás díját adja meg. Az ősosztály és a `SavingsAccount` esetében a díj `0` forint; a `BusinessAccount` osztályban az átutalás díja az összeg egészértékű `1` százaléka, de legalább `100` forint. Minden változat csak pozitív összeget fogadhat el. Az ősosztályhoz írjon `canAffordTransfer(amount : int) : boolean` metódust, amely eldönti, hogy az egyenlegből a teljes összeg és a megfelelő díj együttesen kifizethető-e. Ez a metódus ne változtassa meg az egyenleget. A számításhoz használja a felülírható `calculateTransferFee()` metódust, majd `BankAccount` típusú referenciákon ellenőrizze a különböző számlatípusok működését!
+
+
+**Követelmények**
+
+- A `BankAccount` ősosztályban vezesse be a `calculateTransferFee(amount : int) : int` metódust, amely egy átutalás díját adja meg.
+- Az ősosztály és a `SavingsAccount` esetében a díj `0` forint; a `BusinessAccount` osztályban az átutalás díja az összeg egészértékű `1` százaléka, de legalább `100` forint.
+- Minden változat csak pozitív összeget fogadhat el.
+- Az ősosztályhoz írjon `canAffordTransfer(amount : int) : boolean` metódust, amely eldönti, hogy az egyenlegből a teljes összeg és a megfelelő díj együttesen kifizethető-e.
+- Ez a metódus ne változtassa meg az egyenleget.
+- A számításhoz használja a felülírható `calculateTransferFee()` metódust, majd `BankAccount` típusú referenciákon ellenőrizze a különböző számlatípusok működését!
 :::endexercise
 
 :::exercise
@@ -792,6 +829,15 @@ A `BankAccount` ősosztályban vezesse be a `calculateTransferFee(amount : int) 
 
 ![Filmek – UML](content/chapters/07-kotes/media/complete-task-5-hu.svg){width=620}
 
-A `MediaItem` osztályhoz készítsen `getViewingMinutes() : int` metódust, mely az adott tartalom teljes megtekintéséhez szükséges időt adja vissza; az ősosztály alapértelmezett értéke `0`. A `Movie` a tárolt `duration` értékkel térjen vissza. A `Series` osztályban a meglévő pozitív `seasons` mező mellett vezesse be az egy évadhoz tartozó epizódok számát (`episodesPerSeason : int`) és egy epizód átlagos hosszát (`minutesPerEpisode : int`), mindkettő pozitív egész szám. A sorozat teljes játékideje e három érték szorzata. Az ősosztály `canWatchWithin(maxMinutes : int) : boolean` metódusa akkor adjon `true` értéket, ha a játékidő pozitív, és nem hosszabb a megadott időkeretnél; nem pozitív időkeretre dobjon kivételt. Vegyes `MediaItem` listán vizsgálja meg, melyik tartalom fér bele például egy `180` perces szabadidőbe!
+
+
+**Követelmények**
+
+- A `MediaItem` osztályhoz készítsen `getViewingMinutes() : int` metódust, mely az adott tartalom teljes megtekintéséhez szükséges időt adja vissza; az ősosztály alapértelmezett értéke `0`.
+- A `Movie` a tárolt `duration` értékkel térjen vissza.
+- A `Series` osztályban a meglévő pozitív `seasons` mező mellett vezesse be az egy évadhoz tartozó epizódok számát (`episodesPerSeason : int`) és egy epizód átlagos hosszát (`minutesPerEpisode : int`), mindkettő pozitív egész szám.
+- A sorozat teljes játékideje e három érték szorzata.
+- Az ősosztály `canWatchWithin(maxMinutes : int) : boolean` metódusa akkor adjon `true` értéket, ha a játékidő pozitív, és nem hosszabb a megadott időkeretnél; nem pozitív időkeretre dobjon kivételt.
+- Vegyes `MediaItem` listán vizsgálja meg, melyik tartalom fér bele például egy `180` perces szabadidőbe!
 :::endexercise
 

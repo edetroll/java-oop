@@ -160,3 +160,6 @@
   font-size: var(--code-font-size);
   font-variant-ligatures: none;
 }
+
+/* Visszalépési lehetőség, ha egy diagram nem tölthető be. */
+.article .lesson-image-fallback{display:block;margin:12px auto;padding:10px 14px;border:1px dashed var(--line);border-radius:9px;color:var(--accent);text-decoration:underline;overflow-wrap:anywhere}

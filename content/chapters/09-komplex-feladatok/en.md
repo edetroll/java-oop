@@ -51,7 +51,7 @@ Create a class named `WashingMachine` derived from `HouseholdAppliance`. A washi
 
 **Methods**
 
-- **`setConsumption(double value): void`**: Override the parent's `protected` setter. For a washing machine, consumption is valid only in the interval `[0.5; 1.5]`; if the value is valid, use the parent class's setter to store it. The stricter restriction must also apply to the consumption specified in the constructor. The parent class constructor must perform the general validation, and the washing machine constructor must additionally enforce the stricter conditions.
+- **`setConsumption(double value): void`**: Override the parent's `protected` setter. For a washing machine, consumption is valid only in the interval `[0.5; 1.5]`; if the value is valid, use the parent class's setter to store it. The stricter restriction must also apply to the consumption specified in the constructor. In the `HouseholdAppliance` constructor, validate the general `[0.2; 2.5]` range. After the call to the parent constructor, the `WashingMachine` constructor must separately check the stricter `[0.5; 1.5]` range and throw an exception if it is violated. Do not call an overridable setter from the parent constructor if it could depend on subclass state that has not yet been initialized.
 - **`energyClass(): int`**: Override the method inherited from the parent class. First calculate `k = consumption · minWaterTemperature · waterConsumption`, then determine the energy class using the following ranges. Washing machines must use this separate calculation; do not worsen the result further on the basis of the year of manufacture.
 
 - `[40; 75)`: **energy class 1**; `[75; 135)`: **energy class 2**; `[135; 210)`: **energy class 3**; `[210; 280)`: **energy class 4**; `[280; 360]`: **energy class 5**.
@@ -73,7 +73,7 @@ Create a container class named `ApplianceStore` for managing household appliance
 - **`addMachine(HouseholdAppliance machine): void`**: Add the appliance passed as an argument only if it is not `null` and there is no appliance with the same code already in the list. Otherwise, throw an `IllegalArgumentException`. Use the implemented `equals()` method to detect duplicates.
 - **`getOlderMachines(): List<HouseholdAppliance>`**: Create and return a new list containing appliances manufactured before 2019. Modifying the returned list must not affect the store's internal list.
 - **`getWashingMachinesByEnergyClass(int energyClass): List<WashingMachine>`**: Collect into a new list the washing machines whose energy class matches the argument. The argument must be an integer from `1` to `5`; otherwise, throw an exception. Check each appliance's actual type during the query and perform a type cast when necessary.
-- **`getMachineByCode(String code): HouseholdAppliance`**: Find the household appliance with the given code and return that instance. If no appliance with the specified code exists, return `null`. This method replaces the string-keyed indexer property available in C#.
+- **`getMachineByCode(String code): HouseholdAppliance`**: Find the household appliance with the given code and return that instance. If no appliance with the specified code exists, return `null`. The lookup must not modify the internal list.
 
 ### Main Program {#foprogram}
 
@@ -86,7 +86,7 @@ H;ZEH-ITTW2Y82;2022;small_appliance;0.8
 M;G3F72DF0EJ88;2019;0.9;40;5.3;white
 ```
 
-The UML diagrams below show all the required fields, constructors, and methods of the three classes. The exercise can also be completed using only the written specification, without the diagrams.
+The following UML diagrams also illustrate the members and relationships of the classes.
 
 ![Household appliance class hierarchy](content/chapters/09-komplex-feladatok/media/appliance-uml-en.svg){width=790}
 

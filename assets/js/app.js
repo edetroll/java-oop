@@ -72,6 +72,16 @@ function enhanceCode(root){
 }
 function enhanceImages(root){
  root.querySelectorAll('.lesson-image-trigger').forEach(button=>{
+  const image=button.querySelector('img');
+  image.addEventListener('error',()=>{
+   const fallback=document.createElement('a');
+   fallback.className='lesson-image-fallback';
+   fallback.href=image.getAttribute('src');
+   fallback.target='_blank';
+   fallback.rel='noopener noreferrer';
+   fallback.textContent=(image.alt||'UML')+' — UML / diagram megnyitása';
+   button.replaceWith(fallback);
+  });
   button.addEventListener('click',()=>{
    const source=button.querySelector('img');
    const dialog=document.createElement('dialog');dialog.className='image-lightbox';

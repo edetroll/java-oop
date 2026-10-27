@@ -619,13 +619,14 @@ int main() {
 
 ![矩形 – UML](content/chapters/06-oroklodes/media/complete-task-1-zh.svg){width=620}
 
-创建 `Shape` 父类，保存非空颜色并提供 getter/setter。让已有的 `Rectangle` 和新的 `Circle` 继承它。圆半径必须大于零，计算面积和周长。在 `Shape` 列表中保存矩形和圆，使用 `instanceof` 筛选圆形。本题只增加新方法，不要求重写父类方法。
+**要求与操作**
 
-**字段与属性**
-
-**`图形`**
-
-- `- 颜色 : String`
+- 创建 `Shape` 父类，保存非空颜色并提供 getter/setter。
+- 让已有的 `Rectangle` 和新的 `Circle` 继承它。
+- 圆半径必须大于零，计算面积和周长。
+- 在 `Shape` 列表中保存矩形和圆，使用 `instanceof` 筛选圆形。
+- 本题只增加新方法，不要求重写父类方法。
+- **字段与属性** **`图形`** - `- 颜色 : String`
 
 **方法**
 
@@ -677,14 +678,12 @@ int main() {
 
 ![图书 – UML](content/chapters/06-oroklodes/media/complete-task-2-zh.svg){width=620}
 
-创建 `Publication` 父类，存储非空出版社和国家并提供验证 setter。`Book` 保留作者、标题、价格、类别、纸质标志、构造方法、折扣和价格常量；`Magazine` 保存标题与正数期号。将两个子类对象放入 `Publication` 列表，用类型判断筛选期刊。
+**要求与操作**
 
-**字段与属性**
-
-**`出版物`**
-
-- `- 出版社 : String`
-- `- 国家 : String`
+- 创建 `Publication` 父类，存储非空出版社和国家并提供验证 setter。
+- `Book` 保留作者、标题、价格、类别、纸质标志、构造方法、折扣和价格常量；`Magazine` 保存标题与正数期号。
+- 将两个子类对象放入 `Publication` 列表，用类型判断筛选期刊。
+- **字段与属性** **`出版物`** - `- 出版社 : String` - `- 国家 : String`
 
 **方法**
 
@@ -735,14 +734,12 @@ int main() {
 
 ![汽车 – UML](content/chapters/06-oroklodes/media/complete-task-3-zh.svg){width=620}
 
-将 `Car` 原来的品牌字段移到 `Vehicle` 父类，并添加正整数最高车速。`Car` 保留型号、年份、里程、自动编号、已有构造方法与 `drive()` 方法；`Motorcycle` 保存正整数排量和边车标志。用 `Vehicle` 列表存储两类车辆，并筛选摩托车。
+**要求与操作**
 
-**字段与属性**
-
-**`交通工具`**
-
-- `- 品牌 : String`
-- `- 最高时速 : int`
+- 将 `Car` 原来的品牌字段移到 `Vehicle` 父类，并添加正整数最高车速。
+- `Car` 保留型号、年份、里程、自动编号、已有构造方法与 `drive()` 方法；`Motorcycle` 保存正整数排量和边车标志。
+- 用 `Vehicle` 列表存储两类车辆，并筛选摩托车。
+- **字段与属性** **`交通工具`** - `- 品牌 : String` - `- 最高时速 : int`
 
 **方法**
 
@@ -788,15 +785,13 @@ int main() {
 
 ![银行账户 – UML](content/chapters/06-oroklodes/media/complete-task-4-zh.svg){width=620}
 
-本题重新创建简化的 `BankAccount` 继承体系，不修改上一章的私有构造工厂。父类保存非空持有人、账号和非负整数余额，存取金额必须为正且提款不能透支。`SavingsAccount` 利率在 `[0,1]` 内，`BusinessAccount` 公司名不能为空。将子类实例放入父类列表并筛选企业账户。
+**要求与操作**
 
-**字段与属性**
-
-**`银行账户`**
-
-- `- 持有人 : String`
-- `- 账号 : String`
-- `- 余额 : int`
+- 本题重新创建简化的 `BankAccount` 继承体系，不修改上一章的私有构造工厂。
+- 父类保存非空持有人、账号和非负整数余额，存取金额必须为正且提款不能透支。
+- `SavingsAccount` 利率在 `[0,1]` 内，`BusinessAccount` 公司名不能为空。
+- 将子类实例放入父类列表并筛选企业账户。
+- **字段与属性** **`银行账户`** - `- 持有人 : String` - `- 账号 : String` - `- 余额 : int`
 
 **方法**
 
@@ -830,14 +825,13 @@ int main() {
 
 ![电影 – UML](content/chapters/06-oroklodes/media/complete-task-5-zh.svg){width=620}
 
-创建新的简化 `MediaItem` 父类，包含非空标题与正数发行年份。派生 `Movie`（非空导演、`[10,360]` 分钟）及 `Series`（正数季数）。共同字段只放在父类。将对象存入 `MediaItem` 列表并筛选剧集。
+**要求与操作**
 
-**字段与属性**
-
-**`媒体内容`**
-
-- `- 标题 : String`
-- `- 上映年份 : int`
+- 创建新的简化 `MediaItem` 父类，包含非空标题与正数发行年份。
+- 派生 `Movie`（非空导演、`[10,360]` 分钟）及 `Series`（正数季数）。
+- 共同字段只放在父类。
+- 将对象存入 `MediaItem` 列表并筛选剧集。
+- **字段与属性** **`媒体内容`** - `- 标题 : String` - `- 上映年份 : int`
 
 **方法**
 
@@ -867,3 +861,4 @@ int main() {
 
 私有字段只能由定义它的类直接访问，子类通过可访问的方法操作。本练习不要求重写继承方法，也不引入构造方法链。
 :::endexercise
+

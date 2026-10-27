@@ -760,7 +760,16 @@ These tasks use method overriding for calculations and decisions that depend on 
 
 ![Rectangles – UML](content/chapters/07-kotes/media/complete-task-1-en.svg){width=620}
 
-In `Shape`, implement `canFitInside(screenWidth : double, screenHeight : double) : boolean` to check whether the figure fits a rectangular display without rotation. The base implementation returns `false`, since a generic shape has no dimensions. In `Rectangle`, compare its width and height with the available dimensions; in `Circle`, check whether its diameter fits in both directions. Reject non-positive display dimensions with `IllegalArgumentException`. Add `isDisplayable(screenWidth : double, screenHeight : double) : boolean` to the base class; it simply calls `canFitInside()`. Demonstrate that the inherited method uses the correct implementation for different objects stored in a `Shape` list.
+
+
+**Requirements**
+
+- In `Shape`, implement `canFitInside(screenWidth : double, screenHeight : double) : boolean` to check whether the figure fits a rectangular display without rotation.
+- The base implementation returns `false`, since a generic shape has no dimensions.
+- In `Rectangle`, compare its width and height with the available dimensions; in `Circle`, check whether its diameter fits in both directions.
+- Reject non-positive display dimensions with `IllegalArgumentException`.
+- Add `isDisplayable(screenWidth : double, screenHeight : double) : boolean` to the base class; it simply calls `canFitInside()`.
+- Demonstrate that the inherited method uses the correct implementation for different objects stored in a `Shape` list.
 :::endexercise
 
 :::exercise
@@ -768,7 +777,15 @@ In `Shape`, implement `canFitInside(screenWidth : double, screenHeight : double)
 
 ![Books – UML](content/chapters/07-kotes/media/complete-task-2-en.svg){width=620}
 
-Add `calculateLateFee(daysLate : int) : int` to `Publication`. The base class returns `0`, `Book` charges `50` forints per overdue day, and `Magazine` charges `20`. Reject a negative number of days. The inherited `calculateTotalLateFee(daysLate : int, copies : int) : int` calculates the fee for several copies using `calculateLateFee()`; `copies` must be positive. Show how the same inherited method calls different overridden implementations.
+
+
+**Requirements**
+
+- Add `calculateLateFee(daysLate : int) : int` to `Publication`.
+- The base class returns `0`, `Book` charges `50` forints per overdue day, and `Magazine` charges `20`.
+- Reject a negative number of days.
+- The inherited `calculateTotalLateFee(daysLate : int, copies : int) : int` calculates the fee for several copies using `calculateLateFee()`; `copies` must be positive.
+- Show how the same inherited method calls different overridden implementations.
 :::endexercise
 
 :::exercise
@@ -776,7 +793,14 @@ Add `calculateLateFee(daysLate : int) : int` to `Publication`. The base class re
 
 ![Cars – UML](content/chapters/07-kotes/media/complete-task-3-en.svg){width=620}
 
-Add `getServiceIntervalKm() : int` to `Vehicle`; the base implementation returns `0` for an unknown interval. `Car` returns `15000`, `Motorcycle` returns `6000`. The inherited `needsService(kmSinceService : int) : boolean` checks whether the distance since the last service reaches the actual vehicle's interval, returns `false` for an unknown interval, and rejects negative distances. Use a mixed `Vehicle` collection to identify vehicles due for service without type-specific calculations.
+
+
+**Requirements**
+
+- Add `getServiceIntervalKm() : int` to `Vehicle`; the base implementation returns `0` for an unknown interval.
+- `Car` returns `15000`, `Motorcycle` returns `6000`.
+- The inherited `needsService(kmSinceService : int) : boolean` checks whether the distance since the last service reaches the actual vehicle's interval, returns `false` for an unknown interval, and rejects negative distances.
+- Use a mixed `Vehicle` collection to identify vehicles due for service without type-specific calculations.
 :::endexercise
 
 :::exercise
@@ -784,7 +808,15 @@ Add `getServiceIntervalKm() : int` to `Vehicle`; the base implementation returns
 
 ![Bank accounts – UML](content/chapters/07-kotes/media/complete-task-4-en.svg){width=620}
 
-Define `calculateTransferFee(amount : int) : int` in `BankAccount`: the base and `SavingsAccount` versions return `0`, whereas `BusinessAccount` charges the greater of `100` forints and one percent of the amount, rounded down to a whole forint. Every method rejects non-positive amounts. In the base class, `canAffordTransfer(amount : int) : boolean` determines whether the current balance covers the transfer amount plus the dynamically calculated fee. The method must not alter the balance. Test it via `BankAccount` references.
+
+
+**Requirements**
+
+- Define `calculateTransferFee(amount : int) : int` in `BankAccount`: the base and `SavingsAccount` versions return `0`, whereas `BusinessAccount` charges the greater of `100` forints and one percent of the amount, rounded down to a whole forint.
+- Every method rejects non-positive amounts.
+- In the base class, `canAffordTransfer(amount : int) : boolean` determines whether the current balance covers the transfer amount plus the dynamically calculated fee.
+- The method must not alter the balance.
+- Test it via `BankAccount` references.
 :::endexercise
 
 :::exercise
@@ -792,6 +824,15 @@ Define `calculateTransferFee(amount : int) : int` in `BankAccount`: the base and
 
 ![Movies – UML](content/chapters/07-kotes/media/complete-task-5-en.svg){width=620}
 
-In `MediaItem`, introduce `getViewingMinutes() : int` returning `0` by default. In `Movie`, return `duration`. In `Series`, add two private, positive integer fields: `episodesPerSeason` and `minutesPerEpisode`; calculate the total as `seasons × episodesPerSeason × minutesPerEpisode`. Add `canWatchWithin(maxMinutes : int) : boolean` to `MediaItem`; it returns `true` only for a known, positive running time not exceeding the given positive time limit. Invalid limits raise an exception. Find the items that fit into a `180`-minute time slot using a mixed collection.
+
+
+**Requirements**
+
+- In `MediaItem`, introduce `getViewingMinutes() : int` returning `0` by default.
+- In `Movie`, return `duration`.
+- In `Series`, add two private, positive integer fields: `episodesPerSeason` and `minutesPerEpisode`; calculate the total as `seasons × episodesPerSeason × minutesPerEpisode`.
+- Add `canWatchWithin(maxMinutes : int) : boolean` to `MediaItem`; it returns `true` only for a known, positive running time not exceeding the given positive time limit.
+- Invalid limits raise an exception.
+- Find the items that fit into a `180`-minute time slot using a mixed collection.
 :::endexercise
 

@@ -927,7 +927,7 @@ A példányszámlálót ne a `getArea()` és más példánymetódusok módosíts
 
 **Főprogram**
 
-Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
+Készítsen három téglalapot két különböző konstruktor használatával! Ellenőrizze, hogy a `getCreatedCount()` értéke minden sikeres példányosítás után pontosan eggyel nő, de a terület lekérdezésekor nem változik.
 :::endexercise
 
 :::exercise
@@ -954,7 +954,7 @@ A korábbi árvalidáció ezekre a konstansokra és a közös ellenőrző metód
 
 **Főprogram**
 
-Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
+Próbálja ki a `Book.isValidPrice()` függvényt `499`, `500`, `50000` és `50001` forinttal! Ellenőrizze, hogy a leárazás nem viszi `899` forint alá a könyv árát.
 :::endexercise
 
 :::exercise
@@ -983,7 +983,7 @@ A konstruktornak minden új példány esetén ki kell osztania a következő azo
 
 **Főprogram**
 
-Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
+Hozzon létre három autót! Jelenítse meg az azonosítójukat, és ellenőrizze, hogy azok `1`, `2`, `3` sorrendben kerültek kiosztásra, egyetlen azonosító sem ismétlődik meg.
 :::endexercise
 
 :::exercise
@@ -1010,7 +1010,7 @@ A konstruktor legyen privát, így a főprogram nem kerülheti meg a gyártómet
 
 **Főprogram**
 
-Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
+Próbáljon négy számlát létrehozni a `BankAccount.create()` metódussal! Ellenőrizze, hogy az első három sikeres, a negyedik `null` értéket ad, és a hibás adatok miatt elutasított kísérlet nem foglal el egy helyet.
 :::endexercise
 
 :::exercise
@@ -1042,5 +1042,5 @@ A `MovieLibrary` konstruktorát kívülről nem lehet meghívni; a filmekhez csa
 
 **Főprogram**
 
-Készítsen több példányt, ellenőrizze az osztályszintű adat működését, és próbálja ki azokat a határeseteket is, amelyeket a feladat meghatároz.
+Hívja meg többször a `MovieLibrary.getInstance()` metódust, és vizsgálja meg, hogy minden hívás ugyanarra a példányra mutat-e! Az egyik referencián keresztül vegyen fel egy filmet, majd a másikon keresztül ellenőrizze a tárolt filmek számát.
 :::endexercise

@@ -434,7 +434,16 @@ A következő feladatokban az előző fejezetben létrehozott osztályhierarchi�
 
 ![Téglalapok – UML](content/chapters/08-konstruktorhivasi-lanc/media/chain-task-1-hu.svg){width=640}
 
-Az előző fejezet `Shape`–`Rectangle`–`Circle` hierarchiájában a `Shape` rendelkezzen egy publikus `Shape(color : String)` konstruktorral, amely a színt a korábban megírt validáló setter segítségével állítja be. A `Rectangle` teljes paraméterlistájú konstruktora a színt, a bal felső csúcs két koordinátáját és a pozitív szélességet, magasságot várja; a színt az ősosztály konstruktorának adja át, a többi adatot a saját ellenőrzött settereit használva állítsa be. Készítsen egy második `Rectangle(color : String, width : double, height : double)` konstruktort is, amely a teljes változatnak adja át a paramétereket, miközben a két koordinátát `0` értékre állítja. A `Circle(color : String, radius : double)` konstruktor ugyanígy a `Shape` konstruktorát hívja a színhez, és ellenőrzi, hogy a sugár pozitív legyen. Gondoskodjon arról, hogy hibás értékből egyik osztály esetén se jöhessen létre példány. Az előzőekben megírt terület-, kerület- és illeszkedésvizsgáló metódusok működése maradjon változatlan; a főprogramban mutasson be mindkét téglalap-konstruktort és egy kör példányosítását!
+
+
+**Követelmények**
+
+- Az előző fejezet `Shape`–`Rectangle`–`Circle` hierarchiájában a `Shape` rendelkezzen egy publikus `Shape(color : String)` konstruktorral, amely a színt a korábban megírt validáló setter segítségével állítja be.
+- A `Rectangle` teljes paraméterlistájú konstruktora a színt, a bal felső csúcs két koordinátáját és a pozitív szélességet, magasságot várja; a színt az ősosztály konstruktorának adja át, a többi adatot a saját ellenőrzött settereit használva állítsa be.
+- Készítsen egy második `Rectangle(color : String, width : double, height : double)` konstruktort is, amely a teljes változatnak adja át a paramétereket, miközben a két koordinátát `0` értékre állítja.
+- A `Circle(color : String, radius : double)` konstruktor ugyanígy a `Shape` konstruktorát hívja a színhez, és ellenőrzi, hogy a sugár pozitív legyen.
+- Gondoskodjon arról, hogy hibás értékből egyik osztály esetén se jöhessen létre példány.
+- Az előzőekben megírt terület-, kerület- és illeszkedésvizsgáló metódusok működése maradjon változatlan; a főprogramban mutasson be mindkét téglalap-konstruktort és egy kör példányosítását!
 :::endexercise
 
 :::exercise
@@ -442,7 +451,16 @@ Az előző fejezet `Shape`–`Rectangle`–`Circle` hierarchiájában a `Shape` 
 
 ![Könyvek – UML](content/chapters/08-konstruktorhivasi-lanc/media/chain-task-2-hu.svg){width=640}
 
-A `Publication` osztályba készítsen `Publication(publisher : String, country : String)` konstruktort, mely csak nem üres kiadó- és országnévvel hozhat létre példányt. A `Book` teljes konstruktora paraméterben kapja a kiadó és az ország mellett a szerzőt, címet, árat, műfajt és a nyomtatott állapotot; a két közös mezőt az ősosztály konstruktorával inicializálja. Az árra a korábbi `[500; 50000]` értéktartomány érvényes, a szöveges mezők nem lehetnek üresek. A `Book(publisher : String, country : String, author : String, title : String, price : int)` rövidített konstruktor a teljes változatot hívja `DRAMA` műfajjal és nyomtatott formátummal. A `Magazine(publisher : String, country : String, title : String, issueNumber : int)` konstruktor a közös adatok után eltárolja a nem üres címet és a pozitív lapszámot. A főprogramban hozza létre a kétféle kiadványt, és próbáljon ki egy hibás kiadónevet is, hogy ellenőrizze, melyik konstruktor felel az adat érvényességéért!
+
+
+**Követelmények**
+
+- A `Publication` osztályba készítsen `Publication(publisher : String, country : String)` konstruktort, mely csak nem üres kiadó- és országnévvel hozhat létre példányt.
+- A `Book` teljes konstruktora paraméterben kapja a kiadó és az ország mellett a szerzőt, címet, árat, műfajt és a nyomtatott állapotot; a két közös mezőt az ősosztály konstruktorával inicializálja.
+- Az árra a korábbi `[500; 50000]` értéktartomány érvényes, a szöveges mezők nem lehetnek üresek.
+- A `Book(publisher : String, country : String, author : String, title : String, price : int)` rövidített konstruktor a teljes változatot hívja `DRAMA` műfajjal és nyomtatott formátummal.
+- A `Magazine(publisher : String, country : String, title : String, issueNumber : int)` konstruktor a közös adatok után eltárolja a nem üres címet és a pozitív lapszámot.
+- A főprogramban hozza létre a kétféle kiadványt, és próbáljon ki egy hibás kiadónevet is, hogy ellenőrizze, melyik konstruktor felel az adat érvényességéért!
 :::endexercise
 
 :::exercise
@@ -450,7 +468,16 @@ A `Publication` osztályba készítsen `Publication(publisher : String, country 
 
 ![Autók – UML](content/chapters/08-konstruktorhivasi-lanc/media/chain-task-3-hu.svg){width=640}
 
-A `Vehicle` ősosztály konstruktorának legyen két paramétere: `brand : String` és `maxSpeed : int`. A márka nem lehet üres, a maximális sebesség pozitív egész szám legyen. A `Car` osztály teljes konstruktora ezek mellett kapja meg a `model : String`, `year : int`, `mileage : int` értékeket; a modellt ne engedje üresen, az év legyen az `[1886; 2100]` intervallumban, a kilométeróra-állás pedig nemnegatív egész. A `Car(brand : String, maxSpeed : int, model : String, year : int)` rövidített konstruktor az előző változatot hívja `0` kilométerrel. A `Motorcycle(brand : String, maxSpeed : int, engineCapacity : int, sidecar : boolean)` konstruktor a megfelelő ősosztály-konstruktor után ellenőrzi, hogy a hengerűrtartalom pozitív legyen. A korábbi automatikus autóazonosítót a sikeresen elvégzett ellenőrzések után ossza ki, és gondoskodjon arról, hogy egyetlen példány se kapjon két azonosítót! Hozzon létre mindhárom konstruktorral járműveket, és mutassa meg a szervizigény-vizsgálatukat!
+
+
+**Követelmények**
+
+- A `Vehicle` ősosztály konstruktorának legyen két paramétere: `brand : String` és `maxSpeed : int`.
+- A márka nem lehet üres, a maximális sebesség pozitív egész szám legyen.
+- A `Car` osztály teljes konstruktora ezek mellett kapja meg a `model : String`, `year : int`, `mileage : int` értékeket; a modellt ne engedje üresen, az év legyen az `[1886; 2100]` intervallumban, a kilométeróra-állás pedig nemnegatív egész.
+- A `Car(brand : String, maxSpeed : int, model : String, year : int)` rövidített konstruktor az előző változatot hívja `0` kilométerrel.
+- A `Motorcycle(brand : String, maxSpeed : int, engineCapacity : int, sidecar : boolean)` konstruktor a megfelelő ősosztály-konstruktor után ellenőrzi, hogy a hengerűrtartalom pozitív legyen.
+- A korábbi automatikus autóazonosítót a sikeresen elvégzett ellenőrzések után ossza ki, és gondoskodjon arról, hogy egyetlen példány se kapjon két azonosítót! Hozzon létre mindhárom konstruktorral járműveket, és mutassa meg a szervizigény-vizsgálatukat!
 :::endexercise
 
 :::exercise
@@ -458,7 +485,17 @@ A `Vehicle` ősosztály konstruktorának legyen két paramétere: `brand : Strin
 
 ![Bankszámlák – UML](content/chapters/08-konstruktorhivasi-lanc/media/chain-task-4-hu.svg){width=640}
 
-Az előző fejezet `BankAccount`–`SavingsAccount`–`BusinessAccount` hierarchiáját egészítse ki konstruktorokkal. A `BankAccount(owner : String, accountNumber : String, balance : int)` konstruktor csak nem üres tulajdonost és számlaszámot, valamint nemnegatív egész egyenleget fogadhat el. A `SavingsAccount` konstruktora ugyanezeket az értékeket és egy `interestRate : double` kamatlábat vár a `[0;1]` intervallumból. A `BusinessAccount` konstruktora a közös adatokon kívül a nem üres `companyName : String` értéket kapja meg. Mindkét leszármazott kizárólag az ősosztály konstruktorán keresztül állítsa be a közös adatokat. Az átutalási díj számítását és az átutalás fedezetének vizsgálatát ne helyezze a konstruktorokba, mert azok a példány későbbi működéséhez tartoznak. A főprogramban hozzon létre mindkét számlatípusból példányokat, majd ellenőrizze, hogy hibás számlaszámmal, illetve kamatlábbal nem hozható létre új számla!
+
+
+**Követelmények**
+
+- Az előző fejezet `BankAccount`–`SavingsAccount`–`BusinessAccount` hierarchiáját egészítse ki konstruktorokkal.
+- A `BankAccount(owner : String, accountNumber : String, balance : int)` konstruktor csak nem üres tulajdonost és számlaszámot, valamint nemnegatív egész egyenleget fogadhat el.
+- A `SavingsAccount` konstruktora ugyanezeket az értékeket és egy `interestRate : double` kamatlábat vár a `[0;1]` intervallumból.
+- A `BusinessAccount` konstruktora a közös adatokon kívül a nem üres `companyName : String` értéket kapja meg.
+- Mindkét leszármazott kizárólag az ősosztály konstruktorán keresztül állítsa be a közös adatokat.
+- Az átutalási díj számítását és az átutalás fedezetének vizsgálatát ne helyezze a konstruktorokba, mert azok a példány későbbi működéséhez tartoznak.
+- A főprogramban hozzon létre mindkét számlatípusból példányokat, majd ellenőrizze, hogy hibás számlaszámmal, illetve kamatlábbal nem hozható létre új számla!
 :::endexercise
 
 :::exercise
@@ -466,6 +503,14 @@ Az előző fejezet `BankAccount`–`SavingsAccount`–`BusinessAccount` hierarch
 
 ![Filmek – UML](content/chapters/08-konstruktorhivasi-lanc/media/chain-task-5-hu.svg){width=640}
 
-Készítsen a `MediaItem` ősosztályba `MediaItem(title : String, releaseYear : int)` konstruktort, amely nem üres címet és az `[1895; 2100]` intervallumba tartozó megjelenési évet vár. A `Movie(title : String, releaseYear : int, director : String, duration : int)` konstruktor adja át a közös adatokat az ősosztálynak, majd ellenőrizze a nem üres rendezőt és a `[10;360]` intervallumban megadott játékidőt. Készítsen rövidített `Movie(title : String, releaseYear : int, director : String)` konstruktort is, amely `90` perces alapértelmezett játékidővel a teljes konstruktort hívja. A `Series(title : String, releaseYear : int, seasons : int, episodesPerSeason : int, minutesPerEpisode : int)` konstruktornak mindhárom utolsó paramétere pozitív egész szám legyen. Az előző fejezetből megtartott megtekintési időt számító metódusok változtatása nélkül hozza létre a szükséges példányokat, és szemléltesse, hogy az örökölt adatok és a leszármazott saját mezői mikor válnak érvényessé!
+
+
+**Követelmények**
+
+- Készítsen a `MediaItem` ősosztályba `MediaItem(title : String, releaseYear : int)` konstruktort, amely nem üres címet és az `[1895; 2100]` intervallumba tartozó megjelenési évet vár.
+- A `Movie(title : String, releaseYear : int, director : String, duration : int)` konstruktor adja át a közös adatokat az ősosztálynak, majd ellenőrizze a nem üres rendezőt és a `[10;360]` intervallumban megadott játékidőt.
+- Készítsen rövidített `Movie(title : String, releaseYear : int, director : String)` konstruktort is, amely `90` perces alapértelmezett játékidővel a teljes konstruktort hívja.
+- A `Series(title : String, releaseYear : int, seasons : int, episodesPerSeason : int, minutesPerEpisode : int)` konstruktornak mindhárom utolsó paramétere pozitív egész szám legyen.
+- Az előző fejezetből megtartott megtekintési időt számító metódusok változtatása nélkül hozza létre a szükséges példányokat, és szemléltesse, hogy az örökölt adatok és a leszármazott saját mezői mikor válnak érvényessé!
 :::endexercise
 

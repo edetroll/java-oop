@@ -450,10 +450,10 @@ Create the `Movie` class with the following fields and operations. Implement the
 - `duration : int` – duration. For now, a public field that the main program may access directly.
 - `language : Language` – language. For now, a public field that the main program may access directly.
 - `subtitles : boolean` – subtitles. For now, a public field that the main program may access directly.
-- `actor1 : String` – store at most three actors in separate text fields and one text genre.
-- `actor2 : String` – store at most three actors in separate text fields and one text genre.
-- `actor3 : String` – store at most three actors in separate text fields and one text genre.
-- `category : String` – store at most three actors in separate text fields and one text genre.
+- `actor1 : String` – the name of one actor; use `null` if no actor occupies this position.
+- `actor2 : String` – the name of one actor; use `null` if no actor occupies this position.
+- `actor3 : String` – the name of one actor; use `null` if no actor occupies this position.
+- `category : String` – movie genre, stored as text.
 
 **Methods**
 - `hasActor(name : String) : boolean` – returns whether the named actor appears in the film.

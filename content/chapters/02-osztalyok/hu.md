@@ -377,7 +377,7 @@ Hozza létre a `Rectangle` osztályt, és valósítsa meg a következő mezőket
 - `getQuadrant() : int` – az `1`–`4` értékek egyikével tér vissza, ha a teljes téglalap szigorúan egy síknegyedben van; más esetben `-1`.
 
 **Főprogram**
-Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat!
 :::endexercise
 
 :::exercise
@@ -397,7 +397,7 @@ Hozza létre a `Book` osztályt, és valósítsa meg a következő mezőket és 
 - `toString() : String` – a könyv fontos adatait olvasható, többmezős szövegként adja vissza.
 
 **Főprogram**
-Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat!
 :::endexercise
 
 :::exercise
@@ -416,7 +416,7 @@ Hozza létre a `Car` osztályt, és valósítsa meg a következő mezőket és m
 - `toString() : String` – megjeleníthető szövegként adja vissza a márkát, modellt, évjáratot és kilométeróra-állást.
 
 **Főprogram**
-Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat!
 :::endexercise
 
 :::exercise
@@ -436,7 +436,7 @@ Hozza létre a `BankAccount` osztályt, és valósítsa meg a következő mezők
 - `toString() : String` – visszaadja a számlaszámot, tulajdonost és az egyenleget tartalmazó szöveget.
 
 **Főprogram**
-Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat!
 :::endexercise
 
 :::exercise
@@ -450,15 +450,15 @@ Hozza létre a `Movie` osztályt, és valósítsa meg a következő mezőket és
 - `duration : int` – a film hossza percben. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
 - `language : Language` – nyelve. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
 - `subtitles : boolean` – feliratos-e. Egyelőre publikus mező, amelyhez a főprogram közvetlenül hozzáférhet.
-- `actor1 : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
-- `actor2 : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
-- `actor3 : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
-- `category : String` – legfeljebb három színészt külön szöveges mezőkben, a műfajt egy szöveges mezőben tároljuk.
+- `actor1 : String` – a film egyik szereplőjének neve; ha nincs ennyi szereplő, az érték lehet `null`.
+- `actor2 : String` – a film egyik szereplőjének neve; ha nincs ennyi szereplő, az érték lehet `null`.
+- `actor3 : String` – a film egyik szereplőjének neve; ha nincs ennyi szereplő, az érték lehet `null`.
+- `category : String` – a film műfaja, szövegként tárolva.
 
 **Metódusok**
 - `hasActor(name : String) : boolean` – megállapítja, hogy a keresett színész szerepel-e a filmben.
 - `toString() : String` – olvasható szöveg, `óra:perc:00` időformátummal; a feliratozást csak nem magyar filmnél említi.
 
 **Főprogram**
-Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat! Az új fejezetben bevezetett ellenőrzéseknél próbáljon ki helyes és hibás paramétereket is.
+Hozzon létre öt különböző példányt, töltse fel az adataikat, majd próbálja ki a mezők lekérdezését és az elkészített metódusokat!
 :::endexercise

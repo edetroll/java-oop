@@ -51,7 +51,7 @@ Hozzon létre `WashingMachine` néven osztályt, amely a `HouseholdAppliance` os
 
 **Metódusok**
 
-- **`setConsumption(double value): void`**: írja felül az ősosztály `protected` setterét! Mosógép esetén a fogyasztás csak a `[0,5; 1,5]` intervallumba eshet; helyes bemenet esetén az értéket az ősosztály setterének felhasználásával tárolja el. A szigorúbb ellenőrzés a konstruktorban megadott fogyasztásra is vonatkozzon. Az ősosztály konstruktorában az általános ellenőrzés történjen meg, a mosógép konstruktorában pedig a szigorúbb feltételeket is érvényesítse.
+- **`setConsumption(double value): void`**: írja felül az ősosztály `protected` setterét! Mosógép esetén a fogyasztás csak a `[0,5; 1,5]` intervallumba eshet; helyes bemenet esetén az értéket az ősosztály setterének felhasználásával tárolja el. A szigorúbb ellenőrzés a konstruktorban megadott fogyasztásra is vonatkozzon. A `HouseholdAppliance` konstruktorában ellenőrizze az általános `[0,2; 2,5]` tartományt. A `WashingMachine` konstruktorában az ősosztály meghívása után külön ellenőrizze, hogy a fogyasztás a mosógépekre érvényes `[0,5; 1,5]` tartományba is esik-e. Hibás értéknél a konstruktor dobjon kivételt. Az ősosztály konstruktorából ne hívjon olyan felülírható settert, amely a még nem inicializált leszármazott működésére támaszkodhat.
 - **`energyClass(): int`**: írja felül az ősosztály metódusát! Először számítsa ki a `k = consumption · minWaterTemperature · waterConsumption` szorzatot, majd ennek értékéből határozza meg az energiaosztályt az alábbi táblázat alapján. A mosógépeknél ezt a külön számítási szabályt kell alkalmazni; a gyártási év alapján már ne rontsa tovább az eredményt.
 
 - `[40; 75)`: **1. energiaosztály**; `[75; 135)`: **2. energiaosztály**; `[135; 210)`: **3. energiaosztály**; `[210; 280)`: **4. energiaosztály**; `[280; 360]`: **5. energiaosztály**.
@@ -73,20 +73,20 @@ Hozzon létre `ApplianceStore` néven konténerosztályt a háztartási gépek k
 - **`addMachine(HouseholdAppliance machine): void`**: a paraméterben kapott gépet csak akkor helyezze el a listában, ha az nem `null`, és a listában még nem szerepel vele azonos kódú gép. Ellenkező esetben dobjon `IllegalArgumentException` kivételt. Az ismétlődés megállapításához az osztályokban implementált `equals()` metódust használja.
 - **`getOlderMachines(): List<HouseholdAppliance>`**: állítson elő és adjon vissza új listát azokkal a gépekkel, amelyeket 2019 előtt gyártottak! A visszaadott lista módosítása nem befolyásolhatja a bolt belső listáját.
 - **`getWashingMachinesByEnergyClass(int energyClass): List<WashingMachine>`**: gyűjtse új listába azokat a mosógépeket, amelyek energiaosztálya megegyezik a paraméterrel! A paraméter csak `1` és `5` közötti egész lehet, más érték esetén dobjon kivételt. A lekérdezés során ellenőrizze az egyes gépek tényleges típusát, majd szükség esetén végezzen típuskonverziót.
-- **`getMachineByCode(String code): HouseholdAppliance`**: keresse meg a paraméterben kapott kódhoz tartozó háztartási gépet, és térjen vissza a megtalált példánnyal! Ha nincs ilyen kódú gép, a metódus `null` értékkel térjen vissza. Ez a művelet helyettesíti a C#-ban használható, szöveges kulccsal indexelő property-t.
+- **`getMachineByCode(String code): HouseholdAppliance`**: keresse meg a paraméterben kapott kódhoz tartozó háztartási gépet, és térjen vissza a megtalált példánnyal! Ha nincs ilyen kódú gép, a metódus `null` értékkel térjen vissza. A keresés nem módosíthatja a belső listát.
 
 ### Főprogram {#foprogram}
 
 Hozzon létre egy `ApplianceStore` példányt, és állítsa be a bolt nevét egy tetszőleges szövegre! Olvassa be a mellékelt `machines_input.csv` pontosvesszővel tagolt fájlt, és az egyes sorok alapján készítsen `HouseholdAppliance`, illetve `WashingMachine` példányokat, majd adja hozzá azokat a bolthoz. A program végén jelenítse meg a két kiválogatás eredményét, és próbálja ki a kód alapján történő keresést is. Az eredmények megjelenítéséhez használja a gépek `toString()` metódusát!
 
-A mintafájlban az első mező a gép típusát azonosítja. `H` jelölés esetén a sor további adatai sorrendben: kód, gyártási év, `kisgep` vagy `nagygep` jelölés, fogyasztás. `M` jelölés esetén a mezők: kód, gyártási év, fogyasztás, minimum vízhőmérséklet, mosásonkénti vízfogyasztás, szín. A fájlban a színek `feher`, `fekete` és `inox` alakban szerepelnek; ezeket a program a `Color` felsorolás megfelelő értékeire alakítsa. A számértékek tizedeselválasztója pont.
+A mintafájlban az első mező a gép típusát azonosítja. `H` jelölés esetén a sor további adatai sorrendben: kód, gyártási év, `kisgep` vagy `nagygep` jelölés, fogyasztás. `M` jelölés esetén a mezők: kód, gyártási év, fogyasztás, minimum vízhőmérséklet, mosásonkénti vízfogyasztás, szín. A fájlban a színek `feher`, `fekete` és `inox` alakban szerepelnek; ezeket a program a `Color` felsorolás megfelelő értékeire alakítsa. A géptípus és az enumerációs értékek felismerésekor a CSV-ben szereplő szövegeket használja. A számértékek tizedeselválasztója pont.
 
 ```text
 H;ZEH-ITTW2Y82;2022;kisgep;0.8
 M;G3F72DF0EJ88;2019;0.9;40;5.3;feher
 ```
 
-Az alábbi UML-ábrák a három osztály valamennyi előírt mezőjét, konstruktorát és metódusát tartalmazzák. A feladat a diagramok nélkül, a szöveges leírás alapján is megoldható.
+Az osztályok kapcsolata és tagjai az alábbi UML-ábrákon is láthatók.
 
 ![A háztartási gépek osztályhierarchiája](content/chapters/09-komplex-feladatok/media/appliance-uml.svg){width=790}
 

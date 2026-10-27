@@ -927,7 +927,7 @@ Count creations in constructors rather than instance methods; delegating constru
 
 **Main program**
 
-Create several instances, verify the class-level mechanism and test the stated boundary conditions.
+Create three rectangles using both available constructors. Check that `getCreatedCount()` increases exactly once for each successful construction but does not change when the area is queried.
 :::endexercise
 
 :::exercise
@@ -954,7 +954,7 @@ Reuse the shared constants and validator in earlier price checks. The discount m
 
 **Main program**
 
-Create several instances, verify the class-level mechanism and test the stated boundary conditions.
+Test `Book.isValidPrice()` with `499`, `500`, `50000`, and `50001`. Verify that a discount cannot lower the price below `899`.
 :::endexercise
 
 :::exercise
@@ -983,7 +983,7 @@ Each new instance receives the next id from the constructor, which then incremen
 
 **Main program**
 
-Create several instances, verify the class-level mechanism and test the stated boundary conditions.
+Create three cars and print their identifiers. Verify that the assigned values are `1`, `2`, and `3`, in that order, with no duplicates.
 :::endexercise
 
 :::exercise
@@ -1010,7 +1010,7 @@ Make the constructor private so the factory cannot be bypassed. Invalid data rai
 
 **Main program**
 
-Create several instances, verify the class-level mechanism and test the stated boundary conditions.
+Call `BankAccount.create()` four times with otherwise valid data. Verify that the first three calls succeed and the fourth returns `null`; an attempt rejected for invalid data must not consume a slot.
 :::endexercise
 
 :::exercise
@@ -1042,5 +1042,5 @@ The MovieLibrary constructor is not callable externally; the collection must be 
 
 **Main program**
 
-Create several instances, verify the class-level mechanism and test the stated boundary conditions.
+Call `MovieLibrary.getInstance()` several times and verify that each call returns the same object. Add a movie through one reference and retrieve the total count through another reference.
 :::endexercise

@@ -90,7 +90,9 @@
         "zh": "集合管理、访问控制、索引和筛选。"
       },
       "files": {
-        "hu": "content/chapters/05-kontenerosztalyok/hu.md"
+        "hu": "content/chapters/05-kontenerosztalyok/hu.md",
+        "en": "content/chapters/05-kontenerosztalyok/en.md",
+        "zh": "content/chapters/05-kontenerosztalyok/zh.md"
       }
     },
     {
