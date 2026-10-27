@@ -166,6 +166,23 @@
       "files": {
         "hu": "content/chapters/08-konstruktorhivasi-lanc/hu.md"
       }
+    },
+    {
+      "id": "09-komplex-feladatok",
+      "order": 10,
+      "title": {
+        "hu": "Komplex feladatok",
+        "en": "Complex Exercises",
+        "zh": "综合练习"
+      },
+      "description": {
+        "hu": "Összetett gyakorlófeladatok. Első feladat: háztartási gépek és konténerosztály.",
+        "en": "Complex practice exercises.",
+        "zh": "综合实践练习。"
+      },
+      "files": {
+        "hu": "content/chapters/09-komplex-feladatok/hu.md"
+      }
     }
   ]
 }

@@ -5,7 +5,12 @@ const tr=k=>(T[state.lang]||T.hu)[k]||k;
 const fetchJSON=async path=>{const r=await fetch(path);if(!r.ok)throw Error(path);return r.json()};
 const mdCache={};
 async function loadMd(path){if(!path)return null;if(mdCache[path])return mdCache[path];try{const r=await fetch(path);if(!r.ok)return null;return mdCache[path]=await r.text()}catch{return null}}
-function inline(s){return esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>')}
+function inline(s){return esc(s)
+ .replace(/\[([^\]\n]+)\]\(((?:content\/|assets\/)[A-Za-z0-9_\/.-]+\.(?:csv|java|txt))\)/gi,
+  (_m,label,url)=>`<a href="${url}" download>${label}</a>`)
+ .replace(/`([^`]+)`/g,'<code>$1</code>')
+ .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+ .replace(/\*(.+?)\*/g,'<em>$1</em>')}
 function markdown(md){const lines=md.replace(/\r/g,'').split('\n');let html='',code=false,language='',buffer=[],list=false;function flush(){if(buffer.length){html+='<p>'+inline(buffer.join(' '))+'</p>';buffer=[]}}function endList(){if(list){html+='</ul>';list=false}}for(const line of lines){const l=line.trim();if(l.startsWith('```')){flush();endList();if(!code){language=l.slice(3).trim();html+=`<div class="code-label">${esc(language||'code')}</div><pre><code>`;code=true}else{html+='</code></pre>';code=false}continue}if(code){html+=esc(line)+'\n';continue}if(!l){flush();endList();continue}const h=l.match(/^(#{1,4})\s+(.+)$/);if(h){flush();endList();const n=Math.min(h[1].length+1,4);html+=`<h${n}>${inline(h[2])}</h${n}>`;continue}const image=l.match(/^!\[([^\]]*)\]\(([^)]+)\)(?:\s*\{width=(\d{2,4})\})?$/);if(image){flush();endList();const url=image[2].trim();if(/^(?:content\/|assets\/)[a-zA-Z0-9_\/.-]+\.(?:svg|png|jpe?g|webp)$/i.test(url)){const width=image[3]?Math.min(Number(image[3]),1600):null;html+=`<button type="button" class="lesson-image-trigger" aria-label="${esc(image[1])}" title="Nagyítás"${width?` style="--image-width:${width}px"`: ''}><img class="lesson-image" src="${esc(url)}" alt="${esc(image[1])}" loading="lazy"></button>`}continue}if(l.startsWith('> ')){flush();endList();html+=`<div class="note">${inline(l.slice(2))}</div>`;continue}if(l.startsWith('- ')){flush();if(!list){html+='<ul>';list=true}html+=`<li>${inline(l.slice(2))}</li>`;continue}endList();buffer.push(l)}flush();endList();if(code)html+='</code></pre>';return html}
 
 const baseMarkdown=markdown;

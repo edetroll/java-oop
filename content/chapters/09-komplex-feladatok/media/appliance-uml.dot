@@ -1,0 +1,10 @@
+digraph UML {
+  graph [rankdir=BT,bgcolor="transparent",nodesep=0.55,ranksep=0.5,pad=0.25];
+  node [shape=record, style="rounded,filled", color="#96a8c3",fillcolor="#f4f7fd",fontname="Consolas",fontsize=12, penwidth=1.3,margin="0.22,0.14"];
+  edge [color="#627f9e", arrowsize=0.85, penwidth=1.3];
+  Household [label="{HouseholdAppliance| - code: String\l- manufactureYear: int\l- smallAppliance: boolean\l- consumption: double\l|+ HouseholdAppliance(code: String, manufactureYear: int, smallAppliance: boolean, consumption: double)\l+ HouseholdAppliance(code: String, smallAppliance: boolean, consumption: double)\l+ getCode(): String\l+ getManufactureYear(): int\l+ isSmallAppliance(): boolean\l+ getConsumption(): double\l# setConsumption(value: double): void\l+ energyClass(): int\l+ toString(): String\l+ equals(other: Object): boolean\l+ hashCode(): int\l}"];
+  Washing [label="{WashingMachine| - minWaterTemperature: int\l- waterConsumption: double\l- color: Color\l|+ WashingMachine(code: String, manufactureYear: int, consumption: double, minWaterTemperature: int, waterConsumption: double, color: Color)\l+ WashingMachine(code: String, manufactureYear: int, consumption: double, minWaterTemperature: int, waterConsumption: double)\l+ getMinWaterTemperature(): int\l+ setMinWaterTemperature(value: int): void\l+ getWaterConsumption(): double\l+ setWaterConsumption(value: double): void\l+ getColor(): Color\l+ setColor(value: Color): void\l# setConsumption(value: double): void (override)\l+ energyClass(): int (override)\l+ toString(): String (override)\l}"];
+  Color [label="{«enumeration» Color|WHITE\lBLACK\lINOX\l}",fillcolor="#e9effa"];
+  Washing -> Household [arrowhead=empty];
+  Washing -> Color [style=dashed,arrowhead=vee];
+}

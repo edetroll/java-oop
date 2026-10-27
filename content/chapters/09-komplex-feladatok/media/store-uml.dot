@@ -1,0 +1,8 @@
+digraph UML {
+ graph [rankdir=BT,bgcolor="transparent",nodesep=0.55,ranksep=0.75,pad=0.25];
+ node [shape=record,style="rounded,filled",color="#96a8c3",fillcolor="#f4f7fd",fontname="Consolas",fontsize=13,penwidth=1.3,margin="0.24,0.16"];
+ edge [color="#627f9e", arrowsize=0.85, penwidth=1.3];
+ Store [label="{ApplianceStore| - machines: List\<HouseholdAppliance\>\l- name: String\l|+ ApplianceStore(name: String)\l+ getName(): String\l+ setName(value: String): void\l+ addMachine(machine: HouseholdAppliance): void\l+ getOlderMachines(): List\<HouseholdAppliance\>\l+ getWashingMachinesByEnergyClass(energyClass: int): List\<WashingMachine\>\l+ getMachineByCode(code: String): HouseholdAppliance\l}"];
+ Appliance [label="{HouseholdAppliance|...}"];
+ Store -> Appliance [arrowtail=odiamond, dir=both, arrowhead=vee, label="0..*", fontsize=10];
+}
