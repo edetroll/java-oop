@@ -1,0 +1,8 @@
+digraph UML {
+ graph [rankdir=BT,bgcolor="transparent", nodesep=0.55,ranksep=0.82,pad=0.24,splines=polyline];
+ node [shape=plain, fontname="Noto Sans Mono CJK SC"];
+ edge [color="#627f9e", arrowsize=0.85, penwidth=1.3];
+Store [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="9"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="15"><B>家电商店</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">- 电器列表: List&lt;家用电器&gt;<BR ALIGN="LEFT"/>- 名称: String<BR ALIGN="LEFT"/></FONT></TD></TR><TR><TD BGCOLOR="#d7dfed" HEIGHT="2"></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">+ 家电商店(名称: String)<BR ALIGN="LEFT"/>+ 获取名称(): String<BR ALIGN="LEFT"/>+ 设置名称(值: String): void<BR ALIGN="LEFT"/>+ 添加电器(电器: 家用电器): void<BR ALIGN="LEFT"/>+ 获取较旧电器(): List&lt;家用电器&gt;<BR ALIGN="LEFT"/>+ 按能效等级查找洗衣机(能效等级: int): List&lt;洗衣机&gt;<BR ALIGN="LEFT"/>+ 按编码查找电器(编码: String): 家用电器<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+Home [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0" COLOR="#aab8d0" BGCOLOR="#fbfcff"><TR><TD BGCOLOR="#e7efff" CELLPADDING="9"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="15"><B>家用电器</B></FONT></TD></TR><TR><TD BGCOLOR="#fbfcff" ALIGN="LEFT" CELLPADDING="7"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="11">…<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+Store -> Home [arrowtail=odiamond,dir=both,arrowhead=vee,label="0..*",fontsize=10];
+}

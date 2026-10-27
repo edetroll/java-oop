@@ -177,11 +177,13 @@
       },
       "description": {
         "hu": "Összetett gyakorlófeladatok. Első feladat: háztartási gépek és konténerosztály.",
-        "en": "Complex practice exercises.",
-        "zh": "综合实践练习。"
+        "en": "Comprehensive Java exercises. First exercise: household appliances and a container class.",
+        "zh": "综合 Java 练习。第一题：家用电器与容器类。"
       },
       "files": {
-        "hu": "content/chapters/09-komplex-feladatok/hu.md"
+        "hu": "content/chapters/09-komplex-feladatok/hu.md",
+        "en": "content/chapters/09-komplex-feladatok/en.md",
+        "zh": "content/chapters/09-komplex-feladatok/zh.md"
       }
     }
   ]
