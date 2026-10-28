@@ -451,12 +451,22 @@ public:
 
 A C#-példában a `sealed override` kifejezés lezár egy már felülírt virtuális metódust. Ez eltér a Java megoldásától, ahol a `final` jelölés közvetlenül a metódus deklarációján is megjelenhet. C++-ban a `final` a virtuális metódusok további felülírását tiltja; Pythonban a `@final` szintén a típusellenőrző számára jelzi a szándékot. A közös gondolat mindegyik esetben az, hogy pontosan meg kell határoznunk, a hierarchia mely pontjáig engedjük megváltoztatni egy művelet működését.
 
+Fontos különválasztanunk a beágyazást és a példánykapcsolatot. A Java `static` beágyazott osztálya a befoglaló osztály privát statikus tagjait is elérheti, de a külső objektum példányszintű adataihoz csak akkor fér hozzá, ha kap egy konkrét példányt. A nem statikus belső osztály ezzel szemben automatikusan hordozza a befoglaló objektumhoz tartozó kapcsolatot. A `private` beágyazott típus a megvalósítás részlete marad, míg a `public` belső osztályt a főprogram is használhatja. A kettő közül mindig a szükséges legszűkebb láthatóságot válasszuk.
+
+A `final` mező nem azonos a minden részletében megváltoztathatatlan objektummal. Ha egy `final` mező lista típusú, az új listára történő átállítást megtiltjuk, de a lista elemeinek hozzáadását vagy eltávolítását ettől még nem. Az adatrejtésről korábban tanult hozzáférési szabályokat itt is be kell tartani.
+
+A C#-ban a `sealed` metódust csak már felülírt, `override` metóduson alkalmazhatjuk. Ha egy műveletet eleve nem szeretnénk felülírhatóvá tenni, a C# ősosztályban egyszerű, nem `virtual` metódust írunk. Így ugyanazt a tervezési célt más nyelvi eszközzel érjük el, mint a Java `final` metódusával.
+
 ## Feladatok {#tasks}
+
+A következő feladatokban minden beágyazott segédosztály láthatóságát és statikus vagy példányszintű jellegét külön határozzuk meg. A `final` osztály, a `final` metódus és a `final` mező nem azonos korlátozás: az első az öröklődést, a második a felülírást, a harmadik az újbóli értékadást tiltja. A feladatok megoldásakor ne csak a helyes működést, hanem az indokolatlan hozzáférések megakadályozását is ellenőrizzük.
 
 A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbörökítés tudatos korlátozását gyakoroljuk. A beágyazott osztályok nem helyettesítik a konténerosztály nyilvános metódusait, ezért az adatokon végzett műveleteket továbbra is a befoglaló osztálynak kell felügyelnie. A korábban megírt osztályokból annyit használjon fel, amennyi a megadott követelményekhez szükséges.
 
 :::exercise
 ### Téglalapok – rögzített méret
+
+**Gyakorolt eszköz:** `final` osztály és `final` mezők. A megadott adatokat a konstruktor egyszer állítsa be; setter nem készülhet.
 
 ![Téglalapok – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-rectangle-hu.svg){width=590}
 
@@ -471,6 +481,8 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 
 :::exercise
 ### Könyvtár – belső kölcsönzési rekord
+
+**Gyakorolt eszköz:** privát `static` beágyazott osztály. A rekordokhoz kívülről ne lehessen hozzáférni, és a konténer ne adja vissza a módosítható listát.
 
 ![Könyvtár – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-library-hu.svg){width=640}
 
@@ -488,6 +500,8 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 :::exercise
 ### Autószerviz – belső munkalap
 
+**Gyakorolt eszköz:** nem statikus belső osztály. Az egyik garázshoz tartozó munkalap mindig az adott garázs óradíját használja.
+
 ![Autószerviz – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-garage-hu.svg){width=660}
 
 **Osztályok és mezők**
@@ -504,6 +518,8 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 :::exercise
 ### Bankszámlák – nem felülírható terhelés
 
+**Gyakorolt eszköz:** `final` példánymetódus. A `withdraw()` a leszármazottból hívható, de nem definiálható újra ugyanolyan paraméterlistával.
+
 ![Bankszámlák – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-bank-hu.svg){width=660}
 
 **Osztályok és mezők**
@@ -519,6 +535,8 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 
 :::exercise
 ### Filmtár – privát vetítési adatok
+
+**Gyakorolt eszköz:** privát `static` segédosztály egy konténeren belül. A nyilvántartás kezelése kizárólag a külső osztály publikus metódusain keresztül történjen.
 
 ![Filmtár – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-movies-hu.svg){width=660}
 

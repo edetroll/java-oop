@@ -11,58 +11,58 @@
 <!-- 出版物 -->
 <g id="node1" class="node">
 <title>出版物</title>
-<polygon fill="#fbfdff" stroke="transparent" points="169.5,0 169.5,-197 380.5,-197 380.5,0 169.5,0"/>
-<polygon fill="#e8eeff" stroke="transparent" points="171,-155.5 171,-195.5 380,-195.5 380,-155.5 171,-155.5"/>
-<text text-anchor="start" x="249" y="-179.1" font-family="Noto Sans Mono CJK SC" font-size="13.00">&lt;&lt;抽象&gt;&gt;</text>
-<text text-anchor="start" x="256" y="-166.1" font-family="Noto Sans Mono CJK SC" font-style="italic" font-size="13.00">出版物</text>
-<polygon fill="#e1e7f0" stroke="transparent" points="171,-151.5 171,-155.5 380,-155.5 380,-151.5 171,-151.5"/>
-<text text-anchor="start" x="176" y="-138.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 标题 : String</text>
-<text text-anchor="start" x="176" y="-117.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 基本价格 : int</text>
-<polygon fill="#e1e7f0" stroke="transparent" points="171,-105.5 171,-109.5 380,-109.5 380,-105.5 171,-105.5"/>
-<text text-anchor="start" x="176" y="-92.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 出版物(标题 : String, 基本价格 : int)</text>
-<text text-anchor="start" x="176" y="-71.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 获取标题() : String</text>
-<text text-anchor="start" x="176" y="-50.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 获取基本价格() : int</text>
-<text text-anchor="start" x="176" y="-30.5" font-family="Noto Sans Mono CJK SC" font-style="italic" font-size="10.00" fill="#27364c">+ 计算运费() : int</text>
-<text text-anchor="start" x="176" y="-8.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 获取总价() : int</text>
-<polygon fill="none" stroke="#91a7c3" points="169.5,0 169.5,-197 380.5,-197 380.5,0 169.5,0"/>
+<polygon fill="#fbfdff" stroke="transparent" points="169.5,-151 169.5,-348 380.5,-348 380.5,-151 169.5,-151"/>
+<polygon fill="#e8eeff" stroke="transparent" points="171,-306.5 171,-346.5 380,-346.5 380,-306.5 171,-306.5"/>
+<text text-anchor="start" x="249" y="-330.1" font-family="Noto Sans Mono CJK SC" font-size="13.00">&lt;&lt;抽象&gt;&gt;</text>
+<text text-anchor="start" x="256" y="-317.1" font-family="Noto Sans Mono CJK SC" font-style="italic" font-size="13.00">出版物</text>
+<polygon fill="#e1e7f0" stroke="transparent" points="171,-302.5 171,-306.5 380,-306.5 380,-302.5 171,-302.5"/>
+<text text-anchor="start" x="176" y="-289.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 标题 : String</text>
+<text text-anchor="start" x="176" y="-268.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 基本价格 : int</text>
+<polygon fill="#e1e7f0" stroke="transparent" points="171,-256.5 171,-260.5 380,-260.5 380,-256.5 171,-256.5"/>
+<text text-anchor="start" x="176" y="-243.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 出版物(标题 : String, 基本价格 : int)</text>
+<text text-anchor="start" x="176" y="-222.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 获取标题() : String</text>
+<text text-anchor="start" x="176" y="-201.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 获取基本价格() : int</text>
+<text text-anchor="start" x="176" y="-181.5" font-family="Noto Sans Mono CJK SC" font-style="italic" font-size="10.00" fill="#27364c">+ 计算运费() : int {abstract}</text>
+<text text-anchor="start" x="176" y="-159.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 获取总价() : int</text>
+<polygon fill="none" stroke="#91a7c3" points="169.5,-151 169.5,-348 380.5,-348 380.5,-151 169.5,-151"/>
 </g>
 <!-- 教材 -->
 <g id="node2" class="node">
 <title>教材</title>
-<polygon fill="#fbfdff" stroke="transparent" points="0,-247 0,-348 262,-348 262,-247 0,-247"/>
-<polygon fill="#e8eeff" stroke="transparent" points="1,-318.5 1,-346.5 261,-346.5 261,-318.5 1,-318.5"/>
-<text text-anchor="start" x="118" y="-330.1" font-family="Noto Sans Mono CJK SC" font-weight="bold" font-size="13.00">教材</text>
-<polygon fill="#e1e7f0" stroke="transparent" points="1,-314.5 1,-318.5 261,-318.5 261,-314.5 1,-314.5"/>
-<text text-anchor="start" x="6" y="-301.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 页数 : int</text>
-<polygon fill="#e1e7f0" stroke="transparent" points="1,-289.5 1,-293.5 261,-293.5 261,-289.5 1,-289.5"/>
-<text text-anchor="start" x="6" y="-276.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 教材(标题 : String, 基本价格 : int, 页数 : int)</text>
-<text text-anchor="start" x="6" y="-255.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 计算运费() : int</text>
-<polygon fill="none" stroke="#91a7c3" points="0,-247 0,-348 262,-348 262,-247 0,-247"/>
+<polygon fill="#fbfdff" stroke="transparent" points="0,0 0,-101 262,-101 262,0 0,0"/>
+<polygon fill="#e8eeff" stroke="transparent" points="1,-71.5 1,-99.5 261,-99.5 261,-71.5 1,-71.5"/>
+<text text-anchor="start" x="118" y="-83.1" font-family="Noto Sans Mono CJK SC" font-weight="bold" font-size="13.00">教材</text>
+<polygon fill="#e1e7f0" stroke="transparent" points="1,-67.5 1,-71.5 261,-71.5 261,-67.5 1,-67.5"/>
+<text text-anchor="start" x="6" y="-54.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 页数 : int</text>
+<polygon fill="#e1e7f0" stroke="transparent" points="1,-42.5 1,-46.5 261,-46.5 261,-42.5 1,-42.5"/>
+<text text-anchor="start" x="6" y="-29.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 教材(标题 : String, 基本价格 : int, 页数 : int)</text>
+<text text-anchor="start" x="6" y="-8.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 计算运费() : int</text>
+<polygon fill="none" stroke="#91a7c3" points="0,0 0,-101 262,-101 262,0 0,0"/>
 </g>
 <!-- 教材&#45;&gt;出版物 -->
 <g id="edge1" class="edge">
 <title>教材&#45;&gt;出版物</title>
-<path fill="none" stroke="#687d9a" stroke-width="1.45" d="M167.34,-246.79C176.86,-233.76 187.5,-219.21 198.28,-204.46"/>
-<polygon fill="none" stroke="#687d9a" stroke-width="1.45" points="200.96,-205.83 203.57,-197.22 196.16,-202.32 200.96,-205.83"/>
+<path fill="none" stroke="#687d9a" stroke-width="1.45" d="M167.34,-101.21C176.86,-114.24 187.5,-128.79 198.28,-143.54"/>
+<polygon fill="none" stroke="#687d9a" stroke-width="1.45" points="196.16,-145.68 203.57,-150.78 200.96,-142.17 196.16,-145.68"/>
 </g>
 <!-- 杂志 -->
 <g id="node3" class="node">
 <title>杂志</title>
-<polygon fill="#fbfdff" stroke="transparent" points="288,-247 288,-348 550,-348 550,-247 288,-247"/>
-<polygon fill="#e8eeff" stroke="transparent" points="289,-318.5 289,-346.5 549,-346.5 549,-318.5 289,-318.5"/>
-<text text-anchor="start" x="406" y="-330.1" font-family="Noto Sans Mono CJK SC" font-weight="bold" font-size="13.00">杂志</text>
-<polygon fill="#e1e7f0" stroke="transparent" points="289,-314.5 289,-318.5 549,-318.5 549,-314.5 289,-314.5"/>
-<text text-anchor="start" x="294" y="-301.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 期号 : int</text>
-<polygon fill="#e1e7f0" stroke="transparent" points="289,-289.5 289,-293.5 549,-293.5 549,-289.5 289,-289.5"/>
-<text text-anchor="start" x="294" y="-276.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 杂志(标题 : String, 基本价格 : int, 期号 : int)</text>
-<text text-anchor="start" x="294" y="-255.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 计算运费() : int</text>
-<polygon fill="none" stroke="#91a7c3" points="288,-247 288,-348 550,-348 550,-247 288,-247"/>
+<polygon fill="#fbfdff" stroke="transparent" points="288,0 288,-101 550,-101 550,0 288,0"/>
+<polygon fill="#e8eeff" stroke="transparent" points="289,-71.5 289,-99.5 549,-99.5 549,-71.5 289,-71.5"/>
+<text text-anchor="start" x="406" y="-83.1" font-family="Noto Sans Mono CJK SC" font-weight="bold" font-size="13.00">杂志</text>
+<polygon fill="#e1e7f0" stroke="transparent" points="289,-67.5 289,-71.5 549,-71.5 549,-67.5 289,-67.5"/>
+<text text-anchor="start" x="294" y="-54.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">&#45; 期号 : int</text>
+<polygon fill="#e1e7f0" stroke="transparent" points="289,-42.5 289,-46.5 549,-46.5 549,-42.5 289,-42.5"/>
+<text text-anchor="start" x="294" y="-29.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 杂志(标题 : String, 基本价格 : int, 期号 : int)</text>
+<text text-anchor="start" x="294" y="-8.5" font-family="Noto Sans Mono CJK SC" font-size="10.00" fill="#27364c">+ 计算运费() : int</text>
+<polygon fill="none" stroke="#91a7c3" points="288,0 288,-101 550,-101 550,0 288,0"/>
 </g>
 <!-- 杂志&#45;&gt;出版物 -->
 <g id="edge2" class="edge">
 <title>杂志&#45;&gt;出版物</title>
-<path fill="none" stroke="#687d9a" stroke-width="1.45" d="M382.66,-246.79C373.14,-233.76 362.5,-219.21 351.72,-204.46"/>
-<polygon fill="none" stroke="#687d9a" stroke-width="1.45" points="353.84,-202.32 346.43,-197.22 349.04,-205.83 353.84,-202.32"/>
+<path fill="none" stroke="#687d9a" stroke-width="1.45" d="M382.66,-101.21C373.14,-114.24 362.5,-128.79 351.72,-143.54"/>
+<polygon fill="none" stroke="#687d9a" stroke-width="1.45" points="349.04,-142.17 346.43,-150.78 353.84,-145.68 349.04,-142.17"/>
 </g>
 </g>
 </svg>

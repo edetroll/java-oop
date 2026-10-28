@@ -322,7 +322,13 @@ Abstract classes are especially useful when we want to manage several related ki
 
 In Java, an abstract method cannot be `private`, `static` or `final`, since these modifiers are incompatible with the requirement that a subclass implement it. The abstract class itself may still have static methods and concrete methods that are not meant to be overridden. C# uses `abstract` and `override`, C++ uses pure virtual methods written as `virtual ... = 0`, and Python uses `ABC` and `@abstractmethod` from the `abc` module. These provide similar design possibilities, although the language-level details differ.
 
+An abstract class allows us to design a high-level algorithm even before we can implement the operations used by that algorithm. The common method can already call these steps, and the compiler will require concrete subclasses to implement them. In contrast, overriding a method that already has a body is optional. When designing a hierarchy, we should therefore distinguish operations that have a meaningful default implementation from those for which an empty body would merely conceal missing behavior.
+
+An abstract class cannot be instantiated directly, but it may have constructors. The constructor chain of a concrete subclass uses them to initialize shared fields. An abstract method is an operation specification, not an executable algorithm. An implementation must match the required parameter list and return type, and in Java it cannot reduce the declared accessibility. Abstract methods cannot also be `static`, `private` or `final`, as these modifiers conflict with mandatory overriding.
+
 ## Exercises {#tasks}
+
+In the exercises below, abstract methods are explicitly identified. **Declare them without bodies** in the parent class and implement them in every concrete subclass. Do not duplicate the concrete common algorithms already implemented in the parent class.
 
 In these exercises, we will extend familiar class hierarchies with common operations whose actual implementations depend on the concrete subclass. The UML diagrams show the required fields and methods, while the textual requirements specify their validation and behaviour.
 
@@ -335,11 +341,19 @@ In these exercises, we will extend familiar class hierarchies with common operat
 - Create an abstract `Shape` class containing the `name : String` field. The name must not be `null` or empty. It can be read using `getName()` but cannot be modified from outside the class.
 - `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
 
-**Constructors and methods**
+**Constructors**
 - The `Shape(name : String)` constructor must validate and store the name. The `Rectangle(name : String, width : double, height : double)` and `Circle(name : String, radius : double)` constructors must initialise the common data through the superclass constructor and validate their own fields.
-- Declare abstract `getArea() : double` and `getPerimeter() : double` methods in `Shape`. Implement both in the subclasses using the appropriate geometric formulas.
+
+**Abstract methods – declare them without bodies in the common base class**
+- **`abstract getArea() : double`**: declare in `Shape` without a body; `Rectangle` returns width times height and `Circle` returns `Math.PI * radius * radius`.
+- **`abstract getPerimeter() : double`**: `Rectangle` returns twice the sum of its sides; `Circle` returns `2 * Math.PI * radius`.
+
+**Concrete methods – implement these in the base class**
 - The shared concrete `isLargerThan(other : Shape) : boolean` method must compare the areas and return `true` if this shape is larger. Throw an exception if the parameter is `null`.
+
+**Main program and verification**
 - Store different shapes in an `ArrayList<Shape>` in the main program and find the one with the largest area.
+
 :::endexercise
 
 :::exercise
@@ -351,11 +365,18 @@ In these exercises, we will extend familiar class hierarchies with common operat
 - The abstract `Publication` class stores a nonempty `title : String` and a positive `basePrice : int`. Only its constructor may set these fields; provide `getTitle()` and `getBasePrice()` methods for reading them.
 - `Textbook` stores a positive `pageCount : int` and `Magazine` stores a positive `issueNumber : int`.
 
-**Constructors and methods**
+**Constructors**
 - The `Publication(title : String, basePrice : int)` constructor must validate the shared data. The subclass constructors must receive and validate both the shared data and their additional field.
+
+**Abstract methods – declare them without bodies in the common base class**
 - Declare an abstract `calculateShippingCost() : int` in `Publication`. The shipping cost for a textbook is `600 + 2 * pageCount`, while the cost for a magazine is `400` forints.
+
+**Concrete methods – implement these in the base class**
 - The concrete `getTotalPrice() : int` method must add the shipping cost to the base price. Do not create separate total-price methods in the subclasses.
+
+**Main program and verification**
 - Construct an `ArrayList<Publication>` and find the publication with the highest total price.
+
 :::endexercise
 
 :::exercise
@@ -367,11 +388,18 @@ In these exercises, we will extend familiar class hierarchies with common operat
 - The abstract `Vehicle` class stores a nonempty `brand : String` and nonnegative `mileage : int`. Only the constructor may set these fields; create `getBrand()` and `getMileage()` methods to read them.
 - `Car` adds a positive `engineCapacity : int` field and `Motorcycle` adds a `sidecar : boolean` field.
 
-**Constructors and methods**
+**Constructors**
 - The `Vehicle(brand : String, mileage : int)` constructor must validate the shared fields. Subclass constructors must call it and then initialise their additional field.
+
+**Abstract methods – declare them without bodies in the common base class**
 - Declare an abstract `getServiceInterval() : int` in `Vehicle`. For cars, the interval is `15000` km when engine capacity is at least `1600`, and `10000` km otherwise. For motorcycles, it is `5000` km with a sidecar and `7000` km without one.
+
+**Concrete methods – implement these in the base class**
 - The concrete `needsService(kmSinceService : int) : boolean` method must compare a nonnegative distance with the applicable service interval and return `true` once the interval is reached. Negative input must cause an exception.
+
+**Main program and verification**
 - Store different vehicles in an `ArrayList<Vehicle>` and select those requiring a service after a specified distance.
+
 :::endexercise
 
 :::exercise
@@ -383,11 +411,19 @@ In these exercises, we will extend familiar class hierarchies with common operat
 - The abstract `BankAccount` stores a nonempty `accountNumber : String` and nonnegative `balance : int`. The account number must be read-only; the balance may change only through the previously implemented deposit and withdrawal methods.
 - `SavingsAccount` stores a nonnegative `monthlyFreeTransfers : int`, while `BusinessAccount` stores a positive `feePercent : double` fee percentage.
 
-**Constructors and methods**
+**Constructors**
 - The `BankAccount(accountNumber : String, balance : int)` constructor must validate its fields. The subclass constructors must also validate their own parameters.
-- Declare abstract `calculateTransferFee(amount : int) : int` in `BankAccount`. The amount must be positive. For a savings account, the fee is `0` when free transfers remain, otherwise `300` forints. For a business account, round the product of the amount and the fee percentage upwards to an integer.
+
+**Abstract methods – declare them without bodies in the common base class**
+- Declare abstract `calculateTransferFee(amount : int) : int` in `BankAccount`. The amount must be positive. Treat `feePercent` as a percentage (e.g. `2.5` means 2.5%). Calculating the fee does not consume a free transfer. For a savings account, the fee is `0` when free transfers remain, otherwise `300` forints. For a business account, round `amount * feePercent / 100` upwards to the next integer.
+
+**Concrete methods – implement these in the base class**
+- `deposit(amount : int) : void` must accept a positive amount and increase the balance. `withdraw(amount : int) : void` must allow only a positive amount not exceeding the current balance. Both are concrete methods of the base class and throw exceptions for invalid input.
 - The shared `canTransfer(amount : int) : boolean` method must check whether the balance covers both the transfer amount and its fee. Calling this method must neither withdraw any money nor decrease the remaining number of free transfers.
+
+**Main program and verification**
 - From an `ArrayList<BankAccount>`, select accounts that can make a transfer of `25000` forints.
+
 :::endexercise
 
 :::exercise
@@ -399,9 +435,44 @@ In these exercises, we will extend familiar class hierarchies with common operat
 - The abstract `MediaItem` class stores a nonempty `title : String` and positive `releaseYear : int`. Expose these through `getTitle()` and `getReleaseYear()`, but do not allow external modification.
 - `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
 
-**Constructors and methods**
+**Constructors**
 - The `MediaItem(title : String, releaseYear : int)` constructor must validate and initialise the shared data. The `Movie` and `Series` constructors must also validate their additional fields.
+
+**Abstract methods – declare them without bodies in the common base class**
 - Declare abstract `getTotalDuration() : int` in `MediaItem`. For a movie, this is its duration. For a series, it is the number of episodes multiplied by the average episode duration.
+
+**Concrete methods – implement these in the base class**
 - The shared `fitsInto(availableMinutes : int) : boolean` method must return whether the nonnegative time allowance is at least the full duration. Throw an exception for negative input.
+
+**Main program and verification**
 - From an `ArrayList<MediaItem>`, select the movies and series that can be watched in full within four hours.
+
+:::endexercise
+
+:::exercise
+### Coffee preparation – extending the shared algorithm {#coffee-exercise}
+
+![Coffee preparation – detailed UML](content/chapters/10-absztrakt-osztalyok/media/task-coffee-en.svg){width=650}
+
+Extend the earlier coffee example so that its operations calculate preparation time instead of merely printing messages. The base class defines the sequence of operations, while concrete coffee types calculate the duration of each step.
+
+**Classes and fields**
+- Create an **abstract `Coffee` class** with `coffeeGrams : int` and `waterMl : int` fields. Both fields must be `protected` and strictly positive.
+- `Espresso` derives from `Coffee` and stores a private, positive `pressureBar : int` value.
+- `Cappuccino` also derives directly from `Coffee` and stores a private, positive `milkMl : int` value.
+
+**Constructors**
+- `Coffee(coffeeGrams : int, waterMl : int)` validates and initializes the shared data. The `Coffee` class cannot be instantiated directly.
+- `Espresso(coffeeGrams : int, waterMl : int, pressureBar : int)` and `Cappuccino(coffeeGrams : int, waterMl : int, milkMl : int)` invoke the superclass constructor and then validate their own fields.
+
+**Abstract methods – declare without bodies in `Coffee`**
+- `grind() : int`: return grinding time in seconds: `coffeeGrams * 2` for `Espresso`, `coffeeGrams * 3` for `Cappuccino`.
+- `brew() : int`: return brewing time in seconds: integer division `waterMl / 5 + pressureBar` for `Espresso`, and `waterMl / 4` for `Cappuccino`.
+
+**Concrete methods – implement in `Coffee`**
+- `addMilk() : int`: return `0` by default. Only `Cappuccino` overrides it, returning integer division `milkMl / 10`.
+- `prepare() : int`: call `grind()`, `brew()` and `addMilk()` in that order, then return their sum. **Do not override** this method in derived classes.
+
+**Main program and verification**
+- Create two `Espresso` and two `Cappuccino` objects with different data, store them in `ArrayList<Coffee>`, and find the one with the longest preparation time. Verify that the constructors reject invalid inputs by throwing exceptions.
 :::endexercise

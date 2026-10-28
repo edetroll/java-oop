@@ -451,12 +451,22 @@ public:
 
 In C#, `sealed override` prevents any further overriding of a method that was previously overridden. Java allows `final` directly in a method declaration, while C++ uses it to prevent further overriding of virtual functions. Python's `@final` expresses the intention to a type checker. All these mechanisms reflect the same design decision: we must decide at which point in the hierarchy a method's behaviour should cease to be replaceable.
 
+Nesting and the relationship to an enclosing instance are distinct concepts. In Java, a `static` nested class can access the private static members of its enclosing class, but needs an explicit object reference to access instance data. A non-static inner class automatically retains a reference to its enclosing object. A `private` nested type is an implementation detail, while a `public` inner class can be used from outside. Choose the narrowest suitable access level.
+
+A `final` field does not make every part of its referenced object immutable. A `final` list reference cannot be assigned a different list, but elements may still be added and removed. The encapsulation rules discussed earlier continue to apply.
+
+In C#, `sealed` can be applied to a method only together with `override`, to close an inherited virtual method after overriding it. To prevent overriding from the start, define an ordinary non-`virtual` method in the base class. This achieves a similar design goal using different syntax from Java `final`.
+
 ## Exercises {#tasks}
+
+For each exercise, the nested helper class must have explicitly specified accessibility and a clearly chosen static or instance relationship. A `final` class, method and field impose different restrictions: they prevent inheritance, overriding and reassignment, respectively. Verify not only the correct result but also that access which should be forbidden is actually rejected.
 
 These exercises practise restricting access to internal implementation details and deliberately limiting further inheritance. A nested class does not replace the public methods of its container, so the enclosing class must still control operations on its data. Reuse the previously developed classes wherever appropriate.
 
 :::exercise
 ### Rectangles – Fixed Dimensions
+
+**Main mechanism:** a `final` class and `final` fields. Assign the data exactly once in the constructor; do not provide setters.
 
 ![Rectangles – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-rectangle-en.svg){width=590}
 
@@ -471,6 +481,8 @@ These exercises practise restricting access to internal implementation details a
 
 :::exercise
 ### Library – Internal Loan Records
+
+**Main mechanism:** a private `static` nested class. Outside code must not access the records or obtain a mutable reference to the stored list.
 
 ![Library – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-library-en.svg){width=640}
 
@@ -488,6 +500,8 @@ These exercises practise restricting access to internal implementation details a
 :::exercise
 ### Garage – Internal Service Ticket
 
+**Main mechanism:** a non-static inner class. Each service ticket must use the hourly rate of the particular garage to which it belongs.
+
 ![Garage – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-garage-en.svg){width=660}
 
 **Classes and fields**
@@ -504,6 +518,8 @@ These exercises practise restricting access to internal implementation details a
 :::exercise
 ### Bank Accounts – Non-overridable Withdrawal
 
+**Main mechanism:** a `final` instance method. `withdraw()` remains callable in a subclass but cannot be redefined with the same parameter signature.
+
 ![Bank accounts – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-bank-en.svg){width=660}
 
 **Classes and fields**
@@ -519,6 +535,8 @@ These exercises practise restricting access to internal implementation details a
 
 :::exercise
 ### Movie Catalogue – Private Screening Data
+
+**Main mechanism:** a private `static` nested helper class in a container. Only public methods of the containing class may manage the records.
 
 ![Movie catalogue – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-movies-en.svg){width=660}
 

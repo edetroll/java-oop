@@ -322,7 +322,13 @@ Az absztrakt osztályok akkor különösen hasznosak, amikor több, közös tula
 
 Java-ban az absztrakt metódus nem lehet `private`, `static` vagy `final`, mert ezek a jelölések ellentmondanának annak, hogy a leszármazottaknak felül kell írniuk. Az osztály maga ugyanakkor tartalmazhat statikus metódusokat és olyan konkrét metódusokat is, amelyeket nem szeretnénk felülírhatóvá tenni. C#-ban az `abstract` és `override` kulcsszavakat, C++-ban a `virtual ... = 0` tisztán virtuális metódusokat, Pythonban pedig az `abc` modul `ABC` és `@abstractmethod` elemeit használjuk. A Pythonból és a C++-ból bemutatott példák működése megfelelően követi a Java alapelvét, a pontos nyelvi megvalósítás azonban eltér.
 
+Az absztrakt osztályt akkor is használhatjuk egy magas szintű algoritmus megtervezésére, ha még egyik konkrét változatának megvalósítása sem készült el. Ekkor a közös metódus már meghívhatja a hiányzó műveletet: a fordító a konkrét leszármazottaktól később számon kéri annak implementációját. A felülírható, de már megvalósított metódus használata ezzel szemben csak lehetőség, amelyet a programozó döntése alapján használnak ki a leszármazottak. Emiatt különösen fontos, hogy egy osztályhierarchia tervezésekor eldöntsük, mely metódusoknak van minden esetben értelmes alapértelmezett működésük, és melyeknél lenne az üres metódustörzs csupán a hiányzó megvalósítás elfedése.
+
+Egy absztrakt osztály maga nem példányosítható, de rendelkezhet konstruktorral: ezt a konkrét leszármazott konstruktorhívási lánca használja a közös mezők inicializálására. Az absztrakt metódus szintaktikailag egy metódus előírása, nem végrehajtható algoritmus. Megvalósításakor ügyelnünk kell arra, hogy a leszármazott ugyanolyan paraméterlistát és megfelelő visszatérési típust biztosítson, és Java-ban ne szűkítse az előírt láthatóságot. Absztrakt metódus `static`, `private` vagy `final` nem lehet, mert ez ellentmondana a kötelező felülírásnak.
+
 ## Feladatok {#tasks}
+
+Az absztrakt metódusokat a következő feladatokban külön kiemeljük. Az ősosztályban **törzs nélkül** kell őket deklarálni, a konkrét leszármazottakban pedig kötelező a megvalósításuk. Az ősosztály már megírt közös algoritmusait nem írjuk újra.
 
 Az alábbi feladatokban az eddig megismert osztályhierarchiákat olyan közös műveletekkel egészítjük ki, amelyeknek a megvalósítása a konkrét leszármazott típusától függ. Az osztályok mezőit és metódusait az UML-ábrák is tartalmazzák, a szükséges ellenőrzéseket és az algoritmusok működését azonban a szöveges leírás alapján kell megvalósítani.
 
@@ -335,11 +341,19 @@ Az alábbi feladatokban az eddig megismert osztályhierarchiákat olyan közös 
 - Az absztrakt `Shape` osztály tárolja a `name : String` mezőt. A név nem lehet `null` vagy üres; a `getName()` metódussal lekérdezhető, módosítását kívülről ne engedje.
 - A `Rectangle` a pozitív valós `width` és `height` mezőt tárolja. A `Circle` a pozitív valós `radius` mezőt tartalmazza.
 
-**Konstruktorok és metódusok**
+**Konstruktorok**
 - A `Shape(name : String)` konstruktor ellenőrizze és mentse el a nevet. A `Rectangle(name : String, width : double, height : double)` és `Circle(name : String, radius : double)` konstruktor a közös adatot az ősosztály konstruktorával inicializálja, majd ellenőrizze a saját adatait.
-- A `Shape` deklarálja az absztrakt `getArea() : double` és `getPerimeter() : double` metódusokat. Mindkét leszármazott valósítsa meg azokat a geometriai képletek szerint.
+
+**Absztrakt metódusok – a közös ősosztályban csak a deklarációjuk szerepeljen**
+- **`abstract getArea() : double`**: a `Shape` osztályban csak deklaráljuk; a `Rectangle` a szélesség és a magasság szorzatát, a `Circle` a `Math.PI * radius * radius` értéket adja vissza.
+- **`abstract getPerimeter() : double`**: a `Rectangle` az oldalak összegének kétszeresét, a `Circle` a `2 * Math.PI * radius` értéket adja vissza.
+
+**Konkrét metódusok – ezeket az ősosztály valósítsa meg**
 - A közös, konkrét `isLargerThan(other : Shape) : boolean` metódus a két alakzat területét hasonlítsa össze, és igaz értékkel térjen vissza, ha az aktuális alakzat területe nagyobb. `null` paraméter esetén dobjon kivételt.
+
+**Főprogram és ellenőrzés**
 - A főprogramban helyezzen különböző alakzatokat egy `ArrayList<Shape>` listába, majd keresse meg a legnagyobb területűt!
+
 :::endexercise
 
 :::exercise
@@ -351,11 +365,18 @@ Az alábbi feladatokban az eddig megismert osztályhierarchiákat olyan közös 
 - Az absztrakt `Publication` osztály a nem üres `title : String` címet és a pozitív `basePrice : int` alapárat tárolja; az adatokat csak a konstruktor állíthatja be, és `getTitle()`, illetve `getBasePrice()` metódusokkal lehessen lekérdezni.
 - A `Textbook` tartalmazza a pozitív `pageCount : int` oldalszámot. A `Magazine` tartalmazza a pozitív `issueNumber : int` lapszámot.
 
-**Konstruktorok és metódusok**
+**Konstruktorok**
 - A `Publication(title : String, basePrice : int)` konstruktor validálja a közös adatokat. A leszármazottak konstruktora kapja meg a közös adatokat és a saját mezőjüket, majd mindegyiket ellenőrizze.
+
+**Absztrakt metódusok – a közös ősosztályban csak a deklarációjuk szerepeljen**
 - A `Publication` írja elő az absztrakt `calculateShippingCost() : int` metódust. A tankönyv szállítási díja `600 + 2 * pageCount`, a magaziné pedig `400` forint.
+
+**Konkrét metódusok – ezeket az ősosztály valósítsa meg**
 - A `getTotalPrice() : int` konkrét metódus az alapárhoz adja hozzá a szállítási díjat. Ne készítsen külön végösszegszámító metódust a leszármazottakban.
+
+**Főprogram és ellenőrzés**
 - Készítsen `ArrayList<Publication>` listát, és keresse meg azt a kiadványt, amelynek a teljes ára a legnagyobb!
+
 :::endexercise
 
 :::exercise
@@ -367,11 +388,18 @@ Az alábbi feladatokban az eddig megismert osztályhierarchiákat olyan közös 
 - Az absztrakt `Vehicle` osztály a nem üres `brand : String` márkanevet és a nemnegatív `mileage : int` kilométeróra-állást tárolja. Ezeket csak a konstruktor módosíthassa; lekérdezésükre készüljön `getBrand()` és `getMileage()` metódus.
 - A `Car` egy pozitív `engineCapacity : int`, a `Motorcycle` pedig egy `sidecar : boolean` mezővel egészíti ki a közös adatokat.
 
-**Konstruktorok és metódusok**
+**Konstruktorok**
 - A `Vehicle(brand : String, mileage : int)` konstruktor ellenőrizze a közös adatokat. A leszármazottak konstruktora hívja meg ezt, majd inicializálja a saját mezőjét.
+
+**Absztrakt metódusok – a közös ősosztályban csak a deklarációjuk szerepeljen**
 - A `Vehicle` írja elő az absztrakt `getServiceInterval() : int` metódust. Az autó szervizintervalluma `15000` km, ha a hengerűrtartalma legalább `1600`, egyébként `10000` km. Motorkerékpár esetén oldalkocsival `5000`, oldalkocsi nélkül `7000` km.
+
+**Konkrét metódusok – ezeket az ősosztály valósítsa meg**
 - A `needsService(kmSinceService : int) : boolean` metódus a kapott nemnegatív értéket hasonlítsa össze az adott jármű szervizintervallumával, és annak elérésekor térjen vissza igaz értékkel; negatív bemenet esetén dobjon kivételt.
+
+**Főprogram és ellenőrzés**
 - Tároljon különböző járműveket `ArrayList<Vehicle>` listában, majd válogassa ki azokat, amelyeknél egy megadott megtett kilométerérték már szervizt indokol!
+
 :::endexercise
 
 :::exercise
@@ -383,11 +411,19 @@ Az alábbi feladatokban az eddig megismert osztályhierarchiákat olyan közös 
 - Az absztrakt `BankAccount` osztály tárolja a nem üres `accountNumber : String` számlaszámot és a nemnegatív `balance : int` egyenleget. A számlaszám csak lekérdezhető legyen, az egyenleg pedig a korábban megírt jóváíró és terhelő metódusokon keresztül változhasson.
 - A `SavingsAccount` pozitív vagy nulla `monthlyFreeTransfers : int` mezőt, a `BusinessAccount` pozitív `feePercent : double` százalékos díjtényezőt tároljon.
 
-**Konstruktorok és metódusok**
+**Konstruktorok**
 - A `BankAccount(accountNumber : String, balance : int)` konstruktor validálja az adatokat, a leszármazottak konstruktora pedig a saját paramétereiket is ellenőrizzék.
-- A `BankAccount` deklarálja az absztrakt `calculateTransferFee(amount : int) : int` metódust. Az összegnek pozitívnak kell lennie. Megtakarítási számlán a díj `0`, ha a még elérhető ingyenes átutalások száma pozitív, különben `300` forint. Üzleti számlán a díj az összeg és a díjtényező szorzatának felfelé kerekített értéke.
+
+**Absztrakt metódusok – a közös ősosztályban csak a deklarációjuk szerepeljen**
+- A `BankAccount` deklarálja az absztrakt `calculateTransferFee(amount : int) : int` metódust. Az összegnek pozitívnak kell lennie. A díjtényezőt százalékban adjuk meg, például `2.5` esetén 2,5%-os díjjal számolunk. A díjszámítás nem csökkenti az ingyenes átutalások számát. Megtakarítási számlán a díj `0`, ha a még elérhető ingyenes átutalások száma pozitív, különben `300` forint. Üzleti számlán a díj az `amount * feePercent / 100` kifejezés eredményének felfelé kerekített egész értéke.
+
+**Konkrét metódusok – ezeket az ősosztály valósítsa meg**
+- A `deposit(amount : int) : void` fogadjon pozitív összeget, és növelje vele az egyenleget. A `withdraw(amount : int) : void` csak pozitív, az aktuális egyenleget meg nem haladó összeget engedjen levonni; hibás paraméter esetén mindkettő dobjon kivételt. Ezek a metódusok az ősosztályban legyenek konkrétak.
 - A közös `canTransfer(amount : int) : boolean` metódus ellenőrizze, hogy az egyenleg fedezi-e az átutalandó összeget és a hozzá tartozó díjat. A metódus önmagában ne vonjon le pénzt és ne fogyassza az ingyenes átutalások számát.
+
+**Főprogram és ellenőrzés**
 - Egy `ArrayList<BankAccount>` listában gyűjtse ki azokat a számlákat, amelyekről egy `25000` forintos átutalás végrehajtható!
+
 :::endexercise
 
 :::exercise
@@ -399,9 +435,44 @@ Az alábbi feladatokban az eddig megismert osztályhierarchiákat olyan közös 
 - Az absztrakt `MediaItem` osztály tárolja a nem üres `title : String` címet és a pozitív `releaseYear : int` megjelenési évet. Ezeket a `getTitle()` és `getReleaseYear()` metódusokkal lehessen lekérdezni, de kívülről ne lehessen átírni.
 - A `Movie` pozitív `duration : int` játékidőt tárol percben, a `Series` pedig pozitív `episodeCount : int` epizódszámot és `episodeDuration : int` átlagos epizódhosszt.
 
-**Konstruktorok és metódusok**
+**Konstruktorok**
 - A `MediaItem(title : String, releaseYear : int)` konstruktor ellenőrizze és inicializálja a közös adatokat. A `Movie` és `Series` konstruktora a saját adataikat is validálja.
+
+**Absztrakt metódusok – a közös ősosztályban csak a deklarációjuk szerepeljen**
 - A `MediaItem` írja elő az absztrakt `getTotalDuration() : int` metódust. Film esetén ez a játékidő, sorozat esetén az epizódok számának és átlagos hosszának szorzata.
+
+**Konkrét metódusok – ezeket az ősosztály valósítsa meg**
 - A közös `fitsInto(availableMinutes : int) : boolean` metódus ellenőrizze, hogy a nemnegatív időkeret legalább a teljes játékidővel egyenlő-e; negatív paraméter esetén dobjon kivételt.
+
+**Főprogram és ellenőrzés**
 - Egy `ArrayList<MediaItem>` listából válogassa ki azokat a filmeket és sorozatokat, amelyek teljes egészében megnézhetők egy négyórás időkereten belül!
+
+:::endexercise
+
+:::exercise
+### Kávékészítés – a közös algoritmus továbbfejlesztése {#coffee-exercise}
+
+![Kávékészítés – részletes UML](content/chapters/10-absztrakt-osztalyok/media/task-coffee-hu.svg){width=650}
+
+A kávékészítési példát egészítse ki úgy, hogy az egyes műveletek ne csak üzeneteket jelenítsenek meg, hanem kiszámítsák az elkészítésükhöz szükséges időt! Az ősosztályban továbbra is a műveletek sorrendjét határozzuk meg, a konkrét kávéfajták pedig az időtartamokat számítják ki.
+
+**Osztályok és mezők**
+- Készítsen **absztrakt `Coffee` osztályt** a `coffeeGrams : int` és `waterMl : int` mezőkkel. Mindkét mező legyen `protected`, és csak pozitív egész értéket fogadhasson el.
+- Az `Espresso` származzon a `Coffee` osztályból, és tárolja a pozitív `pressureBar : int` nyomást privát mezőben.
+- A `Cappuccino` szintén közvetlenül a `Coffee` osztályból származzon, és privát `milkMl : int` mezőben tárolja a tej pozitív mennyiségét.
+
+**Konstruktorok**
+- A `Coffee(coffeeGrams : int, waterMl : int)` konstruktor végezze el a közös mezők validálását és inicializálását. A `Coffee` osztályt ne lehessen közvetlenül példányosítani.
+- Az `Espresso(coffeeGrams : int, waterMl : int, pressureBar : int)` és `Cappuccino(coffeeGrams : int, waterMl : int, milkMl : int)` konstruktorok hívják meg az ős konstruktorát, majd ellenőrizzék a saját mezőjüket.
+
+**Absztrakt metódusok – a `Coffee` osztályban törzs nélkül**
+- `grind() : int`: a kávé őrlésének idejét adja vissza másodpercben. Az `Espresso` esetén `coffeeGrams * 2`, a `Cappuccino` esetén `coffeeGrams * 3` legyen az eredmény.
+- `brew() : int`: a főzés idejét adja vissza másodpercben. Az `Espresso` eredménye `waterMl / 5 + pressureBar`, a `Cappuccino` eredménye `waterMl / 4` egész osztással.
+
+**Konkrét metódusok – a `Coffee` osztályban legyen törzsük**
+- `addMilk() : int`: alapértelmezés szerint térjen vissza `0` értékkel. A `Cappuccino` írja felül, és `milkMl / 10` másodpercet adjon vissza. Az `Espresso` osztályban nem kell felülírni.
+- `prepare() : int`: sorrendben hívja meg a `grind()`, `brew()` és `addMilk()` metódusokat, majd adja vissza a három eredmény összegét. **Ne írják felül** a leszármazott osztályokban.
+
+**Főprogram és ellenőrzés**
+- Hozzon létre két `Espresso` és két `Cappuccino` példányt eltérő adatokkal, helyezze őket `ArrayList<Coffee>` listába, majd keresse meg azt, amelynek az elkészítési ideje a leghosszabb! Ellenőrizze azt is, hogy érvénytelen paraméterek esetén a konstruktorok kivételt dobnak.
 :::endexercise

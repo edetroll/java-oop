@@ -451,12 +451,22 @@ public:
 
 在 C# 中，`sealed override` 可以阻止子类继续重写一个已经被重写的方法。Java 可以直接在方法声明中使用 `final`；C++ 的 `final` 则限制虚函数的进一步重写。Python 的 `@final` 主要向类型检查器表明相同意图。这些机制都要求我们明确决定，在类层次结构的哪个位置应当停止改变某项操作的实现。
 
+嵌套关系和外部实例引用不是同一概念。在 Java 中，`static` 嵌套类可以访问外部类的私有静态成员，但若要访问外部对象的实例数据，必须具有明确的对象引用。非静态内部类则自动关联一个外部类实例。`private` 嵌套类属于实现细节，`public` 内部类可从外部使用。应尽量采用满足需求的最小可见范围。
+
+`final` 字段不意味着它引用的对象在各方面都不可修改。`final` 列表引用不能重新指向另一个列表，但通常仍可增删列表元素。此前介绍的数据隐藏规则仍需遵守。
+
+在 C# 中，`sealed` 方法只能与 `override` 一起使用，用于禁止继续重写一个已重写的虚方法。如果从一开始就不希望某个操作被重写，应在父类中编写普通的非 `virtual` 方法。它与 Java 的 `final` 在设计目标上相近，但语法不同。
+
 ## 练习 {#tasks}
+
+以下每个练习都明确要求嵌套辅助类的可见性，以及它是静态嵌套类还是依附于外部实例的内部类。`final` 类、`final` 方法和 `final` 字段分别禁止继承、重写和重新赋值。除了验证计算结果，还应验证不允许的访问确实会被阻止。
 
 下面的练习重点训练内部实现的隐藏以及对进一步继承的有意识限制。嵌套类不能替代容器的公开方法，因此外部类仍须控制对数据的操作。可以在符合要求的情况下复用之前编写的类。
 
 :::exercise
 ### 矩形——固定尺寸
+
+**练习重点：** `final` 类与 `final` 字段。所有字段只在构造方法中赋值一次，不提供 setter。
 
 ![矩形 UML](content/chapters/11-final-beagyazott-osztalyok/media/task-rectangle-zh.svg){width=590}
 
@@ -471,6 +481,8 @@ public:
 
 :::exercise
 ### 图书馆——内部借阅记录
+
+**练习重点：** 私有 `static` 嵌套类。外部程序不能直接访问记录，也不能获得可修改内部列表的引用。
 
 ![图书馆 UML](content/chapters/11-final-beagyazott-osztalyok/media/task-library-zh.svg){width=640}
 
@@ -488,6 +500,8 @@ public:
 :::exercise
 ### 汽车维修——内部维修单
 
+**练习重点：** 非静态内部类。每张维修单必须使用所属维修车间实例的小时收费标准。
+
 ![汽车维修 UML](content/chapters/11-final-beagyazott-osztalyok/media/task-garage-zh.svg){width=660}
 
 **类与字段**
@@ -504,6 +518,8 @@ public:
 :::exercise
 ### 银行账户——不可重写的取款操作
 
+**练习重点：** `final` 实例方法。`withdraw()` 可以在子类中使用，但不能用相同参数列表重新定义。
+
 ![银行账户 UML](content/chapters/11-final-beagyazott-osztalyok/media/task-bank-zh.svg){width=660}
 
 **类与字段**
@@ -519,6 +535,8 @@ public:
 
 :::exercise
 ### 电影目录——私有放映数据
+
+**练习重点：** 容器内部的私有 `static` 辅助类。记录只能通过外部容器类提供的公共方法管理。
 
 ![电影目录 UML](content/chapters/11-final-beagyazott-osztalyok/media/task-movies-zh.svg){width=660}
 
