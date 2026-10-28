@@ -612,70 +612,45 @@ int main() {
 
 ## Exercises {#exercises}
 
-The tasks below specify the type, accessibility and validity of each field, as well as the required behaviour of each operation. The UML diagrams illustrate these requirements, but the textual specifications are complete on their own.
+The exercises focus on moving common data into superclasses, using inheritance, and handling objects of different types together. Each field description also specifies its getter and setter. Unless stated otherwise, a setter must throw `IllegalArgumentException` when given an invalid value without changing the previous field value.
 
 :::exercise
 ### Rectangles
 
 ![Rectangles – UML](content/chapters/06-oroklodes/media/complete-task-1-en.svg){width=620}
 
-**Requirements**
+Create a `Shape` superclass for the existing `Rectangle` class, and derive a new `Circle` class from it as well. Colour is a common property and must be stored only in the superclass.
 
-- Introduce a `Shape` superclass with a nonempty colour, getter and setter.
-- Derive the existing `Rectangle` and a new `Circle` class.
-- Circle radius must be positive and area/perimeter use their respective formulas.
-- Store both shapes in a `Shape` list and select circles using `instanceof`.
-- The calculation methods are new; do not introduce overridden methods yet.
+**`Shape` – fields**
 
-**Fields and properties**
+- **`color : String`** – a private field storing the shape's colour. The public `getColor() : String` returns its current value. The `setColor(color : String) : void` setter must reject `null`, empty strings, and strings containing only whitespace.
 
-**`Shape`**
+**`Rectangle` – fields**
 
-- `- color : String`
+- **`x : double`** – horizontal coordinate of the top-left corner; any real number is allowed. The private field has public `getX() : double` and `setX(x : double) : void` methods, which return and update the coordinate.
+- **`y : double`** – vertical coordinate of the top-left corner; any real number is allowed. The public `getY() : double` returns the stored value, and `setY(y : double) : void` updates it. Positive vertical direction points upward.
+- **`width : double`** – rectangle width, which must be strictly positive. The `getWidth() : double` getter returns the current width; `setWidth(width : double) : void` accepts positive values only.
+- **`height : double`** – rectangle height, which must also be strictly positive. The `getHeight() : double` getter returns the stored height; `setHeight(height : double) : void` rejects zero and negative values.
+- **`CREATED_COUNT : int`** – a private static counter initially equal to `0`. It increases exactly once for each successfully created rectangle. The public static `getCreatedCount() : int` returns the total number created; there is no setter.
 
-**Methods**
+**`Rectangle` – constructors and operations**
 
-- `+ getColor() : String`
-- `+ setColor(color : String) : void`
+`Rectangle()` creates a `1 × 1` rectangle whose top-left corner is `(0, 0)`. `Rectangle(x : double, y : double, width : double, height : double)` uses the supplied values and validates width and height. Delegating between constructors must not count the same instance twice.
 
-**`Rectangle`**
+- **`getArea() : double`** – returns width multiplied by height.
+- **`getPerimeter() : double`** – returns `2 × (width + height)`.
+- **`overlaps(other : Rectangle) : boolean`** – returns true only if the two rectangles share a region with positive area. Touching along an edge or at one corner does not count as overlap.
+- **`getQuadrant() : int`** – returns a number from `1` to `4` when the entire rectangle lies strictly inside one quadrant; otherwise, including when touching an axis, returns `-1`.
 
-- `- x : double`
-- `- y : double`
-- `- width : double`
-- `- height : double`
-- `- {static} CREATED_COUNT : int`
+**`Circle` – fields and operations**
 
-**Methods**
+- **`radius : double`** – a private radius that must be positive. `getRadius() : double` returns the stored value; `setRadius(radius : double) : void` rejects invalid values.
 
-- `+ Rectangle()`
-- `+ Rectangle(x : double, y : double, width : double, height : double)`
-- `+ getX() : double`
-- `+ setX(x : double) : void`
-- `+ getY() : double`
-- `+ setY(y : double) : void`
-- `+ getWidth() : double`
-- `+ setWidth(width : double) : void`
-- `+ getHeight() : double`
-- `+ setHeight(height : double) : void`
-- `+ getArea() : double`
-- `+ getPerimeter() : double`
-- `+ overlaps(other : Rectangle) : boolean`
-- `+ getQuadrant() : int`
-- `+ {static} getCreatedCount() : int`
+The circle's `getArea() : double` returns `π × radius²`, and `getPerimeter() : double` returns `2 × π × radius`. These are new methods of `Circle`; do not define them in `Shape` yet.
 
-**`Circle`**
+**Main program**
 
-- `- radius : double`
-
-**Methods**
-
-- `+ getRadius() : double`
-- `+ setRadius(radius : double) : void`
-- `+ getArea() : double`
-- `+ getPerimeter() : double`
-
-Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
+Store rectangles and circles together in an `ArrayList<Shape>`. Use `instanceof` to select the circles into a new list, then calculate the sum of their areas. Notice that both subclasses access colour using the inherited methods.
 :::endexercise
 
 :::exercise
@@ -683,61 +658,37 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Books – UML](content/chapters/06-oroklodes/media/complete-task-2-en.svg){width=620}
 
-**Requirements**
+Create a `Publication` superclass, then derive the existing `Book` and a new `Magazine` class from it. Publisher and country are shared data, so neither subclass should declare duplicate fields for them.
 
-- Create a `Publication` superclass holding nonempty publisher and country, with validated setters.
-- `Book` keeps its author, title, price, genre, printed flag, constructors, discount and price constants; `Magazine` stores a title and positive issue number.
-- Add both derived types to a `Publication` list and select magazines with type checks.
+**`Publication` – fields**
 
-**Fields and properties**
+- **`publisher : String`** – private publisher name. `getPublisher() : String` returns the stored name; `setPublisher(publisher : String) : void` rejects `null` or empty strings.
+- **`country : String`** – private name of the publication country. `getCountry() : String` returns the stored country; `setCountry(country : String) : void` rejects `null`, empty, or whitespace-only strings.
 
-**`Publication`**
+**`Book` – fields**
 
-- `- publisher : String`
-- `- country : String`
+- **`author : String`** – author name. `getAuthor() : String` returns the stored name; `setAuthor(author : String) : void` requires at least two characters and permits only letters, spaces, periods, and hyphens.
+- **`title : String`** – book title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` accepts only non-`null` strings of at least two characters.
+- **`price : int`** – price in whole Hungarian forints. `getPrice() : int` returns the current price; `setPrice(price : int) : void` permits only values in `[500, 50000]`.
+- **`genre : Genre`** – book genre, with values such as `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI`, and `COMEDY`. `getGenre() : Genre` returns the stored value; `setGenre(genre : Genre) : void` rejects `null`.
+- **`printed : boolean`** – true for a printed book, false for an e-book. `isPrinted() : boolean` returns the stored flag; `setPrinted(printed : boolean) : void` updates it without additional validation.
+- **`MIN_PRICE : int` and `MAX_PRICE : int`** – public `static final` constants of `Book`, equal to `500` and `50000`. The public static `isValidPrice(price : int) : boolean` returns whether a value lies within these limits.
 
-**Methods**
+**`Book` – constructors and operations**
 
-- `+ getPublisher() : String`
-- `+ setPublisher(publisher : String) : void`
-- `+ getCountry() : String`
-- `+ setCountry(country : String) : void`
+`Book(author : String, title : String, price : int, genre : Genre, printed : boolean)` validates and initializes all book-specific fields. `Book(author : String, title : String, price : int)` delegates to the full constructor, using `Genre.DRAMA` and a printed book as defaults. The shared publication fields can be assigned through inherited setters.
 
-**`Book`**
+- **`discount(percent : int) : void`** – applies a reduction from `1` to `99` percent, rounding the resulting price down to whole forints. An invalid percentage or a resulting price below `899` must leave the stored price unchanged.
+- **`toString() : String`** – returns a readable text containing the important book data.
 
-- `- author : String`
-- `- title : String`
-- `- price : int`
-- `- genre : Genre`
-- `- printed : boolean`
-- `- {static} MIN_PRICE : int`
-- `- {static} MAX_PRICE : int`
+**`Magazine` – fields**
 
-**Methods**
+- **`title : String`** – private magazine title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` rejects `null` and empty strings.
+- **`issueNumber : int`** – positive issue number. `getIssueNumber() : int` returns the stored number; `setIssueNumber(issueNumber : int) : void` rejects zero and negative values.
 
-- `+ Book(author : String, title : String, price : int, genre : Genre, printed : boolean)`
-- `+ Book(author : String, title : String, price : int)`
-- `+ getAuthor() : String`
-- `+ getTitle() : String`
-- `+ getPrice() : int`
-- `+ getGenre() : Genre`
-- `+ isPrinted() : boolean`
-- `+ discount(percent : int) : void`
-- `+ {static} isValidPrice(price : int) : boolean`
-- `+ toString() : String`
+**Main program**
 
-**`Magazine`**
-
-- `- title : String`
-- `- issueNumber : int`
-
-**Methods**
-
-- `+ getTitle() : String`
-- `+ getIssueNumber() : int`
-- `+ setIssueNumber(issueNumber : int) : void`
-
-Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
+Create books and magazines, set their common publication fields, and store them together in an `ArrayList<Publication>`. Select magazines using type checks and display their titles, issue numbers, and publishers.
 :::endexercise
 
 :::exercise
@@ -745,57 +696,36 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Cars – UML](content/chapters/06-oroklodes/media/complete-task-3-en.svg){width=620}
 
-**Requirements**
+Move the brand field from the existing `Car` class into a new `Vehicle` superclass, which also stores maximum speed. Add a `Motorcycle` subclass. Neither subclass may duplicate the common fields.
 
-- Move brand from the existing `Car` into a new `Vehicle` superclass; also store a positive integer maximum speed.
-- `Car` keeps its model, year, mileage, automatic id, existing constructors and `drive()` method.
-- `Motorcycle` stores positive engine capacity and a sidecar flag.
-- Store both types in a `Vehicle` list and select motorcycles.
+**`Vehicle` – fields**
 
-**Fields and properties**
+- **`brand : String`** – private brand name. `getBrand() : String` returns the current brand; `setBrand(brand : String) : void` rejects `null` and empty strings.
+- **`maxSpeed : int`** – maximum speed in km/h; a positive integer. `getMaxSpeed() : int` returns the stored speed; `setMaxSpeed(maxSpeed : int) : void` rejects nonpositive values.
 
-**`Vehicle`**
+**`Car` – fields**
 
-- `- brand : String`
-- `- maxSpeed : int`
+- **`model : String`** – model name. `getModel() : String` returns it; `setModel(model : String) : void` permits only nonempty strings.
+- **`year : int`** – production year within `[1886, 2100]`. `getYear() : int` returns the year; `setYear(year : int) : void` rejects out-of-range values.
+- **`mileage : int`** – mileage in whole kilometres; never negative. `getMileage() : int` returns the stored value. There is no public setter: mileage changes only through a constructor or `drive()`.
+- **`id : int`** – automatically assigned positive instance identifier. `getId() : int` returns it; it stays unchanged throughout the instance's lifetime and has no setter.
+- **`NEXT_ID : int`** – private static field initially equal to `1`. Each new `Car` receives the current value as its ID, after which the counter increases by one.
 
-**Methods**
+**`Car` – constructors and operations**
 
-- `+ getBrand() : String`
-- `+ setBrand(brand : String) : void`
-- `+ getMaxSpeed() : int`
-- `+ setMaxSpeed(maxSpeed : int) : void`
+`Car(brand : String, model : String, year : int, mileage : int)` validates its arguments. `Car(brand : String, model : String, year : int)` delegates to it, using zero mileage. Use the superclass setter to assign the brand.
 
-**`Car`**
+- **`drive(distance : int) : void`** – increases mileage by a strictly positive whole number of kilometres only.
+- **`toString() : String`** – returns text containing brand, model, year, and current mileage.
 
-- `- model : String`
-- `- year : int`
-- `- mileage : int`
-- `- id : int`
-- `- {static} NEXT_ID : int`
+**`Motorcycle` – fields**
 
-**Methods**
+- **`engineCapacity : int`** – engine displacement in cm³; a positive integer. `getEngineCapacity() : int` returns it; `setEngineCapacity(engineCapacity : int) : void` accepts positive values only.
+- **`sidecar : boolean`** – indicates whether a sidecar is attached. `hasSidecar() : boolean` returns the stored flag; `setSidecar(sidecar : boolean) : void` updates it with any boolean value.
 
-- `+ Car(brand : String, model : String, year : int, mileage : int)`
-- `+ Car(brand : String, model : String, year : int)`
-- `+ getModel() : String`
-- `+ getYear() : int`
-- `+ getMileage() : int`
-- `+ getId() : int`
-- `+ drive(distance : int) : void`
-- `+ toString() : String`
+**Main program**
 
-**`Motorcycle`**
-
-- `- engineCapacity : int`
-- `- sidecar : boolean`
-
-**Methods**
-
-- `+ getEngineCapacity() : int`
-- `+ hasSidecar() : boolean`
-
-Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
+Store cars and motorcycles together in an `ArrayList<Vehicle>`. Select motorcycles and count those with sidecars. Demonstrate that both kinds of vehicle expose their brand through methods inherited from `Vehicle`.
 :::endexercise
 
 :::exercise
@@ -803,47 +733,30 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Bank accounts – UML](content/chapters/06-oroklodes/media/complete-task-4-en.svg){width=620}
 
-**Requirements**
+Create a simple `BankAccount` superclass and derive `SavingsAccount` and `BusinessAccount`. Do not redeclare inherited fields in either subclass.
 
-- Build a fresh, simple `BankAccount` hierarchy; do not extend the earlier private-constructor factory.
-- The base stores nonempty holder and account number and nonnegative integer balance.
-- Deposit and withdrawal validate positive amounts.
-- SavingsAccount has interest rate in `[0,1]`; BusinessAccount requires a nonempty company name.
-- Store both types in a BankAccount list and filter business accounts.
+**`BankAccount` – fields**
 
-**Fields and properties**
+- **`owner : String`** – account holder name. `getOwner() : String` returns the stored name; `setOwner(owner : String) : void` rejects `null` or empty strings.
+- **`accountNumber : String`** – account identifier. `getAccountNumber() : String` returns it. `setAccountNumber(accountNumber : String) : void` allows the first valid assignment only; once set, the number cannot change. It must reject `null` or empty strings.
+- **`balance : int`** – balance in whole forints, initially `0`. `getBalance() : int` returns the current amount. No public setter is permitted; only deposit and withdrawal operations can update it, and it cannot become negative.
 
-**`BankAccount`**
+**`BankAccount` – operations**
 
-- `- owner : String`
-- `- accountNumber : String`
-- `- balance : int`
+- **`deposit(amount : int) : void`** – adds a strictly positive amount to the balance.
+- **`withdraw(amount : int) : void`** – subtracts only a positive amount not exceeding the available balance. Invalid amounts must not change the balance.
 
-**Methods**
+**`SavingsAccount` – fields**
 
-- `+ getBalance() : int`
-- `+ deposit(amount : int) : void`
-- `+ withdraw(amount : int) : void`
+- **`interestRate : double`** – annual interest rate within `[0, 1]`. `getInterestRate() : double` returns the stored rate; `setInterestRate(interestRate : double) : void` rejects values outside that interval.
 
-**`SavingsAccount`**
+**`BusinessAccount` – fields**
 
-- `- interestRate : double`
+- **`companyName : String`** – company name. `getCompanyName() : String` returns the stored name; `setCompanyName(companyName : String) : void` accepts only nonempty, non-`null` text.
 
-**Methods**
+**Main program**
 
-- `+ getInterestRate() : double`
-- `+ setInterestRate(interestRate : double) : void`
-
-**`BusinessAccount`**
-
-- `- companyName : String`
-
-**Methods**
-
-- `+ getCompanyName() : String`
-- `+ setCompanyName(companyName : String) : void`
-
-Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
+Create both account types, initialize their data, and perform deposits and withdrawals. Store them in an `ArrayList<BankAccount>` and use type checks to select business accounts. Display each selected account's owner, company name, and balance.
 :::endexercise
 
 :::exercise
@@ -851,46 +764,23 @@ Only the declaring class may access its private fields directly; derived classes
 
 ![Movies – UML](content/chapters/06-oroklodes/media/complete-task-5-en.svg){width=620}
 
-**Requirements**
+Create a `MediaItem` superclass with `Movie` and `Series` subclasses. Title and release year are shared fields and must appear only in `MediaItem`.
 
-- Create a new, simple `MediaItem` superclass with nonempty title and positive release year.
-- Derive `Movie` with nonempty director and duration in `[10,360]` and `Series` with a positive number of seasons.
-- Do not duplicate common fields in derived classes.
-- Store both in a MediaItem list and select series.
+**`MediaItem` – fields**
 
-**Fields and properties**
+- **`title : String`** – private title. `getTitle() : String` returns it; `setTitle(title : String) : void` accepts only non-`null` titles containing at least two characters.
+- **`releaseYear : int`** – release year as a positive integer. `getReleaseYear() : int` returns it; `setReleaseYear(releaseYear : int) : void` rejects zero and negative values.
 
-**`MediaItem`**
+**`Movie` – fields**
 
-- `- title : String`
-- `- releaseYear : int`
+- **`director : String`** – director name. `getDirector() : String` returns it; `setDirector(director : String) : void` requires a non-`null` value of at least two characters, containing only letters, spaces, periods, and hyphens.
+- **`duration : int`** – running time in minutes, within `[10, 360]`. `getDuration() : int` returns it; `setDuration(duration : int) : void` rejects out-of-range values.
 
-**Methods**
+**`Series` – fields**
 
-- `+ getTitle() : String`
-- `+ setTitle(title : String) : void`
-- `+ getReleaseYear() : int`
-- `+ setReleaseYear(releaseYear : int) : void`
+- **`seasons : int`** – positive number of completed seasons. `getSeasons() : int` returns it; `setSeasons(seasons : int) : void` accepts positive values only.
 
-**`Movie`**
+**Main program**
 
-- `- director : String`
-- `- duration : int`
-
-**Methods**
-
-- `+ getDirector() : String`
-- `+ getDuration() : int`
-
-**`Series`**
-
-- `- seasons : int`
-
-**Methods**
-
-- `+ getSeasons() : int`
-- `+ setSeasons(seasons : int) : void`
-
-Only the declaring class may access its private fields directly; derived classes should use accessible methods. Do not override inherited methods or introduce constructor chaining in this exercise.
+Create several movies and series and store them in an `ArrayList<MediaItem>`. Use type checks to select series, then display their titles, release years, and numbers of seasons.
 :::endexercise
-

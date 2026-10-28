@@ -612,69 +612,45 @@ int main() {
 
 ## Feladatok {#exercises}
 
-Az alábbi feladatokban minden mező típusa, láthatósága, érvényességi feltétele és az egyes műveletek pontos működése a feladatleírás része. A hozzájuk tartozó UML-diagramok ezeket a követelményeket szemléltetik, de a szöveg alapján önállóan is megvalósíthatók.
+Az alábbi feladatokban elsősorban az osztályok közös adatainak kiemelését, az öröklődést és a különböző típusú példányok együttes kezelését gyakoroljuk. A mezők leírása tartalmazza a hozzájuk tartozó lekérdező és módosító metódusok működését is. Hibás adat esetén a setter `IllegalArgumentException` kivételt dobjon, és a mező korábbi értéke ne változzon meg, kivéve, ha a feladat másként rendelkezik.
 
 :::exercise
 ### Téglalapok
 
 ![Téglalapok – UML](content/chapters/06-oroklodes/media/complete-task-1-hu.svg){width=620}
 
-**Követelmények**
+A korábbi `Rectangle` osztály mellé készítsen `Shape` ősosztályt, és ebből származtasson egy új `Circle` osztályt is! A két leszármazott közös adata a szín, amelyet kizárólag az ősosztály tároljon.
 
-- Készítsen `Shape` ősosztályt, amely a színt tárolja, és getterrel, setterrel kezeli.
-- A szín nem lehet `null` vagy üres.
-- Ebből származtassa a korábban elkészített `Rectangle` osztályt és egy új `Circle` osztályt! A kör sugara pozitív, a terület és a kerület számítása a megfelelő képletekkel történik.
-- Egy `Shape` típusú listába vegyen fel téglalapokat és köröket, majd `instanceof` segítségével válogassa ki a köröket! A kör számításai új metódusok legyenek; az ősosztályban még ne definiáljunk felülírandó számítómetódust.
+**`Shape` – adatok**
 
-**Mezők és property-k**
+- **`color : String`** – privát szöveges mező, amely az alakzat színét tárolja. A publikus `getColor() : String` a mező pillanatnyi értékével tér vissza. A `setColor(color : String) : void` csak nem `null` és nem üres vagy csupa szóközből álló szöveget fogadhat el.
 
-**`Shape`**
+**`Rectangle` – adatok**
 
-- `- color : String`
+- **`x : double`** – a bal felső csúcs vízszintes koordinátája, tetszőleges valós szám. A privát mezőhöz publikus `getX() : double` és `setX(x : double) : void` tartozik. A getter visszaadja a tárolt koordinátát, a setter átállítja azt.
+- **`y : double`** – a bal felső csúcs függőleges koordinátája, tetszőleges valós szám. A publikus `getY() : double` a tárolt értékkel tér vissza, a `setY(y : double) : void` pedig módosítja a privát mezőt. A pozitív függőleges irányt felfelé értelmezzük.
+- **`width : double`** – a téglalap szélessége, amelynek szigorúan pozitívnak kell lennie. A `getWidth() : double` az aktuális szélességet adja vissza, a `setWidth(width : double) : void` pedig csak pozitív értéket menthet el.
+- **`height : double`** – a téglalap magassága, amely szintén csak pozitív lehet. A `getHeight() : double` a tárolt magasságot adja vissza, a `setHeight(height : double) : void` elutasítja a nullát és a negatív értékeket.
+- **`CREATED_COUNT : int`** – privát statikus számláló, amely kezdetben `0`, és minden sikeresen létrehozott téglalap után pontosan eggyel növekszik. A publikus statikus `getCreatedCount() : int` az összes eddig létrehozott téglalap számát adja vissza; a mezőhöz setter nem készül.
 
-**Metódusok**
+**`Rectangle` – konstruktorok és műveletek**
 
-- `+ getColor() : String`
-- `+ setColor(color : String) : void`
+A `Rectangle()` konstruktor az `(0, 0)` bal felső csúcshoz `1 × 1` méretű téglalapot készítsen. A `Rectangle(x : double, y : double, width : double, height : double)` a megadott adatokkal dolgozzon, a szélesség és magasság ellenőrzésével. A konstruktorok közötti hívás ne okozzon kétszeres példányszámlálást.
 
-**`Rectangle`**
+- **`getArea() : double`** – a szélesség és a magasság szorzatát adja vissza.
+- **`getPerimeter() : double`** – a `2 × (width + height)` értékkel tér vissza.
+- **`overlaps(other : Rectangle) : boolean`** – akkor tér vissza igazzal, ha a két téglalap közös részének pozitív a területe. A kizárólag oldalban vagy csúcsban érintkező téglalapok nem fedik át egymást.
+- **`getQuadrant() : int`** – az `1`–`4` érték valamelyikét adja vissza, ha a teljes téglalap egyetlen síknegyed belsejében található. Ha tengelyt érint, vagy több síknegyedre terjed ki, az eredmény `-1`.
 
-- `- x : double`
-- `- y : double`
-- `- width : double`
-- `- height : double`
-- `- {static} CREATED_COUNT : int`
+**`Circle` – adatok és műveletek**
 
-**Metódusok**
+- **`radius : double`** – a kör privát sugara, amely csak pozitív értéket vehet fel. A `getRadius() : double` a tárolt sugarat adja vissza, a `setRadius(radius : double) : void` a hibás értékeket elutasítja.
 
-- `+ Rectangle()`
-- `+ Rectangle(x : double, y : double, width : double, height : double)`
-- `+ getX() : double`
-- `+ setX(x : double) : void`
-- `+ getY() : double`
-- `+ setY(y : double) : void`
-- `+ getWidth() : double`
-- `+ setWidth(width : double) : void`
-- `+ getHeight() : double`
-- `+ setHeight(height : double) : void`
-- `+ getArea() : double`
-- `+ getPerimeter() : double`
-- `+ overlaps(other : Rectangle) : boolean`
-- `+ getQuadrant() : int`
-- `+ {static} getCreatedCount() : int`
+A kör `getArea() : double` metódusa `π × radius²`, a `getPerimeter() : double` metódusa `2 × π × radius` értéket adjon vissza. Ezek a `Circle` új metódusai; a `Shape` osztályban most még nem szerepelnek.
 
-**`Circle`**
+**Főprogram**
 
-- `- radius : double`
-
-**Metódusok**
-
-- `+ getRadius() : double`
-- `+ setRadius(radius : double) : void`
-- `+ getArea() : double`
-- `+ getPerimeter() : double`
-
-A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
+Tároljon téglalapokat és köröket közös `ArrayList<Shape>` gyűjteményben! `instanceof` segítségével válogassa ki egy új listába a köröket, majd számítsa ki a kiválasztott körök területének összegét! Figyelje meg, hogy a színt mindkét leszármazottnál az ősosztály metódusain keresztül érjük el.
 :::endexercise
 
 :::exercise
@@ -682,61 +658,37 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Könyvek – UML](content/chapters/06-oroklodes/media/complete-task-2-hu.svg){width=620}
 
-**Követelmények**
+Hozzon létre `Publication` ősosztályt, majd ebből származtassa a korábbi `Book` osztályt és egy új `Magazine` osztályt! A kiadó és a megjelenési ország közös adat, ezért egyik leszármazottban se tárolja még egyszer.
 
-- Készítsen `Publication` ősosztályt a kiadó és a megjelenési ország tárolására! Mindkét szöveges mező nem üres, ellenőrzött setterrel módosítható.
-- A `Book` megtartja a szerzőt, címet, árat, műfajt, nyomtatott állapotot, konstruktorokat, kedvezményt és a korábban bevezetett árkonstansokat is; a `Magazine` a címét és pozitív sorszámát tárolja.
-- Egy közös `Publication` típusú listába vegyen fel mindkét leszármazottból példányokat, majd típusellenőrzéssel gyűjtse ki a magazinokat.
+**`Publication` – adatok**
 
-**Mezők és property-k**
+- **`publisher : String`** – privát mező a kiadó nevének tárolására. A `getPublisher() : String` a kiadó nevét adja vissza, a `setPublisher(publisher : String) : void` pedig csak nem `null` és nem üres szöveget fogad el.
+- **`country : String`** – privát mező a megjelenési ország nevével. A `getCountry() : String` a tárolt országot adja vissza, a `setCountry(country : String) : void` pedig elutasítja a `null`, üres vagy kizárólag szóközöket tartalmazó szöveget.
 
-**`Publication`**
+**`Book` – adatok**
 
-- `- publisher : String`
-- `- country : String`
+- **`author : String`** – a könyv szerzőjének neve. A `getAuthor() : String` a tárolt nevet adja vissza, a `setAuthor(author : String) : void` pedig legalább két karaktert és kizárólag betűket, szóközt, pontot és kötőjelet enged meg.
+- **`title : String`** – a könyv címe. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
+- **`price : int`** – a könyv egész forintban megadott ára. A `getPrice() : int` az aktuális árral tér vissza, a `setPrice(price : int) : void` csak az `[500; 50 000]` intervallumba eső értéket mentheti el.
+- **`genre : Genre`** – a könyv műfaja felsorolás típusban, például `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI` vagy `COMEDY`. A `getGenre() : Genre` a tárolt műfajt adja vissza, a `setGenre(genre : Genre) : void` nem fogadhat el `null` értéket.
+- **`printed : boolean`** – igaz, ha nyomtatott könyvről, hamis, ha e-könyvről van szó. Az `isPrinted() : boolean` a tárolt logikai értéket adja vissza, a `setPrinted(printed : boolean) : void` pedig külön ellenőrzés nélkül módosítja.
+- **`MIN_PRICE : int` és `MAX_PRICE : int`** – a `Book` nyilvános, `static final` konstansai, rendre `500` és `50 000` értékkel. A publikus statikus `isValidPrice(price : int) : boolean` azt állapítja meg, hogy a paraméter a megengedett tartományba esik-e.
 
-**Metódusok**
+**`Book` – konstruktorok és műveletek**
 
-- `+ getPublisher() : String`
-- `+ setPublisher(publisher : String) : void`
-- `+ getCountry() : String`
-- `+ setCountry(country : String) : void`
+A `Book(author : String, title : String, price : int, genre : Genre, printed : boolean)` konstruktor a könyv saját adatait a fenti ellenőrzésekkel állítsa be. A háromparaméteres `Book(author : String, title : String, price : int)` a teljes konstruktorra támaszkodjon, `Genre.DRAMA` műfajjal és nyomtatott állapottal. A közös kiadói adatokat az örökölt setterekkel lehet beállítani.
 
-**`Book`**
+- **`discount(percent : int) : void`** – `1` és `99` közötti százalékkal csökkenti az árat, egész forintra lefelé kerekítve. Hibás százalék vagy `899` forint alá csökkenő új ár esetén a tárolt ár ne változzon meg.
+- **`toString() : String`** – a könyv adatait olvasható, többmezős szövegként adja vissza.
 
-- `- author : String`
-- `- title : String`
-- `- price : int`
-- `- genre : Genre`
-- `- printed : boolean`
-- `- {static} MIN_PRICE : int`
-- `- {static} MAX_PRICE : int`
+**`Magazine` – adatok**
 
-**Metódusok**
+- **`title : String`** – a folyóirat címe, privát mező. A `getTitle() : String` a címét adja vissza, a `setTitle(title : String) : void` nem enged `null` vagy üres szöveget elmenteni.
+- **`issueNumber : int`** – a folyóirat sorszáma, amely pozitív egész. A `getIssueNumber() : int` a tárolt sorszámmal tér vissza, a `setIssueNumber(issueNumber : int) : void` a nullát és a negatív értékeket elutasítja.
 
-- `+ Book(author : String, title : String, price : int, genre : Genre, printed : boolean)`
-- `+ Book(author : String, title : String, price : int)`
-- `+ getAuthor() : String`
-- `+ getTitle() : String`
-- `+ getPrice() : int`
-- `+ getGenre() : Genre`
-- `+ isPrinted() : boolean`
-- `+ discount(percent : int) : void`
-- `+ {static} isValidPrice(price : int) : boolean`
-- `+ toString() : String`
+**Főprogram**
 
-**`Magazine`**
-
-- `- title : String`
-- `- issueNumber : int`
-
-**Metódusok**
-
-- `+ getTitle() : String`
-- `+ getIssueNumber() : int`
-- `+ setIssueNumber(issueNumber : int) : void`
-
-A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
+Hozzon létre könyveket és folyóiratokat, állítsa be a közös kiadói adatokat, majd tárolja a példányokat `ArrayList<Publication>` listában! Típusellenőrzéssel gyűjtse ki a folyóiratokat, és jelenítse meg a címüket, sorszámukat és kiadójukat!
 :::endexercise
 
 :::exercise
@@ -744,57 +696,36 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Autók – UML](content/chapters/06-oroklodes/media/complete-task-3-hu.svg){width=620}
 
-**Követelmények**
+A korábbi `Car` osztályból emelje ki a márkát az új `Vehicle` ősosztályba, amely a maximális sebességet is tárolja! Készítsen egy új `Motorcycle` leszármazottat is. Az ősosztályba került mezőket egyik leszármazottban se ismételje meg.
 
-- Az eddigi `Car` osztályból a márka mezőjét helyezze át az új `Vehicle` ősosztályba! Az ősosztály a márka mellett a pozitív egész maximális sebességet is tárolja.
-- A `Car` megtartja a modellt, évjáratot, kilométeróra-állást, az automatikus azonosítót, a meglévő konstruktorokat és a `drive()` metódust.
-- A `Motorcycle` hengerűrtartalma legyen pozitív egész, a `sidecar` jelzi az oldalkocsit.
-- Egy `Vehicle` listában tároljon mindkét járműtípusból példányokat, és gyűjtse ki a motorkerékpárokat!
+**`Vehicle` – adatok**
 
-**Mezők és property-k**
+- **`brand : String`** – a jármű márkája, privát szöveges mező. A `getBrand() : String` az aktuális márkával tér vissza, a `setBrand(brand : String) : void` nem enged `null` vagy üres értéket elmenteni.
+- **`maxSpeed : int`** – a jármű maximális sebessége km/h-ban, pozitív egész szám. A `getMaxSpeed() : int` a tárolt sebességet adja vissza, a `setMaxSpeed(maxSpeed : int) : void` elutasítja a nem pozitív értékeket.
 
-**`Vehicle`**
+**`Car` – adatok**
 
-- `- brand : String`
-- `- maxSpeed : int`
+- **`model : String`** – a modell neve. A `getModel() : String` a tárolt modellnevet adja vissza, a `setModel(model : String) : void` csak nem üres szöveget enged meg.
+- **`year : int`** – a gyártási év, az `[1886; 2100]` intervallumban. A `getYear() : int` az évszámot adja vissza, a `setYear(year : int) : void` a tartományon kívüli értékeket elutasítja.
+- **`mileage : int`** – a kilométeróra állása egész kilométerben, nemnegatív szám. A `getMileage() : int` a tárolt értéket adja vissza; publikus setter nincs, a futásteljesítmény kizárólag a konstruktorban és a `drive()` metódussal módosítható.
+- **`id : int`** – automatikusan kiosztott, pozitív példányazonosító. A `getId() : int` az azonosítót adja vissza, amely a példány teljes életében változatlan; setter nincs.
+- **`NEXT_ID : int`** – privát statikus mező, `1` kezdeti értékkel. Minden új `Car` példány az aktuális értéket kapja azonosítóként, majd a számláló eggyel növekszik.
 
-**Metódusok**
+**`Car` – konstruktorok és műveletek**
 
-- `+ getBrand() : String`
-- `+ setBrand(brand : String) : void`
-- `+ getMaxSpeed() : int`
-- `+ setMaxSpeed(maxSpeed : int) : void`
+A `Car(brand : String, model : String, year : int, mileage : int)` konstruktor érvényesítse a fent megadott feltételeket. A `Car(brand : String, model : String, year : int)` a másik konstruktor segítségével `0` kilométeres futásteljesítményt állítson be. A márkát az ősosztály setterével kezelje.
 
-**`Car`**
+- **`drive(distance : int) : void`** – kizárólag pozitív egész távolsággal növelheti a kilométeróra-állást.
+- **`toString() : String`** – a márkát, a modellt, az évjáratot és az aktuális futásteljesítményt tartalmazó szöveget adja vissza.
 
-- `- model : String`
-- `- year : int`
-- `- mileage : int`
-- `- id : int`
-- `- {static} NEXT_ID : int`
+**`Motorcycle` – adatok**
 
-**Metódusok**
+- **`engineCapacity : int`** – a motorkerékpár hengerűrtartalma cm³-ben, pozitív egész. A `getEngineCapacity() : int` a tárolt értéket adja vissza, a `setEngineCapacity(engineCapacity : int) : void` csak pozitív értéket fogad el.
+- **`sidecar : boolean`** – azt jelzi, van-e a motorkerékpárnak oldalkocsija. A `hasSidecar() : boolean` a tárolt logikai értéket adja vissza, a `setSidecar(sidecar : boolean) : void` pedig tetszőleges logikai értékkel módosíthatja azt.
 
-- `+ Car(brand : String, model : String, year : int, mileage : int)`
-- `+ Car(brand : String, model : String, year : int)`
-- `+ getModel() : String`
-- `+ getYear() : int`
-- `+ getMileage() : int`
-- `+ getId() : int`
-- `+ drive(distance : int) : void`
-- `+ toString() : String`
+**Főprogram**
 
-**`Motorcycle`**
-
-- `- engineCapacity : int`
-- `- sidecar : boolean`
-
-**Metódusok**
-
-- `+ getEngineCapacity() : int`
-- `+ hasSidecar() : boolean`
-
-A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
+Vegyen fel autókat és motorkerékpárokat `ArrayList<Vehicle>` listába! Válogassa ki a motorkerékpárokat, majd számolja meg, hány közülük oldalkocsis! Mutassa meg azt is, hogy a járművek márkája a közös ősosztályon keresztül kérdezhető le.
 :::endexercise
 
 :::exercise
@@ -802,47 +733,30 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Bankszámlák – UML](content/chapters/06-oroklodes/media/complete-task-4-hu.svg){width=620}
 
-**Követelmények**
+Készítsen egyszerű `BankAccount` ősosztályt, és származtassa belőle a `SavingsAccount`, valamint a `BusinessAccount` osztályt! Az örökölt mezőket a leszármazottakban ne deklarálja újra.
 
-- Ehhez a feladathoz készítsen új, egyszerű `BankAccount` osztályhierarchiát; ne a korábbi, privát konstruktoros objektumgyárat módosítsa.
-- Az ősosztály nem üres tulajdonost és számlaszámot, illetve nemnegatív egész egyenleget tárol.
-- A `deposit()` és `withdraw()` metódusok csak pozitív, megfelelő összeggel dolgozhatnak.
-- A `SavingsAccount` kamatlába `[0;1]` közötti valós szám, a `BusinessAccount` cégneve nem üres.
-- Tárolja mindkettőt `BankAccount` típusú listában, és válogassa ki az üzleti számlákat!
+**`BankAccount` – adatok**
 
-**Mezők és property-k**
+- **`owner : String`** – a számlatulajdonos neve. A `getOwner() : String` a tárolt nevet adja vissza, a `setOwner(owner : String) : void` pedig nem fogad el `null` vagy üres szöveget.
+- **`accountNumber : String`** – a számla azonosítója. A `getAccountNumber() : String` a tárolt számlaszámot adja vissza. A `setAccountNumber(accountNumber : String) : void` csak az első, érvényes érték beállítását engedi meg; ezt követően az azonosító nem változtatható meg. Üres vagy `null` számlaszámot el kell utasítania.
+- **`balance : int`** – az egyenleg egész forintban, kezdetben `0`. A `getBalance() : int` a pillanatnyi összeget adja vissza. Publikus setter nem készül, az érték csak a befizetés és a pénzfelvétel során változhat, és soha nem lehet negatív.
 
-**`BankAccount`**
+**`BankAccount` – műveletek**
 
-- `- owner : String`
-- `- accountNumber : String`
-- `- balance : int`
+- **`deposit(amount : int) : void`** – csak pozitív egész összeget fogad, amelyet hozzáad az egyenleghez.
+- **`withdraw(amount : int) : void`** – csak pozitív, a rendelkezésre álló egyenlegnél nem nagyobb összeget vonhat le. Hibás összeg esetén az egyenleg ne változzon meg.
 
-**Metódusok**
+**`SavingsAccount` – adatok**
 
-- `+ getBalance() : int`
-- `+ deposit(amount : int) : void`
-- `+ withdraw(amount : int) : void`
+- **`interestRate : double`** – éves kamatláb, a `[0; 1]` intervallumban. A `getInterestRate() : double` az aktuális kamatlábat adja vissza, a `setInterestRate(interestRate : double) : void` a tartományon kívüli értékeket elutasítja.
 
-**`SavingsAccount`**
+**`BusinessAccount` – adatok**
 
-- `- interestRate : double`
+- **`companyName : String`** – a vállalkozás neve. A `getCompanyName() : String` a tárolt szöveggel tér vissza, a `setCompanyName(companyName : String) : void` csak nem üres, nem `null` szöveget fogad el.
 
-**Metódusok**
+**Főprogram**
 
-- `+ getInterestRate() : double`
-- `+ setInterestRate(interestRate : double) : void`
-
-**`BusinessAccount`**
-
-- `- companyName : String`
-
-**Metódusok**
-
-- `+ getCompanyName() : String`
-- `+ setCompanyName(companyName : String) : void`
-
-A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
+Hozzon létre mindkét számlatípusból példányokat, állítsa be az adataikat, és végezzen befizetéseket, valamint pénzfelvételeket! Ezután tárolja a számlákat `ArrayList<BankAccount>` listában, és típusellenőrzéssel gyűjtse ki az üzleti számlákat! Jelenítse meg a kiválasztott számlák tulajdonosát, cégnevét és egyenlegét.
 :::endexercise
 
 :::exercise
@@ -850,46 +764,23 @@ A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszá
 
 ![Filmek – UML](content/chapters/06-oroklodes/media/complete-task-5-hu.svg){width=620}
 
-**Követelmények**
+Készítsen `MediaItem` ősosztályt, amelyből egy `Movie` és egy `Series` osztály származik! A közös cím és megjelenési év kizárólag az ősosztályban szerepeljen.
 
-- Készítsen új, egyszerű `MediaItem` ősosztályt a nem üres cím és a pozitív megjelenési év tárolására.
-- Ebből származzon a `Movie` és `Series` osztály! A film nem üres rendezőnevet és `[10;360]` perces játékidőt, a sorozat pozitív évadszámot tároljon.
-- A közös elemeket ne másolja le a leszármazottakba.
-- `MediaItem` típusú listában tárolja a példányokat, majd válassza ki a sorozatokat.
+**`MediaItem` – adatok**
 
-**Mezők és property-k**
+- **`title : String`** – a mű címe, privát szöveges mező. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
+- **`releaseYear : int`** – a megjelenési év, pozitív egész szám. A `getReleaseYear() : int` az évszámot adja vissza, a `setReleaseYear(releaseYear : int) : void` a nullát és a negatív értékeket elutasítja.
 
-**`MediaItem`**
+**`Movie` – adatok**
 
-- `- title : String`
-- `- releaseYear : int`
+- **`director : String`** – a film rendezője. A `getDirector() : String` a tárolt nevet adja vissza, a `setDirector(director : String) : void` nem `null`, legalább két karakteres szöveget fogad el, amely csak betűket, szóközt, pontot és kötőjelet tartalmazhat.
+- **`duration : int`** – a film hossza percben, az `[10; 360]` intervallumban. A `getDuration() : int` a tárolt játékidővel tér vissza, a `setDuration(duration : int) : void` az ezen kívüli értékeket elutasítja.
 
-**Metódusok**
+**`Series` – adatok**
 
-- `+ getTitle() : String`
-- `+ setTitle(title : String) : void`
-- `+ getReleaseYear() : int`
-- `+ setReleaseYear(releaseYear : int) : void`
+- **`seasons : int`** – az elkészült évadok száma, pozitív egész szám. A `getSeasons() : int` a tárolt évadszámot adja vissza, a `setSeasons(seasons : int) : void` csak pozitív értéket fogad el.
 
-**`Movie`**
+**Főprogram**
 
-- `- director : String`
-- `- duration : int`
-
-**Metódusok**
-
-- `+ getDirector() : String`
-- `+ getDuration() : int`
-
-**`Series`**
-
-- `- seasons : int`
-
-**Metódusok**
-
-- `+ getSeasons() : int`
-- `+ setSeasons(seasons : int) : void`
-
-A `private` mezőket közvetlenül csak a definiáló osztály kezelje, a leszármazottak a publikus vagy védett metódusokon keresztül dolgozzanak. A feladatban még ne írjon felül örökölt metódust, és ne vezessen be külön konstruktorláncot.
+Készítsen több film- és sorozatpéldányt, tárolja őket `ArrayList<MediaItem>` listában, majd típusellenőrzéssel válogassa ki a sorozatokat! A kiválasztott sorozatoknál jelenítse meg a címet, a megjelenési évet és az évadok számát.
 :::endexercise
-
