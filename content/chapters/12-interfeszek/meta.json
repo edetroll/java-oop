@@ -1,0 +1,19 @@
+{
+  "id": "12-interfeszek",
+  "order": 13,
+  "title": {
+    "hu": "Interfészek",
+    "en": "Interfaces",
+    "zh": "接口"
+  },
+  "description": {
+    "hu": "Az interfészek mint szerződések, feladatdelegálás, többszörös implementáció és beépített Java-interfészek.",
+    "en": "Interfaces as contracts, delegation, multiple implementation, and standard Java interfaces.",
+    "zh": "接口契约、职责委派、多接口实现与 Java 标准接口。"
+  },
+  "files": {
+    "hu": "content/chapters/12-interfeszek/hu.md",
+    "en": "content/chapters/12-interfeszek/en.md",
+    "zh": "content/chapters/12-interfeszek/zh.md"
+  }
+}
