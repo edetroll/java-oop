@@ -1,0 +1,17 @@
+{
+  "id": "11-final-beagyazott-osztalyok",
+  "order": 11,
+  "title": {
+    "hu": "Beágyazott és final osztályok",
+    "en": "Nested and Final Classes",
+    "zh": "嵌套类与 final 类"
+  },
+  "description": {
+    "hu": "Beágyazott segédosztályok, belső példányok, final osztályok, metódusok és mezők.",
+    "en": "Nested helpers, inner objects, and final classes, methods and fields.",
+    "zh": "嵌套辅助类、内部对象以及 final 类、方法和字段。"
+  },
+  "files": {
+    "hu": "content/chapters/11-final-beagyazott-osztalyok/hu.md"
+  }
+}

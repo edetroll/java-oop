@@ -187,6 +187,44 @@
         "en": "content/chapters/09-komplex-feladatok/en.md",
         "zh": "content/chapters/09-komplex-feladatok/zh.md"
       }
+    },
+    {
+      "id": "10-absztrakt-osztalyok",
+      "order": 11,
+      "title": {
+        "hu": "Absztrakt osztályok",
+        "en": "Abstract Classes",
+        "zh": "抽象类"
+      },
+      "description": {
+        "hu": "Absztrakt metódusok, kötelező felülírás és a kávékészítés algoritmusa.",
+        "en": "Abstract methods, required implementations, and the coffee preparation algorithm.",
+        "zh": "抽象方法、必须实现的方法以及咖啡制作算法。"
+      },
+      "files": {
+        "hu": "content/chapters/10-absztrakt-osztalyok/hu.md",
+        "en": "content/chapters/10-absztrakt-osztalyok/en.md",
+        "zh": "content/chapters/10-absztrakt-osztalyok/zh.md"
+      }
+    },
+    {
+      "id": "11-final-beagyazott-osztalyok",
+      "order": 12,
+      "title": {
+        "hu": "Beágyazott és final osztályok",
+        "en": "Nested and Final Classes",
+        "zh": "嵌套类与 final 类"
+      },
+      "description": {
+        "hu": "Beágyazott segédosztályok, belső példányok, final osztályok, metódusok és mezők.",
+        "en": "Nested helpers, inner objects, and final classes, methods and fields.",
+        "zh": "嵌套辅助类、内部对象以及 final 类、方法和字段。"
+      },
+      "files": {
+        "hu": "content/chapters/11-final-beagyazott-osztalyok/hu.md",
+        "en": "content/chapters/11-final-beagyazott-osztalyok/en.md",
+        "zh": "content/chapters/11-final-beagyazott-osztalyok/zh.md"
+      }
     }
   ]
 }

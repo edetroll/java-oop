@@ -1,0 +1,17 @@
+{
+  "id": "10-absztrakt-osztalyok",
+  "order": 10,
+  "title": {
+    "hu": "Absztrakt osztályok",
+    "en": "Abstract Classes",
+    "zh": "抽象类"
+  },
+  "description": {
+    "hu": "Absztrakt metódusok, kötelező felülírás és a kávékészítés algoritmusa.",
+    "en": "Abstract methods, required implementations, and the coffee preparation algorithm.",
+    "zh": "抽象方法、必须实现的方法以及咖啡制作算法。"
+  },
+  "files": {
+    "hu": "content/chapters/10-absztrakt-osztalyok/hu.md"
+  }
+}
