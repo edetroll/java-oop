@@ -111,7 +111,7 @@ class 温度服务 {
     public static void 配置温度(int 数值) { 应用(数值); }
 }
 class 主程序 {
-    static void 主程序() {
+    static void Main() {
         try { 温度服务.配置温度(35); }
         catch (ArgumentOutOfRangeException 错误) {
             Console.WriteLine("Configuration rejected: " + 错误.Message);
@@ -190,7 +190,7 @@ class 主程序 {
 ```csharp
 using System;
 class 主程序 {
-    static void 主程序() {
+    static void Main() {
         try {
             int 数字 = int.Parse("not-a-数字");
             Console.WriteLine(数字);
@@ -289,13 +289,13 @@ public:
 
 ## 自定义异常与真正的恢复 {#custom-exceptions}
 
-通用的 `IllegalArgumentException` 有时不足以准确表达问题。对于温控器，我们希望区分温度过低和温度过高，因此可以定义两个专门的异常类，并把出错的原始数值保存在异常对象中。类名以 `Exception` 结尾是一种常用命名习惯，但并不是语法要求。
+通用的 `IllegalArgumentException` 有时不足以准确表达问题。对于温控器，我们希望区分温度过低和温度过高，因此可以定义两个专门的异常类，并把出错的原始数值保存在异常对象中。本章中的自定义异常类都直接继承 `Exception`。实际编程时，也可以根据错误类型选择更具体的异常父类。类名以 `Exception` 结尾只是常见约定，而不是语法要求。Java 中直接继承 `Exception` 的异常属于受检异常，因此传播这些异常的方法需要在声明中使用 `throws`。
 
-下面的程序把职责分开：温控器的 setter 负责验证并抛出异常，主程序负责**恢复正常工作**。温度过低时使用允许的最小值，过高时使用最大值，然后继续处理下一条数据。因此，异常处理并不只是打印错误消息。其他程序也可以选择让用户重新输入，或者取消整个操作。
+下面的程序把职责分开：温控器的 setter 负责验证并抛出异常，主程序负责**恢复正常工作**。温度过低时使用允许的最小值，过高时使用最大值，然后继续处理下一条数据。因此，异常处理并不只是打印错误消息。这里由调用程序决定如何恢复。`重设为最小值()` 和 `重设为最大值()` 始终设置合法常量，不会再次抛出上述异常。其他程序也可以选择让用户重新输入，或者取消整个操作。
 
 :::lang java
 ```java
-class 温度过低异常 extends RuntimeException {
+class 温度过低异常 extends Exception {
     private final int 原值;
     public 温度过低异常(int 数值) {
         super("Temperature below 18: " + 数值);
@@ -303,7 +303,7 @@ class 温度过低异常 extends RuntimeException {
     }
     public int 获取原值() { return 原值; }
 }
-class 温度过高异常 extends RuntimeException {
+class 温度过高异常 extends Exception {
     private final int 原值;
     public 温度过高异常(int 数值) {
         super("Temperature above 28: " + 数值);
@@ -312,27 +312,29 @@ class 温度过高异常 extends RuntimeException {
     public int 获取原值() { return 原值; }
 }
 class 温度设置 {
-    static final int MIN = 18;
-    static final int MAX = 28;
+    public static final int MIN = 18;
+    public static final int MAX = 28;
     private int 目标温度 = 22;
-    public void 设置目标温度(int 数值) {
+    public void 设置目标温度(int 数值) throws 温度过低异常, 温度过高异常 {
         if (数值 < MIN) throw new 温度过低异常(数值);
         if (数值 > MAX) throw new 温度过高异常(数值);
         目标温度 = 数值;
     }
     public int 获取目标温度() { return 目标温度; }
+    public void 重设为最小值() { 目标温度 = MIN; }
+    public void 重设为最大值() { 目标温度 = MAX; }
 }
 class 主程序 {
     public static void main(String[] args) {
         温度设置 温控器 = new 温度设置();
-        int[] 读数列表 = {23, 12, 35};
-        for (int 要求值 : 读数列表) {
+        int[] 读数 = {23, 12, 35};
+        for (int 请求值 : 读数) {
             try {
-                温控器.设置目标温度(要求值);
+                温控器.设置目标温度(请求值);
             } catch (温度过低异常 错误) {
-                温控器.设置目标温度(温度设置.MIN);
+                温控器.重设为最小值();
             } catch (温度过高异常 错误) {
-                温控器.设置目标温度(温度设置.MAX);
+                温控器.重设为最大值();
             }
             System.out.println(温控器.获取目标温度());
         }
@@ -362,16 +364,18 @@ class 温度设置 {
         目标温度 = 数值;
     }
     public int 获取目标温度() => 目标温度;
+    public void 重设为最小值() => 目标温度 = MIN;
+    public void 重设为最大值() => 目标温度 = MAX;
 }
 class 主程序 {
-    static void 主程序() {
+    static void Main() {
         var 温控器 = new 温度设置();
         foreach (int 要求值 in new[] {23, 12, 35}) {
             try { 温控器.设置目标温度(要求值); }
             catch (温度过低异常) {
-                温控器.设置目标温度(温度设置.MIN);
+                温控器.重设为最小值();
             } catch (温度过高异常) {
-                温控器.设置目标温度(温度设置.MAX);
+                温控器.重设为最大值();
             }
             Console.WriteLine(温控器.获取目标温度());
         }
@@ -394,42 +398,45 @@ class 温度过高异常(Exception):
 class 温度设置:
     MIN, MAX = 18, 28
     def __init__(self):
-        self._targetTemperature = 22
+        self._目标温度 = 22
     def 设置目标温度(self, 数值):
         if 数值 < self.MIN: raise 温度过低异常(数值)
         if 数值 > self.MAX: raise 温度过高异常(数值)
-        self._targetTemperature = 数值
+        self._目标温度 = 数值
     def 获取目标温度(self):
-        return self._targetTemperature
+        return self._目标温度
+    def 重设为最小值(self):
+        self._目标温度 = self.MIN
+    def 重设为最大值(self):
+        self._目标温度 = self.MAX
 
 温控器 = 温度设置()
 for 要求值 in (23, 12, 35):
     try:
         温控器.设置目标温度(要求值)
     except 温度过低异常:
-        温控器.设置目标温度(温度设置.MIN)
+        温控器.重设为最小值()
     except 温度过高异常:
-        温控器.设置目标温度(温度设置.MAX)
+        温控器.重设为最大值()
     print(温控器.获取目标温度())
 ```
 :::end
 :::lang cpp
 ```cpp
+#include <exception>
 #include <iostream>
-#include <stdexcept>
-#include <string>
-class 温度过低异常 : public std::runtime_error {
+class 温度过低异常 : public std::exception {
     int 原值;
 public:
-    explicit 温度过低异常(int 数值)
-        : std::runtime_error("Temperature below 18"), 原值(数值) {}
+    explicit 温度过低异常(int 数值) : 原值(数值) {}
+    const char* what() const noexcept override { return "Temperature below 18"; }
     int 获取原值() const { return 原值; }
 };
-class 温度过高异常 : public std::runtime_error {
+class 温度过高异常 : public std::exception {
     int 原值;
 public:
-    explicit 温度过高异常(int 数值)
-        : std::runtime_error("Temperature above 28"), 原值(数值) {}
+    explicit 温度过高异常(int 数值) : 原值(数值) {}
+    const char* what() const noexcept override { return "Temperature above 28"; }
     int 获取原值() const { return 原值; }
 };
 class 温度设置 {
@@ -444,16 +451,15 @@ public:
         目标温度 = 数值;
     }
     int 获取目标温度() const { return 目标温度; }
+    void 重设为最小值() { 目标温度 = MIN; }
+    void 重设为最大值() { 目标温度 = MAX; }
 };
 int main() {
     温度设置 温控器;
-    for (int 要求值 : {23, 12, 35}) {
-        try { 温控器.设置目标温度(要求值); }
-        catch (const 温度过低异常&) {
-            温控器.设置目标温度(温度设置::MIN);
-        } catch (const 温度过高异常&) {
-            温控器.设置目标温度(温度设置::MAX);
-        }
+    for (int 请求值 : {23, 12, 35}) {
+        try { 温控器.设置目标温度(请求值); }
+        catch (const 温度过低异常&) { 温控器.重设为最小值(); }
+        catch (const 温度过高异常&) { 温控器.重设为最大值(); }
         std::cout << 温控器.获取目标温度() << '\n';
     }
 }
@@ -466,26 +472,25 @@ int main() {
 
 文件、网络连接以及其他外部资源在使用结束后都应该被释放。通常情况下，无论 `try` 中的操作是否成功、是否抛出了异常，`finally` 都会执行。即使没有合适的 `catch`，也可以先完成清理，然后继续传播异常。否则，一旦文件读取操作中途失败，放在 `try` 末尾的普通关闭语句可能根本得不到执行。
 
-下面展示传统的 `try–catch–finally` 结构。关闭文件之前先检查它是否成功打开，同时还要考虑关闭操作本身也可能失败。需要注意，在进程被强制终止等极端情况下，并不能保证正常的资源清理一定发生。
+下面的示例让 `Scanner` 读取由 `File` 对象指定的文件。传统的 `try–catch–finally` 结构先检查文件是否打开成功，再在 `finally` 中关闭已创建的扫描器。`Scanner.close()` 不需要另外捕获受检的 `IOException`。但是，如果进程被强制终止，清理操作仍可能无法执行。
 
 :::lang java
 ```java
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 class 主程序 {
     public static void main(String[] args) {
-        BufferedReader 读取器 = null;
+        Scanner 扫描器 = null;
         try {
-            读取器 = new BufferedReader(new FileReader("设置集.txt"));
-            System.out.println(读取器.readLine());
-        } catch (IOException 错误) {
-            System.out.println("Cannot read the file: " + 错误.getMessage());
-        } finally {
-            if (读取器 != null) {
-                try { 读取器.close(); }
-                catch (IOException 关闭错误) {
-                    System.out.println("Cannot close the file.");
-                }
+            扫描器 = new Scanner(new File("设置集.txt"), "UTF-8");
+            if (扫描器.hasNextLine()) {
+                System.out.println(扫描器.nextLine());
             }
+        } catch (FileNotFoundException 错误) {
+            System.out.println("Cannot open the file: " + 错误.getMessage());
+        } finally {
+            if (扫描器 != null) 扫描器.close();
         }
     }
 }
@@ -496,7 +501,7 @@ class 主程序 {
 using System;
 using System.IO;
 class 主程序 {
-    static void 主程序() {
+    static void Main() {
         StreamReader 读取器 = null;
         try {
             读取器 = new StreamReader("设置集.txt");
@@ -545,18 +550,21 @@ int main() {
 ```
 :::end
 
-在现代 Java 中，文件处理通常优先使用 `try-with-resources`。实现了 `AutoCloseable` 的对象会在代码块结束时自动关闭，从而减少重复代码和资源泄漏。C# 的 `using`、Python 的 `with` 与 C++ 依靠对象生命周期管理资源的方式也有相似目的，但具体语法和规则不同。即使如此，我们仍然需要理解 `finally`，因为它也可以负责文件之外的其他清理工作。
+在现代 Java 中，文件处理通常优先使用 `try-with-resources`。下例仍然通过 `Scanner` 读取 `File`，但由系统自动关闭扫描器。实现了 `AutoCloseable` 的对象会在代码块结束时自动关闭，从而减少重复代码和资源泄漏。C# 的 `using`、Python 的 `with` 与 C++ 依靠对象生命周期管理资源的方式也有相似目的，但具体语法和规则不同。即使如此，我们仍然需要理解 `finally`，因为它也可以负责文件之外的其他清理工作。
 
 :::lang java
 ```java
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 class 主程序 {
     public static void main(String[] args) {
-        try (BufferedReader 读取器 = new BufferedReader(
-                new FileReader("设置集.txt"))) {
-            System.out.println(读取器.readLine());
-        } catch (IOException 错误) {
-            System.out.println("Cannot read the file: " + 错误.getMessage());
+        try (Scanner 扫描器 = new Scanner(new File("设置集.txt"), "UTF-8")) {
+            if (扫描器.hasNextLine()) {
+                System.out.println(扫描器.nextLine());
+            }
+        } catch (FileNotFoundException 错误) {
+            System.out.println("Cannot open the file: " + 错误.getMessage());
         }
     }
 }
@@ -567,7 +575,7 @@ class 主程序 {
 using System;
 using System.IO;
 class 主程序 {
-    static void 主程序() {
+    static void Main() {
         try {
             using var 读取器 = new StreamReader("设置集.txt");
             Console.WriteLine(读取器.ReadLine());
@@ -616,20 +624,20 @@ int main() {
 
 :::lang java
 ```java
-class 重量超限异常 extends RuntimeException {
+class 重量超限异常 extends Exception {
     public 重量超限异常(int 重量公斤) {
-        super("Courier 限额 is 20 kg; package is " + 重量公斤 + " kg");
+        super("Courier limit is 20 kg; package is " + 重量公斤 + " kg");
     }
 }
 class 快递服务 {
-    public void 快递寄送(int 重量公斤) {
-        if (重量公斤 <= 0) throw new IllegalArgumentException("Invalid 重量");
+    public void 快递寄送(int 重量公斤) throws 重量超限异常 {
+        if (重量公斤 <= 0) throw new IllegalArgumentException("Invalid weight");
         if (重量公斤 > 20) throw new 重量超限异常(重量公斤);
-        System.out.println("Courier 寄件 registered.");
+        System.out.println("Courier shipment registered.");
     }
     public void 货运寄送(int 重量公斤) {
-        if (重量公斤 <= 0) throw new IllegalArgumentException("Invalid 重量");
-        System.out.println("Freight 寄件 registered.");
+        if (重量公斤 <= 0) throw new IllegalArgumentException("Invalid weight");
+        System.out.println("Freight shipment registered.");
     }
 }
 class 主程序 {
@@ -637,7 +645,7 @@ class 主程序 {
         快递服务 服务 = new 快递服务();
         try { 服务.快递寄送(32); }
         catch (重量超限异常 错误) {
-            服务.货运寄送(32); // Real fallback, not just an 错误 message
+            服务.货运寄送(32);
         }
     }
 }
@@ -662,7 +670,7 @@ class 快递服务 {
     }
 }
 class 主程序 {
-    static void 主程序() {
+    static void Main() {
         var 服务 = new 快递服务();
         try { 服务.快递寄送(32); }
         catch (重量超限异常) { 服务.货运寄送(32); }
@@ -694,22 +702,23 @@ except 重量超限异常:
 :::end
 :::lang cpp
 ```cpp
+#include <exception>
 #include <iostream>
 #include <stdexcept>
-class 重量超限异常 : public std::runtime_error {
+class 重量超限异常 : public std::exception {
 public:
-    重量超限异常() : std::runtime_error("Courier 限额: 20 kg") {}
+    const char* what() const noexcept override { return "Courier limit: 20 kg"; }
 };
 class 快递服务 {
 public:
     void 快递寄送(int 重量公斤) {
-        if (重量公斤 <= 0) throw std::invalid_argument("Invalid 重量");
+        if (重量公斤 <= 0) throw std::invalid_argument("Invalid weight");
         if (重量公斤 > 20) throw 重量超限异常();
-        std::cout << "Courier 寄件 registered.\n";
+        std::cout << "Courier shipment registered.\n";
     }
     void 货运寄送(int 重量公斤) {
-        if (重量公斤 <= 0) throw std::invalid_argument("Invalid 重量");
-        std::cout << "Freight 寄件 registered.\n";
+        if (重量公斤 <= 0) throw std::invalid_argument("Invalid weight");
+        std::cout << "Freight shipment registered.\n";
     }
 };
 int main() {
@@ -734,9 +743,9 @@ int main() {
 创建表示温控器的 `温度设置` 类，并定义两个自定义异常。温控器负责保存目标温度，而由主程序决定如何处理无效输入。
 
 **字段与访问规则**
-- **目标温度（`目标温度 : int`）：**私有，允许值为 $[18,28]$ 区间内的整数。`获取目标温度() : int` 返回当前数值，`设置目标温度(数值 : int) : void` 对过低数值抛出 `温度过低异常`，对过高数值抛出 `温度过高异常`。处理失败时原数值不得改变。
+- **目标温度（`目标温度 : int`）：**私有，允许值为 $[18,28]$ 区间内的整数。`获取目标温度() : int` 返回当前数值，`设置目标温度(数值 : int) : void` 对过低数值抛出 `温度过低异常`，对过高数值抛出 `温度过高异常`，并使用 `throws` 声明这两种受检异常。处理失败时原数值不得改变。`重设为最小值() : void` 和 `重设为最大值() : void` 分别设置合法的边界值，且不会再抛出这两种异常。
 - **上下限（`MIN : int`、`MAX : int`）：**公共静态常量，分别为 18 和 28，供 setter 与主程序共同使用。
-- **被拒绝的数值（`原值 : int`）：**两个自定义异常中的私有字段，`获取原值() : int` 返回该数值。异常类继承 `RuntimeException`。
+- **被拒绝的数值（`原值 : int`）：**两个自定义异常中的私有字段，`获取原值() : int` 返回该数值。异常类继承 `Exception`。
 
 **构造方法**
 - `温度设置()` 将目标温度设为 22。两个异常类的构造方法接收并保存原始数值，同时把适当的消息传递给父类构造方法。
@@ -756,12 +765,13 @@ int main() {
 **字段与访问规则**
 - **ISBN（`书号 : String`）：**私有，不可为 `null` 或空字符串。`获取书号() : String` 返回它，不提供 setter。
 - **标题（`标题 : String`）：**私有，去除首尾空格后至少包含两个非空白字符。`获取标题() : String` 返回标题；`设置标题(数值 : String)` 验证后修改，无效时抛出 `IllegalArgumentException`。
-- **价格（`价格 : int`）：**私有，合法范围 $[500,50000]$。`获取价格() : int` 返回价格；`设置价格(数值 : int)` 在过低或过高时分别抛出 `价格过低异常` 或 `价格过高异常`，并保留原价。
-- **被拒绝的价格（`请求价格 : int`）：**两个异常类的私有字段，通过 `获取请求价格() : int` 返回。异常类继承 `RuntimeException`。
+- **价格（`价格 : int`）：**私有，合法范围 $[500,50000]$。`获取价格() : int` 返回价格；`设置价格(数值 : int)` 在过低或过高时分别抛出 `价格过低异常` 或 `价格过高异常`，用 `throws` 声明两种受检异常，并保留原价。`重设价格为最小值() : void` 和 `重设价格为最大值() : void` 分别将价格直接设为 500 与 50000，不再抛出异常。
+- **被拒绝的价格（`请求价格 : int`）：**两个异常类的私有字段，通过 `获取请求价格() : int` 返回。异常类继承 `Exception`。
+- **图书列表（`图书列表 : ArrayList<图书>`）：**`书架` 的私有列表，不提供直接 setter。
 
 **构造方法与操作**
-- `图书(书号 : String, 标题 : String, 价格 : int)` 必须验证所有字段。异常构造方法保存被拒绝的价格并将消息传递给父类。
-- 容器 `书架` 提供 `添加图书(图书 : 图书) : void` 和 `获取图书() : List<图书>`。返回集合不能直接修改内部列表，ISBN 重复时抛出 `IllegalArgumentException`。
+- `图书(书号 : String, 标题 : String, 价格 : int)` 必须验证所有字段，并在方法声明中使用 `throws` 声明可能传播的受检异常。异常构造方法保存被拒绝的价格并将消息传递给父类。
+- `书架()` 构造方法初始化空列表。容器 `书架` 提供 `添加图书(图书 : 图书) : void` 和 `获取图书() : List<图书>`。返回集合不能直接修改内部列表，ISBN 重复时抛出 `IllegalArgumentException`。
 
 **主程序**
 - 尝试将同一本书的价格改为 300 和 62000。分别在 `catch` 中设为 500 和 50000。把处理后的图书加入书架并显示结果。
@@ -781,14 +791,16 @@ int main() {
 - **容量（`容量 : int`）：**正整数，通过 `获取容量() : int` 只读访问。
 - **已订座位（`已订座位 : int`）：**私有，初始为 0，仅通过 `获取已订座位() : int` 查询，不提供 setter。
 
+- **场次列表（`场次列表 : ArrayList<场次>`）：**`影院` 的私有列表，不提供直接 setter。`影院()` 构造方法将其初始化为空。
+
 **构造方法与操作**
 - `场次(电影名称 : String, 场次编号 : String, 容量 : int)` 验证并保存字段。`获取空位() : int` 返回剩余座位数。
 - `预订座位(数量 : int) : void` 在数量不大于零时抛出 `预订无效异常`，在座位不足时抛出 `座位不足异常`。成功时增加已订座位；失败时不修改对象。
-- 两种异常继承 `RuntimeException`，构造方法接收错误消息并传给父类。
-- `影院` 保存私有列表 `场次列表 : ArrayList<场次>`。`添加场次(场次 : 场次) : void` 拒绝 `null` 和重复编号。`查找有空位场次(电影名称 : String, 数量 : int) : 场次` 返回第一个满足要求的场次，找不到时返回 `null`，查询本身不预订座位。
+- 两种异常直接继承 `Exception`，构造方法接收错误消息并传给父类。`预订座位()` 用 `throws` 声明这两种受检异常。
+- `添加场次(场次 : 场次) : void` 拒绝 `null` 和重复编号。`查找有空位场次(电影名称 : String, 数量 : int) : 场次` 返回第一场相同电影、空位不少于所需数量的场次。电影名称不能为空，数量必须为正数，否则抛出 `IllegalArgumentException`。找不到时返回 `null`，查询本身不预订座位。
 
 **主程序**
-- 创建至少三个场次并尝试一次座位不足的预订。捕获 `座位不足异常` 后，寻找同一电影的另一个场次并完成预订。验证原场次状态没有改变。
+- 创建至少三个场次，其中至少两个是同一电影的不同放映时间，然后尝试一次座位不足的预订。捕获 `座位不足异常` 后，寻找同一电影的另一个场次，先检查结果不是 `null`，再完成预订。验证原场次状态没有改变。
 
 :::endexercise
 
@@ -807,8 +819,8 @@ int main() {
 
 **构造方法与操作**
 - `包裹(包裹编号 : String, 重量公斤 : int)` 验证两项数据；`运输中心()` 创建空列表。
-- `快递寄送(包裹 : 包裹) : void` 拒绝 `null` 和重复编号。超过上限时抛出 `包裹超重异常`，否则保存包裹。
-- `货运寄送(包裹 : 包裹) : void` 也检查 `null` 和重复编号，但不受 20 千克限制。`包裹超重异常` 继承 `RuntimeException`，构造方法保存重量，并通过 `获取重量公斤() : int` 返回。
+- `快递寄送(包裹 : 包裹) : void` 拒绝 `null` 和重复编号。超过上限时抛出 `包裹超重异常`，并用 `throws` 声明此受检异常；否则保存包裹。
+- `货运寄送(包裹 : 包裹) : void` 也检查 `null` 和重复编号，但不受 20 千克限制。`包裹超重异常` 直接继承 `Exception`，构造方法保存重量，并通过 `获取重量公斤() : int` 返回。
 
 **主程序**
 - 创建 8、24、35 千克三个包裹，先尝试快递，捕获 `包裹超重异常` 后把同一个包裹转为货运。检查每个包裹在列表中恰好出现一次，其他异常不应自动触发替代寄送。
@@ -823,16 +835,17 @@ int main() {
 设计程序，从以分号分隔的文本文件中读取测量数据。每行格式为 `标识符;数值`，标识符非空，数值必须是 $[0,100]$ 的整数。无效行需要报告并跳过，而其他记录继续处理。
 
 **类与字段**
-- `测量` 的私有 `传感器编号 : String` 不允许为空，由 `获取传感器编号() : String` 返回，不提供 setter；私有 `数值 : int` 必须位于 $[0,100]$，`获取数值() : int` 返回它，`设置数值(数值 : int) : void` 验证后修改，无效时抛出 `测量无效异常` 并保留旧值。
+- **传感器编号（`传感器编号 : String`）：**`测量` 的私有字段，不可为 `null` 或空字符串。`获取传感器编号() : String` 返回其值，不提供 setter。
+- **测量值（`数值 : int`）：**`测量` 的私有字段，必须位于 $[0,100]$。`获取数值() : int` 返回它，`设置数值(数值 : int) : void` 验证边界；无效时抛出 `测量无效异常` 并保留旧值。
 - `测量无效异常` 继承 `Exception`，属于**受检异常**。私有 `行号 : int` 保存出错的行号（未知时为 0），由 `获取行号() : int` 返回，构造方法接收错误消息和行号。
 - `测量档案` 具有私有 `测量列表 : ArrayList<测量>`，不提供 setter。`获取测量列表() : List<测量>` 返回列表副本。
 
 **构造方法与操作**
 - `测量(传感器编号 : String, 数值 : int)` 验证字段，对无效测量值传播 `测量无效异常`（使用 `throws`）。`测量档案()` 创建空列表。
 - `添加测量(测量 : 测量) : void` 对 `null` 或重复传感器编号抛出 `IllegalArgumentException`。
-- 独立的 `测量导入器` 提供 `加载(文件名 : String, 档案 : 测量档案) : int`，读取所有行并返回成功加入的记录数。格式错误、整数解析失败以及越界的行都应报告行号后跳过。文件打开和读取失败则作为 `IOException` 传播给调用者。使用 Java `try-with-resources` 保证文件关闭。
+- 独立的 `测量导入器` 提供 `加载(文件名 : String, 档案 : 测量档案) : int`，读取所有行并返回成功加入的记录数。格式错误、整数解析失败以及越界的行都应报告行号后跳过。使用接收 `File` 对象的 `Scanner` 读取文件。文件打开或读取失败应作为 `IOException` 向调用者传播；另外检查 `Scanner.ioException()` 返回的 I/O 错误。用 Java `try-with-resources` 保证扫描器关闭。格式错误、越界及重复传感器编号的记录都应报告行号后跳过。
 
 **主程序与测试数据**
-- 文件可以逐行包含 `A01;42`、`B02;125`、`C03;bad`、`D04;78`。保存有效记录，说明无效记录的原因并输出成功数量。主程序用单独的 `catch (IOException e)` 处理文件错误。测试文件由学生自己创建，不需要外部附件。
+- 文件可以逐行包含 `A01;42`、`B02;125`、`C03;bad`、`D04;78`。统计实际成功加入容器的记录数，并在读入过程中说明错误行的行号与原因。主程序用单独的 `catch (IOException e)` 处理文件错误。测试文件由学生自己创建，不需要外部附件。
 
 :::endexercise

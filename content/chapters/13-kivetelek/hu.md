@@ -289,13 +289,13 @@ public:
 
 ## Saját kivételek és tényleges helyreállítás {#custom-exceptions}
 
-Előfordulhat, hogy egy általános `IllegalArgumentException` nem írja le elég pontosan a hibát. A termosztát esetén például külön szeretnénk megkülönböztetni azt, amikor a kívánt hőmérséklet túl alacsony, illetve amikor túl magas. Ehhez elkészíthetjük a `TooLowTemperatureException` és `TooHighTemperatureException` osztályokat, amelyekben akár a hibás értéket is eltárolhatjuk. A kivétel nevében az `Exception` végződés bevett elnevezési konvenció, de nem a nyelv kötelező előírása.
+Előfordulhat, hogy egy általános `IllegalArgumentException` nem írja le elég pontosan a hibát. A termosztát esetén például külön szeretnénk megkülönböztetni azt, amikor a kívánt hőmérséklet túl alacsony, illetve amikor túl magas. Ehhez elkészíthetjük a `TooLowTemperatureException` és `TooHighTemperatureException` osztályokat, amelyekben akár a hibás értéket is eltárolhatjuk. A saját kivételosztályainkat most közvetlenül az `Exception` osztályból származtatjuk. Természetesen választhatnánk más, az adott hibához jobban illeszkedő kivételosztályt is ősnek. A név végén szereplő `Exception` bevett elnevezési konvenció, nem nyelvi előírás. Mivel Java-ban az `Exception` közvetlen leszármazottjai ellenőrzött kivételek, a továbbadó metódusok fejlécében a megfelelő `throws` deklarációt is meg kell adnunk.
 
-Az alábbi programban a termosztát setter metódusa csak validál, és kivételt dob, ha nem tudja teljesíteni a kérést. A főprogram ezzel szemben **helyreállítja a működést**: túl kicsi értéknél beállítja a minimumot, túl nagy értéknél a maximumot, majd feldolgozza a következő adatot. A példából láthatjuk, hogy a kivételkezelés nem egyenlő egy hibaüzenet megjelenítésével. A helyreállítás szabályait itt tudatosan a hívó programrész határozza meg. Valós alkalmazásban más szabály is érvényes lehet: például új értéket kérünk vagy elutasítjuk a műveletet.
+Az alábbi programban a termosztát setter metódusa csak validál, és kivételt dob, ha nem tudja teljesíteni a kérést. A főprogram ezzel szemben **helyreállítja a működést**: túl kicsi értéknél beállítja a minimumot, túl nagy értéknél a maximumot, majd feldolgozza a következő adatot. A példából láthatjuk, hogy a kivételkezelés nem egyenlő egy hibaüzenet megjelenítésével. A helyreállítás szabályait itt tudatosan a hívó programrész határozza meg. A `resetToMinimum()` és `resetToMaximum()` metódusok mindig érvényes, rögzített értéket állítanak be, így nem dobják újra az előző kivételeket. Valós alkalmazásban más szabály is érvényes lehet: például új értéket kérünk vagy elutasítjuk a műveletet.
 
 :::lang java
 ```java
-class TooLowTemperatureException extends RuntimeException {
+class TooLowTemperatureException extends Exception {
     private final int suppliedValue;
     public TooLowTemperatureException(int value) {
         super("Temperature below 18: " + value);
@@ -303,7 +303,7 @@ class TooLowTemperatureException extends RuntimeException {
     }
     public int getSuppliedValue() { return suppliedValue; }
 }
-class TooHighTemperatureException extends RuntimeException {
+class TooHighTemperatureException extends Exception {
     private final int suppliedValue;
     public TooHighTemperatureException(int value) {
         super("Temperature above 28: " + value);
@@ -312,15 +312,18 @@ class TooHighTemperatureException extends RuntimeException {
     public int getSuppliedValue() { return suppliedValue; }
 }
 class TemperatureSetting {
-    static final int MIN = 18;
-    static final int MAX = 28;
+    public static final int MIN = 18;
+    public static final int MAX = 28;
     private int targetTemperature = 22;
-    public void setTargetTemperature(int value) {
+    public void setTargetTemperature(int value)
+            throws TooLowTemperatureException, TooHighTemperatureException {
         if (value < MIN) throw new TooLowTemperatureException(value);
         if (value > MAX) throw new TooHighTemperatureException(value);
         targetTemperature = value;
     }
     public int getTargetTemperature() { return targetTemperature; }
+    public void resetToMinimum() { targetTemperature = MIN; }
+    public void resetToMaximum() { targetTemperature = MAX; }
 }
 class Main {
     public static void main(String[] args) {
@@ -330,9 +333,9 @@ class Main {
             try {
                 thermostat.setTargetTemperature(requested);
             } catch (TooLowTemperatureException error) {
-                thermostat.setTargetTemperature(TemperatureSetting.MIN);
+                thermostat.resetToMinimum();
             } catch (TooHighTemperatureException error) {
-                thermostat.setTargetTemperature(TemperatureSetting.MAX);
+                thermostat.resetToMaximum();
             }
             System.out.println(thermostat.getTargetTemperature());
         }
@@ -362,6 +365,8 @@ class TemperatureSetting {
         targetTemperature = value;
     }
     public int GetTargetTemperature() => targetTemperature;
+    public void ResetToMinimum() => targetTemperature = MIN;
+    public void ResetToMaximum() => targetTemperature = MAX;
 }
 class Program {
     static void Main() {
@@ -369,9 +374,9 @@ class Program {
         foreach (int requested in new[] {23, 12, 35}) {
             try { thermostat.SetTargetTemperature(requested); }
             catch (TooLowTemperatureException) {
-                thermostat.SetTargetTemperature(TemperatureSetting.MIN);
+                thermostat.ResetToMinimum();
             } catch (TooHighTemperatureException) {
-                thermostat.SetTargetTemperature(TemperatureSetting.MAX);
+                thermostat.ResetToMaximum();
             }
             Console.WriteLine(thermostat.GetTargetTemperature());
         }
@@ -401,35 +406,38 @@ class TemperatureSetting:
         self._targetTemperature = value
     def getTargetTemperature(self):
         return self._targetTemperature
+    def resetToMinimum(self):
+        self._targetTemperature = self.MIN
+    def resetToMaximum(self):
+        self._targetTemperature = self.MAX
 
 thermostat = TemperatureSetting()
 for requested in (23, 12, 35):
     try:
         thermostat.setTargetTemperature(requested)
     except TooLowTemperatureException:
-        thermostat.setTargetTemperature(TemperatureSetting.MIN)
+        thermostat.resetToMinimum()
     except TooHighTemperatureException:
-        thermostat.setTargetTemperature(TemperatureSetting.MAX)
+        thermostat.resetToMaximum()
     print(thermostat.getTargetTemperature())
 ```
 :::end
 :::lang cpp
 ```cpp
+#include <exception>
 #include <iostream>
-#include <stdexcept>
-#include <string>
-class TooLowTemperatureException : public std::runtime_error {
+class TooLowTemperatureException : public std::exception {
     int suppliedValue;
 public:
-    explicit TooLowTemperatureException(int value)
-        : std::runtime_error("Temperature below 18"), suppliedValue(value) {}
+    explicit TooLowTemperatureException(int value) : suppliedValue(value) {}
+    const char* what() const noexcept override { return "Temperature below 18"; }
     int getSuppliedValue() const { return suppliedValue; }
 };
-class TooHighTemperatureException : public std::runtime_error {
+class TooHighTemperatureException : public std::exception {
     int suppliedValue;
 public:
-    explicit TooHighTemperatureException(int value)
-        : std::runtime_error("Temperature above 28"), suppliedValue(value) {}
+    explicit TooHighTemperatureException(int value) : suppliedValue(value) {}
+    const char* what() const noexcept override { return "Temperature above 28"; }
     int getSuppliedValue() const { return suppliedValue; }
 };
 class TemperatureSetting {
@@ -444,16 +452,15 @@ public:
         targetTemperature = value;
     }
     int getTargetTemperature() const { return targetTemperature; }
+    void resetToMinimum() { targetTemperature = MIN; }
+    void resetToMaximum() { targetTemperature = MAX; }
 };
 int main() {
     TemperatureSetting thermostat;
     for (int requested : {23, 12, 35}) {
         try { thermostat.setTargetTemperature(requested); }
-        catch (const TooLowTemperatureException&) {
-            thermostat.setTargetTemperature(TemperatureSetting::MIN);
-        } catch (const TooHighTemperatureException&) {
-            thermostat.setTargetTemperature(TemperatureSetting::MAX);
-        }
+        catch (const TooLowTemperatureException&) { thermostat.resetToMinimum(); }
+        catch (const TooHighTemperatureException&) { thermostat.resetToMaximum(); }
         std::cout << thermostat.getTargetTemperature() << '\n';
     }
 }
@@ -466,26 +473,25 @@ int main() {
 
 Az állományok, hálózati kapcsolatok és más külső erőforrások használatakor arra is ügyelnünk kell, hogy a lefoglalt erőforrásokat a művelet végén elengedjük. Erre szolgálhat a `finally` blokk, amely a `try` befejezése után normál működés és kivétel esetén is végrehajtódik, függetlenül attól, hogy volt-e megfelelő `catch`. Ez azért fontos, mert ha az állomány olvasása közben kivétel keletkezik, a `try` végén elhelyezett közönséges lezáró utasításhoz már nem jutnánk el. A `finally` nem helyettesíti a hibakezelést: ha a kivételt senki sem kapta el, a felszabadítás után továbbterjed.
 
-A következő példa szemlélteti a hagyományos `try–catch–finally` szerkezetet. A lezárás előtt ellenőrizzük, hogy az állományt sikerült-e megnyitni. Fontos az is, hogy maga a `close()` hívás hibát jelezhet, ezért erre is fel kell készülnünk. A `finally` szokásos végrehajtása nem jelenti azt, hogy a program leállításakor vagy a futtatókörnyezet kényszerű megszűnésekor minden esetben lehetőség nyílik rá.
+A következő példában egy `Scanner` példánnyal olvasunk a `File` objektummal megadott állományból. A hagyományos `try–catch–finally` szerkezetben először ellenőrizzük, hogy a fájlt sikerült-e megnyitni, a `finally` blokkban pedig lezárjuk a már létrehozott olvasót. A `Scanner` lezárása nem igényel külön `IOException`-kezelést. Kényszerű programleállás esetén ugyanakkor a `finally` végrehajtása sem garantált.
 
 :::lang java
 ```java
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
-        BufferedReader reader = null;
+        Scanner scanner = null;
         try {
-            reader = new BufferedReader(new FileReader("settings.txt"));
-            System.out.println(reader.readLine());
-        } catch (IOException error) {
-            System.out.println("Cannot read the file: " + error.getMessage());
-        } finally {
-            if (reader != null) {
-                try { reader.close(); }
-                catch (IOException closeError) {
-                    System.out.println("Cannot close the file.");
-                }
+            scanner = new Scanner(new File("settings.txt"), "UTF-8");
+            if (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
             }
+        } catch (FileNotFoundException error) {
+            System.out.println("Cannot open the file: " + error.getMessage());
+        } finally {
+            if (scanner != null) scanner.close();
         }
     }
 }
@@ -545,18 +551,21 @@ int main() {
 ```
 :::end
 
-Java-ban a fájlkezeléshez ma már többnyire a `try-with-resources` szerkezetet használjuk. Az `AutoCloseable` interfészt megvalósító erőforrást a rendszer a blokk befejezésekor automatikusan lezárja, és emiatt lényegesen egyszerűbb, biztonságosabb kódot írhatunk. A C# `using`, a Python `with`, illetve a C++ objektumélettartamhoz kötött erőforrás-kezelése hasonló célt szolgál, de nem ugyanazzal a szintaxissal. A `finally` fogalmát továbbra is ismernünk kell, hiszen nemcsak állományok lezárására használható.
+Java-ban a fájlkezeléshez ma már többnyire a `try-with-resources` szerkezetet használjuk. Itt is `Scanner` olvas egy `File` objektumot, de a lezárást már nem kell külön megírnunk. Az `AutoCloseable` interfészt megvalósító erőforrást a rendszer a blokk befejezésekor automatikusan lezárja, és emiatt lényegesen egyszerűbb, biztonságosabb kódot írhatunk. A C# `using`, a Python `with`, illetve a C++ objektumélettartamhoz kötött erőforrás-kezelése hasonló célt szolgál, de nem ugyanazzal a szintaxissal. A `finally` fogalmát továbbra is ismernünk kell, hiszen nemcsak állományok lezárására használható.
 
 :::lang java
 ```java
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader("settings.txt"))) {
-            System.out.println(reader.readLine());
-        } catch (IOException error) {
-            System.out.println("Cannot read the file: " + error.getMessage());
+        try (Scanner scanner = new Scanner(new File("settings.txt"), "UTF-8")) {
+            if (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
+            }
+        } catch (FileNotFoundException error) {
+            System.out.println("Cannot open the file: " + error.getMessage());
         }
     }
 }
@@ -616,13 +625,13 @@ Az alábbi példában a hívó először futárszolgálattal próbálja feladni 
 
 :::lang java
 ```java
-class TooHeavyException extends RuntimeException {
+class TooHeavyException extends Exception {
     public TooHeavyException(int weightKg) {
         super("Courier limit is 20 kg; package is " + weightKg + " kg");
     }
 }
 class CourierService {
-    public void shipByCourier(int weightKg) {
+    public void shipByCourier(int weightKg) throws TooHeavyException {
         if (weightKg <= 0) throw new IllegalArgumentException("Invalid weight");
         if (weightKg > 20) throw new TooHeavyException(weightKg);
         System.out.println("Courier shipment registered.");
@@ -637,7 +646,7 @@ class Main {
         CourierService service = new CourierService();
         try { service.shipByCourier(32); }
         catch (TooHeavyException error) {
-            service.shipByFreight(32); // Real fallback, not just an error message
+            service.shipByFreight(32); // Real recovery: a different service
         }
     }
 }
@@ -694,11 +703,12 @@ except TooHeavyException:
 :::end
 :::lang cpp
 ```cpp
+#include <exception>
 #include <iostream>
 #include <stdexcept>
-class TooHeavyException : public std::runtime_error {
+class TooHeavyException : public std::exception {
 public:
-    TooHeavyException() : std::runtime_error("Courier limit: 20 kg") {}
+    const char* what() const noexcept override { return "Courier limit: 20 kg"; }
 };
 class CourierService {
 public:
@@ -734,9 +744,9 @@ A feladatokban először korábban elkészített osztályokat egészítünk ki k
 Készítsen termosztátot reprezentáló `TemperatureSetting` osztályt, és egészítse ki két saját kivételosztállyal! Az osztály a beállított hőmérsékletet tárolja, az érvénytelen érték javításáról pedig a főprogram döntsön.
 
 **Mezők és hozzáférés**
-- **Célhőmérséklet (`targetTemperature : int`):** privát mező, megengedett értékei a $[18;28]$ intervallum egész számai. A publikus `getTargetTemperature() : int` getter adja vissza a tárolt értéket. A publikus `setTargetTemperature(value : int) : void` setter a túl alacsony értékre `TooLowTemperatureException`, a túl magas értékre `TooHighTemperatureException` kivételt dobjon. Hibás bemenet esetén a korábban tárolt érték nem változhat meg.
+- **Célhőmérséklet (`targetTemperature : int`):** privát mező, megengedett értékei a $[18;28]$ intervallum egész számai. A publikus `getTargetTemperature() : int` getter adja vissza a tárolt értéket. A publikus `setTargetTemperature(value : int) : void` setter a túl alacsony értékre `TooLowTemperatureException`, a túl magas értékre `TooHighTemperatureException` kivételt dobjon, és a fejlécében a `throws` kulcsszóval jelezze mindkettőt. Hibás bemenet esetén a korábban tárolt érték nem változhat meg. A publikus `resetToMinimum() : void` és `resetToMaximum() : void` metódusok a megfelelő határértéket állítsák be; ezek nem dobhatnak saját kivételt.
 - **Határértékek (`MIN : int`, `MAX : int`):** publikus, statikus konstansok, értékük 18 és 28. Ezeket használja a validáció és a főprogram is.
-- **Hibás érték (`suppliedValue : int`):** mindkét saját kivételosztály privát mezője. A `getSuppliedValue() : int` publikus getter adja vissza azt az értéket, amely miatt a kivétel keletkezett. A kivételosztályok a `RuntimeException` osztályból származzanak.
+- **Hibás érték (`suppliedValue : int`):** mindkét saját kivételosztály privát mezője. A `getSuppliedValue() : int` publikus getter adja vissza azt az értéket, amely miatt a kivétel keletkezett. Mindkét kivételosztály közvetlenül az `Exception` osztályból származzon.
 
 **Konstruktorok**
 - A `TemperatureSetting()` paraméter nélküli konstruktor állítsa a célhőmérsékletet 22-re. A két kivételosztály konstruktora kapja meg a hibás értéket, tárolja el, és az ősosztály konstruktorának adjon megfelelő szöveges üzenetet.
@@ -756,12 +766,13 @@ A korábbi `Book` osztályt egészítse ki úgy, hogy az árral kapcsolatos hib�
 **Mezők és hozzáférés**
 - **Azonosító (`isbn : String`):** privát, nem lehet `null` vagy üres szöveg. A `getIsbn() : String` getter visszaadja az azonosítót, setter nem készülhet hozzá.
 - **Cím (`title : String`):** privát, legalább két nem szóköz karakterből álljon a két szélső szóköz eltávolítása után. A `getTitle() : String` az aktuális címet adja vissza, a `setTitle(value : String)` pedig ellenőrzés után módosítja azt; hibás szövegnél `IllegalArgumentException` keletkezzen.
-- **Ár (`price : int`):** privát, a $[500;50000]$ intervallumban érvényes. A `getPrice() : int` adja vissza az árat. A `setPrice(value : int) : void` túl alacsony értéknél `PriceTooLowException`, túl magasnál `PriceTooHighException` kivételt dobjon; egyik esetben se változtassa meg az árat.
-- **Kivételadat (`requestedPrice : int`):** mindkét saját kivételosztály privát mezője; a `getRequestedPrice() : int` adja vissza az elutasított árat. A kivételek `RuntimeException` leszármazottak legyenek.
+- **Ár (`price : int`):** privát, a $[500;50000]$ intervallumban érvényes. A `getPrice() : int` adja vissza az árat. A `setPrice(value : int) : void` túl alacsony értéknél `PriceTooLowException`, túl magasnál `PriceTooHighException` kivételt dobjon, és deklarálja mindkét ellenőrzött kivételt. Hibás adat esetén az ár változatlan marad. A `resetPriceToMinimum() : void` és `resetPriceToMaximum() : void` metódusok állítsák az árat rendre 500 és 50000 forintra, újabb kivétel nélkül.
+- **Kivételadat (`requestedPrice : int`):** mindkét saját kivételosztály privát mezője; a `getRequestedPrice() : int` adja vissza az elutasított árat. A kivételek közvetlenül az `Exception` osztályból származzanak.
+- **Tárolt könyvek (`books : ArrayList<Book>`):** a `BookShelf` konténerosztály privát listája. Ehhez ne készüljön közvetlen setter.
 
 **Konstruktorok és műveletek**
-- A `Book(isbn : String, title : String, price : int)` konstruktor a hozzá tartozó validációkkal állítsa be a mezőket. A kivételosztályok konstruktorai tárolják az elutasított árat, és adják tovább a hibaüzenetet az ősnek.
-- A korábbi `BookShelf` konténerosztályban maradjon meg a `addBook(book : Book) : void` és `getBooks() : List<Book>` művelet; az utóbbi ne biztosítson közvetlen módosítási lehetőséget a belső listához. Új könyv hozzáadásakor a konténer ellenőrizze, hogy nincs-e már azonos ISBN-ű példány, és ismétlésnél dobjon `IllegalArgumentException` kivételt.
+- A `Book(isbn : String, title : String, price : int)` konstruktor a hozzá tartozó validációkkal állítsa be a mezőket, és szükség esetén a saját, ellenőrzött kivételeket is továbbítsa (`throws`). A kivételosztályok konstruktorai tárolják az elutasított árat, és adják tovább a hibaüzenetet az ősnek.
+- A `BookShelf()` konstruktor hozzon létre üres listát. A `BookShelf` konténerosztályban maradjon meg a `addBook(book : Book) : void` és `getBooks() : List<Book>` művelet; az utóbbi ne biztosítson közvetlen módosítási lehetőséget a belső listához. Új könyv hozzáadásakor a konténer ellenőrizze, hogy nincs-e már azonos ISBN-ű példány, és ismétlésnél dobjon `IllegalArgumentException` kivételt.
 
 **Főprogram**
 - Az egyik könyv árát próbálja meg 300, majd 62000 forintra állítani! A két kivételt külön kezelje: az első esetben 500, a másodikban 50000 forintra állítsa az árat. A helyes és a javított árú könyveket tegye a polcra, majd írja ki a polc tartalmát!
@@ -781,14 +792,16 @@ Készítsen olyan foglalási rendszert, amelyben egy `Screening` példány egy v
 - **Férőhely (`capacity : int`):** privát, pozitív egész szám. A publikus `getCapacity() : int` lekérdezi, setter nem készül hozzá.
 - **Foglalt helyek (`reservedSeats : int`):** privát, kezdetben 0. Csak `getReservedSeats() : int` getterrel legyen lekérdezhető; közvetlen setter nem készülhet hozzá.
 
+- **Vetítések (`screenings : ArrayList<Screening>`):** a `Cinema` osztály privát listája, setter nem készül hozzá. A `Cinema()` konstruktor üres listával indul.
+
 **Konstruktorok és műveletek**
 - A `Screening(movieTitle : String, screeningId : String, capacity : int)` konstruktor ellenőrizze és mentse el az adatokat. A `getFreeSeats() : int` adja vissza a szabad helyek számát.
 - A `reserveSeats(count : int) : void` művelet nem pozitív darabszám esetén `InvalidReservationException`, a szabad helyeknél nagyobb foglalás esetén `NotEnoughSeatsException` kivételt dobjon. Siker esetén növelje a foglalt helyek számát; sikertelen foglalásnál az állapot ne változzon.
-- A két kivételosztály a `RuntimeException` leszármazottja legyen; konstruktoruk vegyen át hibaüzenetet, és adja tovább az ősnek.
-- A `Cinema` osztály egy privát `screenings : ArrayList<Screening>` listát tartalmazzon. Az `addScreening(screening : Screening) : void` ne fogadjon `null` értéket vagy ismétlődő `screeningId`-t. A `findWithFreeSeats(movieTitle : String, count : int) : Screening` az első olyan vetítést adja vissza, ahol a kért számú hely még szabad; ha nincs ilyen, térjen vissza `null` értékkel. A keresés önmagában ne foglaljon helyet.
+- A két kivételosztály az `Exception` közvetlen leszármazottja legyen; konstruktoruk vegyen át hibaüzenetet, és adja tovább az ősnek. A `reserveSeats()` fejlécében mindkét ellenőrzött kivételt deklarálja (`throws`).
+- A `addScreening(screening : Screening) : void` ne fogadjon `null` értéket vagy ismétlődő `screeningId`-t. A `findWithFreeSeats(movieTitle : String, count : int) : Screening` az első olyan vetítést adja vissza, ahol ugyanazt a filmet vetítik, és a kért számú hely még szabad. A keresett cím nem lehet üres, a darabszámnak pozitívnak kell lennie; érvénytelen paraméternél `IllegalArgumentException` keletkezzen. Ha nincs megfelelő vetítés, térjen vissza `null` értékkel. A keresés önmagában ne foglaljon helyet.
 
 **Főprogram**
-- Hozzon létre legalább három vetítést, majd próbáljon olyan foglalást végrehajtani, amelyhez nincs elegendő hely! A `NotEnoughSeatsException` elkapása után keressen másik megfelelő vetítést ugyanahhoz a filmhez, és ott ismételje meg a foglalást. Mutassa meg, hogy az eredeti vetítés foglalt helyeinek száma nem változott!
+- Hozzon létre legalább három vetítést, amelyek közül legalább kettő ugyanannak a filmnek más-más időpontja legyen, majd próbáljon olyan foglalást végrehajtani, amelyhez nincs elegendő hely! A `NotEnoughSeatsException` elkapása után keressen másik megfelelő vetítést ugyanahhoz a filmhez, és ott ismételje meg a foglalást. Előbb ellenőrizze, hogy a keresés eredménye nem `null`. Mutassa meg, hogy az eredeti vetítés foglalt helyeinek száma nem változott!
 
 :::endexercise
 
@@ -807,8 +820,8 @@ Készítsen csomagfeladási rendszert, amelyben az alapértelmezett futárszolg�
 
 **Konstruktorok és metódusok**
 - A `Parcel(parcelId : String, weightKg : int)` konstruktor érvényes adatokkal hozza létre a csomagot. A `ShippingCenter()` üres listát készítsen.
-- A `shipByCourier(parcel : Parcel) : void` ellenőrizze a `null` paramétert és azt, hogy ugyanaz a csomagazonosító még nincs-e a listában. Ha a csomag tömege meghaladja a limitet, dobjon `TooHeavyParcelException` kivételt, különben mentse el a csomagot.
-- A `shipByFreight(parcel : Parcel) : void` szintén ellenőrizze a `null` értéket és a duplikált azonosítót, de ne alkalmazza a 20 kilogrammos korlátot. A `TooHeavyParcelException` a `RuntimeException` osztályból származzon, konstruktorában kapja meg és tárolja el az elutasított tömeget, amelyet a `getWeightKg() : int` getter ad vissza.
+- A `shipByCourier(parcel : Parcel) : void` ellenőrizze a `null` paramétert és azt, hogy ugyanaz a csomagazonosító még nincs-e a listában. Ha a csomag tömege meghaladja a limitet, dobjon `TooHeavyParcelException` kivételt, amelyet a metódus fejlécében is deklaráljon (`throws`); különben mentse el a csomagot.
+- A `shipByFreight(parcel : Parcel) : void` szintén ellenőrizze a `null` értéket és a duplikált azonosítót, de ne alkalmazza a 20 kilogrammos korlátot. A `TooHeavyParcelException` az `Exception` osztályból származzon, konstruktorában kapja meg és tárolja el az elutasított tömeget, amelyet a `getWeightKg() : int` getter ad vissza.
 
 **Főprogram**
 - Hozzon létre 8, 24 és 35 kilogrammos csomagokat! Először mindegyiket futárszolgálattal próbálja feladni, majd `TooHeavyParcelException` esetén ugyanazt a példányt áruszállításként adja fel. Ellenőrizze, hogy minden csomag pontosan egyszer szerepel a gyűjteményben, és más kivétel esetén nem történik automatikus alternatív feladás!
@@ -823,16 +836,17 @@ Készítsen csomagfeladási rendszert, amelyben az alapértelmezett futárszolg�
 Készítsen olyan alkalmazást, amely egy egyszerű, pontosvesszővel tagolt állományból mérési adatokat olvas be. A fájl egy sora `azonosító;érték` formátumú, ahol az azonosító nem üres szöveg, az érték pedig a $[0;100]$ intervallum egész száma. A hibás sorokat a program jelezze és hagyja ki, de a többi sor feldolgozását folytassa.
 
 **Osztályok és mezők**
-- A `Measurement` osztály privát `sensorId : String` mezője nem lehet üres; a `getSensorId() : String` adja vissza, setter nem készülhet. A privát `value : int` mező a $[0;100]$ intervallumba essen; a `getValue() : int` adja vissza, a `setValue(value : int) : void` ellenőrizze a határokat, és hibás adatnál `InvalidMeasurementException` kivételt dobjon úgy, hogy a régi érték változatlan maradjon.
+- **Szenzorazonosító (`sensorId : String`):** a `Measurement` osztály privát mezője. Nem lehet `null` vagy üres szöveg. A `getSensorId() : String` publikus getter adja vissza, setter ne készüljön hozzá.
+- **Mért érték (`value : int`):** a `Measurement` osztály privát mezője, a $[0;100]$ intervallumba essen. A `getValue() : int` adja vissza, a `setValue(value : int) : void` ellenőrizze a határokat. Érvénytelen adatnál `InvalidMeasurementException` keletkezzen, a korábbi érték pedig ne változzon meg.
 - Az `InvalidMeasurementException` az `Exception` osztályból származó **ellenőrzött kivétel** legyen. Privát `lineNumber : int` mezőben tárolja az érintett sor sorszámát (ha ismert), a `getLineNumber() : int` adja vissza. A konstruktor hibaüzenetet és sorszámot fogadjon; ismeretlen sorszám esetén 0 használható.
 - A `MeasurementArchive` konténerosztály privát `measurements : ArrayList<Measurement>` mezőjéhez ne legyen közvetlen setter. A `getMeasurements() : List<Measurement>` másolatot adjon vissza a listáról.
 
 **Konstruktorok és metódusok**
 - A `Measurement(sensorId : String, value : int)` konstruktor a két adatot validálja; a hibás mérési értékhez tartozó `InvalidMeasurementException` kivételt továbbítsa (`throws`). A `MeasurementArchive()` üres listát készítsen.
 - Az `addMeasurement(measurement : Measurement) : void` dobjon `IllegalArgumentException` kivételt, ha a paraméter `null`, vagy már van azonos `sensorId`-jú mérés. Az archívum ne tartalmazzon ismétlődő szenzorazonosítókat.
-- A különálló `MeasurementImporter` osztály `load(fileName : String, archive : MeasurementArchive) : int` metódusa olvassa végig a fájlt, és adja vissza a sikeresen hozzáadott mérések számát. A szintaktikailag hibás, nem egész számot tartalmazó vagy érvénytelen értékű sorokat kezelje, és jelenítse meg a sorszámukat. A fájl megnyitásának vagy olvasásának hibáit viszont `IOException` formájában továbbítsa a hívónak. A fájl legyen akkor is lezárva, ha kivétel történik; ehhez Java-ban használjon `try-with-resources` szerkezetet.
+- A különálló `MeasurementImporter` osztály `load(fileName : String, archive : MeasurementArchive) : int` metódusa olvassa végig a fájlt, és adja vissza a sikeresen hozzáadott mérések számát. A szintaktikailag hibás, nem egész számot tartalmazó vagy érvénytelen értékű sorokat kezelje, és jelenítse meg a sorszámukat. A fájlt `Scanner` segítségével olvassa, amelynek egy `File` objektumot ad át. A fájl megnyitásának vagy olvasásának hibáit `IOException` formájában továbbítsa a hívónak; a `Scanner.ioException()` metódussal a beolvasás közben tárolt I/O-hibát is ellenőrizze. A fájl legyen akkor is lezárva, ha kivétel történik; ehhez Java-ban használjon `try-with-resources` szerkezetet. A hiányzó vagy hibás értéket, illetve az ismétlődő szenzorazonosítót tartalmazó sorokat jelezze a sorszámmal együtt, és folytassa a többi sor feldolgozását.
 
 **Főprogram és mintabemenet**
-- A fájl tartalmazhatja a következő sorokat: `A01;42`, `B02;125`, `C03;bad`, `D04;78`. A főprogram a sikeresen feldolgozott sorokat gyűjtse össze, a hibásakról adjon tájékoztatást, majd írja ki a sikeres mérések számát. Hiányzó vagy nem olvasható fájl esetén a főprogram külön `catch (IOException e)` ágban jelezze a problémát. A feladatban az állományt a hallgató maga hozza létre, nem szükséges külső melléklet.
+- A fájl tartalmazhatja a következő sorokat: `A01;42`, `B02;125`, `C03;bad`, `D04;78`. A főprogram a helyesen beolvasott és a konténerbe ténylegesen felvett sorok számát írja ki. A fájl feldolgozása során a hibás sorokról a sorszám megadásával történjen tájékoztatás. Hiányzó vagy nem olvasható fájl esetén a főprogram külön `catch (IOException e)` ágban jelezze a problémát. A feladatban az állományt a hallgató maga hozza létre, nem szükséges külső melléklet.
 
 :::endexercise

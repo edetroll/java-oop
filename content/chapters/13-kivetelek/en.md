@@ -289,13 +289,13 @@ public:
 
 ## Custom exceptions and actual recovery {#custom-exceptions}
 
-A general `IllegalArgumentException` sometimes does not identify the problem precisely enough. For the thermostat, we may want to distinguish a temperature that is too low from one that is too high. We can define `TooLowTemperatureException` and `TooHighTemperatureException`, and we can store the invalid value in those objects as well. Ending an exception class name in `Exception` is a convention, not a language requirement.
+A general `IllegalArgumentException` sometimes does not identify the problem precisely enough. For the thermostat, we may want to distinguish a temperature that is too low from one that is too high. We can define `TooLowTemperatureException` and `TooHighTemperatureException`, and we can store the invalid value in those objects as well. Our custom exceptions now extend `Exception` directly. A more specific superclass could also be chosen when the nature of the error warrants it. Ending the class name in `Exception` is a convention, not a language requirement. In Java, these directly derived exceptions are checked, so methods that propagate them declare them using `throws`.
 
-In the program below, the setter validates the value and throws when necessary, while the main program **recovers from the failure**. A low value is replaced by the minimum, a high value by the maximum, and processing continues with the next input. This demonstrates that exception handling is not merely printing an error message. The recovery policy belongs to the caller. Another application might ask for a new value or reject the whole operation instead.
+In the program below, the setter validates the value and throws when necessary, while the main program **recovers from the failure**. A low value is replaced by the minimum, a high value by the maximum, and processing continues with the next input. This demonstrates that exception handling is not merely printing an error message. The recovery policy belongs to the caller. The `resetToMinimum()` and `resetToMaximum()` methods write fixed, valid values and cannot throw these exceptions again. Another application might ask for a new value or reject the whole operation instead.
 
 :::lang java
 ```java
-class TooLowTemperatureException extends RuntimeException {
+class TooLowTemperatureException extends Exception {
     private final int suppliedValue;
     public TooLowTemperatureException(int value) {
         super("Temperature below 18: " + value);
@@ -303,7 +303,7 @@ class TooLowTemperatureException extends RuntimeException {
     }
     public int getSuppliedValue() { return suppliedValue; }
 }
-class TooHighTemperatureException extends RuntimeException {
+class TooHighTemperatureException extends Exception {
     private final int suppliedValue;
     public TooHighTemperatureException(int value) {
         super("Temperature above 28: " + value);
@@ -312,15 +312,18 @@ class TooHighTemperatureException extends RuntimeException {
     public int getSuppliedValue() { return suppliedValue; }
 }
 class TemperatureSetting {
-    static final int MIN = 18;
-    static final int MAX = 28;
+    public static final int MIN = 18;
+    public static final int MAX = 28;
     private int targetTemperature = 22;
-    public void setTargetTemperature(int value) {
+    public void setTargetTemperature(int value)
+            throws TooLowTemperatureException, TooHighTemperatureException {
         if (value < MIN) throw new TooLowTemperatureException(value);
         if (value > MAX) throw new TooHighTemperatureException(value);
         targetTemperature = value;
     }
     public int getTargetTemperature() { return targetTemperature; }
+    public void resetToMinimum() { targetTemperature = MIN; }
+    public void resetToMaximum() { targetTemperature = MAX; }
 }
 class Main {
     public static void main(String[] args) {
@@ -330,9 +333,9 @@ class Main {
             try {
                 thermostat.setTargetTemperature(requested);
             } catch (TooLowTemperatureException error) {
-                thermostat.setTargetTemperature(TemperatureSetting.MIN);
+                thermostat.resetToMinimum();
             } catch (TooHighTemperatureException error) {
-                thermostat.setTargetTemperature(TemperatureSetting.MAX);
+                thermostat.resetToMaximum();
             }
             System.out.println(thermostat.getTargetTemperature());
         }
@@ -362,6 +365,8 @@ class TemperatureSetting {
         targetTemperature = value;
     }
     public int GetTargetTemperature() => targetTemperature;
+    public void ResetToMinimum() => targetTemperature = MIN;
+    public void ResetToMaximum() => targetTemperature = MAX;
 }
 class Program {
     static void Main() {
@@ -369,9 +374,9 @@ class Program {
         foreach (int requested in new[] {23, 12, 35}) {
             try { thermostat.SetTargetTemperature(requested); }
             catch (TooLowTemperatureException) {
-                thermostat.SetTargetTemperature(TemperatureSetting.MIN);
+                thermostat.ResetToMinimum();
             } catch (TooHighTemperatureException) {
-                thermostat.SetTargetTemperature(TemperatureSetting.MAX);
+                thermostat.ResetToMaximum();
             }
             Console.WriteLine(thermostat.GetTargetTemperature());
         }
@@ -401,35 +406,38 @@ class TemperatureSetting:
         self._targetTemperature = value
     def getTargetTemperature(self):
         return self._targetTemperature
+    def resetToMinimum(self):
+        self._targetTemperature = self.MIN
+    def resetToMaximum(self):
+        self._targetTemperature = self.MAX
 
 thermostat = TemperatureSetting()
 for requested in (23, 12, 35):
     try:
         thermostat.setTargetTemperature(requested)
     except TooLowTemperatureException:
-        thermostat.setTargetTemperature(TemperatureSetting.MIN)
+        thermostat.resetToMinimum()
     except TooHighTemperatureException:
-        thermostat.setTargetTemperature(TemperatureSetting.MAX)
+        thermostat.resetToMaximum()
     print(thermostat.getTargetTemperature())
 ```
 :::end
 :::lang cpp
 ```cpp
+#include <exception>
 #include <iostream>
-#include <stdexcept>
-#include <string>
-class TooLowTemperatureException : public std::runtime_error {
+class TooLowTemperatureException : public std::exception {
     int suppliedValue;
 public:
-    explicit TooLowTemperatureException(int value)
-        : std::runtime_error("Temperature below 18"), suppliedValue(value) {}
+    explicit TooLowTemperatureException(int value) : suppliedValue(value) {}
+    const char* what() const noexcept override { return "Temperature below 18"; }
     int getSuppliedValue() const { return suppliedValue; }
 };
-class TooHighTemperatureException : public std::runtime_error {
+class TooHighTemperatureException : public std::exception {
     int suppliedValue;
 public:
-    explicit TooHighTemperatureException(int value)
-        : std::runtime_error("Temperature above 28"), suppliedValue(value) {}
+    explicit TooHighTemperatureException(int value) : suppliedValue(value) {}
+    const char* what() const noexcept override { return "Temperature above 28"; }
     int getSuppliedValue() const { return suppliedValue; }
 };
 class TemperatureSetting {
@@ -444,16 +452,15 @@ public:
         targetTemperature = value;
     }
     int getTargetTemperature() const { return targetTemperature; }
+    void resetToMinimum() { targetTemperature = MIN; }
+    void resetToMaximum() { targetTemperature = MAX; }
 };
 int main() {
     TemperatureSetting thermostat;
     for (int requested : {23, 12, 35}) {
         try { thermostat.setTargetTemperature(requested); }
-        catch (const TooLowTemperatureException&) {
-            thermostat.setTargetTemperature(TemperatureSetting::MIN);
-        } catch (const TooHighTemperatureException&) {
-            thermostat.setTargetTemperature(TemperatureSetting::MAX);
-        }
+        catch (const TooLowTemperatureException&) { thermostat.resetToMinimum(); }
+        catch (const TooHighTemperatureException&) { thermostat.resetToMaximum(); }
         std::cout << thermostat.getTargetTemperature() << '\n';
     }
 }
@@ -466,26 +473,25 @@ int main() {
 
 Files, network connections and other external resources must be released when we are finished with them. A `finally` block normally runs whether the `try` block completed successfully or an exception occurred, even when there is no matching `catch`. This matters because an exception during reading may prevent execution from reaching an ordinary close statement placed at the end of the `try` block. `finally` does not itself handle an exception: if the exception remains unhandled, it continues propagating after the cleanup.
 
-The following code demonstrates the traditional `try–catch–finally` pattern. We check whether opening the file succeeded before closing it, and we account for the possibility that closing may itself fail. As with other language guarantees, exceptional termination of the process or runtime can prevent normal cleanup.
+The following code illustrates `try–catch–finally` with a `Scanner` reading from a `File`. Before closing the scanner, we check whether it was created. `Scanner.close()` does not require a separate checked `IOException` handler. Forced process termination, however, may still prevent cleanup.
 
 :::lang java
 ```java
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
-        BufferedReader reader = null;
+        Scanner scanner = null;
         try {
-            reader = new BufferedReader(new FileReader("settings.txt"));
-            System.out.println(reader.readLine());
-        } catch (IOException error) {
-            System.out.println("Cannot read the file: " + error.getMessage());
-        } finally {
-            if (reader != null) {
-                try { reader.close(); }
-                catch (IOException closeError) {
-                    System.out.println("Cannot close the file.");
-                }
+            scanner = new Scanner(new File("settings.txt"), "UTF-8");
+            if (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
             }
+        } catch (FileNotFoundException error) {
+            System.out.println("Cannot open the file: " + error.getMessage());
+        } finally {
+            if (scanner != null) scanner.close();
         }
     }
 }
@@ -545,18 +551,21 @@ int main() {
 ```
 :::end
 
-In modern Java, file handling generally uses `try-with-resources`. An object implementing `AutoCloseable` is closed automatically when the block ends, which usually gives simpler and safer code. C# has `using`, Python has `with`, and C++ generally relies on resource management tied to object lifetime. Their syntax and precise behavior differ, but the purpose is similar. Understanding `finally` is still important because it also applies to cleanup not directly associated with a file.
+In modern Java, file handling generally uses `try-with-resources`. The example again uses `Scanner` with a `File` object, now with automatic closing. An object implementing `AutoCloseable` is closed automatically when the block ends, which usually gives simpler and safer code. C# has `using`, Python has `with`, and C++ generally relies on resource management tied to object lifetime. Their syntax and precise behavior differ, but the purpose is similar. Understanding `finally` is still important because it also applies to cleanup not directly associated with a file.
 
 :::lang java
 ```java
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader("settings.txt"))) {
-            System.out.println(reader.readLine());
-        } catch (IOException error) {
-            System.out.println("Cannot read the file: " + error.getMessage());
+        try (Scanner scanner = new Scanner(new File("settings.txt"), "UTF-8")) {
+            if (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
+            }
+        } catch (FileNotFoundException error) {
+            System.out.println("Cannot open the file: " + error.getMessage());
         }
     }
 }
@@ -616,13 +625,13 @@ In the example, the caller first attempts courier shipping. Only when the parcel
 
 :::lang java
 ```java
-class TooHeavyException extends RuntimeException {
+class TooHeavyException extends Exception {
     public TooHeavyException(int weightKg) {
         super("Courier limit is 20 kg; package is " + weightKg + " kg");
     }
 }
 class CourierService {
-    public void shipByCourier(int weightKg) {
+    public void shipByCourier(int weightKg) throws TooHeavyException {
         if (weightKg <= 0) throw new IllegalArgumentException("Invalid weight");
         if (weightKg > 20) throw new TooHeavyException(weightKg);
         System.out.println("Courier shipment registered.");
@@ -637,7 +646,7 @@ class Main {
         CourierService service = new CourierService();
         try { service.shipByCourier(32); }
         catch (TooHeavyException error) {
-            service.shipByFreight(32); // Real fallback, not just an error message
+            service.shipByFreight(32); // Real recovery: a different service
         }
     }
 }
@@ -694,11 +703,12 @@ except TooHeavyException:
 :::end
 :::lang cpp
 ```cpp
+#include <exception>
 #include <iostream>
 #include <stdexcept>
-class TooHeavyException : public std::runtime_error {
+class TooHeavyException : public std::exception {
 public:
-    TooHeavyException() : std::runtime_error("Courier limit: 20 kg") {}
+    const char* what() const noexcept override { return "Courier limit: 20 kg"; }
 };
 class CourierService {
 public:
@@ -734,9 +744,9 @@ The first exercises extend classes developed earlier, while the later ones invol
 Create a `TemperatureSetting` class representing a thermostat, together with two custom exceptions. The thermostat stores a target temperature, but the main program decides how to correct invalid input.
 
 **Fields and access**
-- **Target temperature (`targetTemperature : int`):** private, valid integer values in $[18,28]$. `getTargetTemperature() : int` returns the stored value. `setTargetTemperature(value : int) : void` throws `TooLowTemperatureException` below 18 and `TooHighTemperatureException` above 28. The previous value must remain unchanged after either failure.
+- **Target temperature (`targetTemperature : int`):** private, valid integer values in $[18,28]$. `getTargetTemperature() : int` returns the stored value. `setTargetTemperature(value : int) : void` throws `TooLowTemperatureException` below 18 and `TooHighTemperatureException` above 28, declares both with `throws`, and must not change the stored value after either failure. The public `resetToMinimum() : void` and `resetToMaximum() : void` methods set 18 and 28 without throwing checked exceptions.
 - **Limits (`MIN : int`, `MAX : int`):** public static constants with values 18 and 28, used by both the setter and caller.
-- **Rejected value (`suppliedValue : int`):** private field in both custom exceptions. `getSuppliedValue() : int` returns it. Both exceptions inherit from `RuntimeException`.
+- **Rejected value (`suppliedValue : int`):** private field in both custom exceptions. `getSuppliedValue() : int` returns it. Both exceptions extend `Exception` directly.
 
 **Constructors**
 - `TemperatureSetting()` initializes the target to 22. Each exception constructor receives the rejected value, stores it, and passes a suitable message to its superclass.
@@ -756,12 +766,13 @@ Extend the earlier `Book` class so that price errors are signalled by two distin
 **Fields and access**
 - **ISBN (`isbn : String`):** private, non-null and non-empty. `getIsbn() : String` returns it; no setter.
 - **Title (`title : String`):** private, at least two non-whitespace characters after trimming. `getTitle() : String` returns it, while `setTitle(value : String)` validates and changes it, throwing `IllegalArgumentException` for invalid text.
-- **Price (`price : int`):** private, valid in $[500,50000]$. `getPrice() : int` returns it. `setPrice(value : int)` throws `PriceTooLowException` or `PriceTooHighException`; a rejected change must not alter the stored price.
-- **Rejected price (`requestedPrice : int`):** private in both exception types, exposed through `getRequestedPrice() : int`. The exceptions inherit from `RuntimeException`.
+- **Price (`price : int`):** private, valid in $[500,50000]$. `getPrice() : int` returns it. `setPrice(value : int)` throws `PriceTooLowException` or `PriceTooHighException` and declares both with `throws`. A rejected change must not alter the stored price. `resetPriceToMinimum() : void` and `resetPriceToMaximum() : void` set the price to 500 and 50000 without throwing another exception.
+- **Rejected price (`requestedPrice : int`):** private in both exception types, exposed through `getRequestedPrice() : int`. Both exceptions extend `Exception` directly.
+- **Stored books (`books : ArrayList<Book>`):** private list of `BookShelf`, without a direct setter.
 
 **Constructors and operations**
-- `Book(isbn : String, title : String, price : int)` validates all fields. Each exception constructor stores the price and passes an explanatory message to its superclass.
-- The `BookShelf` container provides `addBook(book : Book) : void` and `getBooks() : List<Book>`. The returned collection must not allow changes to the internal list. Reject another book with an existing ISBN using `IllegalArgumentException`.
+- `Book(isbn : String, title : String, price : int)` validates all fields and declares any propagated checked exceptions using `throws`. Each exception constructor stores the price and passes an explanatory message to its superclass.
+- The `BookShelf()` constructor creates an empty list. The container provides `addBook(book : Book) : void` and `getBooks() : List<Book>`. The returned collection must not allow changes to the internal list. Reject another book with an existing ISBN using `IllegalArgumentException`.
 
 **Main program**
 - Try changing one book's price to 300 and then 62000. Handle the errors separately by setting the price to 500 and 50000. Add the books to the shelf and display the results.
@@ -781,14 +792,16 @@ Create a booking system where `Screening` represents one screening and `Cinema` 
 - **Capacity (`capacity : int`):** positive, private, read-only through `getCapacity() : int`.
 - **Reserved seats (`reservedSeats : int`):** private, initially zero, read-only through `getReservedSeats() : int`. No direct setter.
 
+- **Screenings (`screenings : ArrayList<Screening>`):** private list of `Cinema`, with no direct setter. `Cinema()` initializes it empty.
+
 **Constructors and operations**
 - `Screening(movieTitle : String, screeningId : String, capacity : int)` validates and stores the fields; `getFreeSeats() : int` returns the number of remaining seats.
 - `reserveSeats(count : int) : void` throws `InvalidReservationException` for a non-positive count and `NotEnoughSeatsException` if the request exceeds available seats. On success it increases `reservedSeats`; on failure it must not change the state.
-- Both exceptions extend `RuntimeException` and accept an explanatory message in their constructors.
-- `Cinema` stores a private `screenings : ArrayList<Screening>` list. `addScreening(screening : Screening) : void` rejects null and repeated IDs. `findWithFreeSeats(movieTitle : String, count : int) : Screening` returns the first matching screening with enough free seats, or `null` if none exists. Searching does not reserve seats.
+- Both exceptions extend `Exception` directly and accept a message in their constructors. `reserveSeats()` declares both checked exceptions using `throws`.
+- `addScreening(screening : Screening) : void` rejects null and repeated IDs. `findWithFreeSeats(movieTitle : String, count : int) : Screening` returns the first screening of the specified movie that has at least `count` free seats, or `null` when none exists. The movie title must be nonempty and `count` positive; otherwise it throws `IllegalArgumentException`. Searching does not reserve seats.
 
 **Main program**
-- Create at least three screenings and attempt a booking that cannot be fulfilled. After catching `NotEnoughSeatsException`, find another screening of the same film and make the booking there. Verify that the original screening was not modified.
+- Create at least three screenings, including two showings of the same movie at different times, and attempt a booking that cannot be fulfilled. After catching `NotEnoughSeatsException`, find another screening of the same film, check that the result is not `null`, and make the booking there. Verify that the original screening was not modified.
 
 :::endexercise
 
@@ -807,8 +820,8 @@ Create a shipping system where ordinary courier delivery accepts parcels weighin
 
 **Constructors and methods**
 - `Parcel(parcelId : String, weightKg : int)` validates both fields. `ShippingCenter()` creates an empty collection.
-- `shipByCourier(parcel : Parcel) : void` rejects null and repeated IDs. It throws `TooHeavyParcelException` if the weight exceeds the limit, otherwise adds the parcel.
-- `shipByFreight(parcel : Parcel) : void` performs the same null and duplicate checks but has no 20 kg restriction. `TooHeavyParcelException` extends `RuntimeException`, receives the rejected weight in its constructor and exposes it through `getWeightKg() : int`.
+- `shipByCourier(parcel : Parcel) : void` rejects null and repeated IDs. It throws `TooHeavyParcelException` if the weight exceeds the limit (declared with `throws`), otherwise it adds the parcel.
+- `shipByFreight(parcel : Parcel) : void` performs the same null and duplicate checks but has no 20 kg restriction. `TooHeavyParcelException` extends `Exception` directly, receives the rejected weight in its constructor and exposes it through `getWeightKg() : int`.
 
 **Main program**
 - Create parcels of 8, 24 and 35 kg. Try courier delivery first; if a `TooHeavyParcelException` occurs, send the same parcel by freight instead. Verify that each parcel appears exactly once in the collection and that unrelated failures do not trigger automatic fallback.
@@ -823,16 +836,17 @@ Create a shipping system where ordinary courier delivery accepts parcels weighin
 Develop an application that reads measurements from a semicolon-separated text file. Each line has the form `identifier;value`; the identifier must be non-empty and the value must be an integer in $[0,100]$. Invalid rows should be reported and skipped, while valid rows are processed normally.
 
 **Classes and fields**
-- `Measurement` has a private non-empty `sensorId : String`, returned by `getSensorId() : String` without a setter, and a private `value : int` in $[0,100]$. `getValue() : int` returns the latter; `setValue(value : int) : void` validates it and throws `InvalidMeasurementException` without modifying the previous value on failure.
+- **Sensor ID (`sensorId : String`):** private field of `Measurement`; it must not be `null` or empty. `getSensorId() : String` returns it; no setter is provided.
+- **Measured value (`value : int`):** private field of `Measurement`, valid in $[0,100]$. `getValue() : int` returns it. `setValue(value : int) : void` checks the interval, throwing `InvalidMeasurementException` on an invalid value without changing the previous one.
 - `InvalidMeasurementException` is a **checked exception** extending `Exception`. A private `lineNumber : int` stores the affected line number (0 when unknown), returned by `getLineNumber() : int`. Its constructor accepts the message and line number.
 - `MeasurementArchive` holds a private `measurements : ArrayList<Measurement>` list with no setter. `getMeasurements() : List<Measurement>` returns a copy of the list.
 
 **Constructors and methods**
 - `Measurement(sensorId : String, value : int)` validates its data and propagates (`throws`) `InvalidMeasurementException` for an invalid value. `MeasurementArchive()` creates an empty list.
 - `addMeasurement(measurement : Measurement) : void` throws `IllegalArgumentException` for null or a repeated sensor ID.
-- `MeasurementImporter` provides `load(fileName : String, archive : MeasurementArchive) : int`, which reads the file and returns the number of measurements added. Malformed lines, non-integer values and measurements outside the permitted interval are reported with their line numbers and skipped. File-opening and reading errors are propagated as `IOException`. Use Java `try-with-resources` to ensure the file is closed even after an exception.
+- `MeasurementImporter` provides `load(fileName : String, archive : MeasurementArchive) : int`, which reads the file and returns the number of measurements added. Malformed lines, non-integer values and measurements outside the permitted interval are reported with their line numbers and skipped. Read using `Scanner` constructed with a `File` object. File-opening and reading errors must propagate as `IOException`; check `Scanner.ioException()` for I/O errors recorded during iteration. Use Java `try-with-resources` to close the scanner even after an exception. Report and skip malformed, out-of-range and duplicate-sensor records with their line numbers.
 
 **Main program and sample data**
-- The input may contain `A01;42`, `B02;125`, `C03;bad` and `D04;78` on separate lines. Collect the valid records, report the invalid ones and display the number of successful measurements. Catch `IOException` separately in the main program. Students create the sample file themselves; no external attachment is required.
+- The input may contain `A01;42`, `B02;125`, `C03;bad` and `D04;78` on separate lines. Display the number of records actually added to the container; report invalid rows with their line numbers while processing. Catch `IOException` separately in the main program. Students create the sample file themselves; no external attachment is required.
 
 :::endexercise
