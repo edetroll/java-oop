@@ -244,6 +244,25 @@
         "en": "content/chapters/12-interfeszek/en.md",
         "zh": "content/chapters/12-interfeszek/zh.md"
       }
+    },
+    {
+      "id": "13-kivetelek",
+      "order": 14,
+      "title": {
+        "hu": "Kivételek",
+        "en": "Exceptions",
+        "zh": "异常处理"
+      },
+      "description": {
+        "hu": "Hibajelzés, kivételterjedés, kezelési stratégiák, saját kivételek és erőforrások.",
+        "en": "Reporting, propagation, recovery, custom exceptions and resources.",
+        "zh": "异常报告、传播、恢复、自定义异常和资源管理。"
+      },
+      "files": {
+        "hu": "content/chapters/13-kivetelek/hu.md",
+        "en": "content/chapters/13-kivetelek/en.md",
+        "zh": "content/chapters/13-kivetelek/zh.md"
+      }
     }
   ]
 }

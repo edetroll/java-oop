@@ -257,5 +257,89 @@
     "hu": "Határozzuk meg a gyűjtemény elemeinek összesített értékét!",
     "en": "Calculate the total value of the collection elements.",
     "zh": "计算集合元素的总值。"
+  },
+  {
+    "id": "implement-interface",
+    "category": "Interfészek",
+    "hu": "Az osztály implementálja a Printable interfészt.",
+    "en": "Make the class implement the Printable interface.",
+    "zh": "让类实现 Printable 接口。"
+  },
+  {
+    "id": "implement-two-interfaces",
+    "category": "Interfészek",
+    "hu": "A többfunkciós eszköz két interfészt implementál.",
+    "en": "The multifunction device implements two interfaces.",
+    "zh": "多功能设备实现两个接口。"
+  },
+  {
+    "id": "delegate-operation",
+    "category": "Interfészek",
+    "hu": "A másolási műveletet delegáljuk a megkapott eszközre.",
+    "en": "Delegate the copying operation to the supplied device.",
+    "zh": "将复印操作委派给传入的设备。"
+  },
+  {
+    "id": "interface-reference",
+    "category": "Interfészek",
+    "hu": "A paraméter típusa legyen Printable!",
+    "en": "Use Printable as the parameter type.",
+    "zh": "将参数类型设为 Printable。"
+  },
+  {
+    "id": "sort-natural",
+    "category": "Interfészek",
+    "hu": "Rendezzük a példányokat a természetes sorrendjük szerint!",
+    "en": "Sort the instances by their natural ordering.",
+    "zh": "按对象的自然顺序排序。"
+  },
+  {
+    "id": "implement-iterable",
+    "category": "Interfészek",
+    "hu": "Tegyük a konténerosztályt bejárhatóvá az Iterable interfész segítségével!",
+    "en": "Make the container iterable by implementing Iterable.",
+    "zh": "通过实现 Iterable 接口使容器可以遍历。"
+  },
+  {
+    "id": "throw-invalid",
+    "category": "Kivételek",
+    "hu": "Érvénytelen érték esetén dobjunk kivételt!",
+    "en": "Throw an exception if the value is invalid.",
+    "zh": "当数值无效时抛出异常。"
+  },
+  {
+    "id": "handle-in-main",
+    "category": "Kivételek",
+    "hu": "A kivételt a főprogramban kezeljük!",
+    "en": "Handle the exception in the main program.",
+    "zh": "在主程序中处理该异常。"
+  },
+  {
+    "id": "catch-specific",
+    "category": "Kivételek",
+    "hu": "A specifikusabb kivételt kapjuk el először!",
+    "en": "Catch the more specific exception first.",
+    "zh": "先捕获更具体的异常。"
+  },
+  {
+    "id": "keep-previous",
+    "category": "Kivételek",
+    "hu": "Hibás bemenet esetén a korábbi érték maradjon változatlan!",
+    "en": "Keep the previous value unchanged if input is invalid.",
+    "zh": "输入无效时保持原来的数值不变。"
+  },
+  {
+    "id": "free-resources",
+    "category": "Kivételek",
+    "hu": "A felhasznált erőforrásokat minden esetben szabadítsuk fel!",
+    "en": "Release the allocated resources in every case.",
+    "zh": "无论结果如何都要释放已分配的资源。"
+  },
+  {
+    "id": "alternative-path",
+    "category": "Kivételek",
+    "hu": "Hiba esetén válasszunk alternatív megoldást!",
+    "en": "Choose an alternative action when the operation fails.",
+    "zh": "操作失败时选择替代方案。"
   }
 ]

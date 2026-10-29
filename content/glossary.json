@@ -390,5 +390,159 @@
     "hu": "belső referencia kiadása",
     "en": "exposing an internal reference",
     "zh": "暴露内部引用"
+  },
+  {
+    "id": "interface-implementation",
+    "category": "Interfészek",
+    "hu": "interfész-implementáció",
+    "en": "interface implementation",
+    "zh": "接口实现"
+  },
+  {
+    "id": "contract",
+    "category": "Interfészek",
+    "hu": "műveleti szerződés",
+    "en": "operation contract",
+    "zh": "操作契约"
+  },
+  {
+    "id": "interface-type",
+    "category": "Interfészek",
+    "hu": "interfésztípus",
+    "en": "interface type",
+    "zh": "接口类型"
+  },
+  {
+    "id": "multiple-interface-implementation",
+    "category": "Interfészek",
+    "hu": "többszörös interfész-implementáció",
+    "en": "multiple interface implementation",
+    "zh": "实现多个接口"
+  },
+  {
+    "id": "delegation",
+    "category": "Interfészek",
+    "hu": "feladatdelegálás",
+    "en": "task delegation",
+    "zh": "任务委派"
+  },
+  {
+    "id": "natural-order",
+    "category": "Interfészek",
+    "hu": "természetes sorrend",
+    "en": "natural ordering",
+    "zh": "自然顺序"
+  },
+  {
+    "id": "comparable",
+    "category": "Interfészek",
+    "hu": "összehasonlítható (Comparable)",
+    "en": "comparable",
+    "zh": "可比较（Comparable）"
+  },
+  {
+    "id": "comparator",
+    "category": "Interfészek",
+    "hu": "összehasonlító (Comparator)",
+    "en": "comparator",
+    "zh": "比较器（Comparator）"
+  },
+  {
+    "id": "iterable",
+    "category": "Interfészek",
+    "hu": "bejárható objektum (Iterable)",
+    "en": "iterable",
+    "zh": "可迭代对象（Iterable）"
+  },
+  {
+    "id": "iterator",
+    "category": "Interfészek",
+    "hu": "iterátor (Iterator)",
+    "en": "iterator",
+    "zh": "迭代器（Iterator）"
+  },
+  {
+    "id": "default-method",
+    "category": "Interfészek",
+    "hu": "alapértelmezett interfészmetódus",
+    "en": "default interface method",
+    "zh": "接口默认方法"
+  },
+  {
+    "id": "exception-handling",
+    "category": "Kivételek",
+    "hu": "kivételkezelés",
+    "en": "exception handling",
+    "zh": "异常处理"
+  },
+  {
+    "id": "throw-exception",
+    "category": "Kivételek",
+    "hu": "kivétel dobása",
+    "en": "throwing an exception",
+    "zh": "抛出异常"
+  },
+  {
+    "id": "catch-exception",
+    "category": "Kivételek",
+    "hu": "kivétel elkapása",
+    "en": "catching an exception",
+    "zh": "捕获异常"
+  },
+  {
+    "id": "exception-propagation",
+    "category": "Kivételek",
+    "hu": "kivétel továbbterjedése",
+    "en": "exception propagation",
+    "zh": "异常传播"
+  },
+  {
+    "id": "call-stack",
+    "category": "Kivételek",
+    "hu": "hívási verem",
+    "en": "call stack",
+    "zh": "调用栈"
+  },
+  {
+    "id": "checked-exception",
+    "category": "Kivételek",
+    "hu": "ellenőrzött kivétel",
+    "en": "checked exception",
+    "zh": "受检异常"
+  },
+  {
+    "id": "unchecked-exception",
+    "category": "Kivételek",
+    "hu": "nem ellenőrzött kivétel",
+    "en": "unchecked exception",
+    "zh": "非受检异常"
+  },
+  {
+    "id": "custom-exception",
+    "category": "Kivételek",
+    "hu": "saját kivétel",
+    "en": "custom exception",
+    "zh": "自定义异常"
+  },
+  {
+    "id": "finally-block",
+    "category": "Kivételek",
+    "hu": "finally blokk",
+    "en": "finally block",
+    "zh": "finally 块"
+  },
+  {
+    "id": "resource-cleanup",
+    "category": "Kivételek",
+    "hu": "erőforrás felszabadítása",
+    "en": "resource cleanup",
+    "zh": "资源释放"
+  },
+  {
+    "id": "try-with-resources",
+    "category": "Kivételek",
+    "hu": "try-with-resources szerkezet",
+    "en": "try-with-resources statement",
+    "zh": "try-with-resources 语句"
   }
 ]
