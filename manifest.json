@@ -1,0 +1,268 @@
+{
+  "chapters": [
+    {
+      "id": "01-bevezetes",
+      "order": 1,
+      "title": {
+        "hu": "OOP alapelvek",
+        "en": "Principles of OOP",
+        "zh": "面向对象编程的基本原则"
+      },
+      "description": {
+        "hu": "Az OOP alapelvei és a programozási nyelvek osztályozása.",
+        "en": "OOP principles and classification of programming languages.",
+        "zh": "面向对象编程的基本原则与编程语言的分类。"
+      },
+      "files": {
+        "hu": "content/chapters/01-bevezetes/hu.md",
+        "en": "content/chapters/01-bevezetes/en.md",
+        "zh": "content/chapters/01-bevezetes/zh.md"
+      }
+    },
+    {
+      "id": "02-osztalyok",
+      "order": 2,
+      "title": {
+        "hu": "Egységbezárás",
+        "en": "Encapsulation",
+        "zh": "封装"
+      },
+      "description": {
+        "hu": "Osztályok, példányok, mezők, metódusok és feladatok.",
+        "en": "Classes, instances, fields, methods and exercises.",
+        "zh": "类、实例、字段、方法与练习。"
+      },
+      "files": {
+        "hu": "content/chapters/02-osztalyok/hu.md",
+        "en": "content/chapters/02-osztalyok/en.md",
+        "zh": "content/chapters/02-osztalyok/zh.md"
+      }
+    },
+    {
+      "id": "03-adatrejtes",
+      "order": 3,
+      "title": {
+        "hu": "Adatrejtés, property",
+        "en": "Data Hiding and Properties",
+        "zh": "数据隐藏与属性"
+      },
+      "description": {
+        "hu": "Láthatóság, validáció, getterek és setterek.",
+        "en": "Access modifiers, validation, getters and setters.",
+        "zh": "访问修饰符、数据验证、getter 与 setter。"
+      },
+      "files": {
+        "hu": "content/chapters/03-adatrejtes/hu.md",
+        "en": "content/chapters/03-adatrejtes/en.md",
+        "zh": "content/chapters/03-adatrejtes/zh.md"
+      }
+    },
+    {
+      "id": "04-konstruktorok",
+      "order": 4,
+      "title": {
+        "hu": "Konstruktorok",
+        "en": "Constructors",
+        "zh": "构造方法"
+      },
+      "description": {
+        "hu": "Példányosítás, alapértelmezett és paraméteres konstruktorok.",
+        "en": "Instantiation, default and parameterized constructors.",
+        "zh": "实例化、默认构造方法与带参数的构造方法。"
+      },
+      "files": {
+        "hu": "content/chapters/04-konstruktorok/hu.md",
+        "en": "content/chapters/04-konstruktorok/en.md",
+        "zh": "content/chapters/04-konstruktorok/zh.md"
+      }
+    },
+    {
+      "id": "05-kontenerosztalyok",
+      "order": 5,
+      "title": {
+        "hu": "Konténerosztályok",
+        "en": "Container Classes",
+        "zh": "容器类"
+      },
+      "description": {
+        "hu": "Gyűjtemények kezelése, hozzáférés szabályozása, indexelés és kiválogatás.",
+        "en": "Managing collections, access control, indexing and filtering.",
+        "zh": "集合管理、访问控制、索引和筛选。"
+      },
+      "files": {
+        "hu": "content/chapters/05-kontenerosztalyok/hu.md",
+        "en": "content/chapters/05-kontenerosztalyok/en.md",
+        "zh": "content/chapters/05-kontenerosztalyok/zh.md"
+      }
+    },
+    {
+      "id": "05-osztalyszintu-elemek",
+      "order": 6,
+      "title": {
+        "hu": "Osztályszintű mezők és metódusok",
+        "en": "Class-level Fields and Methods",
+        "zh": "类级字段和方法"
+      },
+      "description": {
+        "hu": "Memóriakezelés, statikus mezők, metódusok, inicializálás és felhasználási példák.",
+        "en": "Memory, static fields, methods, initialization and common uses.",
+        "zh": "内存、静态字段与方法、初始化及常见应用。"
+      },
+      "files": {
+        "hu": "content/chapters/05-osztalyszintu-elemek/hu.md",
+        "en": "content/chapters/05-osztalyszintu-elemek/en.md",
+        "zh": "content/chapters/05-osztalyszintu-elemek/zh.md"
+      }
+    },
+    {
+      "id": "06-oroklodes",
+      "order": 7,
+      "title": {
+        "hu": "Öröklődés",
+        "en": "Inheritance",
+        "zh": "继承"
+      },
+      "description": {
+        "hu": "Öröklődés, láthatóság, osztályhierarchiák, típuskompatibilitás és kiválogatás.",
+        "en": "Inheritance, accessibility, class hierarchies, type compatibility and selection.",
+        "zh": "继承、访问权限、类层次结构、类型兼容性和对象筛选。"
+      },
+      "files": {
+        "hu": "content/chapters/06-oroklodes/hu.md",
+        "en": "content/chapters/06-oroklodes/en.md",
+        "zh": "content/chapters/06-oroklodes/zh.md"
+      }
+    },
+    {
+      "id": "07-kotes",
+      "order": 8,
+      "title": {
+        "hu": "Kötés – korai és késői kötés",
+        "en": "Early and Late Binding",
+        "zh": "早期绑定与后期绑定"
+      },
+      "description": {
+        "hu": "Metódusfelülírás, kötés, Object-metódusok, egyenlőség és hashkód.",
+        "en": "Overriding, binding, Object methods, equality and hash codes.",
+        "zh": "方法重写、绑定、Object 方法、相等性与哈希码。"
+      },
+      "files": {
+        "hu": "content/chapters/07-kotes/hu.md",
+        "en": "content/chapters/07-kotes/en.md",
+        "zh": "content/chapters/07-kotes/zh.md"
+      }
+    },
+    {
+      "id": "08-konstruktorhivasi-lanc",
+      "order": 9,
+      "title": {
+        "hu": "Konstruktorhívási lánc",
+        "en": "Constructor Chaining",
+        "zh": "构造方法调用链"
+      },
+      "description": {
+        "hu": "Örökölt adatok inicializálása, this(...) és super(...), konstruktorok végrehajtási sorrendje.",
+        "en": "Initializing inherited state, this(...) and super(...), and constructor execution order.",
+        "zh": "继承状态的初始化、this(...) 与 super(...) 以及构造方法执行顺序。"
+      },
+      "files": {
+        "hu": "content/chapters/08-konstruktorhivasi-lanc/hu.md"
+      }
+    },
+    {
+      "id": "09-komplex-feladatok",
+      "order": 10,
+      "title": {
+        "hu": "Komplex feladatok",
+        "en": "Complex Exercises",
+        "zh": "综合练习"
+      },
+      "description": {
+        "hu": "Összetett gyakorlófeladatok. Első feladat: háztartási gépek és konténerosztály.",
+        "en": "Comprehensive Java exercises. First exercise: household appliances and a container class.",
+        "zh": "综合 Java 练习。第一题：家用电器与容器类。"
+      },
+      "files": {
+        "hu": "content/chapters/09-komplex-feladatok/hu.md",
+        "en": "content/chapters/09-komplex-feladatok/en.md",
+        "zh": "content/chapters/09-komplex-feladatok/zh.md"
+      }
+    },
+    {
+      "id": "10-absztrakt-osztalyok",
+      "order": 11,
+      "title": {
+        "hu": "Absztrakt osztályok",
+        "en": "Abstract Classes",
+        "zh": "抽象类"
+      },
+      "description": {
+        "hu": "Absztrakt metódusok, kötelező felülírás és a kávékészítés algoritmusa.",
+        "en": "Abstract methods, required implementations, and the coffee preparation algorithm.",
+        "zh": "抽象方法、必须实现的方法以及咖啡制作算法。"
+      },
+      "files": {
+        "hu": "content/chapters/10-absztrakt-osztalyok/hu.md",
+        "en": "content/chapters/10-absztrakt-osztalyok/en.md",
+        "zh": "content/chapters/10-absztrakt-osztalyok/zh.md"
+      }
+    },
+    {
+      "id": "11-final-beagyazott-osztalyok",
+      "order": 12,
+      "title": {
+        "hu": "Beágyazott és final osztályok",
+        "en": "Nested and Final Classes",
+        "zh": "嵌套类与 final 类"
+      },
+      "description": {
+        "hu": "Beágyazott segédosztályok, belső példányok, final osztályok, metódusok és mezők.",
+        "en": "Nested helpers, inner objects, and final classes, methods and fields.",
+        "zh": "嵌套辅助类、内部对象以及 final 类、方法和字段。"
+      },
+      "files": {
+        "hu": "content/chapters/11-final-beagyazott-osztalyok/hu.md",
+        "en": "content/chapters/11-final-beagyazott-osztalyok/en.md",
+        "zh": "content/chapters/11-final-beagyazott-osztalyok/zh.md"
+      }
+    },
+    {
+      "id": "12-interfeszek",
+      "order": 13,
+      "title": {
+        "hu": "Interfészek",
+        "en": "Interfaces",
+        "zh": "接口"
+      },
+      "description": {
+        "hu": "Az interfészek mint szerződések, feladatdelegálás, többszörös implementáció és beépített Java-interfészek.",
+        "en": "Interfaces as contracts, delegation, multiple implementation, and standard Java interfaces.",
+        "zh": "接口契约、职责委派、多接口实现与 Java 标准接口。"
+      },
+      "files": {
+        "hu": "content/chapters/12-interfeszek/hu.md",
+        "en": "content/chapters/12-interfeszek/en.md",
+        "zh": "content/chapters/12-interfeszek/zh.md"
+      }
+    },
+    {
+      "id": "13-kivetelek",
+      "order": 14,
+      "title": {
+        "hu": "Kivételek",
+        "en": "Exceptions",
+        "zh": "异常处理"
+      },
+      "description": {
+        "hu": "Hibajelzés, kivételterjedés, kezelési stratégiák, saját kivételek és erőforrások.",
+        "en": "Reporting, propagation, recovery, custom exceptions and resources.",
+        "zh": "异常报告、传播、恢复、自定义异常和资源管理。"
+      },
+      "files": {
+        "hu": "content/chapters/13-kivetelek/hu.md",
+        "en": "content/chapters/13-kivetelek/en.md",
+        "zh": "content/chapters/13-kivetelek/zh.md"
+      }
+    }
+  ]
+}

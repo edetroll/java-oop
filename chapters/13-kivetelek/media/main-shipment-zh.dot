@@ -1,0 +1,9 @@
+digraph UML {
+graph [rankdir=TB, bgcolor="transparent", nodesep="0.30", ranksep="0.50", pad="0.12", splines=polyline];
+node [shape=plain];
+edge [color="#7d8ea6", penwidth=1.1, arrowsize=0.8];
+"快递服务" [label=<<TABLE BORDER="1" COLOR="#94a8c1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="#fcfdff"><TR><TD ALIGN="CENTER" CELLPADDING="8" BGCOLOR="#e9f1ff"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="13" COLOR="#223451"><B>快递服务</B></FONT></TD></TR><TR><TD BGCOLOR="#b6c7df" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"> </TD></TR><TR><TD BGCOLOR="#b6c7df" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="4"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="10" COLOR="#263954">+ 快递寄送(重量公斤 : int) : void</FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="4"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="10" COLOR="#263954">+ 货运寄送(重量公斤 : int) : void</FONT></TD></TR></TABLE>>];
+"重量超限异常" [label=<<TABLE BORDER="1" COLOR="#94a8c1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="#fcfdff"><TR><TD ALIGN="CENTER" CELLPADDING="8" BGCOLOR="#e9f1ff"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="13" COLOR="#223451"><B>重量超限异常</B></FONT></TD></TR><TR><TD BGCOLOR="#b6c7df" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="5"> </TD></TR><TR><TD BGCOLOR="#b6c7df" HEIGHT="2"></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="4"><FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="10" COLOR="#263954">+ 重量超限异常(重量公斤 : int)</FONT></TD></TR></TABLE>>];
+"RuntimeException" [shape=plain, label=<<FONT FACE="Noto Sans Mono CJK SC" POINT-SIZE="12">RuntimeException</FONT>>];
+"重量超限异常" -> "RuntimeException" [arrowhead="empty"];
+}

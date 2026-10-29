@@ -1,0 +1,345 @@
+[
+  {
+    "id": "create-class",
+    "category": "Osztályok",
+    "hu": "Hozzuk létre az Auto osztályt!",
+    "en": "Create the Car class.",
+    "zh": "创建 Car 类。"
+  },
+  {
+    "id": "instantiate",
+    "category": "Osztályok",
+    "hu": "Hozzunk létre egy példányt az Auto osztályból!",
+    "en": "Create an instance of the Car class.",
+    "zh": "创建 Car 类的一个实例。"
+  },
+  {
+    "id": "derive",
+    "category": "OOP alapelvek",
+    "hu": "Származtassuk a Versenyauto osztályt az Auto osztályból!",
+    "en": "Derive the RaceCar class from Car.",
+    "zh": "从 Car 类派生 RaceCar 类。"
+  },
+  {
+    "id": "inherit",
+    "category": "OOP alapelvek",
+    "hu": "A Versenyauto osztály örökölje az Auto osztály tulajdonságait!",
+    "en": "Make the RaceCar class inherit from Car.",
+    "zh": "让 RaceCar 类继承 Car 类。"
+  },
+  {
+    "id": "add-method",
+    "category": "Osztályok",
+    "hu": "Adjunk hozzá egy indit() nevű metódust!",
+    "en": "Add a method named start().",
+    "zh": "添加一个名为 start() 的方法。"
+  },
+  {
+    "id": "override",
+    "category": "Osztályok",
+    "hu": "Írjuk felül az örökölt metódust!",
+    "en": "Override the inherited method.",
+    "zh": "重写继承的方法。"
+  },
+  {
+    "id": "add-fields",
+    "category": "Osztályok",
+    "hu": "Az osztályban hozzunk létre mezőket az adatok tárolására!",
+    "en": "Declare fields in the class to store the data.",
+    "zh": "在类中声明用于存储数据的字段。"
+  },
+  {
+    "id": "parameterless-method",
+    "category": "Osztályok",
+    "hu": "Készítsünk paraméter nélküli metódust!",
+    "en": "Implement a method with no parameters.",
+    "zh": "实现一个不带参数的方法。"
+  },
+  {
+    "id": "return-value",
+    "category": "Osztályok",
+    "hu": "A metódus térjen vissza a kiszámított értékkel!",
+    "en": "The method should return the calculated value.",
+    "zh": "该方法应返回计算结果。"
+  },
+  {
+    "id": "call-method",
+    "category": "Osztályok",
+    "hu": "Hívjuk meg a metódust a létrehozott példányon!",
+    "en": "Call the method on the newly created instance.",
+    "zh": "在新创建的实例上调用该方法。"
+  },
+  {
+    "id": "assign-field",
+    "category": "Osztályok",
+    "hu": "Adjunk értéket a példány mezőinek!",
+    "en": "Assign values to the instance fields.",
+    "zh": "为实例的字段赋值。"
+  },
+  {
+    "id": "override-tostring",
+    "category": "Osztályok",
+    "hu": "Írjuk felül a toString() metódust!",
+    "en": "Override the toString() method.",
+    "zh": "重写 toString() 方法。"
+  },
+  {
+    "id": "display-instances",
+    "category": "Osztályok",
+    "hu": "Jelenítsük meg a példányok adatait a képernyőn!",
+    "en": "Display the data of the instances on the screen.",
+    "zh": "在屏幕上显示各实例的数据。"
+  },
+  {
+    "id": "uml-class",
+    "category": "Osztályok",
+    "hu": "Készítsük el az osztály UML-osztálydiagramját!",
+    "en": "Draw a UML class diagram for the class.",
+    "zh": "为该类绘制 UML 类图。"
+  },
+  {
+    "id": "make-private",
+    "category": "Adatrejtés",
+    "hu": "A mezőt jelöljük meg private láthatósággal!",
+    "en": "Declare the field private.",
+    "zh": "将该字段声明为 private。"
+  },
+  {
+    "id": "create-getter",
+    "category": "Adatrejtés",
+    "hu": "Készítsünk publikus getter metódust a mezőhöz!",
+    "en": "Implement a public getter for the field.",
+    "zh": "为该字段实现一个 public getter 方法。"
+  },
+  {
+    "id": "create-setter",
+    "category": "Adatrejtés",
+    "hu": "A mező módosítását setter metódussal biztosítsuk!",
+    "en": "Provide a setter method to modify the field.",
+    "zh": "提供 setter 方法来修改该字段。"
+  },
+  {
+    "id": "validate",
+    "category": "Adatrejtés",
+    "hu": "A kapott adatot tárolás előtt validáljuk!",
+    "en": "Validate the input before storing it.",
+    "zh": "存储数据之前先对输入进行校验。"
+  },
+  {
+    "id": "invalid-exception",
+    "category": "Adatrejtés",
+    "hu": "Érvénytelen adat esetén dobjunk kivételt!",
+    "en": "Throw an exception if the value is invalid.",
+    "zh": "如果数据无效，则抛出异常。"
+  },
+  {
+    "id": "read-only",
+    "category": "Adatrejtés",
+    "hu": "A mező értékét lehessen lekérdezni, de kívülről ne lehessen módosítani!",
+    "en": "Allow the field to be read, but prevent it from being modified from outside the class.",
+    "zh": "允许读取该字段，但不允许在类外部修改它。"
+  },
+  {
+    "id": "unique-list",
+    "category": "Adatrejtés",
+    "hu": "Biztosítsuk, hogy ugyanaz az elem ne kerülhessen kétszer a listába!",
+    "en": "Ensure that the same item cannot be added to the list twice.",
+    "zh": "确保同一个元素不能被重复添加到列表中。"
+  },
+  {
+    "id": "constructor-params",
+    "category": "Konstruktorok",
+    "hu": "Készítsünk paraméteres konstruktort, amely megkapja a szükséges adatokat!",
+    "en": "Implement a parameterized constructor that receives the required data.",
+    "zh": "实现一个接收必要数据的带参构造函数。"
+  },
+  {
+    "id": "constructor-noargs",
+    "category": "Konstruktorok",
+    "hu": "Készítsünk paraméter nélküli konstruktort is!",
+    "en": "Also implement a no-argument constructor.",
+    "zh": "同时实现一个无参构造函数。"
+  },
+  {
+    "id": "initialize-fields",
+    "category": "Konstruktorok",
+    "hu": "A konstruktor inicializálja a példány mezőit!",
+    "en": "The constructor should initialize the instance fields.",
+    "zh": "构造函数应初始化实例的字段。"
+  },
+  {
+    "id": "overload-constructor",
+    "category": "Konstruktorok",
+    "hu": "Terheljük túl a konstruktort eltérő paraméterlistával!",
+    "en": "Overload the constructor with a different parameter list.",
+    "zh": "使用不同的参数列表重载构造函数。"
+  },
+  {
+    "id": "call-constructor",
+    "category": "Konstruktorok",
+    "hu": "Az egyik konstruktor hívja meg a másikat!",
+    "en": "Have one constructor call another constructor.",
+    "zh": "让一个构造函数调用另一个构造函数。"
+  },
+  {
+    "id": "this-field",
+    "category": "Konstruktorok",
+    "hu": "A this kulcsszóval hivatkozzunk az aktuális példány mezőjére!",
+    "en": "Use this to refer to a field of the current instance.",
+    "zh": "使用 this 引用当前实例的字段。"
+  },
+  {
+    "id": "test-invalid",
+    "category": "Feladatok",
+    "hu": "Próbáljuk ki, mi történik, ha a konstruktor érvénytelen adatot kap!",
+    "en": "Test what happens when the constructor receives invalid data.",
+    "zh": "测试构造函数接收到无效数据时会发生什么。"
+  },
+  {
+    "id": "create-container",
+    "category": "Konténerosztály",
+    "hu": "Hozzuk létre a Library konténerosztályt!",
+    "en": "Create the Library container class.",
+    "zh": "创建图书馆容器类。"
+  },
+  {
+    "id": "private-list",
+    "category": "Konténerosztály",
+    "hu": "A gyűjteményt privát mezőben tároljuk.",
+    "en": "Store the collection in a private field.",
+    "zh": "将集合保存在私有字段中。"
+  },
+  {
+    "id": "init-list",
+    "category": "Konténerosztály",
+    "hu": "A konstruktor inicializálja az üres listát.",
+    "en": "The constructor initializes the empty list.",
+    "zh": "构造方法初始化空列表。"
+  },
+  {
+    "id": "add-to-collection",
+    "category": "Konténerosztály",
+    "hu": "Írjunk metódust az új példányok felvételére!",
+    "en": "Implement a method for adding new instances.",
+    "zh": "实现添加新实例的方法。"
+  },
+  {
+    "id": "do-not-expose",
+    "category": "Konténerosztály",
+    "hu": "Ne adjuk vissza közvetlenül a belső lista referenciáját!",
+    "en": "Do not return the reference to the internal list directly.",
+    "zh": "不要直接返回内部列表的引用。"
+  },
+  {
+    "id": "reject-duplicates",
+    "category": "Konténerosztály",
+    "hu": "Biztosítsuk, hogy ne lehessen ugyanazt az elemet kétszer felvenni!",
+    "en": "Ensure that the same element cannot be added twice.",
+    "zh": "确保同一元素不能被添加两次。"
+  },
+  {
+    "id": "return-copy",
+    "category": "Konténerosztály",
+    "hu": "A metódus a megfelelő példányokat új listába gyűjtse!",
+    "en": "The method should collect matching instances into a new list.",
+    "zh": "该方法应将匹配的实例收集到新列表中。"
+  },
+  {
+    "id": "validate-index",
+    "category": "Konténerosztály",
+    "hu": "Ellenőrizzük az index érvényességét!",
+    "en": "Validate the index.",
+    "zh": "检查索引的有效性。"
+  },
+  {
+    "id": "list-total",
+    "category": "Konténerosztály",
+    "hu": "Határozzuk meg a gyűjtemény elemeinek összesített értékét!",
+    "en": "Calculate the total value of the collection elements.",
+    "zh": "计算集合元素的总值。"
+  },
+  {
+    "id": "implement-interface",
+    "category": "Interfészek",
+    "hu": "Az osztály implementálja a Printable interfészt.",
+    "en": "Make the class implement the Printable interface.",
+    "zh": "让类实现 Printable 接口。"
+  },
+  {
+    "id": "implement-two-interfaces",
+    "category": "Interfészek",
+    "hu": "A többfunkciós eszköz két interfészt implementál.",
+    "en": "The multifunction device implements two interfaces.",
+    "zh": "多功能设备实现两个接口。"
+  },
+  {
+    "id": "delegate-operation",
+    "category": "Interfészek",
+    "hu": "A másolási műveletet delegáljuk a megkapott eszközre.",
+    "en": "Delegate the copying operation to the supplied device.",
+    "zh": "将复印操作委派给传入的设备。"
+  },
+  {
+    "id": "interface-reference",
+    "category": "Interfészek",
+    "hu": "A paraméter típusa legyen Printable!",
+    "en": "Use Printable as the parameter type.",
+    "zh": "将参数类型设为 Printable。"
+  },
+  {
+    "id": "sort-natural",
+    "category": "Interfészek",
+    "hu": "Rendezzük a példányokat a természetes sorrendjük szerint!",
+    "en": "Sort the instances by their natural ordering.",
+    "zh": "按对象的自然顺序排序。"
+  },
+  {
+    "id": "implement-iterable",
+    "category": "Interfészek",
+    "hu": "Tegyük a konténerosztályt bejárhatóvá az Iterable interfész segítségével!",
+    "en": "Make the container iterable by implementing Iterable.",
+    "zh": "通过实现 Iterable 接口使容器可以遍历。"
+  },
+  {
+    "id": "throw-invalid",
+    "category": "Kivételek",
+    "hu": "Érvénytelen érték esetén dobjunk kivételt!",
+    "en": "Throw an exception if the value is invalid.",
+    "zh": "当数值无效时抛出异常。"
+  },
+  {
+    "id": "handle-in-main",
+    "category": "Kivételek",
+    "hu": "A kivételt a főprogramban kezeljük!",
+    "en": "Handle the exception in the main program.",
+    "zh": "在主程序中处理该异常。"
+  },
+  {
+    "id": "catch-specific",
+    "category": "Kivételek",
+    "hu": "A specifikusabb kivételt kapjuk el először!",
+    "en": "Catch the more specific exception first.",
+    "zh": "先捕获更具体的异常。"
+  },
+  {
+    "id": "keep-previous",
+    "category": "Kivételek",
+    "hu": "Hibás bemenet esetén a korábbi érték maradjon változatlan!",
+    "en": "Keep the previous value unchanged if input is invalid.",
+    "zh": "输入无效时保持原来的数值不变。"
+  },
+  {
+    "id": "free-resources",
+    "category": "Kivételek",
+    "hu": "A felhasznált erőforrásokat minden esetben szabadítsuk fel!",
+    "en": "Release the allocated resources in every case.",
+    "zh": "无论结果如何都要释放已分配的资源。"
+  },
+  {
+    "id": "alternative-path",
+    "category": "Kivételek",
+    "hu": "Hiba esetén válasszunk alternatív megoldást!",
+    "en": "Choose an alternative action when the operation fails.",
+    "zh": "操作失败时选择替代方案。"
+  }
+]

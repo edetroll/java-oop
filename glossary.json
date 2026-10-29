@@ -1,0 +1,548 @@
+[
+  {
+    "id": "oop",
+    "category": "Alapelvek",
+    "hu": "objektumorientált programozás (OOP)",
+    "en": "object-oriented programming (OOP)",
+    "zh": "面向对象编程（OOP）"
+  },
+  {
+    "id": "class",
+    "category": "Alapfogalmak",
+    "hu": "osztály",
+    "en": "class",
+    "zh": "类"
+  },
+  {
+    "id": "object",
+    "category": "Alapfogalmak",
+    "hu": "objektum",
+    "en": "object",
+    "zh": "对象"
+  },
+  {
+    "id": "instance",
+    "category": "Alapfogalmak",
+    "hu": "példány",
+    "en": "instance",
+    "zh": "实例"
+  },
+  {
+    "id": "instantiation",
+    "category": "Alapfogalmak",
+    "hu": "példányosítás",
+    "en": "instantiation",
+    "zh": "实例化"
+  },
+  {
+    "id": "field",
+    "category": "Osztályok",
+    "hu": "mező (adattag)",
+    "en": "field",
+    "zh": "字段"
+  },
+  {
+    "id": "method",
+    "category": "Osztályok",
+    "hu": "metódus",
+    "en": "method",
+    "zh": "方法"
+  },
+  {
+    "id": "member",
+    "category": "Osztályok",
+    "hu": "osztálytag",
+    "en": "class member",
+    "zh": "类成员"
+  },
+  {
+    "id": "class-diagram",
+    "category": "Osztályok",
+    "hu": "UML-osztálydiagram",
+    "en": "UML class diagram",
+    "zh": "UML 类图"
+  },
+  {
+    "id": "encapsulation",
+    "category": "Alapelvek",
+    "hu": "egységbezárás",
+    "en": "encapsulation",
+    "zh": "封装"
+  },
+  {
+    "id": "abstraction",
+    "category": "Alapelvek",
+    "hu": "absztrakció",
+    "en": "abstraction",
+    "zh": "抽象"
+  },
+  {
+    "id": "inheritance",
+    "category": "Alapelvek",
+    "hu": "öröklődés",
+    "en": "inheritance",
+    "zh": "继承"
+  },
+  {
+    "id": "polymorphism",
+    "category": "Alapelvek",
+    "hu": "többalakúság (polimorfizmus)",
+    "en": "polymorphism",
+    "zh": "多态"
+  },
+  {
+    "id": "overriding",
+    "category": "Osztályok",
+    "hu": "metódus felülírása",
+    "en": "method overriding",
+    "zh": "方法重写"
+  },
+  {
+    "id": "base-class",
+    "category": "Osztályok",
+    "hu": "ősosztály",
+    "en": "base class",
+    "zh": "基类"
+  },
+  {
+    "id": "information-hiding",
+    "category": "Adatrejtés",
+    "hu": "adatrejtés",
+    "en": "information hiding",
+    "zh": "信息隐藏"
+  },
+  {
+    "id": "access-level",
+    "category": "Adatrejtés",
+    "hu": "láthatósági szint",
+    "en": "access level",
+    "zh": "访问级别"
+  },
+  {
+    "id": "public",
+    "category": "Adatrejtés",
+    "hu": "publikus (public)",
+    "en": "public",
+    "zh": "公有（public）"
+  },
+  {
+    "id": "private",
+    "category": "Adatrejtés",
+    "hu": "privát (private)",
+    "en": "private",
+    "zh": "私有（private）"
+  },
+  {
+    "id": "protected",
+    "category": "Adatrejtés",
+    "hu": "védett (protected)",
+    "en": "protected",
+    "zh": "受保护（protected）"
+  },
+  {
+    "id": "package-private",
+    "category": "Adatrejtés",
+    "hu": "csomagszintű láthatóság",
+    "en": "package-private access",
+    "zh": "包级访问权限"
+  },
+  {
+    "id": "internal",
+    "category": "Adatrejtés",
+    "hu": "internal (C#)",
+    "en": "internal access (C#)",
+    "zh": "程序集内部访问（C#）"
+  },
+  {
+    "id": "property",
+    "category": "Adatrejtés",
+    "hu": "property (tulajdonság)",
+    "en": "property",
+    "zh": "属性"
+  },
+  {
+    "id": "getter",
+    "category": "Adatrejtés",
+    "hu": "getter (lekérdező metódus)",
+    "en": "getter (accessor)",
+    "zh": "getter（取值方法）"
+  },
+  {
+    "id": "setter",
+    "category": "Adatrejtés",
+    "hu": "setter (módosító metódus)",
+    "en": "setter (mutator)",
+    "zh": "setter（设值方法）"
+  },
+  {
+    "id": "validation",
+    "category": "Adatrejtés",
+    "hu": "adatvalidáció",
+    "en": "data validation",
+    "zh": "数据校验"
+  },
+  {
+    "id": "exception",
+    "category": "Adatrejtés",
+    "hu": "kivétel",
+    "en": "exception",
+    "zh": "异常"
+  },
+  {
+    "id": "throw",
+    "category": "Adatrejtés",
+    "hu": "kivétel dobása",
+    "en": "throwing an exception",
+    "zh": "抛出异常"
+  },
+  {
+    "id": "null",
+    "category": "Adatrejtés",
+    "hu": "null érték",
+    "en": "null value",
+    "zh": "null 值"
+  },
+  {
+    "id": "constructor",
+    "category": "Konstruktorok",
+    "hu": "konstruktor",
+    "en": "constructor",
+    "zh": "构造函数"
+  },
+  {
+    "id": "default-constructor",
+    "category": "Konstruktorok",
+    "hu": "alapértelmezett konstruktor",
+    "en": "default constructor",
+    "zh": "默认构造函数"
+  },
+  {
+    "id": "noarg-constructor",
+    "category": "Konstruktorok",
+    "hu": "paraméter nélküli konstruktor",
+    "en": "no-argument constructor",
+    "zh": "无参构造函数"
+  },
+  {
+    "id": "parameterized-constructor",
+    "category": "Konstruktorok",
+    "hu": "paraméteres konstruktor",
+    "en": "parameterized constructor",
+    "zh": "带参构造函数"
+  },
+  {
+    "id": "constructor-overloading",
+    "category": "Konstruktorok",
+    "hu": "konstruktor-túlterhelés",
+    "en": "constructor overloading",
+    "zh": "构造函数重载"
+  },
+  {
+    "id": "constructor-chaining",
+    "category": "Konstruktorok",
+    "hu": "konstruktorhívási lánc",
+    "en": "constructor chaining",
+    "zh": "构造函数调用链"
+  },
+  {
+    "id": "delegating-constructor",
+    "category": "Konstruktorok",
+    "hu": "delegáló konstruktor (C++)",
+    "en": "delegating constructor (C++)",
+    "zh": "委托构造函数（C++）"
+  },
+  {
+    "id": "this",
+    "category": "Konstruktorok",
+    "hu": "this kulcsszó",
+    "en": "this keyword",
+    "zh": "this 关键字"
+  },
+  {
+    "id": "parameter",
+    "category": "Konstruktorok",
+    "hu": "paraméter",
+    "en": "parameter",
+    "zh": "参数"
+  },
+  {
+    "id": "interface",
+    "category": "Későbbi fogalmak",
+    "hu": "interfész",
+    "en": "interface",
+    "zh": "接口"
+  },
+  {
+    "id": "enum",
+    "category": "Osztályok",
+    "hu": "felsorolástípus (enum)",
+    "en": "enumeration type (enum)",
+    "zh": "枚举类型（enum）"
+  },
+  {
+    "id": "container-class",
+    "category": "Konténerosztály",
+    "hu": "konténerosztály",
+    "en": "container class",
+    "zh": "容器类"
+  },
+  {
+    "id": "collection",
+    "category": "Konténerosztály",
+    "hu": "gyűjtemény",
+    "en": "collection",
+    "zh": "集合"
+  },
+  {
+    "id": "element",
+    "category": "Konténerosztály",
+    "hu": "gyűjteményelem",
+    "en": "collection element",
+    "zh": "集合元素"
+  },
+  {
+    "id": "collection-field",
+    "category": "Konténerosztály",
+    "hu": "belső lista",
+    "en": "internal list",
+    "zh": "内部列表"
+  },
+  {
+    "id": "mutable-collection",
+    "category": "Konténerosztály",
+    "hu": "módosítható gyűjtemény",
+    "en": "mutable collection",
+    "zh": "可变集合"
+  },
+  {
+    "id": "copy-collection",
+    "category": "Konténerosztály",
+    "hu": "gyűjtemény másolata",
+    "en": "copy of a collection",
+    "zh": "集合副本"
+  },
+  {
+    "id": "defensive-copy",
+    "category": "Konténerosztály",
+    "hu": "védelmi másolat",
+    "en": "defensive copy",
+    "zh": "防御性拷贝"
+  },
+  {
+    "id": "index",
+    "category": "Konténerosztály",
+    "hu": "index",
+    "en": "index",
+    "zh": "索引"
+  },
+  {
+    "id": "indexer",
+    "category": "Konténerosztály",
+    "hu": "indexelő property",
+    "en": "indexer property",
+    "zh": "索引器属性"
+  },
+  {
+    "id": "add-element",
+    "category": "Konténerosztály",
+    "hu": "elem hozzáadása",
+    "en": "adding an element",
+    "zh": "添加元素"
+  },
+  {
+    "id": "remove-element",
+    "category": "Konténerosztály",
+    "hu": "elem eltávolítása",
+    "en": "removing an element",
+    "zh": "移除元素"
+  },
+  {
+    "id": "filtering",
+    "category": "Konténerosztály",
+    "hu": "kiválogatás",
+    "en": "filtering",
+    "zh": "筛选"
+  },
+  {
+    "id": "aggregation",
+    "category": "Konténerosztály",
+    "hu": "összesítés",
+    "en": "aggregation",
+    "zh": "汇总"
+  },
+  {
+    "id": "duplicate",
+    "category": "Konténerosztály",
+    "hu": "ismétlődő elem",
+    "en": "duplicate element",
+    "zh": "重复元素"
+  },
+  {
+    "id": "read-only-view",
+    "category": "Konténerosztály",
+    "hu": "csak olvasható nézet",
+    "en": "read-only view",
+    "zh": "只读视图"
+  },
+  {
+    "id": "reference-leak",
+    "category": "Konténerosztály",
+    "hu": "belső referencia kiadása",
+    "en": "exposing an internal reference",
+    "zh": "暴露内部引用"
+  },
+  {
+    "id": "interface-implementation",
+    "category": "Interfészek",
+    "hu": "interfész-implementáció",
+    "en": "interface implementation",
+    "zh": "接口实现"
+  },
+  {
+    "id": "contract",
+    "category": "Interfészek",
+    "hu": "műveleti szerződés",
+    "en": "operation contract",
+    "zh": "操作契约"
+  },
+  {
+    "id": "interface-type",
+    "category": "Interfészek",
+    "hu": "interfésztípus",
+    "en": "interface type",
+    "zh": "接口类型"
+  },
+  {
+    "id": "multiple-interface-implementation",
+    "category": "Interfészek",
+    "hu": "többszörös interfész-implementáció",
+    "en": "multiple interface implementation",
+    "zh": "实现多个接口"
+  },
+  {
+    "id": "delegation",
+    "category": "Interfészek",
+    "hu": "feladatdelegálás",
+    "en": "task delegation",
+    "zh": "任务委派"
+  },
+  {
+    "id": "natural-order",
+    "category": "Interfészek",
+    "hu": "természetes sorrend",
+    "en": "natural ordering",
+    "zh": "自然顺序"
+  },
+  {
+    "id": "comparable",
+    "category": "Interfészek",
+    "hu": "összehasonlítható (Comparable)",
+    "en": "comparable",
+    "zh": "可比较（Comparable）"
+  },
+  {
+    "id": "comparator",
+    "category": "Interfészek",
+    "hu": "összehasonlító (Comparator)",
+    "en": "comparator",
+    "zh": "比较器（Comparator）"
+  },
+  {
+    "id": "iterable",
+    "category": "Interfészek",
+    "hu": "bejárható objektum (Iterable)",
+    "en": "iterable",
+    "zh": "可迭代对象（Iterable）"
+  },
+  {
+    "id": "iterator",
+    "category": "Interfészek",
+    "hu": "iterátor (Iterator)",
+    "en": "iterator",
+    "zh": "迭代器（Iterator）"
+  },
+  {
+    "id": "default-method",
+    "category": "Interfészek",
+    "hu": "alapértelmezett interfészmetódus",
+    "en": "default interface method",
+    "zh": "接口默认方法"
+  },
+  {
+    "id": "exception-handling",
+    "category": "Kivételek",
+    "hu": "kivételkezelés",
+    "en": "exception handling",
+    "zh": "异常处理"
+  },
+  {
+    "id": "throw-exception",
+    "category": "Kivételek",
+    "hu": "kivétel dobása",
+    "en": "throwing an exception",
+    "zh": "抛出异常"
+  },
+  {
+    "id": "catch-exception",
+    "category": "Kivételek",
+    "hu": "kivétel elkapása",
+    "en": "catching an exception",
+    "zh": "捕获异常"
+  },
+  {
+    "id": "exception-propagation",
+    "category": "Kivételek",
+    "hu": "kivétel továbbterjedése",
+    "en": "exception propagation",
+    "zh": "异常传播"
+  },
+  {
+    "id": "call-stack",
+    "category": "Kivételek",
+    "hu": "hívási verem",
+    "en": "call stack",
+    "zh": "调用栈"
+  },
+  {
+    "id": "checked-exception",
+    "category": "Kivételek",
+    "hu": "ellenőrzött kivétel",
+    "en": "checked exception",
+    "zh": "受检异常"
+  },
+  {
+    "id": "unchecked-exception",
+    "category": "Kivételek",
+    "hu": "nem ellenőrzött kivétel",
+    "en": "unchecked exception",
+    "zh": "非受检异常"
+  },
+  {
+    "id": "custom-exception",
+    "category": "Kivételek",
+    "hu": "saját kivétel",
+    "en": "custom exception",
+    "zh": "自定义异常"
+  },
+  {
+    "id": "finally-block",
+    "category": "Kivételek",
+    "hu": "finally blokk",
+    "en": "finally block",
+    "zh": "finally 块"
+  },
+  {
+    "id": "resource-cleanup",
+    "category": "Kivételek",
+    "hu": "erőforrás felszabadítása",
+    "en": "resource cleanup",
+    "zh": "资源释放"
+  },
+  {
+    "id": "try-with-resources",
+    "category": "Kivételek",
+    "hu": "try-with-resources szerkezet",
+    "en": "try-with-resources statement",
+    "zh": "try-with-resources 语句"
+  }
+]
