@@ -337,6 +337,48 @@ In these exercises, we will extend familiar class hierarchies with common operat
 
 ![Shapes – UML](content/chapters/10-absztrakt-osztalyok/media/task-shapes-en.svg){width=650}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Shape`**
+
+**Fields and properties**
+- Create an abstract `Shape` class containing the `name : String` field. The name must not be `null` or empty. It can be read using `getName()` but cannot be modified from outside the class.
+
+**Constructors**
+- `Shape(name : String)` – The `Shape(name : String)` constructor must validate and store the name. The `Rectangle(name : String, width : double, height : double)` and `Circle(name : String, radius : double)` constructors must initialise the common data through the superclass constructor and validate their own fields.
+
+**Methods and accessors**
+- `getArea() : double {abstract}` – The detailed requirements below define the exact behaviour of this method.
+- `getPerimeter() : double {abstract}` – The detailed requirements below define the exact behaviour of this method.
+- `isLargerThan(other : Shape) : boolean` – The shared concrete `isLargerThan(other : Shape) : boolean` method must compare the areas and return `true` if this shape is larger. Throw an exception if the parameter is `null`.
+
+**Class: `Rectangle`**
+
+**Fields and properties**
+- `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
+- `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
+
+**Constructors**
+- `Rectangle(name : String, width : double, height : double)` – The `Shape(name : String)` constructor must validate and store the name. The `Rectangle(name : String, width : double, height : double)` and `Circle(name : String, radius : double)` constructors must initialise the common data through the superclass constructor and validate their own fields.
+
+**Methods and accessors**
+- `getArea() : double` – The detailed requirements below define the exact behaviour of this method.
+- `getPerimeter() : double` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `Circle`**
+
+**Fields and properties**
+- `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
+
+**Constructors**
+- `Circle(name : String, radius : double)` – The `Shape(name : String)` constructor must validate and store the name. The `Rectangle(name : String, width : double, height : double)` and `Circle(name : String, radius : double)` constructors must initialise the common data through the superclass constructor and validate their own fields.
+
+**Methods and accessors**
+- `getArea() : double` – The detailed requirements below define the exact behaviour of this method.
+- `getPerimeter() : double` – The detailed requirements below define the exact behaviour of this method.
+
+**Detailed behavioural requirements**
+
 **Classes and fields**
 - Create an abstract `Shape` class containing the `name : String` field. The name must not be `null` or empty. It can be read using `getName()` but cannot be modified from outside the class.
 - `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
@@ -361,6 +403,45 @@ In these exercises, we will extend familiar class hierarchies with common operat
 
 ![Publications – UML](content/chapters/10-absztrakt-osztalyok/media/task-publications-en.svg){width=650}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Publication`**
+
+**Fields and properties**
+- The abstract `Publication` class stores a nonempty `title : String` and a positive `basePrice : int`. Only its constructor may set these fields; provide `getTitle()` and `getBasePrice()` methods for reading them.
+- The abstract `Publication` class stores a nonempty `title : String` and a positive `basePrice : int`. Only its constructor may set these fields; provide `getTitle()` and `getBasePrice()` methods for reading them.
+
+**Constructors**
+- `Publication(title : String, basePrice : int)` – The `Publication(title : String, basePrice : int)` constructor must validate the shared data. The subclass constructors must receive and validate both the shared data and their additional field.
+
+**Methods and accessors**
+- `calculateShippingCost() : int {abstract}` – Declare an abstract `calculateShippingCost() : int` in `Publication`. The shipping cost for a textbook is `600 + 2 * pageCount`, while the cost for a magazine is `400` forints.
+- `getTotalPrice() : int` – The concrete `getTotalPrice() : int` method must add the shipping cost to the base price. Do not create separate total-price methods in the subclasses.
+
+**Class: `Textbook`**
+
+**Fields and properties**
+- `Textbook` stores a positive `pageCount : int` and `Magazine` stores a positive `issueNumber : int`.
+
+**Constructors**
+- `Textbook(title : String, basePrice : int, pageCount : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `calculateShippingCost() : int` – Declare an abstract `calculateShippingCost() : int` in `Publication`. The shipping cost for a textbook is `600 + 2 * pageCount`, while the cost for a magazine is `400` forints.
+
+**Class: `Magazine`**
+
+**Fields and properties**
+- `Textbook` stores a positive `pageCount : int` and `Magazine` stores a positive `issueNumber : int`.
+
+**Constructors**
+- `Magazine(title : String, basePrice : int, issueNumber : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `calculateShippingCost() : int` – Declare an abstract `calculateShippingCost() : int` in `Publication`. The shipping cost for a textbook is `600 + 2 * pageCount`, while the cost for a magazine is `400` forints.
+
+**Detailed behavioural requirements**
+
 **Classes and fields**
 - The abstract `Publication` class stores a nonempty `title : String` and a positive `basePrice : int`. Only its constructor may set these fields; provide `getTitle()` and `getBasePrice()` methods for reading them.
 - `Textbook` stores a positive `pageCount : int` and `Magazine` stores a positive `issueNumber : int`.
@@ -384,6 +465,45 @@ In these exercises, we will extend familiar class hierarchies with common operat
 
 ![Vehicles – UML](content/chapters/10-absztrakt-osztalyok/media/task-vehicles-en.svg){width=650}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Vehicle`**
+
+**Fields and properties**
+- The abstract `Vehicle` class stores a nonempty `brand : String` and nonnegative `mileage : int`. Only the constructor may set these fields; create `getBrand()` and `getMileage()` methods to read them.
+- The abstract `Vehicle` class stores a nonempty `brand : String` and nonnegative `mileage : int`. Only the constructor may set these fields; create `getBrand()` and `getMileage()` methods to read them.
+
+**Constructors**
+- `Vehicle(brand : String, mileage : int)` – The `Vehicle(brand : String, mileage : int)` constructor must validate the shared fields. Subclass constructors must call it and then initialise their additional field.
+
+**Methods and accessors**
+- `getServiceInterval() : int {abstract}` – Declare an abstract `getServiceInterval() : int` in `Vehicle`. For cars, the interval is `15000` km when engine capacity is at least `1600`, and `10000` km otherwise. For motorcycles, it is `5000` km with a sidecar and `7000` km without one.
+- `needsService(kmSinceService : int) : boolean` – The concrete `needsService(kmSinceService : int) : boolean` method must compare a nonnegative distance with the applicable service interval and return `true` once the interval is reached. Negative input must cause an exception.
+
+**Class: `Car`**
+
+**Fields and properties**
+- `Car` adds a positive `engineCapacity : int` field and `Motorcycle` adds a `sidecar : boolean` field.
+
+**Constructors**
+- `Car(brand : String, mileage : int, engineCapacity : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `getServiceInterval() : int` – Declare an abstract `getServiceInterval() : int` in `Vehicle`. For cars, the interval is `15000` km when engine capacity is at least `1600`, and `10000` km otherwise. For motorcycles, it is `5000` km with a sidecar and `7000` km without one.
+
+**Class: `Motorcycle`**
+
+**Fields and properties**
+- `Car` adds a positive `engineCapacity : int` field and `Motorcycle` adds a `sidecar : boolean` field.
+
+**Constructors**
+- `Motorcycle(brand : String, mileage : int, sidecar : boolean)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `getServiceInterval() : int` – Declare an abstract `getServiceInterval() : int` in `Vehicle`. For cars, the interval is `15000` km when engine capacity is at least `1600`, and `10000` km otherwise. For motorcycles, it is `5000` km with a sidecar and `7000` km without one.
+
+**Detailed behavioural requirements**
+
 **Classes and fields**
 - The abstract `Vehicle` class stores a nonempty `brand : String` and nonnegative `mileage : int`. Only the constructor may set these fields; create `getBrand()` and `getMileage()` methods to read them.
 - `Car` adds a positive `engineCapacity : int` field and `Motorcycle` adds a `sidecar : boolean` field.
@@ -406,6 +526,47 @@ In these exercises, we will extend familiar class hierarchies with common operat
 ### Bank Accounts
 
 ![Bank accounts – UML](content/chapters/10-absztrakt-osztalyok/media/task-bank-en.svg){width=650}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `BankAccount`**
+
+**Fields and properties**
+- The abstract `BankAccount` stores a nonempty `accountNumber : String` and nonnegative `balance : int`. The account number must be read-only; the balance may change only through the previously implemented deposit and withdrawal methods. `+ getAccountNumber() : String`. The getter returns the current value of the field.
+- The abstract `BankAccount` stores a nonempty `accountNumber : String` and nonnegative `balance : int`. The account number must be read-only; the balance may change only through the previously implemented deposit and withdrawal methods. `+ getBalance() : int`. The getter returns the current value of the field.
+
+**Constructors**
+- `BankAccount(accountNumber : String, balance : int)` – The `BankAccount(accountNumber : String, balance : int)` constructor must validate its fields. The subclass constructors must also validate their own parameters.
+
+**Methods and accessors**
+- `deposit(amount : int) : void` – `deposit(amount : int) : void` must accept a positive amount and increase the balance. `withdraw(amount : int) : void` must allow only a positive amount not exceeding the current balance. Both are concrete methods of the base class and throw exceptions for invalid input.
+- `withdraw(amount : int) : void` – The detailed requirements below define the exact behaviour of this method.
+- `calculateTransferFee(amount : int) : int {abstract}` – Declare abstract `calculateTransferFee(amount : int) : int` in `BankAccount`. The amount must be positive. Treat `feePercent` as a percentage (e.g. `2.5` means 2.5%). Calculating the fee does not consume a free transfer. For a savings account, the fee is `0` when free transfers remain, otherwise `300` forints. For a business account, round `amount * feePercent / 100` upwards to the next integer.
+- `canTransfer(amount : int) : boolean` – The shared `canTransfer(amount : int) : boolean` method must check whether the balance covers both the transfer amount and its fee. Calling this method must neither withdraw any money nor decrease the remaining number of free transfers.
+
+**Class: `SavingsAccount`**
+
+**Fields and properties**
+- `SavingsAccount` stores a nonnegative `monthlyFreeTransfers : int`, while `BusinessAccount` stores a positive `feePercent : double` fee percentage.
+
+**Constructors**
+- `SavingsAccount(accountNumber : String, balance : int,    monthlyFreeTransfers : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `calculateTransferFee(amount : int) : int` – Declare abstract `calculateTransferFee(amount : int) : int` in `BankAccount`. The amount must be positive. Treat `feePercent` as a percentage (e.g. `2.5` means 2.5%). Calculating the fee does not consume a free transfer. For a savings account, the fee is `0` when free transfers remain, otherwise `300` forints. For a business account, round `amount * feePercent / 100` upwards to the next integer.
+
+**Class: `BusinessAccount`**
+
+**Fields and properties**
+- `SavingsAccount` stores a nonnegative `monthlyFreeTransfers : int`, while `BusinessAccount` stores a positive `feePercent : double` fee percentage.
+
+**Constructors**
+- `BusinessAccount(accountNumber : String, balance : int,    feePercent : double)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `calculateTransferFee(amount : int) : int` – Declare abstract `calculateTransferFee(amount : int) : int` in `BankAccount`. The amount must be positive. Treat `feePercent` as a percentage (e.g. `2.5` means 2.5%). Calculating the fee does not consume a free transfer. For a savings account, the fee is `0` when free transfers remain, otherwise `300` forints. For a business account, round `amount * feePercent / 100` upwards to the next integer.
+
+**Detailed behavioural requirements**
 
 **Classes and fields**
 - The abstract `BankAccount` stores a nonempty `accountNumber : String` and nonnegative `balance : int`. The account number must be read-only; the balance may change only through the previously implemented deposit and withdrawal methods.
@@ -431,6 +592,46 @@ In these exercises, we will extend familiar class hierarchies with common operat
 
 ![Movies and series – UML](content/chapters/10-absztrakt-osztalyok/media/task-media-en.svg){width=650}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `MediaItem`**
+
+**Fields and properties**
+- The abstract `MediaItem` class stores a nonempty `title : String` and positive `releaseYear : int`. Expose these through `getTitle()` and `getReleaseYear()`, but do not allow external modification.
+- The abstract `MediaItem` class stores a nonempty `title : String` and positive `releaseYear : int`. Expose these through `getTitle()` and `getReleaseYear()`, but do not allow external modification.
+
+**Constructors**
+- `MediaItem(title : String, releaseYear : int)` – The `MediaItem(title : String, releaseYear : int)` constructor must validate and initialise the shared data. The `Movie` and `Series` constructors must also validate their additional fields.
+
+**Methods and accessors**
+- `getTotalDuration() : int {abstract}` – Declare abstract `getTotalDuration() : int` in `MediaItem`. For a movie, this is its duration. For a series, it is the number of episodes multiplied by the average episode duration.
+- `fitsInto(availableMinutes : int) : boolean` – The shared `fitsInto(availableMinutes : int) : boolean` method must return whether the nonnegative time allowance is at least the full duration. Throw an exception for negative input.
+
+**Class: `Movie`**
+
+**Fields and properties**
+- `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
+
+**Constructors**
+- `Movie(title : String, releaseYear : int, duration : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `getTotalDuration() : int` – Declare abstract `getTotalDuration() : int` in `MediaItem`. For a movie, this is its duration. For a series, it is the number of episodes multiplied by the average episode duration.
+
+**Class: `Series`**
+
+**Fields and properties**
+- `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
+- `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
+
+**Constructors**
+- `Series(title : String, releaseYear : int,    episodeCount : int, episodeDuration : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `getTotalDuration() : int` – Declare abstract `getTotalDuration() : int` in `MediaItem`. For a movie, this is its duration. For a series, it is the number of episodes multiplied by the average episode duration.
+
+**Detailed behavioural requirements**
+
 **Classes and fields**
 - The abstract `MediaItem` class stores a nonempty `title : String` and positive `releaseYear : int`. Expose these through `getTitle()` and `getReleaseYear()`, but do not allow external modification.
 - `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
@@ -454,6 +655,50 @@ In these exercises, we will extend familiar class hierarchies with common operat
 
 ![Coffee preparation – detailed UML](content/chapters/10-absztrakt-osztalyok/media/task-coffee-en.svg){width=650}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Coffee`**
+
+**Fields and properties**
+- Create an **abstract `Coffee` class** with `coffeeGrams : int` and `waterMl : int` fields. Both fields must be `protected` and strictly positive.
+- Create an **abstract `Coffee` class** with `coffeeGrams : int` and `waterMl : int` fields. Both fields must be `protected` and strictly positive.
+
+**Constructors**
+- `Coffee(coffeeGrams : int, waterMl : int)` – `Coffee(coffeeGrams : int, waterMl : int)` validates and initializes the shared data. The `Coffee` class cannot be instantiated directly.
+
+**Methods and accessors**
+- `# grind() : int {abstract}` – `prepare() : int`: call `grind()`, `brew()` and `addMilk()` in that order, then return their sum. **Do not override** this method in derived classes.
+- `# brew() : int {abstract}` – The detailed requirements below define the exact behaviour of this method.
+- `# addMilk() : int` – The detailed requirements below define the exact behaviour of this method.
+- `prepare() : int` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `Espresso`**
+
+**Fields and properties**
+- `Espresso` derives from `Coffee` and stores a private, positive `pressureBar : int` value.
+
+**Constructors**
+- `Espresso(coffeeGrams : int, waterMl : int, pressureBar : int)` – `Espresso(coffeeGrams : int, waterMl : int, pressureBar : int)` and `Cappuccino(coffeeGrams : int, waterMl : int, milkMl : int)` invoke the superclass constructor and then validate their own fields.
+
+**Methods and accessors**
+- `# grind() : int` – `prepare() : int`: call `grind()`, `brew()` and `addMilk()` in that order, then return their sum. **Do not override** this method in derived classes.
+- `# brew() : int` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `Cappuccino`**
+
+**Fields and properties**
+- `Cappuccino` also derives directly from `Coffee` and stores a private, positive `milkMl : int` value.
+
+**Constructors**
+- `Cappuccino(coffeeGrams : int, waterMl : int, milkMl : int)` – `Espresso(coffeeGrams : int, waterMl : int, pressureBar : int)` and `Cappuccino(coffeeGrams : int, waterMl : int, milkMl : int)` invoke the superclass constructor and then validate their own fields.
+
+**Methods and accessors**
+- `# grind() : int` – `prepare() : int`: call `grind()`, `brew()` and `addMilk()` in that order, then return their sum. **Do not override** this method in derived classes.
+- `# brew() : int` – The detailed requirements below define the exact behaviour of this method.
+- `# addMilk() : int` – The detailed requirements below define the exact behaviour of this method.
+
+**Detailed behavioural requirements**
+
 Extend the earlier coffee example so that its operations calculate preparation time instead of merely printing messages. The base class defines the sequence of operations, while concrete coffee types calculate the duration of each step.
 
 **Classes and fields**
@@ -475,4 +720,5 @@ Extend the earlier coffee example so that its operations calculate preparation t
 
 **Main program and verification**
 - Create two `Espresso` and two `Cappuccino` objects with different data, store them in `ArrayList<Coffee>`, and find the one with the longest preparation time. Verify that the constructors reject invalid inputs by throwing exceptions.
+
 :::endexercise

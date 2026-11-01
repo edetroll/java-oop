@@ -470,6 +470,22 @@ These exercises practise restricting access to internal implementation details a
 
 ![Rectangles – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-rectangle-en.svg){width=590}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `RectangleSize`**
+
+**Fields and properties**
+- Create a `final` `RectangleSize` class with `width : double` and `height : double` fields. Both must be `private final` and store positive real values. `+ getWidth() : double`. The getter returns the current value of the field.
+- Create a `final` `RectangleSize` class with `width : double` and `height : double` fields. Both must be `private final` and store positive real values. `+ getHeight() : double`. The getter returns the current value of the field.
+
+**Constructors**
+- `RectangleSize(width : double, height : double)` – The `RectangleSize(width : double, height : double)` constructor must validate both arguments. `getWidth()` and `getHeight()` provide read-only access.
+
+**Methods and accessors**
+- `getArea() : double` – The detailed requirements below define the exact behaviour of this method.
+
+**Detailed behavioural requirements**
+
 **Classes and fields**
 - Create a `final` `RectangleSize` class with `width : double` and `height : double` fields. Both must be `private final` and store positive real values.
 
@@ -477,6 +493,7 @@ These exercises practise restricting access to internal implementation details a
 - The `RectangleSize(width : double, height : double)` constructor must validate both arguments. `getWidth()` and `getHeight()` provide read-only access.
 - `getArea() : double` must calculate the area. Dimensions must not be modifiable after construction.
 - Try to derive a class from `RectangleSize` that calculates area differently, and examine the compiler error.
+
 :::endexercise
 
 :::exercise
@@ -485,6 +502,32 @@ These exercises practise restricting access to internal implementation details a
 **Main mechanism:** a private `static` nested class. Outside code must not access the records or obtain a mutable reference to the stored list.
 
 ![Library – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-library-en.svg){width=640}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Library`**
+
+**Fields and properties**
+- `Library` must have a private `loans : ArrayList<LoanRecord>` collection initialised when the library is created.
+
+**Constructors**
+- `Library()` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `addLoan(bookId : String, days : int) : void` – `addLoan(bookId : String, days : int) : void` must construct and store a record. A book identifier may occur at most once; throw an exception for a duplicate.
+- `countOverdue(allowedDays : int) : int` – `countOverdue(allowedDays : int) : int` must count loans whose duration exceeds the nonnegative limit. `getLoanCount() : int` must return the number of records.
+- `getLoanCount() : int` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `Library.LoanRecord`**
+
+**Fields and properties**
+- Within `Library`, create a private, statically nested `LoanRecord` class storing a nonempty `bookId : String` and nonnegative `days : int`.
+- Within `Library`, create a private, statically nested `LoanRecord` class storing a nonempty `bookId : String` and nonnegative `days : int`.
+
+**Methods and accessors**
+- `- LoanRecord(bookId : String, days : int)` – `LoanRecord(bookId : String, days : int)` must validate both fields. External code must not access the nested class or the collection directly.
+
+**Detailed behavioural requirements**
 
 **Classes and fields**
 - Within `Library`, create a private, statically nested `LoanRecord` class storing a nonempty `bookId : String` and nonnegative `days : int`.
@@ -495,6 +538,7 @@ These exercises practise restricting access to internal implementation details a
 - `addLoan(bookId : String, days : int) : void` must construct and store a record. A book identifier may occur at most once; throw an exception for a duplicate.
 - `countOverdue(allowedDays : int) : int` must count loans whose duration exceeds the nonnegative limit. `getLoanCount() : int` must return the number of records.
 - Verify that the main program can modify records only through the public interface.
+
 :::endexercise
 
 :::exercise
@@ -503,6 +547,28 @@ These exercises practise restricting access to internal implementation details a
 **Main mechanism:** a non-static inner class. Each service ticket must use the hourly rate of the particular garage to which it belongs.
 
 ![Garage – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-garage-en.svg){width=660}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Garage`**
+
+**Fields and properties**
+- The `Garage` class stores a nonempty `name : String` and positive `hourlyRate : int`, both private. `+ getName() : String`. The getter returns the current value of the field.
+- The `Garage` class stores a nonempty `name : String` and positive `hourlyRate : int`, both private. `+ getHourlyRate() : int`. The getter returns the current value of the field.
+
+**Constructors**
+- `Garage(name : String, hourlyRate : int)` – The `Garage(name : String, hourlyRate : int)` constructor must validate both fields. The `ServiceTicket(hours : int)` constructor must validate and save the hours.
+
+**Class: `Garage.ServiceTicket`**
+
+**Fields and properties**
+- Define a public, non-static `ServiceTicket` inner class inside `Garage`. It stores positive `hours : int` in a private field.
+
+**Methods and accessors**
+- `ServiceTicket(hours : int)` – The `Garage(name : String, hourlyRate : int)` constructor must validate both fields. The `ServiceTicket(hours : int)` constructor must validate and save the hours.
+- `calculateCost() : int` – The detailed requirements below define the exact behaviour of this method.
+
+**Detailed behavioural requirements**
 
 **Classes and fields**
 - The `Garage` class stores a nonempty `name : String` and positive `hourlyRate : int`, both private.
@@ -513,6 +579,7 @@ These exercises practise restricting access to internal implementation details a
 - `ServiceTicket.calculateCost() : int` must calculate the cost using the hourly rate of its enclosing `Garage` instance.
 - Provide `getName() : String` and `getHourlyRate() : int` in `Garage`; neither field may be modified externally.
 - Create two garages with different hourly rates and one service ticket for each. Demonstrate that the same duration produces different costs.
+
 :::endexercise
 
 :::exercise
@@ -521,6 +588,33 @@ These exercises practise restricting access to internal implementation details a
 **Main mechanism:** a `final` instance method. `withdraw()` remains callable in a subclass but cannot be redefined with the same parameter signature.
 
 ![Bank accounts – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-bank-en.svg){width=660}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `BankAccount`**
+
+**Fields and properties**
+- `BankAccount` stores private `accountNumber : String` and `balance : int` fields. The account number cannot be empty, and the balance must be nonnegative. `+ getAccountNumber() : String`. The getter returns the current value of the field.
+- `BankAccount` stores private `accountNumber : String` and `balance : int` fields. The account number cannot be empty, and the balance must be nonnegative. `+ getBalance() : int`. The getter returns the current value of the field.
+
+**Constructors**
+- `BankAccount(accountNumber : String, balance : int)` – The `BankAccount(accountNumber : String, balance : int)` and `SavingsAccount(accountNumber : String, balance : int, interestRate : double)` constructors must validate and initialise all their data.
+
+**Methods and accessors**
+- `withdraw(amount : int) : void {final}` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `SavingsAccount`**
+
+**Fields and properties**
+- `SavingsAccount` extends it with a nonnegative `interestRate : double` field.
+
+**Constructors**
+- `SavingsAccount(accountNumber : String, balance : int,    interestRate : double)` – The `BankAccount(accountNumber : String, balance : int)` and `SavingsAccount(accountNumber : String, balance : int, interestRate : double)` constructors must validate and initialise all their data.
+
+**Methods and accessors**
+- `calculateMonthlyInterest() : int` – The detailed requirements below define the exact behaviour of this method.
+
+**Detailed behavioural requirements**
 
 **Classes and fields**
 - `BankAccount` stores private `accountNumber : String` and `balance : int` fields. The account number cannot be empty, and the balance must be nonnegative.
@@ -531,6 +625,7 @@ These exercises practise restricting access to internal implementation details a
 - Declare `BankAccount.withdraw(amount : int) : void` as `final`. It must reject nonpositive amounts and withdrawals that would make the balance negative.
 - `getBalance() : int` and `getAccountNumber() : String` provide read-only access. `SavingsAccount.calculateMonthlyInterest() : int` returns the integer obtained by rounding the product of the balance and interest rate downwards.
 - Demonstrate that the inherited `withdraw()` can be used but cannot be overridden in `SavingsAccount`.
+
 :::endexercise
 
 :::exercise
@@ -539,6 +634,32 @@ These exercises practise restricting access to internal implementation details a
 **Main mechanism:** a private `static` nested helper class in a container. Only public methods of the containing class may manage the records.
 
 ![Movie catalogue – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-movies-en.svg){width=660}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `MovieCatalog`**
+
+**Fields and properties**
+- `MovieCatalog` contains a private `screenings : ArrayList<Screening>` collection.
+
+**Constructors**
+- `MovieCatalog()` – `Screening(movieTitle : String, seatsSold : int)` must validate its parameters, and `MovieCatalog()` must initialise the list.
+
+**Methods and accessors**
+- `addScreening(movieTitle : String, seatsSold : int) : void` – `addScreening(movieTitle : String, seatsSold : int) : void` must add a screening. `getTotalTickets() : int` must return the total number of tickets sold.
+- `getTotalTickets() : int` – The detailed requirements below define the exact behaviour of this method.
+- `countPopular(minimumTickets : int) : int` – `countPopular(minimumTickets : int) : int` must count screenings with at least the given nonnegative ticket count. Throw an exception for negative input.
+
+**Class: `MovieCatalog.Screening`**
+
+**Fields and properties**
+- Define a private, statically nested `Screening` class inside `MovieCatalog`. Each screening stores a nonempty `movieTitle : String` and a nonnegative `seatsSold : int`.
+- Define a private, statically nested `Screening` class inside `MovieCatalog`. Each screening stores a nonempty `movieTitle : String` and a nonnegative `seatsSold : int`.
+
+**Methods and accessors**
+- `- Screening(movieTitle : String, seatsSold : int)` – Define a private, statically nested `Screening` class inside `MovieCatalog`. Each screening stores a nonempty `movieTitle : String` and a nonnegative `seatsSold : int`.
+
+**Detailed behavioural requirements**
 
 **Classes and fields**
 - Define a private, statically nested `Screening` class inside `MovieCatalog`. Each screening stores a nonempty `movieTitle : String` and a nonnegative `seatsSold : int`.
@@ -549,4 +670,5 @@ These exercises practise restricting access to internal implementation details a
 - `addScreening(movieTitle : String, seatsSold : int) : void` must add a screening. `getTotalTickets() : int` must return the total number of tickets sold.
 - `countPopular(minimumTickets : int) : int` must count screenings with at least the given nonnegative ticket count. Throw an exception for negative input.
 - Neither the collection nor the `Screening` instances may be exposed directly. Test the summary methods after adding several screenings.
+
 :::endexercise

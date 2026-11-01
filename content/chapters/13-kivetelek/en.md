@@ -741,6 +741,45 @@ The first exercises extend classes developed earlier, while the later ones invol
 
 ![UML](content/chapters/13-kivetelek/media/task-1-en.svg){width=760}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `TemperatureSetting`**
+
+**Fields and properties**
+- `+ {static} MIN : int = 18` – The declaration specifies the exact field type and visibility.
+- `+ {static} MAX : int = 28` – The declaration specifies the exact field type and visibility.
+- **Target temperature (`targetTemperature : int`):** private, valid integer values in $[18,28]$. `getTargetTemperature() : int` returns the stored value. `setTargetTemperature(value : int) : void` throws `TooLowTemperatureException` below 18 and `TooHighTemperatureException` above 28, declares both with `throws`, and must not change the stored value after either failure. The public `resetToMinimum() : void` and `resetToMaximum() : void` methods set 18 and 28 without throwing checked exceptions.
+
+**Constructors**
+- `TemperatureSetting()` – `TemperatureSetting()` initializes the target to 22. Each exception constructor receives the rejected value, stores it, and passes a suitable message to its superclass.
+
+**Methods and accessors**
+- `resetToMinimum() : void` – **Target temperature (`targetTemperature : int`):** private, valid integer values in $[18,28]$. `getTargetTemperature() : int` returns the stored value. `setTargetTemperature(value : int) : void` throws `TooLowTemperatureException` below 18 and `TooHighTemperatureException` above 28, declares both with `throws`, and must not change the stored value after either failure. The public `resetToMinimum() : void` and `resetToMaximum() : void` methods set 18 and 28 without throwing checked exceptions.
+- `resetToMaximum() : void` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `TooLowTemperatureException`**
+
+**Fields and properties**
+- **Rejected value (`suppliedValue : int`):** private field in both custom exceptions. `getSuppliedValue() : int` returns it. Both exceptions extend `Exception` directly.
+
+**Constructors**
+- `TooLowTemperatureException(value : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `TooHighTemperatureException`**
+
+**Fields and properties**
+- **Rejected value (`suppliedValue : int`):** private field in both custom exceptions. `getSuppliedValue() : int` returns it. Both exceptions extend `Exception` directly.
+
+**Constructors**
+- `TooHighTemperatureException(value : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `Exception`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Detailed behavioural requirements**
+
 Create a `TemperatureSetting` class representing a thermostat, together with two custom exceptions. The thermostat stores a target temperature, but the main program decides how to correct invalid input.
 
 **Fields and access**
@@ -760,6 +799,56 @@ Create a `TemperatureSetting` class representing a thermostat, together with two
 ### Books – price limits and recoverable data {#task-2}
 
 ![UML](content/chapters/13-kivetelek/media/task-2-en.svg){width=760}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Book`**
+
+**Fields and properties**
+- **ISBN (`isbn : String`):** private, non-null and non-empty. `getIsbn() : String` returns it; no setter.
+- `title : String`: private book title, externally read-only. `+ getTitle() : String` `+ setTitle(value : String) : void`. The setter may store the new value only after validation; invalid input must leave the previous state unchanged.
+- **Price (`price : int`):** private, valid in $[500,50000]$. `getPrice() : int` returns it. `setPrice(value : int)` throws `PriceTooLowException` or `PriceTooHighException` and declares both with `throws`. A rejected change must not alter the stored price. `resetPriceToMinimum() : void` and `resetPriceToMaximum() : void` set the price to 500 and 50000 without throwing another exception.
+
+**Constructors**
+- `Book(isbn : String, title : String, price : int)` – `Book(isbn : String, title : String, price : int)` validates all fields and declares any propagated checked exceptions using `throws`. Each exception constructor stores the price and passes an explanatory message to its superclass.
+
+**Methods and accessors**
+- `resetPriceToMinimum() : void` – **Price (`price : int`):** private, valid in $[500,50000]$. `getPrice() : int` returns it. `setPrice(value : int)` throws `PriceTooLowException` or `PriceTooHighException` and declares both with `throws`. A rejected change must not alter the stored price. `resetPriceToMinimum() : void` and `resetPriceToMaximum() : void` set the price to 500 and 50000 without throwing another exception.
+- `resetPriceToMaximum() : void` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `PriceTooLowException`**
+
+**Fields and properties**
+- **Rejected price (`requestedPrice : int`):** private in both exception types, exposed through `getRequestedPrice() : int`. Both exceptions extend `Exception` directly.
+
+**Constructors**
+- `PriceTooLowException(price : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `PriceTooHighException`**
+
+**Fields and properties**
+- **Rejected price (`requestedPrice : int`):** private in both exception types, exposed through `getRequestedPrice() : int`. Both exceptions extend `Exception` directly.
+
+**Constructors**
+- `PriceTooHighException(price : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `BookShelf`**
+
+**Fields and properties**
+- **Stored books (`books : ArrayList<Book>`):** private list of `BookShelf`, without a direct setter. `+ getBooks() : List<Book>`. The getter returns the current value of the field.
+
+**Constructors**
+- `BookShelf()` – The `BookShelf()` constructor creates an empty list. The container provides `addBook(book : Book) : void` and `getBooks() : List<Book>`. The returned collection must not allow changes to the internal list. Reject another book with an existing ISBN using `IllegalArgumentException`.
+
+**Methods and accessors**
+- `addBook(book : Book) : void` – `addBook(book : Book) : void`: rejects `null` and books with an ISBN already present, throwing `IllegalArgumentException`.
+
+**Class: `Exception`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Detailed behavioural requirements**
 
 Extend the earlier `Book` class so that price errors are signalled by two distinct exceptions rather than by messages printed inside the class. You may reuse the previously developed container.
 
@@ -783,6 +872,58 @@ Extend the earlier `Book` class so that price errors are signalled by two distin
 ### Cinema screenings – selecting another show {#task-3}
 
 ![UML](content/chapters/13-kivetelek/media/task-3-en.svg){width=760}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Screening`**
+
+**Fields and properties**
+- **Title (`movieTitle : String`):** private, non-empty, accessible through `getMovieTitle() : String` with no setter.
+- **ID (`screeningId : String`):** private, non-empty, returned by `getScreeningId() : String` and never changed externally.
+- **Capacity (`capacity : int`):** positive, private, read-only through `getCapacity() : int`.
+- **Reserved seats (`reservedSeats : int`):** private, initially zero, read-only through `getReservedSeats() : int`. No direct setter.
+
+**Constructors**
+- `Screening(movieTitle : String,     screeningId : String,     capacity : int)` – `Screening(movieTitle : String, screeningId : String, capacity : int)` validates and stores the fields; `getFreeSeats() : int` returns the number of remaining seats.
+
+**Methods and accessors**
+- `getFreeSeats() : int` – `Screening(movieTitle : String, screeningId : String, capacity : int)` validates and stores the fields; `getFreeSeats() : int` returns the number of remaining seats.
+- `reserveSeats(count : int) : void` – Both exceptions extend `Exception` directly and accept a message in their constructors. `reserveSeats()` declares both checked exceptions using `throws`.
+
+**Class: `Cinema`**
+
+**Fields and properties**
+- **Screenings (`screenings : ArrayList<Screening>`):** private list of `Cinema`, with no direct setter. `Cinema()` initializes it empty.
+
+**Constructors**
+- `Cinema()` – **Screenings (`screenings : ArrayList<Screening>`):** private list of `Cinema`, with no direct setter. `Cinema()` initializes it empty.
+
+**Methods and accessors**
+- `addScreening(screening : Screening) : void` – `addScreening(screening : Screening) : void` rejects null and repeated IDs. `findWithFreeSeats(movieTitle : String, count : int) : Screening` returns the first screening of the specified movie that has at least `count` free seats, or `null` when none exists. The movie title must be nonempty and `count` positive; otherwise it throws `IllegalArgumentException`. Searching does not reserve seats.
+- `findWithFreeSeats(movieTitle : String,     count : int) : Screening` – The detailed requirements below define the exact behaviour of this method.
+
+**Class: `InvalidReservationException`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Constructors**
+- `InvalidReservationException(message : String)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `NotEnoughSeatsException`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Constructors**
+- `NotEnoughSeatsException(message : String)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `Exception`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Detailed behavioural requirements**
 
 Create a booking system where `Screening` represents one screening and `Cinema` stores the available screenings. A screening reports insufficient seats, while the application selects a different time.
 
@@ -810,6 +951,45 @@ Create a booking system where `Screening` represents one screening and `Cinema` 
 
 ![UML](content/chapters/13-kivetelek/media/task-4-en.svg){width=760}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Parcel`**
+
+**Fields and properties**
+- **Parcel ID (`parcelId : String`):** private, non-empty, returned by `getParcelId() : String`, with no setter.
+- **Weight (`weightKg : int`):** private, positive. `getWeightKg() : int` returns it and `setWeightKg(value : int) : void` validates it, throwing `IllegalArgumentException` if invalid without modifying the old value.
+
+**Constructors**
+- `Parcel(parcelId : String, weightKg : int)` – `Parcel(parcelId : String, weightKg : int)` validates both fields. `ShippingCenter()` creates an empty collection.
+
+**Class: `ShippingCenter`**
+
+**Fields and properties**
+- `+ {static} COURIER_LIMIT : int = 20` – The declaration specifies the exact field type and visibility.
+- **Shipped parcels (`shipped : ArrayList<Parcel>`):** private list within `ShippingCenter`. `getShipped() : List<Parcel>` returns a copy, so callers cannot modify the internal list through it.
+
+**Constructors**
+- `ShippingCenter()` – `Parcel(parcelId : String, weightKg : int)` validates both fields. `ShippingCenter()` creates an empty collection.
+
+**Methods and accessors**
+- `shipByCourier(parcel : Parcel) : void` – `shipByCourier(parcel : Parcel) : void` rejects null and repeated IDs. It throws `TooHeavyParcelException` if the weight exceeds the limit (declared with `throws`), otherwise it adds the parcel.
+- `shipByFreight(parcel : Parcel) : void` – `shipByFreight(parcel : Parcel) : void` performs the same null and duplicate checks but has no 20 kg restriction. `TooHeavyParcelException` extends `Exception` directly, receives the rejected weight in its constructor and exposes it through `getWeightKg() : int`.
+
+**Class: `TooHeavyParcelException`**
+
+**Fields and properties**
+- **Weight (`weightKg : int`):** private, positive. `getWeightKg() : int` returns it and `setWeightKg(value : int) : void` validates it, throwing `IllegalArgumentException` if invalid without modifying the old value.
+
+**Constructors**
+- `TooHeavyParcelException(weightKg : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `Exception`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Detailed behavioural requirements**
+
 Create a shipping system where ordinary courier delivery accepts parcels weighing up to 20 kg. When the parcel is too heavy, the application can choose freight delivery instead.
 
 **Fields and access**
@@ -832,6 +1012,51 @@ Create a shipping system where ordinary courier delivery accepts parcels weighin
 ### Measurements – file input and partial success {#task-5}
 
 ![UML](content/chapters/13-kivetelek/media/task-5-en.svg){width=760}
+
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
+
+**Class: `Measurement`**
+
+**Fields and properties**
+- **Sensor ID (`sensorId : String`):** private field of `Measurement`; it must not be `null` or empty. `getSensorId() : String` returns it; no setter is provided.
+- **Measured value (`value : int`):** private field of `Measurement`, valid in $[0,100]$. `getValue() : int` returns it. `setValue(value : int) : void` checks the interval, throwing `InvalidMeasurementException` on an invalid value without changing the previous one.
+
+**Constructors**
+- `Measurement(sensorId : String, value : int)` – `Measurement(sensorId : String, value : int)` validates its data and propagates (`throws`) `InvalidMeasurementException` for an invalid value. `MeasurementArchive()` creates an empty list.
+
+**Class: `MeasurementArchive`**
+
+**Fields and properties**
+- `MeasurementArchive` holds a private `measurements : ArrayList<Measurement>` list with no setter. `getMeasurements() : List<Measurement>` returns a copy of the list.
+
+**Constructors**
+- `MeasurementArchive()` – `Measurement(sensorId : String, value : int)` validates its data and propagates (`throws`) `InvalidMeasurementException` for an invalid value. `MeasurementArchive()` creates an empty list.
+
+**Methods and accessors**
+- `addMeasurement(measurement : Measurement) : void` – `addMeasurement(measurement : Measurement) : void` throws `IllegalArgumentException` for null or a repeated sensor ID.
+
+**Class: `MeasurementImporter`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Methods and accessors**
+- `load(fileName : String,     archive : MeasurementArchive) : int` – `MeasurementImporter` provides `load(fileName : String, archive : MeasurementArchive) : int`, which reads the file and returns the number of measurements added. Malformed lines, non-integer values and measurements outside the permitted interval are reported with their line numbers and skipped. Read using `Scanner` constructed with a `File` object. File-opening and reading errors must propagate as `IOException`; check `Scanner.ioException()` for I/O errors recorded during iteration. Use Java `try-with-resources` to close the scanner even after an exception. Report and skip malformed, out-of-range and duplicate-sensor records with their line numbers.
+
+**Class: `InvalidMeasurementException`**
+
+**Fields and properties**
+- `InvalidMeasurementException` is a **checked exception** extending `Exception`. A private `lineNumber : int` stores the affected line number (0 when unknown), returned by `getLineNumber() : int`. Its constructor accepts the message and line number.
+
+**Constructors**
+- `InvalidMeasurementException(message : String,     lineNumber : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Class: `Exception`**
+
+**Fields and properties**
+No additional instance fields.
+
+**Detailed behavioural requirements**
 
 Develop an application that reads measurements from a semicolon-separated text file. Each line has the form `identifier;value`; the identifier must be non-empty and the value must be an integer in $[0,100]$. Invalid rows should be reported and skipped, while valid rows are processed normally.
 

@@ -741,6 +741,45 @@ A feladatokban először korábban elkészített osztályokat egészítünk ki k
 
 ![UML](content/chapters/13-kivetelek/media/task-1-hu.svg){width=760}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `TemperatureSetting`**
+
+**Mezők és property-k**
+- `+ {static} MIN : int = 18` – A mező pontos típusa és láthatósága az alábbi szignatúrából olvasható ki.
+- `+ {static} MAX : int = 28` – A mező pontos típusa és láthatósága az alábbi szignatúrából olvasható ki.
+- **Célhőmérséklet (`targetTemperature : int`):** privát mező, megengedett értékei a $[18;28]$ intervallum egész számai. A publikus `getTargetTemperature() : int` getter adja vissza a tárolt értéket. A publikus `setTargetTemperature(value : int) : void` setter a túl alacsony értékre `TooLowTemperatureException`, a túl magas értékre `TooHighTemperatureException` kivételt dobjon, és a fejlécében a `throws` kulcsszóval jelezze mindkettőt. Hibás bemenet esetén a korábban tárolt érték nem változhat meg. A publikus `resetToMinimum() : void` és `resetToMaximum() : void` metódusok a megfelelő határértéket állítsák be; ezek nem dobhatnak saját kivételt.
+
+**Konstruktorok**
+- `TemperatureSetting()` – A `TemperatureSetting()` paraméter nélküli konstruktor állítsa a célhőmérsékletet 22-re. A két kivételosztály konstruktora kapja meg a hibás értéket, tárolja el, és az ősosztály konstruktorának adjon megfelelő szöveges üzenetet.
+
+**Metódusok és hozzáférések**
+- `resetToMinimum() : void` – **Célhőmérséklet (`targetTemperature : int`):** privát mező, megengedett értékei a $[18;28]$ intervallum egész számai. A publikus `getTargetTemperature() : int` getter adja vissza a tárolt értéket. A publikus `setTargetTemperature(value : int) : void` setter a túl alacsony értékre `TooLowTemperatureException`, a túl magas értékre `TooHighTemperatureException` kivételt dobjon, és a fejlécében a `throws` kulcsszóval jelezze mindkettőt. Hibás bemenet esetén a korábban tárolt érték nem változhat meg. A publikus `resetToMinimum() : void` és `resetToMaximum() : void` metódusok a megfelelő határértéket állítsák be; ezek nem dobhatnak saját kivételt.
+- `resetToMaximum() : void` – A metódus működését a következő részletes követelmények rögzítik.
+
+**Osztály: `TooLowTemperatureException`**
+
+**Mezők és property-k**
+- **Hibás érték (`suppliedValue : int`):** mindkét saját kivételosztály privát mezője. A `getSuppliedValue() : int` publikus getter adja vissza azt az értéket, amely miatt a kivétel keletkezett. Mindkét kivételosztály közvetlenül az `Exception` osztályból származzon.
+
+**Konstruktorok**
+- `TooLowTemperatureException(value : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `TooHighTemperatureException`**
+
+**Mezők és property-k**
+- **Hibás érték (`suppliedValue : int`):** mindkét saját kivételosztály privát mezője. A `getSuppliedValue() : int` publikus getter adja vissza azt az értéket, amely miatt a kivétel keletkezett. Mindkét kivételosztály közvetlenül az `Exception` osztályból származzon.
+
+**Konstruktorok**
+- `TooHighTemperatureException(value : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `Exception`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**A működés részletes feltételei**
+
 Készítsen termosztátot reprezentáló `TemperatureSetting` osztályt, és egészítse ki két saját kivételosztállyal! Az osztály a beállított hőmérsékletet tárolja, az érvénytelen érték javításáról pedig a főprogram döntsön.
 
 **Mezők és hozzáférés**
@@ -760,6 +799,56 @@ Készítsen termosztátot reprezentáló `TemperatureSetting` osztályt, és eg�
 ### Könyvek – árkorlát és javítható adatok {#task-2}
 
 ![UML](content/chapters/13-kivetelek/media/task-2-hu.svg){width=760}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `Book`**
+
+**Mezők és property-k**
+- **Azonosító (`isbn : String`):** privát, nem lehet `null` vagy üres szöveg. A `getIsbn() : String` getter visszaadja az azonosítót, setter nem készülhet hozzá.
+- `title : String`: privát, kívülről nem módosítható könyvcím. `+ getTitle() : String` `+ setTitle(value : String) : void`. A setter az ellenőrzést követően mentheti el az új értéket; hibás adat nem módosíthatja a régi állapotot.
+- **Ár (`price : int`):** privát, a $[500;50000]$ intervallumban érvényes. A `getPrice() : int` adja vissza az árat. A `setPrice(value : int) : void` túl alacsony értéknél `PriceTooLowException`, túl magasnál `PriceTooHighException` kivételt dobjon, és deklarálja mindkét ellenőrzött kivételt. Hibás adat esetén az ár változatlan marad. A `resetPriceToMinimum() : void` és `resetPriceToMaximum() : void` metódusok állítsák az árat rendre 500 és 50000 forintra, újabb kivétel nélkül.
+
+**Konstruktorok**
+- `Book(isbn : String, title : String, price : int)` – A `Book(isbn : String, title : String, price : int)` konstruktor a hozzá tartozó validációkkal állítsa be a mezőket, és szükség esetén a saját, ellenőrzött kivételeket is továbbítsa (`throws`). A kivételosztályok konstruktorai tárolják az elutasított árat, és adják tovább a hibaüzenetet az ősnek.
+
+**Metódusok és hozzáférések**
+- `resetPriceToMinimum() : void` – **Ár (`price : int`):** privát, a $[500;50000]$ intervallumban érvényes. A `getPrice() : int` adja vissza az árat. A `setPrice(value : int) : void` túl alacsony értéknél `PriceTooLowException`, túl magasnál `PriceTooHighException` kivételt dobjon, és deklarálja mindkét ellenőrzött kivételt. Hibás adat esetén az ár változatlan marad. A `resetPriceToMinimum() : void` és `resetPriceToMaximum() : void` metódusok állítsák az árat rendre 500 és 50000 forintra, újabb kivétel nélkül.
+- `resetPriceToMaximum() : void` – A metódus működését a következő részletes követelmények rögzítik.
+
+**Osztály: `PriceTooLowException`**
+
+**Mezők és property-k**
+- **Kivételadat (`requestedPrice : int`):** mindkét saját kivételosztály privát mezője; a `getRequestedPrice() : int` adja vissza az elutasított árat. A kivételek közvetlenül az `Exception` osztályból származzanak.
+
+**Konstruktorok**
+- `PriceTooLowException(price : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `PriceTooHighException`**
+
+**Mezők és property-k**
+- **Kivételadat (`requestedPrice : int`):** mindkét saját kivételosztály privát mezője; a `getRequestedPrice() : int` adja vissza az elutasított árat. A kivételek közvetlenül az `Exception` osztályból származzanak.
+
+**Konstruktorok**
+- `PriceTooHighException(price : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `BookShelf`**
+
+**Mezők és property-k**
+- **Tárolt könyvek (`books : ArrayList<Book>`):** a `BookShelf` konténerosztály privát listája. Ehhez ne készüljön közvetlen setter. `+ getBooks() : List<Book>`. A getter a mező aktuális értékét adja vissza.
+
+**Konstruktorok**
+- `BookShelf()` – A `BookShelf()` konstruktor hozzon létre üres listát. A `BookShelf` konténerosztályban maradjon meg a `addBook(book : Book) : void` és `getBooks() : List<Book>` művelet; az utóbbi ne biztosítson közvetlen módosítási lehetőséget a belső listához. Új könyv hozzáadásakor a konténer ellenőrizze, hogy nincs-e már azonos ISBN-ű példány, és ismétlésnél dobjon `IllegalArgumentException` kivételt.
+
+**Metódusok és hozzáférések**
+- `addBook(book : Book) : void` – `addBook(book : Book) : void`: elutasítja a `null` értéket és az olyan könyvet, amelynek ISBN-je már szerepel a listában. Hibánál `IllegalArgumentException` kivételt dob.
+
+**Osztály: `Exception`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**A működés részletes feltételei**
 
 A korábbi `Book` osztályt egészítse ki úgy, hogy az árral kapcsolatos hibákat ne általános hibaüzenettel, hanem két külön kivétellel jelezze! A könyvek tárolására a korábban készített konténerosztályt használhatja.
 
@@ -783,6 +872,58 @@ A korábbi `Book` osztályt egészítse ki úgy, hogy az árral kapcsolatos hib�
 ### Mozivetítések – másik időpont választása {#task-3}
 
 ![UML](content/chapters/13-kivetelek/media/task-3-hu.svg){width=760}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `Screening`**
+
+**Mezők és property-k**
+- **Film címe (`movieTitle : String`):** privát, nem lehet üres. Publikus `getMovieTitle() : String` getter, de kívülről ne lehessen módosítani.
+- **Vetítésazonosító (`screeningId : String`):** privát, nem lehet üres; a `getScreeningId() : String` publikus getter adja vissza. Az azonosító kívülről nem módosítható.
+- **Férőhely (`capacity : int`):** privát, pozitív egész szám. A publikus `getCapacity() : int` lekérdezi, setter nem készül hozzá.
+- **Foglalt helyek (`reservedSeats : int`):** privát, kezdetben 0. Csak `getReservedSeats() : int` getterrel legyen lekérdezhető; közvetlen setter nem készülhet hozzá.
+
+**Konstruktorok**
+- `Screening(movieTitle : String,     screeningId : String,     capacity : int)` – A `Screening(movieTitle : String, screeningId : String, capacity : int)` konstruktor ellenőrizze és mentse el az adatokat. A `getFreeSeats() : int` adja vissza a szabad helyek számát.
+
+**Metódusok és hozzáférések**
+- `getFreeSeats() : int` – A `Screening(movieTitle : String, screeningId : String, capacity : int)` konstruktor ellenőrizze és mentse el az adatokat. A `getFreeSeats() : int` adja vissza a szabad helyek számát.
+- `reserveSeats(count : int) : void` – A két kivételosztály az `Exception` közvetlen leszármazottja legyen; konstruktoruk vegyen át hibaüzenetet, és adja tovább az ősnek. A `reserveSeats()` fejlécében mindkét ellenőrzött kivételt deklarálja (`throws`).
+
+**Osztály: `Cinema`**
+
+**Mezők és property-k**
+- **Vetítések (`screenings : ArrayList<Screening>`):** a `Cinema` osztály privát listája, setter nem készül hozzá. A `Cinema()` konstruktor üres listával indul.
+
+**Konstruktorok**
+- `Cinema()` – **Vetítések (`screenings : ArrayList<Screening>`):** a `Cinema` osztály privát listája, setter nem készül hozzá. A `Cinema()` konstruktor üres listával indul.
+
+**Metódusok és hozzáférések**
+- `addScreening(screening : Screening) : void` – A `addScreening(screening : Screening) : void` ne fogadjon `null` értéket vagy ismétlődő `screeningId`-t. A `findWithFreeSeats(movieTitle : String, count : int) : Screening` az első olyan vetítést adja vissza, ahol ugyanazt a filmet vetítik, és a kért számú hely még szabad. A keresett cím nem lehet üres, a darabszámnak pozitívnak kell lennie; érvénytelen paraméternél `IllegalArgumentException` keletkezzen. Ha nincs megfelelő vetítés, térjen vissza `null` értékkel. A keresés önmagában ne foglaljon helyet.
+- `findWithFreeSeats(movieTitle : String,     count : int) : Screening` – A metódus működését a következő részletes követelmények rögzítik.
+
+**Osztály: `InvalidReservationException`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**Konstruktorok**
+- `InvalidReservationException(message : String)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `NotEnoughSeatsException`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**Konstruktorok**
+- `NotEnoughSeatsException(message : String)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `Exception`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**A működés részletes feltételei**
 
 Készítsen olyan foglalási rendszert, amelyben egy `Screening` példány egy vetítést, a `Cinema` pedig a vetítések gyűjteményét kezeli. A férőhelyek elfogyását a vetítés jelezze, a másik időpont kiválasztását viszont a konténerosztályt használó program végezze.
 
@@ -810,6 +951,45 @@ Készítsen olyan foglalási rendszert, amelyben egy `Screening` példány egy v
 
 ![UML](content/chapters/13-kivetelek/media/task-4-hu.svg){width=760}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `Parcel`**
+
+**Mezők és property-k**
+- **Csomagazonosító (`parcelId : String`):** a `Parcel` osztály privát mezője, nem lehet üres. A `getParcelId() : String` adja vissza, setter ne legyen.
+- **Tömeg (`weightKg : int`):** privát, csak pozitív egész szám lehet. A `getWeightKg() : int` lekérdezhetővé teszi, a `setWeightKg(value : int) : void` pedig a pozitivitást ellenőrzi, és hiba esetén `IllegalArgumentException` kivételt dob. Hibás új érték nem írhatja felül a régit.
+
+**Konstruktorok**
+- `Parcel(parcelId : String, weightKg : int)` – A `Parcel(parcelId : String, weightKg : int)` konstruktor érvényes adatokkal hozza létre a csomagot. A `ShippingCenter()` üres listát készítsen.
+
+**Osztály: `ShippingCenter`**
+
+**Mezők és property-k**
+- `+ {static} COURIER_LIMIT : int = 20` – A mező pontos típusa és láthatósága az alábbi szignatúrából olvasható ki.
+- **Feladott csomagok (`shipped : ArrayList<Parcel>`):** a `ShippingCenter` privát listája. A `getShipped() : List<Parcel>` olyan másolatot adjon vissza, amelynek módosítása nem változtatja meg a belső listát.
+
+**Konstruktorok**
+- `ShippingCenter()` – A `Parcel(parcelId : String, weightKg : int)` konstruktor érvényes adatokkal hozza létre a csomagot. A `ShippingCenter()` üres listát készítsen.
+
+**Metódusok és hozzáférések**
+- `shipByCourier(parcel : Parcel) : void` – A `shipByCourier(parcel : Parcel) : void` ellenőrizze a `null` paramétert és azt, hogy ugyanaz a csomagazonosító még nincs-e a listában. Ha a csomag tömege meghaladja a limitet, dobjon `TooHeavyParcelException` kivételt, amelyet a metódus fejlécében is deklaráljon (`throws`); különben mentse el a csomagot.
+- `shipByFreight(parcel : Parcel) : void` – A `shipByFreight(parcel : Parcel) : void` szintén ellenőrizze a `null` értéket és a duplikált azonosítót, de ne alkalmazza a 20 kilogrammos korlátot. A `TooHeavyParcelException` az `Exception` osztályból származzon, konstruktorában kapja meg és tárolja el az elutasított tömeget, amelyet a `getWeightKg() : int` getter ad vissza.
+
+**Osztály: `TooHeavyParcelException`**
+
+**Mezők és property-k**
+- **Tömeg (`weightKg : int`):** privát, csak pozitív egész szám lehet. A `getWeightKg() : int` lekérdezhetővé teszi, a `setWeightKg(value : int) : void` pedig a pozitivitást ellenőrzi, és hiba esetén `IllegalArgumentException` kivételt dob. Hibás új érték nem írhatja felül a régit.
+
+**Konstruktorok**
+- `TooHeavyParcelException(weightKg : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `Exception`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**A működés részletes feltételei**
+
 Készítsen csomagfeladási rendszert, amelyben az alapértelmezett futárszolgálat legfeljebb 20 kilogrammos csomagokat vállal. A túl nehéz csomagok továbbítására külön áruszállítási művelet készüljön, amelyet a főprogram a kivétel kezelésekor választhat.
 
 **Adatok és hozzáférés**
@@ -832,6 +1012,51 @@ Készítsen csomagfeladási rendszert, amelyben az alapértelmezett futárszolg�
 ### Mérési adatok – fájlbeolvasás és részleges siker {#task-5}
 
 ![UML](content/chapters/13-kivetelek/media/task-5-hu.svg){width=760}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `Measurement`**
+
+**Mezők és property-k**
+- **Szenzorazonosító (`sensorId : String`):** a `Measurement` osztály privát mezője. Nem lehet `null` vagy üres szöveg. A `getSensorId() : String` publikus getter adja vissza, setter ne készüljön hozzá.
+- **Mért érték (`value : int`):** a `Measurement` osztály privát mezője, a $[0;100]$ intervallumba essen. A `getValue() : int` adja vissza, a `setValue(value : int) : void` ellenőrizze a határokat. Érvénytelen adatnál `InvalidMeasurementException` keletkezzen, a korábbi érték pedig ne változzon meg.
+
+**Konstruktorok**
+- `Measurement(sensorId : String, value : int)` – A `Measurement(sensorId : String, value : int)` konstruktor a két adatot validálja; a hibás mérési értékhez tartozó `InvalidMeasurementException` kivételt továbbítsa (`throws`). A `MeasurementArchive()` üres listát készítsen.
+
+**Osztály: `MeasurementArchive`**
+
+**Mezők és property-k**
+- A `MeasurementArchive` konténerosztály privát `measurements : ArrayList<Measurement>` mezőjéhez ne legyen közvetlen setter. A `getMeasurements() : List<Measurement>` másolatot adjon vissza a listáról.
+
+**Konstruktorok**
+- `MeasurementArchive()` – A `Measurement(sensorId : String, value : int)` konstruktor a két adatot validálja; a hibás mérési értékhez tartozó `InvalidMeasurementException` kivételt továbbítsa (`throws`). A `MeasurementArchive()` üres listát készítsen.
+
+**Metódusok és hozzáférések**
+- `addMeasurement(measurement : Measurement) : void` – Az `addMeasurement(measurement : Measurement) : void` dobjon `IllegalArgumentException` kivételt, ha a paraméter `null`, vagy már van azonos `sensorId`-jú mérés. Az archívum ne tartalmazzon ismétlődő szenzorazonosítókat.
+
+**Osztály: `MeasurementImporter`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**Metódusok és hozzáférések**
+- `load(fileName : String,     archive : MeasurementArchive) : int` – A különálló `MeasurementImporter` osztály `load(fileName : String, archive : MeasurementArchive) : int` metódusa olvassa végig a fájlt, és adja vissza a sikeresen hozzáadott mérések számát. A szintaktikailag hibás, nem egész számot tartalmazó vagy érvénytelen értékű sorokat kezelje, és jelenítse meg a sorszámukat. A fájlt `Scanner` segítségével olvassa, amelynek egy `File` objektumot ad át. A fájl megnyitásának vagy olvasásának hibáit `IOException` formájában továbbítsa a hívónak; a `Scanner.ioException()` metódussal a beolvasás közben tárolt I/O-hibát is ellenőrizze. A fájl legyen akkor is lezárva, ha kivétel történik; ehhez Java-ban használjon `try-with-resources` szerkezetet. A hiányzó vagy hibás értéket, illetve az ismétlődő szenzorazonosítót tartalmazó sorokat jelezze a sorszámmal együtt, és folytassa a többi sor feldolgozását.
+
+**Osztály: `InvalidMeasurementException`**
+
+**Mezők és property-k**
+- Az `InvalidMeasurementException` az `Exception` osztályból származó **ellenőrzött kivétel** legyen. Privát `lineNumber : int` mezőben tárolja az érintett sor sorszámát (ha ismert), a `getLineNumber() : int` adja vissza. A konstruktor hibaüzenetet és sorszámot fogadjon; ismeretlen sorszám esetén 0 használható.
+
+**Konstruktorok**
+- `InvalidMeasurementException(message : String,     lineNumber : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Osztály: `Exception`**
+
+**Mezők és property-k**
+Az osztály további példányszintű mezőt nem tárol.
+
+**A működés részletes feltételei**
 
 Készítsen olyan alkalmazást, amely egy egyszerű, pontosvesszővel tagolt állományból mérési adatokat olvas be. A fájl egy sora `azonosító;érték` formátumú, ahol az azonosító nem üres szöveg, az érték pedig a $[0;100]$ intervallum egész száma. A hibás sorokat a program jelezze és hagyja ki, de a többi sor feldolgozását folytassa.
 

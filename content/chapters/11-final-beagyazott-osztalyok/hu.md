@@ -470,6 +470,22 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 
 ![Téglalapok – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-rectangle-hu.svg){width=590}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `RectangleSize`**
+
+**Mezők és property-k**
+- Készítsen `final` `RectangleSize` osztályt a `width : double` és `height : double` mezőkkel. Mindkét mező legyen `private final`, értékük pozitív valós szám. `+ getWidth() : double`. A getter a mező aktuális értékét adja vissza.
+- Készítsen `final` `RectangleSize` osztályt a `width : double` és `height : double` mezőkkel. Mindkét mező legyen `private final`, értékük pozitív valós szám. `+ getHeight() : double`. A getter a mező aktuális értékét adja vissza.
+
+**Konstruktorok**
+- `RectangleSize(width : double, height : double)` – A `RectangleSize(width : double, height : double)` konstruktor ellenőrizze a paramétereket. A `getWidth()` és `getHeight()` metódusok csak lekérdezést biztosítsanak.
+
+**Metódusok és hozzáférések**
+- `getArea() : double` – A `getArea() : double` metódus számítsa ki a területet; a példány mérete a létrehozása után már ne legyen módosítható.
+
+**A működés részletes feltételei**
+
 **Osztályok és mezők**
 - Készítsen `final` `RectangleSize` osztályt a `width : double` és `height : double` mezőkkel. Mindkét mező legyen `private final`, értékük pozitív valós szám.
 
@@ -477,6 +493,7 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 - A `RectangleSize(width : double, height : double)` konstruktor ellenőrizze a paramétereket. A `getWidth()` és `getHeight()` metódusok csak lekérdezést biztosítsanak.
 - A `getArea() : double` metódus számítsa ki a területet; a példány mérete a létrehozása után már ne legyen módosítható.
 - Próbáljon olyan osztályt származtatni a `RectangleSize` osztályból, amely más területszámítást használna, és vizsgálja meg a fordító jelzését!
+
 :::endexercise
 
 :::exercise
@@ -485,6 +502,32 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 **Gyakorolt eszköz:** privát `static` beágyazott osztály. A rekordokhoz kívülről ne lehessen hozzáférni, és a konténer ne adja vissza a módosítható listát.
 
 ![Könyvtár – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-library-hu.svg){width=640}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `Library`**
+
+**Mezők és property-k**
+- A `Library` tároljon privát `loans : ArrayList<LoanRecord>` listát, amelyet létrehozásakor inicializál.
+
+**Konstruktorok**
+- `Library()` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Metódusok és hozzáférések**
+- `addLoan(bookId : String, days : int) : void` – Az `addLoan(bookId : String, days : int) : void` hozzon létre új rekordot, és mentse a listába. Egy könyvazonosító legfeljebb egyszer szerepelhessen a nyilvántartásban; ismétlődés esetén dobjon kivételt.
+- `countOverdue(allowedDays : int) : int` – A `countOverdue(allowedDays : int) : int` adja vissza a megengedett, nemnegatív határnál hosszabb kölcsönzések számát. A `getLoanCount() : int` adja vissza a rekordok számát.
+- `getLoanCount() : int` – A metódus működését a következő részletes követelmények rögzítik.
+
+**Osztály: `Library.LoanRecord`**
+
+**Mezők és property-k**
+- A `Library` osztályban készítsen privát, statikusan beágyazott `LoanRecord` osztályt, amely a nem üres `bookId : String` könyvazonosítót és a nemnegatív `days : int` kölcsönzési időt tárolja.
+- A `Library` osztályban készítsen privát, statikusan beágyazott `LoanRecord` osztályt, amely a nem üres `bookId : String` könyvazonosítót és a nemnegatív `days : int` kölcsönzési időt tárolja.
+
+**Metódusok és hozzáférések**
+- `- LoanRecord(bookId : String, days : int)` – A `Library` osztályban készítsen privát, statikusan beágyazott `LoanRecord` osztályt, amely a nem üres `bookId : String` könyvazonosítót és a nemnegatív `days : int` kölcsönzési időt tárolja.
+
+**A működés részletes feltételei**
 
 **Osztályok és mezők**
 - A `Library` osztályban készítsen privát, statikusan beágyazott `LoanRecord` osztályt, amely a nem üres `bookId : String` könyvazonosítót és a nemnegatív `days : int` kölcsönzési időt tárolja.
@@ -495,6 +538,7 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 - Az `addLoan(bookId : String, days : int) : void` hozzon létre új rekordot, és mentse a listába. Egy könyvazonosító legfeljebb egyszer szerepelhessen a nyilvántartásban; ismétlődés esetén dobjon kivételt.
 - A `countOverdue(allowedDays : int) : int` adja vissza a megengedett, nemnegatív határnál hosszabb kölcsönzések számát. A `getLoanCount() : int` adja vissza a rekordok számát.
 - Ellenőrizze, hogy a főprogram kizárólag a publikus metódusokon keresztül képes-e módosítani a nyilvántartást!
+
 :::endexercise
 
 :::exercise
@@ -503,6 +547,28 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 **Gyakorolt eszköz:** nem statikus belső osztály. Az egyik garázshoz tartozó munkalap mindig az adott garázs óradíját használja.
 
 ![Autószerviz – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-garage-hu.svg){width=660}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `Garage`**
+
+**Mezők és property-k**
+- A `Garage` osztály tárolja a `name : String` nem üres nevet és a pozitív `hourlyRate : int` óradíjat, mindkettőt privát mezőben. `+ getName() : String`. A getter a mező aktuális értékét adja vissza.
+- A `Garage` osztály tárolja a `name : String` nem üres nevet és a pozitív `hourlyRate : int` óradíjat, mindkettőt privát mezőben. `+ getHourlyRate() : int`. A getter a mező aktuális értékét adja vissza.
+
+**Konstruktorok**
+- `Garage(name : String, hourlyRate : int)` – A `Garage(name : String, hourlyRate : int)` konstruktor ellenőrizze a közös adatokat. A `ServiceTicket(hours : int)` konstruktor a pozitív munkaórát állítsa be.
+
+**Osztály: `Garage.ServiceTicket`**
+
+**Mezők és property-k**
+- A `Garage` osztályon belül készítsen publikus, nem statikus `ServiceTicket` belső osztályt, amely a pozitív `hours : int` munkaórát tárolja privát mezőben.
+
+**Metódusok és hozzáférések**
+- `ServiceTicket(hours : int)` – A `Garage(name : String, hourlyRate : int)` konstruktor ellenőrizze a közös adatokat. A `ServiceTicket(hours : int)` konstruktor a pozitív munkaórát állítsa be.
+- `calculateCost() : int` – A `ServiceTicket` `calculateCost() : int` metódusa a befoglaló `Garage` példány óradíja alapján számítsa ki a költséget.
+
+**A működés részletes feltételei**
 
 **Osztályok és mezők**
 - A `Garage` osztály tárolja a `name : String` nem üres nevet és a pozitív `hourlyRate : int` óradíjat, mindkettőt privát mezőben.
@@ -513,6 +579,7 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 - A `ServiceTicket` `calculateCost() : int` metódusa a befoglaló `Garage` példány óradíja alapján számítsa ki a költséget.
 - A külső `Garage` biztosítson `getName() : String` és `getHourlyRate() : int` lekérdezést, és egyik mezőt se lehessen kívülről módosítani.
 - Hozzon létre két garázst eltérő óradíjjal, mindkettőhöz egy-egy munkalapot, majd mutassa meg, hogy azonos munkaidő mellett eltérő költség keletkezik!
+
 :::endexercise
 
 :::exercise
@@ -521,6 +588,33 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 **Gyakorolt eszköz:** `final` példánymetódus. A `withdraw()` a leszármazottból hívható, de nem definiálható újra ugyanolyan paraméterlistával.
 
 ![Bankszámlák – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-bank-hu.svg){width=660}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `BankAccount`**
+
+**Mezők és property-k**
+- A `BankAccount` privát `accountNumber : String` és `balance : int` mezőt tárol. A számlaszám nem lehet üres, az egyenleg nemnegatív egész szám. `+ getAccountNumber() : String`. A getter a mező aktuális értékét adja vissza.
+- A `BankAccount` privát `accountNumber : String` és `balance : int` mezőt tárol. A számlaszám nem lehet üres, az egyenleg nemnegatív egész szám. `+ getBalance() : int`. A getter a mező aktuális értékét adja vissza.
+
+**Konstruktorok**
+- `BankAccount(accountNumber : String, balance : int)` – A `BankAccount(accountNumber : String, balance : int)` és `SavingsAccount(accountNumber : String, balance : int, interestRate : double)` konstruktorok validálják és inicializálják az adataikat.
+
+**Metódusok és hozzáférések**
+- `withdraw(amount : int) : void {final}` – A `BankAccount` `withdraw(amount : int) : void` metódusa legyen `final`: csak pozitív összeget engedjen levonni, és ne engedje, hogy az egyenleg negatívvá váljon.
+
+**Osztály: `SavingsAccount`**
+
+**Mezők és property-k**
+- A `SavingsAccount` a pozitív vagy nulla `interestRate : double` kamatlábbal egészíti ki az ősosztályt.
+
+**Konstruktorok**
+- `SavingsAccount(accountNumber : String, balance : int,    interestRate : double)` – A `BankAccount(accountNumber : String, balance : int)` és `SavingsAccount(accountNumber : String, balance : int, interestRate : double)` konstruktorok validálják és inicializálják az adataikat.
+
+**Metódusok és hozzáférések**
+- `calculateMonthlyInterest() : int` – A `getBalance() : int` és `getAccountNumber() : String` metódusok csak lekérdezzék az adatokat. A `SavingsAccount` `calculateMonthlyInterest() : int` metódusa adja vissza az egyenleg és a kamatláb szorzatának lefelé kerekített egész részét.
+
+**A működés részletes feltételei**
 
 **Osztályok és mezők**
 - A `BankAccount` privát `accountNumber : String` és `balance : int` mezőt tárol. A számlaszám nem lehet üres, az egyenleg nemnegatív egész szám.
@@ -531,6 +625,7 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 - A `BankAccount` `withdraw(amount : int) : void` metódusa legyen `final`: csak pozitív összeget engedjen levonni, és ne engedje, hogy az egyenleg negatívvá váljon.
 - A `getBalance() : int` és `getAccountNumber() : String` metódusok csak lekérdezzék az adatokat. A `SavingsAccount` `calculateMonthlyInterest() : int` metódusa adja vissza az egyenleg és a kamatláb szorzatának lefelé kerekített egész részét.
 - Ellenőrizze, hogy az örökölt `withdraw()` használható, de a `SavingsAccount` osztályban nem írható felül!
+
 :::endexercise
 
 :::exercise
@@ -539,6 +634,32 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 **Gyakorolt eszköz:** privát `static` segédosztály egy konténeren belül. A nyilvántartás kezelése kizárólag a külső osztály publikus metódusain keresztül történjen.
 
 ![Filmtár – UML](content/chapters/11-final-beagyazott-osztalyok/media/task-movies-hu.svg){width=660}
+
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
+
+**Osztály: `MovieCatalog`**
+
+**Mezők és property-k**
+- A `MovieCatalog` rendelkezzen privát `screenings : ArrayList<Screening>` listával.
+
+**Konstruktorok**
+- `MovieCatalog()` – A `Screening(movieTitle : String, seatsSold : int)` konstruktor ellenőrizze az adatokat, és a `MovieCatalog()` konstruktor inicializálja a listát.
+
+**Metódusok és hozzáférések**
+- `addScreening(movieTitle : String, seatsSold : int) : void` – Az `addScreening(movieTitle : String, seatsSold : int) : void` adjon hozzá új vetítést. A `getTotalTickets() : int` adja vissza az összes vetítésre eladott jegyek számát.
+- `getTotalTickets() : int` – A metódus működését a következő részletes követelmények rögzítik.
+- `countPopular(minimumTickets : int) : int` – A `countPopular(minimumTickets : int) : int` adja meg, hány vetítésre adtak el legalább a kapott, nemnegatív számú jegyet. Negatív paraméter esetén dobjon kivételt.
+
+**Osztály: `MovieCatalog.Screening`**
+
+**Mezők és property-k**
+- A `MovieCatalog` osztályon belül készítsen privát, statikusan beágyazott `Screening` osztályt. Egy vetítés a nem üres `movieTitle : String` címet és a nemnegatív `seatsSold : int` eladott jegyszámot tárolja.
+- A `MovieCatalog` osztályon belül készítsen privát, statikusan beágyazott `Screening` osztályt. Egy vetítés a nem üres `movieTitle : String` címet és a nemnegatív `seatsSold : int` eladott jegyszámot tárolja.
+
+**Metódusok és hozzáférések**
+- `- Screening(movieTitle : String, seatsSold : int)` – A `MovieCatalog` osztályon belül készítsen privát, statikusan beágyazott `Screening` osztályt. Egy vetítés a nem üres `movieTitle : String` címet és a nemnegatív `seatsSold : int` eladott jegyszámot tárolja.
+
+**A működés részletes feltételei**
 
 **Osztályok és mezők**
 - A `MovieCatalog` osztályon belül készítsen privát, statikusan beágyazott `Screening` osztályt. Egy vetítés a nem üres `movieTitle : String` címet és a nemnegatív `seatsSold : int` eladott jegyszámot tárolja.
@@ -549,4 +670,5 @@ A feladatok célja, hogy a belső megvalósítás elrejtését és a továbbör�
 - Az `addScreening(movieTitle : String, seatsSold : int) : void` adjon hozzá új vetítést. A `getTotalTickets() : int` adja vissza az összes vetítésre eladott jegyek számát.
 - A `countPopular(minimumTickets : int) : int` adja meg, hány vetítésre adtak el legalább a kapott, nemnegatív számú jegyet. Negatív paraméter esetén dobjon kivételt.
 - A konténer se a belső listát, se a `Screening` példányokat ne tegye közvetlenül elérhetővé. Több vetítés felvételével próbálja ki az összesítő metódusokat!
+
 :::endexercise

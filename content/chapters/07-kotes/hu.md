@@ -760,9 +760,48 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 
 ![Téglalapok – UML](content/chapters/07-kotes/media/complete-task-1-hu.svg){width=620}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
 
+**Osztály: `Shape`**
 
-**Követelmények**
+**Mezők és property-k**
+- **`color : String`** – privát szöveges mező, amely az alakzat színét tárolja. A publikus `getColor() : String` a mező pillanatnyi értékével tér vissza. A `setColor(color : String) : void` csak nem `null` és nem üres vagy csupa szóközből álló szöveget fogadhat el.
+
+**Metódusok és hozzáférések**
+- `canFitInside(screenWidth : double, screenHeight : double) : boolean` – A `Shape` ősosztályban készítse el a `canFitInside(screenWidth : double, screenHeight : double) : boolean` metódust, mely azt vizsgálja, hogy egy alakzat elhelyezhető-e adott méretű, téglalap alakú kijelzőn.
+- `isDisplayable(screenWidth : double, screenHeight : double) : boolean` – A `Shape` osztályban egy másik, nem felülírandó `isDisplayable(screenWidth : double, screenHeight : double) : boolean` metódus egyszerűen a `canFitInside()` eredményével térjen vissza.
+
+**Osztály: `Rectangle`**
+
+**Mezők és property-k**
+- **`x : double`** – a bal felső csúcs vízszintes koordinátája, tetszőleges valós szám. A privát mezőhöz publikus `getX() : double` és `setX(x : double) : void` tartozik. A getter visszaadja a tárolt koordinátát, a setter átállítja azt.
+- **`y : double`** – a bal felső csúcs függőleges koordinátája, tetszőleges valós szám. A publikus `getY() : double` a tárolt értékkel tér vissza, a `setY(y : double) : void` pedig módosítja a privát mezőt. A pozitív függőleges irányt felfelé értelmezzük.
+- **`width : double`** – a téglalap szélessége, amelynek szigorúan pozitívnak kell lennie. A `getWidth() : double` az aktuális szélességet adja vissza, a `setWidth(width : double) : void` pedig csak pozitív értéket menthet el.
+- **`height : double`** – a téglalap magassága, amely szintén csak pozitív lehet. A `getHeight() : double` a tárolt magasságot adja vissza, a `setHeight(height : double) : void` elutasítja a nullát és a negatív értékeket.
+- **`CREATED_COUNT : int`** – privát statikus számláló, amely kezdetben `0`, és minden sikeresen létrehozott téglalap után pontosan eggyel növekszik. A publikus statikus `getCreatedCount() : int` az összes eddig létrehozott téglalap számát adja vissza; a mezőhöz setter nem készül.
+
+**Konstruktorok**
+- `Rectangle()` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+- `Rectangle(x : double, y : double, width : double, height : double)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Metódusok és hozzáférések**
+- `getArea() : double` – A téglalap területe a szélesség és a magasság szorzata.
+- `getPerimeter() : double` – A kerület a két oldalméret összegének kétszerese.
+- `overlaps(other : Rectangle) : boolean` – akkor tér vissza igazzal, ha a két téglalap közös részének pozitív a területe. A kizárólag oldalban vagy csúcsban érintkező téglalapok nem fedik át egymást.
+- `getQuadrant() : int` – az `1`–`4` érték valamelyikét adja vissza, ha a teljes téglalap egyetlen síknegyed belsejében található. Ha tengelyt érint, vagy több síknegyedre terjed ki, az eredmény `-1`.
+- `canFitInside(screenWidth : double, screenHeight : double) : boolean` – A téglalap akkor fér el, ha szélessége és magassága nem nagyobb a kijelző megfelelő méreténél.
+
+**Osztály: `Circle`**
+
+**Mezők és property-k**
+- **`radius : double`** – a kör privát sugara, amely csak pozitív értéket vehet fel. A `getRadius() : double` a tárolt sugarat adja vissza, a `setRadius(radius : double) : void` a hibás értékeket elutasítja.
+
+**Metódusok és hozzáférések**
+- `getArea() : double` – A kör területe `Math.PI * radius * radius`.
+- `getPerimeter() : double` – A kör kerülete `2 * Math.PI * radius`.
+- `canFitInside(screenWidth : double, screenHeight : double) : boolean` – A kör akkor fér el, ha az átmérője nem nagyobb a kijelző szélességénél és magasságánál.
+
+**A működés részletes feltételei**
 
 - A `Shape` ősosztályban készítse el a `canFitInside(screenWidth : double, screenHeight : double) : boolean` metódust, mely azt vizsgálja, hogy egy alakzat elhelyezhető-e adott méretű, téglalap alakú kijelzőn.
 - Az ősosztály megvalósítása – amíg nem ismeri az alakzat méreteit – `false` értékkel térjen vissza.
@@ -771,6 +810,7 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 - Nem pozitív kijelzőméret esetén `IllegalArgumentException` kivételt kell dobni.
 - A `Shape` osztályban egy másik, nem felülírandó `isDisplayable(screenWidth : double, screenHeight : double) : boolean` metódus egyszerűen a `canFitInside()` eredményével térjen vissza.
 - Ezen a metóduson keresztül mutassa be a késői kötést különböző alakzatokat tartalmazó `Shape` típusú listán!
+
 :::endexercise
 
 :::exercise
@@ -778,9 +818,49 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 
 ![Könyvek – UML](content/chapters/07-kotes/media/complete-task-2-hu.svg){width=620}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
 
+**Osztály: `Publication`**
 
-**Követelmények**
+**Mezők és property-k**
+- **`publisher : String`** – privát mező a kiadó nevének tárolására. A `getPublisher() : String` a kiadó nevét adja vissza, a `setPublisher(publisher : String) : void` pedig csak nem `null` és nem üres szöveget fogad el.
+- **`country : String`** – privát mező a megjelenési ország nevével. A `getCountry() : String` a tárolt országot adja vissza, a `setCountry(country : String) : void` pedig elutasítja a `null`, üres vagy kizárólag szóközöket tartalmazó szöveget.
+
+**Metódusok és hozzáférések**
+- `calculateLateFee(daysLate : int) : int` – Negatív napra dobjon kivételt, egyébként a közös alapértelmezett díj 0 forint.
+- `calculateTotalLateFee(daysLate : int, copies : int) : int` – Az ősosztály `calculateTotalLateFee(daysLate : int, copies : int) : int` metódusa számítsa ki a díjat több azonos példányra, vagyis szorozza meg a `calculateLateFee()` eredményét a pozitív `copies` paraméterrel.
+
+**Osztály: `Book`**
+
+**Mezők és property-k**
+- **`author : String`** – a könyv szerzőjének neve. A `getAuthor() : String` a tárolt nevet adja vissza, a `setAuthor(author : String) : void` pedig legalább két karaktert és kizárólag betűket, szóközt, pontot és kötőjelet enged meg.
+- **`title : String`** – a könyv címe. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
+- **`price : int`** – a könyv egész forintban megadott ára. A `getPrice() : int` az aktuális árral tér vissza, a `setPrice(price : int) : void` csak az `[500; 50 000]` intervallumba eső értéket mentheti el.
+- **`genre : Genre`** – a könyv műfaja felsorolás típusban, például `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI` vagy `COMEDY`. A `getGenre() : Genre` a tárolt műfajt adja vissza, a `setGenre(genre : Genre) : void` nem fogadhat el `null` értéket.
+- **`printed : boolean`** – igaz, ha nyomtatott könyvről, hamis, ha e-könyvről van szó. Az `isPrinted() : boolean` a tárolt logikai értéket adja vissza, a `setPrinted(printed : boolean) : void` pedig külön ellenőrzés nélkül módosítja.
+- **`MIN_PRICE : int` és `MAX_PRICE : int`** – a `Book` nyilvános, `static final` konstansai, rendre `500` és `50 000` értékkel. A publikus statikus `isValidPrice(price : int) : boolean` azt állapítja meg, hogy a paraméter a megengedett tartományba esik-e.
+- **`MIN_PRICE : int` és `MAX_PRICE : int`** – a `Book` nyilvános, `static final` konstansai, rendre `500` és `50 000` értékkel. A publikus statikus `isValidPrice(price : int) : boolean` azt állapítja meg, hogy a paraméter a megengedett tartományba esik-e.
+
+**Konstruktorok**
+- `Book(author : String, title : String, price : int, genre : Genre, printed : boolean)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+- `Book(author : String, title : String, price : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Metódusok és hozzáférések**
+- `discount(percent : int) : void` – `1` és `99` közötti százalékkal csökkenti az árat, egész forintra lefelé kerekítve. Hibás százalék vagy `899` forint alá csökkenő új ár esetén a tárolt ár ne változzon meg.
+- `isValidPrice(price : int) : boolean` – **`MIN_PRICE : int` és `MAX_PRICE : int`** – a `Book` nyilvános, `static final` konstansai, rendre `500` és `50 000` értékkel. A publikus statikus `isValidPrice(price : int) : boolean` azt állapítja meg, hogy a paraméter a megengedett tartományba esik-e.
+- `toString() : String` – a könyv adatait olvasható, többmezős szövegként adja vissza.
+- `calculateLateFee(daysLate : int) : int` – Minden megkezdett késedelmes nap után 50 forintot számoljon fel.
+
+**Osztály: `Magazine`**
+
+**Mezők és property-k**
+- **`title : String`** – a folyóirat címe, privát mező. A `getTitle() : String` a címét adja vissza, a `setTitle(title : String) : void` nem enged `null` vagy üres szöveget elmenteni.
+- **`issueNumber : int`** – a folyóirat sorszáma, amely pozitív egész. A `getIssueNumber() : int` a tárolt sorszámmal tér vissza, a `setIssueNumber(issueNumber : int) : void` a nullát és a negatív értékeket elutasítja.
+
+**Metódusok és hozzáférések**
+- `calculateLateFee(daysLate : int) : int` – Minden késedelmes nap után 20 forintot számoljon fel.
+
+**A működés részletes feltételei**
 
 - A `Publication` ősosztályhoz adja hozzá a `calculateLateFee(daysLate : int) : int` metódust, mely a kölcsönzési határidő túllépése esetén fizetendő díjat adja vissza.
 - Az ősosztály alapértelmezetten `0` forinttal tér vissza, míg a `Book` minden késedelmes nap után `50`, a `Magazine` pedig `20` forintot számoljon fel.
@@ -788,6 +868,7 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 - Az ősosztály `calculateTotalLateFee(daysLate : int, copies : int) : int` metódusa számítsa ki a díjat több azonos példányra, vagyis szorozza meg a `calculateLateFee()` eredményét a pozitív `copies` paraméterrel.
 - Nem pozitív példányszám esetén dobjon kivételt.
 - Vizsgálja meg, hogyan használja a közös, örökölt metódus a leszármazottak felülírt díjszámítását!
+
 :::endexercise
 
 :::exercise
@@ -795,9 +876,46 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 
 ![Autók – UML](content/chapters/07-kotes/media/complete-task-3-hu.svg){width=620}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
 
+**Osztály: `Vehicle`**
 
-**Követelmények**
+**Mezők és property-k**
+- **`brand : String`** – a jármű márkája, privát szöveges mező. A `getBrand() : String` az aktuális márkával tér vissza, a `setBrand(brand : String) : void` nem enged `null` vagy üres értéket elmenteni.
+- **`maxSpeed : int`** – a jármű maximális sebessége km/h-ban, pozitív egész szám. A `getMaxSpeed() : int` a tárolt sebességet adja vissza, a `setMaxSpeed(maxSpeed : int) : void` elutasítja a nem pozitív értékeket.
+
+**Metódusok és hozzáférések**
+- `getServiceIntervalKm() : int` – Ha a jármű típusához nem ismert periódus, 0 értékkel térjen vissza.
+- `needsService(kmSinceService : int) : boolean` – A `Vehicle` ősosztály `needsService(kmSinceService : int) : boolean` metódusa azt vizsgálja, hogy az utolsó szerviz óta megtett kilométerek száma elérte-e a tényleges járműtípus szervizperiódusát.
+
+**Osztály: `Car`**
+
+**Mezők és property-k**
+- **`model : String`** – a modell neve. A `getModel() : String` a tárolt modellnevet adja vissza, a `setModel(model : String) : void` csak nem üres szöveget enged meg.
+- **`year : int`** – a gyártási év, az `[1886; 2100]` intervallumban. A `getYear() : int` az évszámot adja vissza, a `setYear(year : int) : void` a tartományon kívüli értékeket elutasítja.
+- **`mileage : int`** – a kilométeróra állása egész kilométerben, nemnegatív szám. A `getMileage() : int` a tárolt értéket adja vissza; publikus setter nincs, a futásteljesítmény kizárólag a konstruktorban és a `drive()` metódussal módosítható.
+- **`id : int`** – automatikusan kiosztott, pozitív példányazonosító. A `getId() : int` az azonosítót adja vissza, amely a példány teljes életében változatlan; setter nincs.
+- **`NEXT_ID : int`** – privát statikus mező, `1` kezdeti értékkel. Minden új `Car` példány az aktuális értéket kapja azonosítóként, majd a számláló eggyel növekszik.
+
+**Konstruktorok**
+- `Car(brand : String, model : String, year : int, mileage : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+- `Car(brand : String, model : String, year : int)` – Az adott paraméterlistájú konstruktort külön implementálja; a paraméterek érvényességi feltételeit a mezők leírása határozza meg.
+
+**Metódusok és hozzáférések**
+- `drive(distance : int) : void` – kizárólag pozitív egész távolsággal növelheti a kilométeróra-állást.
+- `toString() : String` – a márkát, a modellt, az évjáratot és az aktuális futásteljesítményt tartalmazó szöveget adja vissza.
+- `getServiceIntervalKm() : int` – Az autók szervizperiódusa 15000 km.
+
+**Osztály: `Motorcycle`**
+
+**Mezők és property-k**
+- **`engineCapacity : int`** – a motorkerékpár hengerűrtartalma cm³-ben, pozitív egész. A `getEngineCapacity() : int` a tárolt értéket adja vissza, a `setEngineCapacity(engineCapacity : int) : void` csak pozitív értéket fogad el.
+- **`sidecar : boolean`** – azt jelzi, van-e a motorkerékpárnak oldalkocsija. A `hasSidecar() : boolean` a tárolt logikai értéket adja vissza, a `setSidecar(sidecar : boolean) : void` pedig tetszőleges logikai értékkel módosíthatja azt.
+
+**Metódusok és hozzáférések**
+- `getServiceIntervalKm() : int` – A motorkerékpárok szervizperiódusa 6000 km.
+
+**A működés részletes feltételei**
 
 - A `Vehicle` osztályhoz írjon `getServiceIntervalKm() : int` metódust, amely alapértelmezetten `0`-t ad vissza, ha nem ismerjük az ajánlott szervizperiódust.
 - A `Car` osztályban ennek értéke `15000`, a `Motorcycle` esetében `6000` kilométer legyen.
@@ -805,6 +923,7 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 - Ha a periódus `0`, térjen vissza `false` értékkel; negatív kilométerszám esetén dobjon kivételt.
 - Tároljon `Car` és `Motorcycle` példányokat közös `Vehicle` típusú listában, és állapítsa meg, mely járművek esedékesek szervizre.
 - A kiválasztás során ne használjon járműtípusonként külön számítási elágazást.
+
 :::endexercise
 
 :::exercise
@@ -812,9 +931,38 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 
 ![Bankszámlák – UML](content/chapters/07-kotes/media/complete-task-4-hu.svg){width=620}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
 
+**Osztály: `BankAccount`**
 
-**Követelmények**
+**Mezők és property-k**
+- **`owner : String`** – a számlatulajdonos neve. A `getOwner() : String` a tárolt nevet adja vissza, a `setOwner(owner : String) : void` pedig nem fogad el `null` vagy üres szöveget.
+- **`accountNumber : String`** – a számla azonosítója. A `getAccountNumber() : String` a tárolt számlaszámot adja vissza. A `setAccountNumber(accountNumber : String) : void` csak az első, érvényes érték beállítását engedi meg; ezt követően az azonosító nem változtatható meg. Üres vagy `null` számlaszámot el kell utasítania.
+- **`balance : int`** – az egyenleg egész forintban, kezdetben `0`. A `getBalance() : int` a pillanatnyi összeget adja vissza. Publikus setter nem készül, az érték csak a befizetés és a pénzfelvétel során változhat, és soha nem lehet negatív.
+
+**Metódusok és hozzáférések**
+- `deposit(amount : int) : void` – csak pozitív egész összeget fogad, amelyet hozzáad az egyenleghez.
+- `withdraw(amount : int) : void` – csak pozitív, a rendelkezésre álló egyenlegnél nem nagyobb összeget vonhat le. Hibás összeg esetén az egyenleg ne változzon meg.
+- `calculateTransferFee(amount : int) : int` – A közös díjszámítás pozitív összeg esetén 0 forinttal tér vissza; más esetben kivételt dob.
+- `canAffordTransfer(amount : int) : boolean` – Az ősosztályhoz írjon `canAffordTransfer(amount : int) : boolean` metódust, amely eldönti, hogy az egyenlegből a teljes összeg és a megfelelő díj együttesen kifizethető-e.
+
+**Osztály: `SavingsAccount`**
+
+**Mezők és property-k**
+- **`interestRate : double`** – éves kamatláb, a `[0; 1]` intervallumban. A `getInterestRate() : double` az aktuális kamatlábat adja vissza, a `setInterestRate(interestRate : double) : void` a tartományon kívüli értékeket elutasítja.
+
+**Metódusok és hozzáférések**
+- `calculateTransferFee(amount : int) : int` – A megtakarítási számla átutalási díja 0 forint.
+
+**Osztály: `BusinessAccount`**
+
+**Mezők és property-k**
+- **`companyName : String`** – a vállalkozás neve. A `getCompanyName() : String` a tárolt szöveggel tér vissza, a `setCompanyName(companyName : String) : void` csak nem üres, nem `null` szöveget fogad el.
+
+**Metódusok és hozzáférések**
+- `calculateTransferFee(amount : int) : int` – Az átutalási díj az összeg egészértékű 1%-a, de legalább 100 forint.
+
+**A működés részletes feltételei**
 
 - A `BankAccount` ősosztályban vezesse be a `calculateTransferFee(amount : int) : int` metódust, amely egy átutalás díját adja meg.
 - Az ősosztály és a `SavingsAccount` esetében a díj `0` forint; a `BusinessAccount` osztályban az átutalás díja az összeg egészértékű `1` százaléka, de legalább `100` forint.
@@ -822,6 +970,7 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 - Az ősosztályhoz írjon `canAffordTransfer(amount : int) : boolean` metódust, amely eldönti, hogy az egyenlegből a teljes összeg és a megfelelő díj együttesen kifizethető-e.
 - Ez a metódus ne változtassa meg az egyenleget.
 - A számításhoz használja a felülírható `calculateTransferFee()` metódust, majd `BankAccount` típusú referenciákon ellenőrizze a különböző számlatípusok működését!
+
 :::endexercise
 
 :::exercise
@@ -829,9 +978,38 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 
 ![Filmek – UML](content/chapters/07-kotes/media/complete-task-5-hu.svg){width=620}
 
+A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalósítani. Minden adatnál vizsgálja meg a hozzáférést és a megadott érvényességi feltételeket. Az UML az osztályok kapcsolatait szemlélteti; a szöveg önmagában is meghatározza a feladatot.
 
+**Osztály: `MediaItem`**
 
-**Követelmények**
+**Mezők és property-k**
+- **`title : String`** – a mű címe, privát szöveges mező. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
+- **`releaseYear : int`** – a megjelenési év, pozitív egész szám. A `getReleaseYear() : int` az évszámot adja vissza, a `setReleaseYear(releaseYear : int) : void` a nullát és a negatív értékeket elutasítja.
+
+**Metódusok és hozzáférések**
+- `getViewingMinutes() : int` – Ismeretlen típus esetén az alapértelmezett teljes játékidő 0.
+- `canWatchWithin(maxMinutes : int) : boolean` – Az ősosztály `canWatchWithin(maxMinutes : int) : boolean` metódusa akkor adjon `true` értéket, ha a játékidő pozitív, és nem hosszabb a megadott időkeretnél; nem pozitív időkeretre dobjon kivételt.
+
+**Osztály: `Movie`**
+
+**Mezők és property-k**
+- **`director : String`** – a film rendezője. A `getDirector() : String` a tárolt nevet adja vissza, a `setDirector(director : String) : void` nem `null`, legalább két karakteres szöveget fogad el, amely csak betűket, szóközt, pontot és kötőjelet tartalmazhat.
+- **`duration : int`** – a film hossza percben, az `[10; 360]` intervallumban. A `getDuration() : int` a tárolt játékidővel tér vissza, a `setDuration(duration : int) : void` az ezen kívüli értékeket elutasítja.
+
+**Metódusok és hozzáférések**
+- `getViewingMinutes() : int` – A film hossza a tárolt `duration` értéke.
+
+**Osztály: `Series`**
+
+**Mezők és property-k**
+- **`seasons : int`** – az elkészült évadok száma, pozitív egész szám. A `getSeasons() : int` a tárolt évadszámot adja vissza, a `setSeasons(seasons : int) : void` csak pozitív értéket fogad el.
+- A `Series` osztályban a meglévő pozitív `seasons` mező mellett vezesse be az egy évadhoz tartozó epizódok számát (`episodesPerSeason : int`) és egy epizód átlagos hosszát (`minutesPerEpisode : int`), mindkettő pozitív egész szám. `+ getEpisodesPerSeason() : int`. A getter a mező aktuális értékét adja vissza.
+- A `Series` osztályban a meglévő pozitív `seasons` mező mellett vezesse be az egy évadhoz tartozó epizódok számát (`episodesPerSeason : int`) és egy epizód átlagos hosszát (`minutesPerEpisode : int`), mindkettő pozitív egész szám. `+ getMinutesPerEpisode() : int`. A getter a mező aktuális értékét adja vissza.
+
+**Metódusok és hozzáférések**
+- `getViewingMinutes() : int` – A teljes játékidő az évadok számának, az évadonkénti epizódszámnak és az epizódhossznak a szorzata.
+
+**A működés részletes feltételei**
 
 - A `MediaItem` osztályhoz készítsen `getViewingMinutes() : int` metódust, mely az adott tartalom teljes megtekintéséhez szükséges időt adja vissza; az ősosztály alapértelmezett értéke `0`.
 - A `Movie` a tárolt `duration` értékkel térjen vissza.
@@ -839,5 +1017,6 @@ Az alábbi feladatokban a metódusok felülírásának célja nem újabb szöveg
 - A sorozat teljes játékideje e három érték szorzata.
 - Az ősosztály `canWatchWithin(maxMinutes : int) : boolean` metódusa akkor adjon `true` értéket, ha a játékidő pozitív, és nem hosszabb a megadott időkeretnél; nem pozitív időkeretre dobjon kivételt.
 - Vegyes `MediaItem` listán vizsgálja meg, melyik tartalom fér bele például egy `180` perces szabadidőbe!
+
 :::endexercise
 

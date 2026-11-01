@@ -760,9 +760,48 @@ These tasks use method overriding for calculations and decisions that depend on 
 
 ![Rectangles – UML](content/chapters/07-kotes/media/complete-task-1-en.svg){width=620}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
 
+**Class: `Shape`**
 
-**Requirements**
+**Fields and properties**
+- **`color : String`** – a private field storing the shape's colour. The public `getColor() : String` returns its current value. The `setColor(color : String) : void` setter must reject `null`, empty strings, and strings containing only whitespace.
+
+**Methods and accessors**
+- `canFitInside(screenWidth : double, screenHeight : double) : boolean` – In `Shape`, implement `canFitInside(screenWidth : double, screenHeight : double) : boolean` to check whether the figure fits a rectangular display without rotation.
+- `isDisplayable(screenWidth : double, screenHeight : double) : boolean` – Add `isDisplayable(screenWidth : double, screenHeight : double) : boolean` to the base class; it simply calls `canFitInside()`.
+
+**Class: `Rectangle`**
+
+**Fields and properties**
+- **`x : double`** – horizontal coordinate of the top-left corner; any real number is allowed. The private field has public `getX() : double` and `setX(x : double) : void` methods, which return and update the coordinate.
+- **`y : double`** – vertical coordinate of the top-left corner; any real number is allowed. The public `getY() : double` returns the stored value, and `setY(y : double) : void` updates it. Positive vertical direction points upward.
+- **`width : double`** – rectangle width, which must be strictly positive. The `getWidth() : double` getter returns the current width; `setWidth(width : double) : void` accepts positive values only.
+- **`height : double`** – rectangle height, which must also be strictly positive. The `getHeight() : double` getter returns the stored height; `setHeight(height : double) : void` rejects zero and negative values.
+- **`CREATED_COUNT : int`** – a private static counter initially equal to `0`. It increases exactly once for each successfully created rectangle. The public static `getCreatedCount() : int` returns the total number created; there is no setter.
+
+**Constructors**
+- `Rectangle()` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+- `Rectangle(x : double, y : double, width : double, height : double)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `getArea() : double` – Return the product of width and height.
+- `getPerimeter() : double` – Return twice the sum of the two side lengths.
+- `overlaps(other : Rectangle) : boolean` – returns true only if the two rectangles share a region with positive area. Touching along an edge or at one corner does not count as overlap.
+- `getQuadrant() : int` – returns a number from `1` to `4` when the entire rectangle lies strictly inside one quadrant; otherwise, including when touching an axis, returns `-1`.
+- `canFitInside(screenWidth : double, screenHeight : double) : boolean` – Return true if both rectangle dimensions fit within the corresponding screen dimensions.
+
+**Class: `Circle`**
+
+**Fields and properties**
+- **`radius : double`** – a private radius that must be positive. `getRadius() : double` returns the stored value; `setRadius(radius : double) : void` rejects invalid values.
+
+**Methods and accessors**
+- `getArea() : double` – Return `Math.PI * radius * radius`.
+- `getPerimeter() : double` – Return `2 * Math.PI * radius`.
+- `canFitInside(screenWidth : double, screenHeight : double) : boolean` – The circle fits if its diameter is not greater than either screen dimension.
+
+**Detailed behavioural requirements**
 
 - In `Shape`, implement `canFitInside(screenWidth : double, screenHeight : double) : boolean` to check whether the figure fits a rectangular display without rotation.
 - The base implementation returns `false`, since a generic shape has no dimensions.
@@ -770,6 +809,7 @@ These tasks use method overriding for calculations and decisions that depend on 
 - Reject non-positive display dimensions with `IllegalArgumentException`.
 - Add `isDisplayable(screenWidth : double, screenHeight : double) : boolean` to the base class; it simply calls `canFitInside()`.
 - Demonstrate that the inherited method uses the correct implementation for different objects stored in a `Shape` list.
+
 :::endexercise
 
 :::exercise
@@ -777,15 +817,56 @@ These tasks use method overriding for calculations and decisions that depend on 
 
 ![Books – UML](content/chapters/07-kotes/media/complete-task-2-en.svg){width=620}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
 
+**Class: `Publication`**
 
-**Requirements**
+**Fields and properties**
+- **`publisher : String`** – private publisher name. `getPublisher() : String` returns the stored name; `setPublisher(publisher : String) : void` rejects `null` or empty strings.
+- **`country : String`** – private name of the publication country. `getCountry() : String` returns the stored country; `setCountry(country : String) : void` rejects `null`, empty, or whitespace-only strings.
+
+**Methods and accessors**
+- `calculateLateFee(daysLate : int) : int` – Reject negative days; the base implementation returns 0.
+- `calculateTotalLateFee(daysLate : int, copies : int) : int` – The inherited `calculateTotalLateFee(daysLate : int, copies : int) : int` calculates the fee for several copies using `calculateLateFee()`; `copies` must be positive.
+
+**Class: `Book`**
+
+**Fields and properties**
+- **`author : String`** – author name. `getAuthor() : String` returns the stored name; `setAuthor(author : String) : void` requires at least two characters and permits only letters, spaces, periods, and hyphens.
+- **`title : String`** – book title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` accepts only non-`null` strings of at least two characters.
+- **`price : int`** – price in whole Hungarian forints. `getPrice() : int` returns the current price; `setPrice(price : int) : void` permits only values in `[500, 50000]`.
+- **`genre : Genre`** – book genre, with values such as `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI`, and `COMEDY`. `getGenre() : Genre` returns the stored value; `setGenre(genre : Genre) : void` rejects `null`.
+- **`printed : boolean`** – true for a printed book, false for an e-book. `isPrinted() : boolean` returns the stored flag; `setPrinted(printed : boolean) : void` updates it without additional validation.
+- **`MIN_PRICE : int` and `MAX_PRICE : int`** – public `static final` constants of `Book`, equal to `500` and `50000`. The public static `isValidPrice(price : int) : boolean` returns whether a value lies within these limits.
+- **`MIN_PRICE : int` and `MAX_PRICE : int`** – public `static final` constants of `Book`, equal to `500` and `50000`. The public static `isValidPrice(price : int) : boolean` returns whether a value lies within these limits.
+
+**Constructors**
+- `Book(author : String, title : String, price : int, genre : Genre, printed : boolean)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+- `Book(author : String, title : String, price : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `discount(percent : int) : void` – applies a reduction from `1` to `99` percent, rounding the resulting price down to whole forints. An invalid percentage or a resulting price below `899` must leave the stored price unchanged.
+- `isValidPrice(price : int) : boolean` – **`MIN_PRICE : int` and `MAX_PRICE : int`** – public `static final` constants of `Book`, equal to `500` and `50000`. The public static `isValidPrice(price : int) : boolean` returns whether a value lies within these limits.
+- `toString() : String` – returns a readable text containing the important book data.
+- `calculateLateFee(daysLate : int) : int` – Charge 50 HUF per late day.
+
+**Class: `Magazine`**
+
+**Fields and properties**
+- **`title : String`** – private magazine title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` rejects `null` and empty strings.
+- **`issueNumber : int`** – positive issue number. `getIssueNumber() : int` returns the stored number; `setIssueNumber(issueNumber : int) : void` rejects zero and negative values.
+
+**Methods and accessors**
+- `calculateLateFee(daysLate : int) : int` – Charge 20 HUF per late day.
+
+**Detailed behavioural requirements**
 
 - Add `calculateLateFee(daysLate : int) : int` to `Publication`.
 - The base class returns `0`, `Book` charges `50` forints per overdue day, and `Magazine` charges `20`.
 - Reject a negative number of days.
 - The inherited `calculateTotalLateFee(daysLate : int, copies : int) : int` calculates the fee for several copies using `calculateLateFee()`; `copies` must be positive.
 - Show how the same inherited method calls different overridden implementations.
+
 :::endexercise
 
 :::exercise
@@ -793,14 +874,52 @@ These tasks use method overriding for calculations and decisions that depend on 
 
 ![Cars – UML](content/chapters/07-kotes/media/complete-task-3-en.svg){width=620}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
 
+**Class: `Vehicle`**
 
-**Requirements**
+**Fields and properties**
+- **`brand : String`** – private brand name. `getBrand() : String` returns the current brand; `setBrand(brand : String) : void` rejects `null` and empty strings.
+- **`maxSpeed : int`** – maximum speed in km/h; a positive integer. `getMaxSpeed() : int` returns the stored speed; `setMaxSpeed(maxSpeed : int) : void` rejects nonpositive values.
+
+**Methods and accessors**
+- `getServiceIntervalKm() : int` – Return 0 when no service interval is known.
+- `needsService(kmSinceService : int) : boolean` – The inherited `needsService(kmSinceService : int) : boolean` checks whether the distance since the last service reaches the actual vehicle's interval, returns `false` for an unknown interval, and rejects negative distances.
+
+**Class: `Car`**
+
+**Fields and properties**
+- **`model : String`** – model name. `getModel() : String` returns it; `setModel(model : String) : void` permits only nonempty strings.
+- **`year : int`** – production year within `[1886, 2100]`. `getYear() : int` returns the year; `setYear(year : int) : void` rejects out-of-range values.
+- **`mileage : int`** – mileage in whole kilometres; never negative. `getMileage() : int` returns the stored value. There is no public setter: mileage changes only through a constructor or `drive()`.
+- **`id : int`** – automatically assigned positive instance identifier. `getId() : int` returns it; it stays unchanged throughout the instance's lifetime and has no setter.
+- **`NEXT_ID : int`** – private static field initially equal to `1`. Each new `Car` receives the current value as its ID, after which the counter increases by one.
+
+**Constructors**
+- `Car(brand : String, model : String, year : int, mileage : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+- `Car(brand : String, model : String, year : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
+
+**Methods and accessors**
+- `drive(distance : int) : void` – mileage in whole kilometres; never negative. `getMileage() : int` returns the stored value. There is no public setter: mileage changes only through a constructor or `drive()`.
+- `toString() : String` – returns text containing brand, model, year, and current mileage.
+- `getServiceIntervalKm() : int` – Cars have a service interval of 15000 km.
+
+**Class: `Motorcycle`**
+
+**Fields and properties**
+- **`engineCapacity : int`** – engine displacement in cm³; a positive integer. `getEngineCapacity() : int` returns it; `setEngineCapacity(engineCapacity : int) : void` accepts positive values only.
+- **`sidecar : boolean`** – indicates whether a sidecar is attached. `hasSidecar() : boolean` returns the stored flag; `setSidecar(sidecar : boolean) : void` updates it with any boolean value.
+
+**Methods and accessors**
+- `getServiceIntervalKm() : int` – Motorcycles have a service interval of 6000 km.
+
+**Detailed behavioural requirements**
 
 - Add `getServiceIntervalKm() : int` to `Vehicle`; the base implementation returns `0` for an unknown interval.
 - `Car` returns `15000`, `Motorcycle` returns `6000`.
 - The inherited `needsService(kmSinceService : int) : boolean` checks whether the distance since the last service reaches the actual vehicle's interval, returns `false` for an unknown interval, and rejects negative distances.
 - Use a mixed `Vehicle` collection to identify vehicles due for service without type-specific calculations.
+
 :::endexercise
 
 :::exercise
@@ -808,15 +927,45 @@ These tasks use method overriding for calculations and decisions that depend on 
 
 ![Bank accounts – UML](content/chapters/07-kotes/media/complete-task-4-en.svg){width=620}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
 
+**Class: `BankAccount`**
 
-**Requirements**
+**Fields and properties**
+- **`owner : String`** – account holder name. `getOwner() : String` returns the stored name; `setOwner(owner : String) : void` rejects `null` or empty strings.
+- **`accountNumber : String`** – account identifier. `getAccountNumber() : String` returns it. `setAccountNumber(accountNumber : String) : void` allows the first valid assignment only; once set, the number cannot change. It must reject `null` or empty strings.
+- **`balance : int`** – balance in whole forints, initially `0`. `getBalance() : int` returns the current amount. No public setter is permitted; only deposit and withdrawal operations can update it, and it cannot become negative.
+
+**Methods and accessors**
+- `deposit(amount : int) : void` – adds a strictly positive amount to the balance.
+- `withdraw(amount : int) : void` – subtracts only a positive amount not exceeding the available balance. Invalid amounts must not change the balance.
+- `calculateTransferFee(amount : int) : int` – The base fee is 0 for a positive amount; reject nonpositive amounts.
+- `canAffordTransfer(amount : int) : boolean` – In the base class, `canAffordTransfer(amount : int) : boolean` determines whether the current balance covers the transfer amount plus the dynamically calculated fee.
+
+**Class: `SavingsAccount`**
+
+**Fields and properties**
+- **`interestRate : double`** – annual interest rate within `[0, 1]`. `getInterestRate() : double` returns the stored rate; `setInterestRate(interestRate : double) : void` rejects values outside that interval.
+
+**Methods and accessors**
+- `calculateTransferFee(amount : int) : int` – Savings accounts charge no transfer fee.
+
+**Class: `BusinessAccount`**
+
+**Fields and properties**
+- **`companyName : String`** – company name. `getCompanyName() : String` returns the stored name; `setCompanyName(companyName : String) : void` accepts only nonempty, non-`null` text.
+
+**Methods and accessors**
+- `calculateTransferFee(amount : int) : int` – Return the integer 1% of the amount, but at least 100 HUF.
+
+**Detailed behavioural requirements**
 
 - Define `calculateTransferFee(amount : int) : int` in `BankAccount`: the base and `SavingsAccount` versions return `0`, whereas `BusinessAccount` charges the greater of `100` forints and one percent of the amount, rounded down to a whole forint.
 - Every method rejects non-positive amounts.
 - In the base class, `canAffordTransfer(amount : int) : boolean` determines whether the current balance covers the transfer amount plus the dynamically calculated fee.
 - The method must not alter the balance.
 - Test it via `BankAccount` references.
+
 :::endexercise
 
 :::exercise
@@ -824,9 +973,38 @@ These tasks use method overriding for calculations and decisions that depend on 
 
 ![Movies – UML](content/chapters/07-kotes/media/complete-task-5-en.svg){width=620}
 
+Implement the following classes and members. For every field, follow the indicated accessibility and validation requirements. The UML illustrates their relationships, but the written specification is sufficient on its own.
 
+**Class: `MediaItem`**
 
-**Requirements**
+**Fields and properties**
+- **`title : String`** – private title. `getTitle() : String` returns it; `setTitle(title : String) : void` accepts only non-`null` titles containing at least two characters.
+- **`releaseYear : int`** – release year as a positive integer. `getReleaseYear() : int` returns it; `setReleaseYear(releaseYear : int) : void` rejects zero and negative values.
+
+**Methods and accessors**
+- `getViewingMinutes() : int` – Return 0 when viewing time is unknown.
+- `canWatchWithin(maxMinutes : int) : boolean` – Add `canWatchWithin(maxMinutes : int) : boolean` to `MediaItem`; it returns `true` only for a known, positive running time not exceeding the given positive time limit.
+
+**Class: `Movie`**
+
+**Fields and properties**
+- **`director : String`** – director name. `getDirector() : String` returns it; `setDirector(director : String) : void` requires a non-`null` value of at least two characters, containing only letters, spaces, periods, and hyphens.
+- **`duration : int`** – running time in minutes, within `[10, 360]`. `getDuration() : int` returns it; `setDuration(duration : int) : void` rejects out-of-range values.
+
+**Methods and accessors**
+- `getViewingMinutes() : int` – Return the stored movie duration.
+
+**Class: `Series`**
+
+**Fields and properties**
+- **`seasons : int`** – positive number of completed seasons. `getSeasons() : int` returns it; `setSeasons(seasons : int) : void` accepts positive values only.
+- In `Series`, add two private, positive integer fields: `episodesPerSeason` and `minutesPerEpisode`; calculate the total as `seasons × episodesPerSeason × minutesPerEpisode`. `+ getEpisodesPerSeason() : int`. The getter returns the current value of the field.
+- In `Series`, add two private, positive integer fields: `episodesPerSeason` and `minutesPerEpisode`; calculate the total as `seasons × episodesPerSeason × minutesPerEpisode`. `+ getMinutesPerEpisode() : int`. The getter returns the current value of the field.
+
+**Methods and accessors**
+- `getViewingMinutes() : int` – Multiply seasons, episodes per season, and minutes per episode.
+
+**Detailed behavioural requirements**
 
 - In `MediaItem`, introduce `getViewingMinutes() : int` returning `0` by default.
 - In `Movie`, return `duration`.
@@ -834,5 +1012,6 @@ These tasks use method overriding for calculations and decisions that depend on 
 - Add `canWatchWithin(maxMinutes : int) : boolean` to `MediaItem`; it returns `true` only for a known, positive running time not exceeding the given positive time limit.
 - Invalid limits raise an exception.
 - Find the items that fit into a `180`-minute time slot using a mixed collection.
+
 :::endexercise
 
