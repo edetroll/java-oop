@@ -475,7 +475,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `RectangleSize`**
 
 **Mezők és property-k**
-- Készítsen `final` `RectangleSize` osztályt a `width : double` és `height : double` mezőkkel. Mindkét mező legyen `private final`, értékük pozitív valós szám. `+ getWidth() : double`. A getter a mező aktuális értékét adja vissza.
+- Készítsen `final` `RectangleSize` osztályt a `width : double` és `height : double` mezőkkel. Mindkét mező legyen `private final`, értékük pozitív valós szám. `+ getWidth() : double`. A getter a mező aktuális értékét adja vissza. A téglalap területe a 10 000 négyzetegységet sem haladhatja meg. Ezt a két méret együttes ismeretében, a konstruktorban ellenőrizze; mindkét mező maradjon változatlan a létrehozás után.
 - Készítsen `final` `RectangleSize` osztályt a `width : double` és `height : double` mezőkkel. Mindkét mező legyen `private final`, értékük pozitív valós szám. `+ getHeight() : double`. A getter a mező aktuális értékét adja vissza.
 
 **Konstruktorok**
@@ -521,7 +521,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Library.LoanRecord`**
 
 **Mezők és property-k**
-- A `Library` osztályban készítsen privát, statikusan beágyazott `LoanRecord` osztályt, amely a nem üres `bookId : String` könyvazonosítót és a nemnegatív `days : int` kölcsönzési időt tárolja.
 - A `Library` osztályban készítsen privát, statikusan beágyazott `LoanRecord` osztályt, amely a nem üres `bookId : String` könyvazonosítót és a nemnegatív `days : int` kölcsönzési időt tárolja.
 
 **Metódusok és hozzáférések**
@@ -653,7 +652,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `MovieCatalog.Screening`**
 
 **Mezők és property-k**
-- A `MovieCatalog` osztályon belül készítsen privát, statikusan beágyazott `Screening` osztályt. Egy vetítés a nem üres `movieTitle : String` címet és a nemnegatív `seatsSold : int` eladott jegyszámot tárolja.
 - A `MovieCatalog` osztályon belül készítsen privát, statikusan beágyazott `Screening` osztályt. Egy vetítés a nem üres `movieTitle : String` címet és a nemnegatív `seatsSold : int` eladott jegyszámot tárolja.
 
 **Metódusok és hozzáférések**

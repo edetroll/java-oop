@@ -773,25 +773,10 @@ Implement the following classes and members. For every field, follow the indicat
 **Constructors**
 - `TooHighTemperatureException(value : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
 
-**Class: `Exception`**
-
-**Fields and properties**
-No additional instance fields.
-
-**Detailed behavioural requirements**
-
-Create a `TemperatureSetting` class representing a thermostat, together with two custom exceptions. The thermostat stores a target temperature, but the main program decides how to correct invalid input.
-
-**Fields and access**
-- **Target temperature (`targetTemperature : int`):** private, valid integer values in $[18,28]$. `getTargetTemperature() : int` returns the stored value. `setTargetTemperature(value : int) : void` throws `TooLowTemperatureException` below 18 and `TooHighTemperatureException` above 28, declares both with `throws`, and must not change the stored value after either failure. The public `resetToMinimum() : void` and `resetToMaximum() : void` methods set 18 and 28 without throwing checked exceptions.
-- **Limits (`MIN : int`, `MAX : int`):** public static constants with values 18 and 28, used by both the setter and caller.
-- **Rejected value (`suppliedValue : int`):** private field in both custom exceptions. `getSuppliedValue() : int` returns it. Both exceptions extend `Exception` directly.
-
-**Constructors**
-- `TemperatureSetting()` initializes the target to 22. Each exception constructor receives the rejected value, stores it, and passes a suitable message to its superclass.
-
 **Main program**
 - Attempt the values 23, 12 and 35. Catch the two exception types separately, substituting 18 or 28 respectively. Print the actual temperature after each attempt and verify that processing continues.
+
+- In both `catch` branches, read the rejected temperature using `getSuppliedValue()`. Display the difference from the corresponding bound and use that information to choose the recovery value, 18 or 28.
 
 :::endexercise
 
@@ -806,7 +791,7 @@ Implement the following classes and members. For every field, follow the indicat
 
 **Fields and properties**
 - **ISBN (`isbn : String`):** private, non-null and non-empty. `getIsbn() : String` returns it; no setter.
-- `title : String`: private book title, externally read-only. `+ getTitle() : String` `+ setTitle(value : String) : void`. The setter may store the new value only after validation; invalid input must leave the previous state unchanged.
+- **Title (`title : String`):** private field exposed through the public `getTitle() : String` getter and `setTitle(value : String) : void` setter. The new title may not be `null`, must have at least two non-space characters, and must not begin or end with a space. Invalid input must throw `IllegalArgumentException` and preserve the old title.
 - **Price (`price : int`):** private, valid in $[500,50000]$. `getPrice() : int` returns it. `setPrice(value : int)` throws `PriceTooLowException` or `PriceTooHighException` and declares both with `throws`. A rejected change must not alter the stored price. `resetPriceToMinimum() : void` and `resetPriceToMaximum() : void` set the price to 500 and 50000 without throwing another exception.
 
 **Constructors**
@@ -843,28 +828,10 @@ Implement the following classes and members. For every field, follow the indicat
 **Methods and accessors**
 - `addBook(book : Book) : void` – `addBook(book : Book) : void`: rejects `null` and books with an ISBN already present, throwing `IllegalArgumentException`.
 
-**Class: `Exception`**
-
-**Fields and properties**
-No additional instance fields.
-
-**Detailed behavioural requirements**
-
-Extend the earlier `Book` class so that price errors are signalled by two distinct exceptions rather than by messages printed inside the class. You may reuse the previously developed container.
-
-**Fields and access**
-- **ISBN (`isbn : String`):** private, non-null and non-empty. `getIsbn() : String` returns it; no setter.
-- **Title (`title : String`):** private, at least two non-whitespace characters after trimming. `getTitle() : String` returns it, while `setTitle(value : String)` validates and changes it, throwing `IllegalArgumentException` for invalid text.
-- **Price (`price : int`):** private, valid in $[500,50000]$. `getPrice() : int` returns it. `setPrice(value : int)` throws `PriceTooLowException` or `PriceTooHighException` and declares both with `throws`. A rejected change must not alter the stored price. `resetPriceToMinimum() : void` and `resetPriceToMaximum() : void` set the price to 500 and 50000 without throwing another exception.
-- **Rejected price (`requestedPrice : int`):** private in both exception types, exposed through `getRequestedPrice() : int`. Both exceptions extend `Exception` directly.
-- **Stored books (`books : ArrayList<Book>`):** private list of `BookShelf`, without a direct setter.
-
-**Constructors and operations**
-- `Book(isbn : String, title : String, price : int)` validates all fields and declares any propagated checked exceptions using `throws`. Each exception constructor stores the price and passes an explanatory message to its superclass.
-- The `BookShelf()` constructor creates an empty list. The container provides `addBook(book : Book) : void` and `getBooks() : List<Book>`. The returned collection must not allow changes to the internal list. Reject another book with an existing ISBN using `IllegalArgumentException`.
-
 **Main program**
 - Try changing one book's price to 300 and then 62000. Handle the errors separately by setting the price to 500 and 50000. Add the books to the shelf and display the results.
+
+- In each price-exception `catch` branch, use `getRequestedPrice()` to display the actual rejected amount and the correction required. Restore 500 for an undersized value or 50,000 for an oversized value; verify that the corrected book remains in the container.
 
 :::endexercise
 
@@ -889,6 +856,9 @@ Implement the following classes and members. For every field, follow the indicat
 **Methods and accessors**
 - `getFreeSeats() : int` – `Screening(movieTitle : String, screeningId : String, capacity : int)` validates and stores the fields; `getFreeSeats() : int` returns the number of remaining seats.
 - `reserveSeats(count : int) : void` – Both exceptions extend `Exception` directly and accept a message in their constructors. `reserveSeats()` declares both checked exceptions using `throws`.
+
+
+`Screening.reserveSeats(count : int)` throws `InvalidReservationException` for a nonpositive count and `NotEnoughSeatsException` when fewer free seats remain than requested. Only successful bookings increase the reserved-seat count; no failed attempt may change the state.
 
 **Class: `Cinema`**
 
@@ -917,29 +887,6 @@ No additional instance fields.
 
 **Constructors**
 - `NotEnoughSeatsException(message : String)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
-
-**Class: `Exception`**
-
-**Fields and properties**
-No additional instance fields.
-
-**Detailed behavioural requirements**
-
-Create a booking system where `Screening` represents one screening and `Cinema` stores the available screenings. A screening reports insufficient seats, while the application selects a different time.
-
-**Fields of `Screening`**
-- **Title (`movieTitle : String`):** private, non-empty, accessible through `getMovieTitle() : String` with no setter.
-- **ID (`screeningId : String`):** private, non-empty, returned by `getScreeningId() : String` and never changed externally.
-- **Capacity (`capacity : int`):** positive, private, read-only through `getCapacity() : int`.
-- **Reserved seats (`reservedSeats : int`):** private, initially zero, read-only through `getReservedSeats() : int`. No direct setter.
-
-- **Screenings (`screenings : ArrayList<Screening>`):** private list of `Cinema`, with no direct setter. `Cinema()` initializes it empty.
-
-**Constructors and operations**
-- `Screening(movieTitle : String, screeningId : String, capacity : int)` validates and stores the fields; `getFreeSeats() : int` returns the number of remaining seats.
-- `reserveSeats(count : int) : void` throws `InvalidReservationException` for a non-positive count and `NotEnoughSeatsException` if the request exceeds available seats. On success it increases `reservedSeats`; on failure it must not change the state.
-- Both exceptions extend `Exception` directly and accept a message in their constructors. `reserveSeats()` declares both checked exceptions using `throws`.
-- `addScreening(screening : Screening) : void` rejects null and repeated IDs. `findWithFreeSeats(movieTitle : String, count : int) : Screening` returns the first screening of the specified movie that has at least `count` free seats, or `null` when none exists. The movie title must be nonempty and `count` positive; otherwise it throws `IllegalArgumentException`. Searching does not reserve seats.
 
 **Main program**
 - Create at least three screenings, including two showings of the same movie at different times, and attempt a booking that cannot be fulfilled. After catching `NotEnoughSeatsException`, find another screening of the same film, check that the result is not `null`, and make the booking there. Verify that the original screening was not modified.
@@ -978,33 +925,15 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `TooHeavyParcelException`**
 
 **Fields and properties**
-- **Weight (`weightKg : int`):** private, positive. `getWeightKg() : int` returns it and `setWeightKg(value : int) : void` validates it, throwing `IllegalArgumentException` if invalid without modifying the old value.
+- **Rejected weight (`weightKg : int`):** a private read-only field of the exception class. `TooHeavyParcelException(weightKg : int)` saves the rejected weight; public `getWeightKg() : int` returns it. Do not implement a setter: the error data must not change after the exception is created.
 
 **Constructors**
 - `TooHeavyParcelException(weightKg : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
 
-**Class: `Exception`**
-
-**Fields and properties**
-No additional instance fields.
-
-**Detailed behavioural requirements**
-
-Create a shipping system where ordinary courier delivery accepts parcels weighing up to 20 kg. When the parcel is too heavy, the application can choose freight delivery instead.
-
-**Fields and access**
-- **Parcel ID (`parcelId : String`):** private, non-empty, returned by `getParcelId() : String`, with no setter.
-- **Weight (`weightKg : int`):** private, positive. `getWeightKg() : int` returns it and `setWeightKg(value : int) : void` validates it, throwing `IllegalArgumentException` if invalid without modifying the old value.
-- **Limit (`COURIER_LIMIT : int`):** public static constant of `ShippingCenter`, equal to 20.
-- **Shipped parcels (`shipped : ArrayList<Parcel>`):** private list within `ShippingCenter`. `getShipped() : List<Parcel>` returns a copy, so callers cannot modify the internal list through it.
-
-**Constructors and methods**
-- `Parcel(parcelId : String, weightKg : int)` validates both fields. `ShippingCenter()` creates an empty collection.
-- `shipByCourier(parcel : Parcel) : void` rejects null and repeated IDs. It throws `TooHeavyParcelException` if the weight exceeds the limit (declared with `throws`), otherwise it adds the parcel.
-- `shipByFreight(parcel : Parcel) : void` performs the same null and duplicate checks but has no 20 kg restriction. `TooHeavyParcelException` extends `Exception` directly, receives the rejected weight in its constructor and exposes it through `getWeightKg() : int`.
-
 **Main program**
 - Create parcels of 8, 24 and 35 kg. Try courier delivery first; if a `TooHeavyParcelException` occurs, send the same parcel by freight instead. Verify that each parcel appears exactly once in the collection and that unrelated failures do not trigger automatic fallback.
+
+- In the `TooHeavyParcelException` `catch` branch, call `getWeightKg()` to display how many kilograms the parcel exceeds the 20 kg limit by. Only then send the same parcel by freight instead.
 
 :::endexercise
 
@@ -1051,27 +980,9 @@ No additional instance fields.
 **Constructors**
 - `InvalidMeasurementException(message : String,     lineNumber : int)` – Implement the constructor with this exact parameter list and validate its input according to the field requirements.
 
-**Class: `Exception`**
-
-**Fields and properties**
-No additional instance fields.
-
-**Detailed behavioural requirements**
-
-Develop an application that reads measurements from a semicolon-separated text file. Each line has the form `identifier;value`; the identifier must be non-empty and the value must be an integer in $[0,100]$. Invalid rows should be reported and skipped, while valid rows are processed normally.
-
-**Classes and fields**
-- **Sensor ID (`sensorId : String`):** private field of `Measurement`; it must not be `null` or empty. `getSensorId() : String` returns it; no setter is provided.
-- **Measured value (`value : int`):** private field of `Measurement`, valid in $[0,100]$. `getValue() : int` returns it. `setValue(value : int) : void` checks the interval, throwing `InvalidMeasurementException` on an invalid value without changing the previous one.
-- `InvalidMeasurementException` is a **checked exception** extending `Exception`. A private `lineNumber : int` stores the affected line number (0 when unknown), returned by `getLineNumber() : int`. Its constructor accepts the message and line number.
-- `MeasurementArchive` holds a private `measurements : ArrayList<Measurement>` list with no setter. `getMeasurements() : List<Measurement>` returns a copy of the list.
-
-**Constructors and methods**
-- `Measurement(sensorId : String, value : int)` validates its data and propagates (`throws`) `InvalidMeasurementException` for an invalid value. `MeasurementArchive()` creates an empty list.
-- `addMeasurement(measurement : Measurement) : void` throws `IllegalArgumentException` for null or a repeated sensor ID.
-- `MeasurementImporter` provides `load(fileName : String, archive : MeasurementArchive) : int`, which reads the file and returns the number of measurements added. Malformed lines, non-integer values and measurements outside the permitted interval are reported with their line numbers and skipped. Read using `Scanner` constructed with a `File` object. File-opening and reading errors must propagate as `IOException`; check `Scanner.ioException()` for I/O errors recorded during iteration. Use Java `try-with-resources` to close the scanner even after an exception. Report and skip malformed, out-of-range and duplicate-sensor records with their line numbers.
-
 **Main program and sample data**
 - The input may contain `A01;42`, `B02;125`, `C03;bad` and `D04;78` on separate lines. Display the number of records actually added to the container; report invalid rows with their line numbers while processing. Catch `IOException` separately in the main program. Students create the sample file themselves; no external attachment is required.
+
+- When catching `InvalidMeasurementException`, use `getLineNumber()` from the exception to identify the faulty record. Skip it and continue importing; one invalid row must not discard earlier valid measurements.
 
 :::endexercise

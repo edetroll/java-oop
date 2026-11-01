@@ -475,7 +475,7 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `RectangleSize`**
 
 **Fields and properties**
-- Create a `final` `RectangleSize` class with `width : double` and `height : double` fields. Both must be `private final` and store positive real values. `+ getWidth() : double`. The getter returns the current value of the field.
+- Create a `final` `RectangleSize` class with `width : double` and `height : double` fields. Both must be `private final` and store positive real values. `+ getWidth() : double`. The getter returns the current value of the field. The rectangle area must not exceed 10,000 square units. Validate this relation between both dimensions in the constructor; both fields remain unchanged after creation.
 - Create a `final` `RectangleSize` class with `width : double` and `height : double` fields. Both must be `private final` and store positive real values. `+ getHeight() : double`. The getter returns the current value of the field.
 
 **Constructors**
@@ -521,7 +521,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Library.LoanRecord`**
 
 **Fields and properties**
-- Within `Library`, create a private, statically nested `LoanRecord` class storing a nonempty `bookId : String` and nonnegative `days : int`.
 - Within `Library`, create a private, statically nested `LoanRecord` class storing a nonempty `bookId : String` and nonnegative `days : int`.
 
 **Methods and accessors**
@@ -653,7 +652,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `MovieCatalog.Screening`**
 
 **Fields and properties**
-- Define a private, statically nested `Screening` class inside `MovieCatalog`. Each screening stores a nonempty `movieTitle : String` and a nonnegative `seatsSold : int`.
 - Define a private, statically nested `Screening` class inside `MovieCatalog`. Each screening stores a nonempty `movieTitle : String` and a nonnegative `seatsSold : int`.
 
 **Methods and accessors**

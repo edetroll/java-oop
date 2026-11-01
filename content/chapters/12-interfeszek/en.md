@@ -586,7 +586,7 @@ Build a simple document-handling application. Define printing and scanning as se
 **Document class**
 
 - `title : String`: private field; cannot be modified from outside the class.
-- `Document(title : String)`: public constructor. Rejects `null`, empty, or whitespace-only titles with `IllegalArgumentException`.
+- `Document(title : String)`: public constructor. Rejects `null`, empty, or whitespace-only titles with `IllegalArgumentException`. The title must have at least three characters and must not start or end with a space. A document created by scanning must satisfy the very same constructor requirement.
 - `getTitle() : String`: public getter; no setter is provided.
 
 **SimplePrinter class – implements Printable**

@@ -342,7 +342,7 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Shape`**
 
 **Fields and properties**
-- Create an abstract `Shape` class containing the `name : String` field. The name must not be `null` or empty. It can be read using `getName()` but cannot be modified from outside the class.
+- Create an abstract `Shape` class containing the `name : String` field. The name must not be `null` or empty. It can be read using `getName()` but cannot be modified from outside the class. The name must contain between two and forty characters and at least one letter; the base constructor must reject invalid arguments.
 
 **Constructors**
 - `Shape(name : String)` – The `Shape(name : String)` constructor must validate and store the name. The `Rectangle(name : String, width : double, height : double)` and `Circle(name : String, radius : double)` constructors must initialise the common data through the superclass constructor and validate their own fields.
@@ -355,7 +355,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Rectangle`**
 
 **Fields and properties**
-- `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
 - `Rectangle` stores positive real-valued `width` and `height` fields. `Circle` stores a positive real-valued `radius`.
 
 **Constructors**
@@ -408,7 +407,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Publication`**
 
 **Fields and properties**
-- The abstract `Publication` class stores a nonempty `title : String` and a positive `basePrice : int`. Only its constructor may set these fields; provide `getTitle()` and `getBasePrice()` methods for reading them.
 - The abstract `Publication` class stores a nonempty `title : String` and a positive `basePrice : int`. Only its constructor may set these fields; provide `getTitle()` and `getBasePrice()` methods for reading them.
 
 **Constructors**
@@ -470,7 +468,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Vehicle`**
 
 **Fields and properties**
-- The abstract `Vehicle` class stores a nonempty `brand : String` and nonnegative `mileage : int`. Only the constructor may set these fields; create `getBrand()` and `getMileage()` methods to read them.
 - The abstract `Vehicle` class stores a nonempty `brand : String` and nonnegative `mileage : int`. Only the constructor may set these fields; create `getBrand()` and `getMileage()` methods to read them.
 
 **Constructors**
@@ -598,7 +595,6 @@ Implement the following classes and members. For every field, follow the indicat
 
 **Fields and properties**
 - The abstract `MediaItem` class stores a nonempty `title : String` and positive `releaseYear : int`. Expose these through `getTitle()` and `getReleaseYear()`, but do not allow external modification.
-- The abstract `MediaItem` class stores a nonempty `title : String` and positive `releaseYear : int`. Expose these through `getTitle()` and `getReleaseYear()`, but do not allow external modification.
 
 **Constructors**
 - `MediaItem(title : String, releaseYear : int)` – The `MediaItem(title : String, releaseYear : int)` constructor must validate and initialise the shared data. The `Movie` and `Series` constructors must also validate their additional fields.
@@ -621,7 +617,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Series`**
 
 **Fields and properties**
-- `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
 - `Movie` stores a positive `duration : int` in minutes, while `Series` stores a positive `episodeCount : int` and positive `episodeDuration : int` representing the average episode length.
 
 **Constructors**
@@ -660,7 +655,6 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Coffee`**
 
 **Fields and properties**
-- Create an **abstract `Coffee` class** with `coffeeGrams : int` and `waterMl : int` fields. Both fields must be `protected` and strictly positive.
 - Create an **abstract `Coffee` class** with `coffeeGrams : int` and `waterMl : int` fields. Both fields must be `protected` and strictly positive.
 
 **Constructors**

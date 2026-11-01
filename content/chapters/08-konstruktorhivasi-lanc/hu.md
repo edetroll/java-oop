@@ -516,11 +516,10 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 
 **Mezők és property-k**
 - **`author : String`** – a könyv szerzőjének neve. A `getAuthor() : String` a tárolt nevet adja vissza, a `setAuthor(author : String) : void` pedig legalább két karaktert és kizárólag betűket, szóközt, pontot és kötőjelet enged meg.
-- **`title : String`** – a könyv címe. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
+- **`title : String`** – a könyv címe. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el. A cím elején és végén nem állhat szóköz, és tartalmaznia kell legalább egy betűt. A getter pontosan a tárolt címet adja vissza; a setter nem módosíthatja a mezőt, ha a feltétel nem teljesül.
 - **`price : int`** – a könyv egész forintban megadott ára. A `getPrice() : int` az aktuális árral tér vissza, a `setPrice(price : int) : void` csak az `[500; 50 000]` intervallumba eső értéket mentheti el.
 - **`genre : Genre`** – a könyv műfaja felsorolás típusban, például `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI` vagy `COMEDY`. A `getGenre() : Genre` a tárolt műfajt adja vissza, a `setGenre(genre : Genre) : void` nem fogadhat el `null` értéket.
 - **`printed : boolean`** – igaz, ha nyomtatott könyvről, hamis, ha e-könyvről van szó. Az `isPrinted() : boolean` a tárolt logikai értéket adja vissza, a `setPrinted(printed : boolean) : void` pedig külön ellenőrzés nélkül módosítja.
-- `isValidPrice(price : int) : boolean` – **`MIN_PRICE : int` és `MAX_PRICE : int`** – a `Book` nyilvános, `static final` konstansai, rendre `500` és `50 000` értékkel. A publikus statikus `isValidPrice(price : int) : boolean` azt állapítja meg, hogy a paraméter a megengedett tartományba esik-e.
 - `isValidPrice(price : int) : boolean` – **`MIN_PRICE : int` és `MAX_PRICE : int`** – a `Book` nyilvános, `static final` konstansai, rendre `500` és `50 000` értékkel. A publikus statikus `isValidPrice(price : int) : boolean` azt állapítja meg, hogy a paraméter a megengedett tartományba esik-e.
 
 **Konstruktorok**
@@ -537,7 +536,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 
 **Mezők és property-k**
 - **`title : String`** – a könyv címe. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
-- **`issueNumber : int`** – a folyóirat sorszáma, amely pozitív egész. A `getIssueNumber() : int` a tárolt sorszámmal tér vissza, a `setIssueNumber(issueNumber : int) : void` a nullát és a negatív értékeket elutasítja.
+- **`issueNumber : int`** – a folyóirat sorszáma, amely pozitív egész. A `getIssueNumber() : int` a tárolt sorszámmal tér vissza, a `setIssueNumber(issueNumber : int) : void` a nullát és a negatív értékeket elutasítja. A lapszám az [1; 9999] intervallumban legyen; a setter a határon kívüli értéket utasítsa el.
 
 **Konstruktorok**
 - `Magazine(publisher : String, country : String, title : String, issueNumber : int)` – A `Magazine(publisher : String, country : String, title : String, issueNumber : int)` konstruktor a közös adatok után eltárolja a nem üres címet és a pozitív lapszámot.
@@ -579,7 +578,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Car`**
 
 **Mezők és property-k**
-- **`model : String`** – a modell neve. A `getModel() : String` a tárolt modellnevet adja vissza, a `setModel(model : String) : void` csak nem üres szöveget enged meg.
+- **`model : String`** – a modell neve. A `getModel() : String` a tárolt modellnevet adja vissza, a `setModel(model : String) : void` csak nem üres szöveget enged meg. A modellnév legalább két, legfeljebb harminc karakter hosszú lehet, és nem kezdődhet vagy végződhet szóközzel. A getter a teljes, változatlan modellnevet adja vissza.
 - **`year : int`** – a gyártási év, az `[1886; 2100]` intervallumban. A `getYear() : int` az évszámot adja vissza, a `setYear(year : int) : void` a tartományon kívüli értékeket elutasítja.
 - **`mileage : int`** – a kilométeróra állása egész kilométerben, nemnegatív szám. A `getMileage() : int` a tárolt értéket adja vissza; publikus setter nincs, a futásteljesítmény kizárólag a konstruktorban és a `drive()` metódussal módosítható.
 - **`id : int`** – automatikusan kiosztott, pozitív példányazonosító. A `getId() : int` az azonosítót adja vissza, amely a példány teljes életében változatlan; setter nincs.
@@ -597,7 +596,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Motorcycle`**
 
 **Mezők és property-k**
-- **`engineCapacity : int`** – a motorkerékpár hengerűrtartalma cm³-ben, pozitív egész. A `getEngineCapacity() : int` a tárolt értéket adja vissza, a `setEngineCapacity(engineCapacity : int) : void` csak pozitív értéket fogad el.
+- **`engineCapacity : int`** – a motorkerékpár hengerűrtartalma cm³-ben, pozitív egész. A `getEngineCapacity() : int` a tárolt értéket adja vissza, a `setEngineCapacity(engineCapacity : int) : void` csak pozitív értéket fogad el. A hengerűrtartalom 50 és 2500 cm³ közé essen; a getter az eredeti egész értéket adja vissza.
 - **`sidecar : boolean`** – azt jelzi, van-e a motorkerékpárnak oldalkocsija. A `hasSidecar() : boolean` a tárolt logikai értéket adja vissza, a `setSidecar(sidecar : boolean) : void` pedig tetszőleges logikai értékkel módosíthatja azt.
 
 **Konstruktorok**
@@ -605,6 +604,11 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 
 **Metódusok és hozzáférések**
 - `getServiceIntervalKm() : int` – A `Vehicle` osztályhoz írjon `getServiceIntervalKm() : int` metódust, amely alapértelmezetten `0`-t ad vissza, ha nem ismerjük az ajánlott szervizperiódust.
+
+
+**`Motorcycle` – a setter felülírása**
+
+- **`setMaxSpeed(maxSpeed : int) : void`** – írja felül a `Vehicle` osztály azonos nevű setterét. A motorkerékpár maximális sebessége az ősosztály által megengedett tartományba essen, de oldalkocsi esetén legfeljebb 100 km/h lehet. Először ellenőrizze a saját korlátozást, majd a tényleges értékadást az ős setterével végezze el (`super.setMaxSpeed(maxSpeed)`). Hibás értéknél az előző sebesség maradjon meg. A `setSidecar(true)` metódus csak akkor kapcsolhassa be az oldalkocsit, ha a tárolt maximális sebesség legfeljebb 100 km/h; különben dobjon `IllegalArgumentException` kivételt, és a korábbi állapot maradjon meg.
 
 **A működés részletes feltételei**
 
@@ -628,7 +632,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 
 **Mezők és property-k**
 - **`owner : String`** – a számlatulajdonos neve. A `getOwner() : String` a tárolt nevet adja vissza, a `setOwner(owner : String) : void` pedig nem fogad el `null` vagy üres szöveget.
-- **`accountNumber : String`** – a számla azonosítója. A `getAccountNumber() : String` a tárolt számlaszámot adja vissza. A `setAccountNumber(accountNumber : String) : void` csak az első, érvényes érték beállítását engedi meg; ezt követően az azonosító nem változtatható meg. Üres vagy `null` számlaszámot el kell utasítania.
+- **`accountNumber : String`** – a számla azonosítója. A `getAccountNumber() : String` a tárolt számlaszámot adja vissza. A `setAccountNumber(accountNumber : String) : void` csak az első, érvényes érték beállítását engedi meg; ezt követően az azonosító nem változtatható meg. Üres vagy `null` számlaszámot el kell utasítania. A feladatban a számlaszám pontosan nyolc karakteres legyen: az első kettő az angol ábécé nagybetűje, a következő hat pedig számjegy. Az első érvényes érték után a setter nem engedheti meg a cserét.
 - **`balance : int`** – az egyenleg egész forintban, kezdetben `0`. A `getBalance() : int` a pillanatnyi összeget adja vissza. Publikus setter nem készül, az érték csak a befizetés és a pénzfelvétel során változhat, és soha nem lehet negatív.
 
 **Konstruktorok**
@@ -684,7 +688,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `MediaItem`**
 
 **Mezők és property-k**
-- **`title : String`** – a mű címe, privát szöveges mező. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el.
+- **`title : String`** – a mű címe, privát szöveges mező. A `getTitle() : String` a tárolt címet adja vissza, a `setTitle(title : String) : void` csak nem `null`, legalább két karakter hosszú címet fogad el. A cím elején és végén nem lehet szóköz, és legalább egy betűt tartalmaznia kell. A getter az eltárolt teljes címet adja vissza.
 - **`releaseYear : int`** – a megjelenési év, pozitív egész szám. A `getReleaseYear() : int` az évszámot adja vissza, a `setReleaseYear(releaseYear : int) : void` a nullát és a negatív értékeket elutasítja.
 
 **Konstruktorok**

@@ -586,7 +586,7 @@ Készítsen egyszerű dokumentumkezelő alkalmazást, amelyben a nyomtatási és
 **Document osztály**
 
 - `title : String`: privát mező, a dokumentum címe. Kívülről nem módosítható.
-- `Document(title : String)`: publikus konstruktor. A kapott cím nem lehet `null`, üres vagy csak szóközökből álló szöveg; hibás bemenetnél `IllegalArgumentException` kivételt dob.
+- `Document(title : String)`: publikus konstruktor. A kapott cím nem lehet `null`, üres vagy csak szóközökből álló szöveg; hibás bemenetnél `IllegalArgumentException` kivételt dob. A cím legalább három karakter hosszú legyen, és ne kezdődjön vagy végződjön szóközzel. Ugyanezt a feltételt a szkenneléssel létrehozott dokumentum konstruktorának is teljesítenie kell.
 - `getTitle() : String`: publikus getter, amely visszaadja a címet. Setter nem készül.
 
 **SimplePrinter osztály – implements Printable**

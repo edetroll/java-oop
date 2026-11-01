@@ -342,7 +342,7 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Shape`**
 
 **Mezők és property-k**
-- Az absztrakt `Shape` osztály tárolja a `name : String` mezőt. A név nem lehet `null` vagy üres; a `getName()` metódussal lekérdezhető, módosítását kívülről ne engedje.
+- Az absztrakt `Shape` osztály tárolja a `name : String` mezőt. A név nem lehet `null` vagy üres; a `getName()` metódussal lekérdezhető, módosítását kívülről ne engedje. A név legalább két, legfeljebb negyven karakter hosszú legyen, és legalább egy betűt tartalmazzon; a hibás paramétert az ősosztály konstruktora utasítsa el.
 
 **Konstruktorok**
 - `Shape(name : String)` – A `Shape(name : String)` konstruktor ellenőrizze és mentse el a nevet. A `Rectangle(name : String, width : double, height : double)` és `Circle(name : String, radius : double)` konstruktor a közös adatot az ősosztály konstruktorával inicializálja, majd ellenőrizze a saját adatait.
@@ -355,7 +355,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Rectangle`**
 
 **Mezők és property-k**
-- A `Rectangle` a pozitív valós `width` és `height` mezőt tárolja. A `Circle` a pozitív valós `radius` mezőt tartalmazza.
 - A `Rectangle` a pozitív valós `width` és `height` mezőt tárolja. A `Circle` a pozitív valós `radius` mezőt tartalmazza.
 
 **Konstruktorok**
@@ -408,7 +407,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Publication`**
 
 **Mezők és property-k**
-- Az absztrakt `Publication` osztály a nem üres `title : String` címet és a pozitív `basePrice : int` alapárat tárolja; az adatokat csak a konstruktor állíthatja be, és `getTitle()`, illetve `getBasePrice()` metódusokkal lehessen lekérdezni.
 - Az absztrakt `Publication` osztály a nem üres `title : String` címet és a pozitív `basePrice : int` alapárat tárolja; az adatokat csak a konstruktor állíthatja be, és `getTitle()`, illetve `getBasePrice()` metódusokkal lehessen lekérdezni.
 
 **Konstruktorok**
@@ -470,7 +468,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Vehicle`**
 
 **Mezők és property-k**
-- Az absztrakt `Vehicle` osztály a nem üres `brand : String` márkanevet és a nemnegatív `mileage : int` kilométeróra-állást tárolja. Ezeket csak a konstruktor módosíthassa; lekérdezésükre készüljön `getBrand()` és `getMileage()` metódus.
 - Az absztrakt `Vehicle` osztály a nem üres `brand : String` márkanevet és a nemnegatív `mileage : int` kilométeróra-állást tárolja. Ezeket csak a konstruktor módosíthassa; lekérdezésükre készüljön `getBrand()` és `getMileage()` metódus.
 
 **Konstruktorok**
@@ -598,7 +595,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 
 **Mezők és property-k**
 - Az absztrakt `MediaItem` osztály tárolja a nem üres `title : String` címet és a pozitív `releaseYear : int` megjelenési évet. Ezeket a `getTitle()` és `getReleaseYear()` metódusokkal lehessen lekérdezni, de kívülről ne lehessen átírni.
-- Az absztrakt `MediaItem` osztály tárolja a nem üres `title : String` címet és a pozitív `releaseYear : int` megjelenési évet. Ezeket a `getTitle()` és `getReleaseYear()` metódusokkal lehessen lekérdezni, de kívülről ne lehessen átírni.
 
 **Konstruktorok**
 - `MediaItem(title : String, releaseYear : int)` – A `MediaItem(title : String, releaseYear : int)` konstruktor ellenőrizze és inicializálja a közös adatokat. A `Movie` és `Series` konstruktora a saját adataikat is validálja.
@@ -621,7 +617,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Series`**
 
 **Mezők és property-k**
-- A `Movie` pozitív `duration : int` játékidőt tárol percben, a `Series` pedig pozitív `episodeCount : int` epizódszámot és `episodeDuration : int` átlagos epizódhosszt.
 - A `Movie` pozitív `duration : int` játékidőt tárol percben, a `Series` pedig pozitív `episodeCount : int` epizódszámot és `episodeDuration : int` átlagos epizódhosszt.
 
 **Konstruktorok**
@@ -660,7 +655,6 @@ A feladat megoldásához az alábbi osztályokat és azok tagjait kell megvalós
 **Osztály: `Coffee`**
 
 **Mezők és property-k**
-- Készítsen **absztrakt `Coffee` osztályt** a `coffeeGrams : int` és `waterMl : int` mezőkkel. Mindkét mező legyen `protected`, és csak pozitív egész értéket fogadhasson el.
 - Készítsen **absztrakt `Coffee` osztályt** a `coffeeGrams : int` és `waterMl : int` mezőkkel. Mindkét mező legyen `protected`, és csak pozitív egész értéket fogadhasson el.
 
 **Konstruktorok**

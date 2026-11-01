@@ -507,7 +507,7 @@ int main() {
 
 **字段与属性**
 - `作者 : String` – 作者，至少两个字符，只允许字母、空格、句点和连字符. 私有字段，具有公有 getter `获取作者() : String` 和 setter `设置作者(作者 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
-- `标题 : String` – 书名，至少两个字符. 私有字段，具有公有 getter `获取标题() : String` 和 setter `设置标题(标题 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `标题 : String` – 书名，至少两个字符. 私有字段，具有公有 getter `获取标题() : String` 和 setter `设置标题(标题 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。 书名首尾不得有空格，并且必须至少包含一个字母或汉字。getter 应原样返回完整书名；验证失败时 setter 不得改变原值。
 - `价格 : int` – 价格，以整数福林计；有效范围 `[500, 50 000]`. 私有字段，具有公有 getter `获取价格() : int` 和 setter `设置价格(价格 : int) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
 - `类别 : 类别` – 枚举类型，例如 BIOGRAPHY、HORROR、DRAMA、HISTORY、SCIFI、COMEDY. 私有字段，具有公有 getter `获取类别() : 类别` 和 setter `设置类别(类别 : 类别) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
 - `纸质 : boolean` – 纸质书为 true，电子书为 false. 私有字段，公有 `是否纸质() : boolean` 与 `设置纸质(纸质 : boolean) : void`；布尔值无需额外验证。
@@ -528,7 +528,7 @@ int main() {
 
 **字段与属性**
 - `品牌 : String` – 品牌，不得为 null 或空字符串. 私有字段，具有公有 getter `获取品牌() : String` 和 setter `设置品牌(品牌 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
-- `型号 : String` – 型号，不得为 null 或空字符串. 私有字段，具有公有 getter `获取型号() : String` 和 setter `设置型号(型号 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `型号 : String` – 型号，不得为 null 或空字符串. 私有字段，具有公有 getter `获取型号() : String` 和 setter `设置型号(型号 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。 型号名称长度为 2 至 30 个字符，首尾不得有空格。getter 返回保存的完整型号，不进行修改。
 - `年份 : int` – 生产年份，范围 `[1886, 2100]`. 私有字段，具有公有 getter `获取年份() : int` 和 setter `设置年份(年份 : int) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
 - `里程 : int` – 里程表读数，单位为整公里，不得为负数. 私有字段；只需公有 `获取里程() : int`，字段只能通过指定操作或构造方法修改。
 
@@ -548,7 +548,7 @@ int main() {
 
 **字段与属性**
 - `持有人 : String` – 账户所有人姓名，不得为 null 或空字符串. 私有字段，具有公有 getter `获取持有人() : String` 和 setter `设置持有人(持有人 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
-- `账号 : String` – 账号，不得为 null 或空字符串，创建后不得修改. 私有字段，提供公有 `获取账号() : String` 和 `设置账号(账号 : String) : void`；setter 只允许首次有效赋值，之后修改须抛出异常。
+- `账号 : String` – 账号，不得为 null 或空字符串，创建后不得修改. 私有字段，提供公有 `获取账号() : String` 和 `设置账号(账号 : String) : void`；setter 只允许首次有效赋值，之后修改须抛出异常。 本题中账号恰好为八位：前两位为英文字母大写，后六位为数字。首次有效赋值后，setter 必须拒绝再次更改账号。
 - `余额 : int` – 余额，以整数福林计，不得为负数. 私有字段；只需公有 `获取余额() : int`，字段只能通过指定操作或构造方法修改。
 
 **方法**
@@ -571,7 +571,7 @@ int main() {
 
 **字段与属性**
 - `导演 : String` – 导演，不得为 null，至少两个字符，只允许字母、空格、句点和连字符. 私有字段，具有公有 getter `获取导演() : String` 和 setter `设置导演(导演 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
-- `标题 : String` – 片名，不得为 null，至少两个字符. 私有字段，具有公有 getter `获取标题() : String` 和 setter `设置标题(标题 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
+- `标题 : String` – 片名，不得为 null，至少两个字符. 私有字段，具有公有 getter `获取标题() : String` 和 setter `设置标题(标题 : String) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。 标题首尾不得有空格，而且至少包含一个字母或汉字。getter 返回已保存的完整标题。
 - `时长 : int` – 影片时长，以整数分钟计，范围 `[10, 360]`. 私有字段，具有公有 getter `获取时长() : int` 和 setter `设置时长(时长 : int) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
 - `语言 : 语言` – 语言，枚举类型. 私有字段，具有公有 getter `获取语言() : 语言` 和 setter `设置语言(语言 : 语言) : void`。验证通过后方可赋值；非法数据应抛出 `IllegalArgumentException`，并保持原值不变。
 - `字幕 : boolean` – 是否带字幕. 私有字段，公有 `是否有字幕() : boolean` 与 `设置字幕(字幕 : boolean) : void`；布尔值无需额外验证。

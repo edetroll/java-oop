@@ -833,11 +833,10 @@ Implement the following classes and members. For every field, follow the indicat
 
 **Fields and properties**
 - **`author : String`** – author name. `getAuthor() : String` returns the stored name; `setAuthor(author : String) : void` requires at least two characters and permits only letters, spaces, periods, and hyphens.
-- **`title : String`** – book title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` accepts only non-`null` strings of at least two characters.
+- **`title : String`** – book title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` accepts only non-`null` strings of at least two characters. The title must not begin or end with a space and must contain at least one letter. The getter returns the complete stored title; the setter must preserve the former value if validation fails.
 - **`price : int`** – price in whole Hungarian forints. `getPrice() : int` returns the current price; `setPrice(price : int) : void` permits only values in `[500, 50000]`.
 - **`genre : Genre`** – book genre, with values such as `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI`, and `COMEDY`. `getGenre() : Genre` returns the stored value; `setGenre(genre : Genre) : void` rejects `null`.
 - **`printed : boolean`** – true for a printed book, false for an e-book. `isPrinted() : boolean` returns the stored flag; `setPrinted(printed : boolean) : void` updates it without additional validation.
-- **`MIN_PRICE : int` and `MAX_PRICE : int`** – public `static final` constants of `Book`, equal to `500` and `50000`. The public static `isValidPrice(price : int) : boolean` returns whether a value lies within these limits.
 - **`MIN_PRICE : int` and `MAX_PRICE : int`** – public `static final` constants of `Book`, equal to `500` and `50000`. The public static `isValidPrice(price : int) : boolean` returns whether a value lies within these limits.
 
 **Constructors**
@@ -854,7 +853,7 @@ Implement the following classes and members. For every field, follow the indicat
 
 **Fields and properties**
 - **`title : String`** – private magazine title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` rejects `null` and empty strings.
-- **`issueNumber : int`** – positive issue number. `getIssueNumber() : int` returns the stored number; `setIssueNumber(issueNumber : int) : void` rejects zero and negative values.
+- **`issueNumber : int`** – positive issue number. `getIssueNumber() : int` returns the stored number; `setIssueNumber(issueNumber : int) : void` rejects zero and negative values. The issue number must be in [1, 9999]; the setter must reject a value outside this range.
 
 **Methods and accessors**
 - `calculateLateFee(daysLate : int) : int` – Charge 20 HUF per late day.
@@ -889,7 +888,7 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Car`**
 
 **Fields and properties**
-- **`model : String`** – model name. `getModel() : String` returns it; `setModel(model : String) : void` permits only nonempty strings.
+- **`model : String`** – model name. `getModel() : String` returns it; `setModel(model : String) : void` permits only nonempty strings. The model name must contain between 2 and 30 characters and may not begin or end with a space. The getter returns the stored model name unchanged.
 - **`year : int`** – production year within `[1886, 2100]`. `getYear() : int` returns the year; `setYear(year : int) : void` rejects out-of-range values.
 - **`mileage : int`** – mileage in whole kilometres; never negative. `getMileage() : int` returns the stored value. There is no public setter: mileage changes only through a constructor or `drive()`.
 - **`id : int`** – automatically assigned positive instance identifier. `getId() : int` returns it; it stays unchanged throughout the instance's lifetime and has no setter.
@@ -907,11 +906,16 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `Motorcycle`**
 
 **Fields and properties**
-- **`engineCapacity : int`** – engine displacement in cm³; a positive integer. `getEngineCapacity() : int` returns it; `setEngineCapacity(engineCapacity : int) : void` accepts positive values only.
+- **`engineCapacity : int`** – engine displacement in cm³; a positive integer. `getEngineCapacity() : int` returns it; `setEngineCapacity(engineCapacity : int) : void` accepts positive values only. Engine capacity must be between 50 and 2500 cm³; the getter returns the stored integer without conversion.
 - **`sidecar : boolean`** – indicates whether a sidecar is attached. `hasSidecar() : boolean` returns the stored flag; `setSidecar(sidecar : boolean) : void` updates it with any boolean value.
 
 **Methods and accessors**
 - `getServiceIntervalKm() : int` – Motorcycles have a service interval of 6000 km.
+
+
+**`Motorcycle` – overriding a setter**
+
+- **`setMaxSpeed(maxSpeed : int) : void`** – override the inherited setter. The new speed must satisfy the base-class limits and, when a sidecar is fitted, must not exceed 100 km/h. Check the additional restriction first and then delegate the assignment to `super.setMaxSpeed(maxSpeed)`. On failure, preserve the previous speed. `setSidecar(true)` may enable a sidecar only when the stored maximum speed is at most 100 km/h; otherwise it throws `IllegalArgumentException` without changing the previous state.
 
 **Detailed behavioural requirements**
 
@@ -933,7 +937,7 @@ Implement the following classes and members. For every field, follow the indicat
 
 **Fields and properties**
 - **`owner : String`** – account holder name. `getOwner() : String` returns the stored name; `setOwner(owner : String) : void` rejects `null` or empty strings.
-- **`accountNumber : String`** – account identifier. `getAccountNumber() : String` returns it. `setAccountNumber(accountNumber : String) : void` allows the first valid assignment only; once set, the number cannot change. It must reject `null` or empty strings.
+- **`accountNumber : String`** – account identifier. `getAccountNumber() : String` returns it. `setAccountNumber(accountNumber : String) : void` allows the first valid assignment only; once set, the number cannot change. It must reject `null` or empty strings. In this exercise the account number consists of exactly eight characters: two uppercase Latin letters followed by six digits. After the first valid assignment, the setter must reject attempts to replace it.
 - **`balance : int`** – balance in whole forints, initially `0`. `getBalance() : int` returns the current amount. No public setter is permitted; only deposit and withdrawal operations can update it, and it cannot become negative.
 
 **Methods and accessors**
@@ -978,7 +982,7 @@ Implement the following classes and members. For every field, follow the indicat
 **Class: `MediaItem`**
 
 **Fields and properties**
-- **`title : String`** – private title. `getTitle() : String` returns it; `setTitle(title : String) : void` accepts only non-`null` titles containing at least two characters.
+- **`title : String`** – private title. `getTitle() : String` returns it; `setTitle(title : String) : void` accepts only non-`null` titles containing at least two characters. The title must not begin or end with a space and must contain at least one letter. The getter returns the complete stored title.
 - **`releaseYear : int`** – release year as a positive integer. `getReleaseYear() : int` returns it; `setReleaseYear(releaseYear : int) : void` rejects zero and negative values.
 
 **Methods and accessors**

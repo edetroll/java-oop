@@ -668,7 +668,7 @@ Create a `Publication` superclass, then derive the existing `Book` and a new `Ma
 **`Book` – fields**
 
 - **`author : String`** – author name. `getAuthor() : String` returns the stored name; `setAuthor(author : String) : void` requires at least two characters and permits only letters, spaces, periods, and hyphens.
-- **`title : String`** – book title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` accepts only non-`null` strings of at least two characters.
+- **`title : String`** – book title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` accepts only non-`null` strings of at least two characters. The title must not begin or end with a space and must contain at least one letter. The getter returns the complete stored title; the setter must preserve the former value if validation fails.
 - **`price : int`** – price in whole Hungarian forints. `getPrice() : int` returns the current price; `setPrice(price : int) : void` permits only values in `[500, 50000]`.
 - **`genre : Genre`** – book genre, with values such as `BIOGRAPHY`, `HORROR`, `DRAMA`, `HISTORY`, `SCIFI`, and `COMEDY`. `getGenre() : Genre` returns the stored value; `setGenre(genre : Genre) : void` rejects `null`.
 - **`printed : boolean`** – true for a printed book, false for an e-book. `isPrinted() : boolean` returns the stored flag; `setPrinted(printed : boolean) : void` updates it without additional validation.
@@ -684,7 +684,7 @@ Create a `Publication` superclass, then derive the existing `Book` and a new `Ma
 **`Magazine` – fields**
 
 - **`title : String`** – private magazine title. `getTitle() : String` returns the stored title; `setTitle(title : String) : void` rejects `null` and empty strings.
-- **`issueNumber : int`** – positive issue number. `getIssueNumber() : int` returns the stored number; `setIssueNumber(issueNumber : int) : void` rejects zero and negative values.
+- **`issueNumber : int`** – positive issue number. `getIssueNumber() : int` returns the stored number; `setIssueNumber(issueNumber : int) : void` rejects zero and negative values. The issue number must be in [1, 9999]; the setter must reject a value outside this range.
 
 **Main program**
 
@@ -705,7 +705,7 @@ Move the brand field from the existing `Car` class into a new `Vehicle` supercla
 
 **`Car` – fields**
 
-- **`model : String`** – model name. `getModel() : String` returns it; `setModel(model : String) : void` permits only nonempty strings.
+- **`model : String`** – model name. `getModel() : String` returns it; `setModel(model : String) : void` permits only nonempty strings. The model name must contain between 2 and 30 characters and may not begin or end with a space. The getter returns the stored model name unchanged.
 - **`year : int`** – production year within `[1886, 2100]`. `getYear() : int` returns the year; `setYear(year : int) : void` rejects out-of-range values.
 - **`mileage : int`** – mileage in whole kilometres; never negative. `getMileage() : int` returns the stored value. There is no public setter: mileage changes only through a constructor or `drive()`.
 - **`id : int`** – automatically assigned positive instance identifier. `getId() : int` returns it; it stays unchanged throughout the instance's lifetime and has no setter.
@@ -720,7 +720,7 @@ Move the brand field from the existing `Car` class into a new `Vehicle` supercla
 
 **`Motorcycle` – fields**
 
-- **`engineCapacity : int`** – engine displacement in cm³; a positive integer. `getEngineCapacity() : int` returns it; `setEngineCapacity(engineCapacity : int) : void` accepts positive values only.
+- **`engineCapacity : int`** – engine displacement in cm³; a positive integer. `getEngineCapacity() : int` returns it; `setEngineCapacity(engineCapacity : int) : void` accepts positive values only. Engine capacity must be between 50 and 2500 cm³; the getter returns the stored integer without conversion.
 - **`sidecar : boolean`** – indicates whether a sidecar is attached. `hasSidecar() : boolean` returns the stored flag; `setSidecar(sidecar : boolean) : void` updates it with any boolean value.
 
 **Main program**
@@ -738,7 +738,7 @@ Create a simple `BankAccount` superclass and derive `SavingsAccount` and `Busine
 **`BankAccount` – fields**
 
 - **`owner : String`** – account holder name. `getOwner() : String` returns the stored name; `setOwner(owner : String) : void` rejects `null` or empty strings.
-- **`accountNumber : String`** – account identifier. `getAccountNumber() : String` returns it. `setAccountNumber(accountNumber : String) : void` allows the first valid assignment only; once set, the number cannot change. It must reject `null` or empty strings.
+- **`accountNumber : String`** – account identifier. `getAccountNumber() : String` returns it. `setAccountNumber(accountNumber : String) : void` allows the first valid assignment only; once set, the number cannot change. It must reject `null` or empty strings. In this exercise the account number consists of exactly eight characters: two uppercase Latin letters followed by six digits. After the first valid assignment, the setter must reject attempts to replace it.
 - **`balance : int`** – balance in whole forints, initially `0`. `getBalance() : int` returns the current amount. No public setter is permitted; only deposit and withdrawal operations can update it, and it cannot become negative.
 
 **`BankAccount` – operations**
@@ -768,7 +768,7 @@ Create a `MediaItem` superclass with `Movie` and `Series` subclasses. Title and 
 
 **`MediaItem` – fields**
 
-- **`title : String`** – private title. `getTitle() : String` returns it; `setTitle(title : String) : void` accepts only non-`null` titles containing at least two characters.
+- **`title : String`** – private title. `getTitle() : String` returns it; `setTitle(title : String) : void` accepts only non-`null` titles containing at least two characters. The title must not begin or end with a space and must contain at least one letter. The getter returns the complete stored title.
 - **`releaseYear : int`** – release year as a positive integer. `getReleaseYear() : int` returns it; `setReleaseYear(releaseYear : int) : void` rejects zero and negative values.
 
 **`Movie` – fields**

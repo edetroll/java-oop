@@ -586,7 +586,7 @@ int main() {
 **文档类**
 
 - `标题 : String`：私有字段，不能从类外直接修改。
-- `文档(标题 : String)`：公开构造方法。标题不能为 `null`、空字符串或全空格；不满足要求时抛出 `IllegalArgumentException`。
+- `文档(标题 : String)`：公开构造方法。标题不能为 `null`、空字符串或全空格；不满足要求时抛出 `IllegalArgumentException`。 标题至少三个字符，且首尾不能有空格；扫描创建的文档也必须满足同一个构造方法的验证规则。
 - `获取标题() : String`：公开 getter；不提供 setter。
 
 **简单打印机类——implements 可打印**
